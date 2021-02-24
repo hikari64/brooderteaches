@@ -1,14 +1,12 @@
 import React from 'react'
 import { HeroContainer, HeroBg, HeroBtnWrapper, HeroContent, HeroH1, HeroP } from "./HeroElements";
 import { NavBtnLink } from "../Navbar/NavbarElements";
-import { background } from "../../images/wave.png";
-
 
 const HeroSection = () => {
     return (
         <HeroContainer>
             <HeroBg style={{
-                    backgroundImage: `url(${require('../../images/wave.png')})`,
+                    backgroundImage: `url(${require('../../images/wave.png').default})`,
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
