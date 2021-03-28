@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
 import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar'
+import PageBar from '../components/PageBar';
 import PageHeader from '../components/PageHeader';
-import Sidebar from '../components/Sidebar';
-import AllCourses from '../components/AllCourses';
-import CourseSideMenu from '../components/CourseSideMenu.js';
-import {CContainer, CContainer2 } from './PagesElements';
+import Sidebar from '../components/Sidebar'
 
-const Courses = () => {
+const CoursePage = ({match:{params:{id}}}) => {
     const[isOpen, setIsOpen] = useState(false);
 
     const toggle = () => {
@@ -25,24 +23,15 @@ const Courses = () => {
     
     window.addEventListener('scroll', changeBackground)
 
-    // Define an image to give to Pageheader
-    // Pass that image to the Pageheader
-
     return (
         <>
         <Sidebar isOpen={isOpen} toggle={toggle}/>
         <Navbar toggle={toggle} navbar={navbar} changeBackground={changeBackground}/>
-        <PageHeader/>
-        <CContainer>
-             <CourseSideMenu/>
-            <CContainer2>
-                <AllCourses/>
-            </CContainer2> 
-        </CContainer> 
-
+        <PageHeader id = {id} />
+        <PageBar/>
         <Footer/> 
         </>
     )
 }
 
-export default Courses
+export default CoursePage

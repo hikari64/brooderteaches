@@ -45,7 +45,7 @@ const Footer = () => {
             <SocialMedia>
                         <SocialMediaWrap>
                             <SocialLogo to='/'>
-                                Copyright BrooderHall { new Date().getFullYear()} All Rights Reserved
+                                Copyright BrooderHall { new Date().getFullYear()}
                             </SocialLogo>
                             <WebsiteRights>Privacy Policy</WebsiteRights>
                             <WebsiteRights>Terms of Use</WebsiteRights>
