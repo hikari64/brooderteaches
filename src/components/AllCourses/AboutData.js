@@ -1,0 +1,24 @@
+export const coursedetails = [
+    {
+        id: 1,
+        headline: 'About this Course',
+        content: 'Want a fun, simple new way to express yourself on your social media? Want to expand your following and learn a brand new skill? Sticker packs are the way to go! Ever find yourself unable to find the perfect gif for your Insta story? Now you can create your own! Join artist and animator Scott Martin of Burnt Toast Creative to create a unique, fun sticker pack of gifs that you can use — and so can everyone else! Scott’s iconic, bright style is perfectly suited to the internet, especially social media. Through trial and error, Scott has figured out which animations are best suited to Instagram’s ephemeral ecosystem. Now, Scott’s sharing his knowledge with you! In this charming and comprehensive class, Scott walks you through three core animation principles, helping you understand them and create them yourself without the overwhelming time commitment of more elaborate animation. Alongside Scott, you’ll learn how to: • Develop a sticker pack concept • Adapt your sketches and illustrations to animations • Use keyframes to create movement and life • Trick the eye with smear frames and other effects • Upload to Giphy and use your stickers on Instagram • By the end of the class, you’ll be able to create Instagram stickers to your heart’s content, and simply animate your illustrations just for the fun of it. While anyone can enjoy this class, it is designed specifically for illustrators and animation beginners who are comfortable with the basics of Adobe Photoshop, Adobe Illustrator, and Adobe After Effects.',
+      
+    },
+    
+    
+    {
+        id: 2,
+        headline: 'About this Course',
+        content: 'Want a fun, simple new way to express yourself on your social media? Want to expand your following and learn a brand new skill? Sticker packs are the way to go! Ever find yourself unable to find the perfect gif for your Insta story? Now you can create your own! Join artist and animator Scott Martin of Burnt Toast Creative to create a unique, fun sticker pack of gifs that you can use — and so can everyone else! Scott’s iconic, bright style is perfectly suited to the internet, especially social media. Through trial and error, Scott has figured out which animations are best suited to Instagram’s ephemeral ecosystem. Now, Scott’s sharing his knowledge with you! In this charming and comprehensive class, Scott walks you through three core animation principles, helping you understand them and create them yourself without the overwhelming time commitment of more elaborate animation. Alongside Scott, you’ll learn how to: • Develop a sticker pack concept • Adapt your sketches and illustrations to animations • Use keyframes to create movement and life • Trick the eye with smear frames and other effects • Upload to Giphy and use your stickers on Instagram • By the end of the class, you’ll be able to create Instagram stickers to your heart’s content, and simply animate your illustrations just for the fun of it. While anyone can enjoy this class, it is designed specifically for illustrators and animation beginners who are comfortable with the basics of Adobe Photoshop, Adobe Illustrator, and Adobe After Effects.',
+      
+    },
+    
+    {
+        id: 3,
+        headline: 'About this Course',
+        content: 'Want a fun, simple new way to express yourself on your social media? Want to expand your following and learn a brand new skill? Sticker packs are the way to go! Ever find yourself unable to find the perfect gif for your Insta story? Now you can create your own! Join artist and animator Scott Martin of Burnt Toast Creative to create a unique, fun sticker pack of gifs that you can use — and so can everyone else! Scott’s iconic, bright style is perfectly suited to the internet, especially social media. Through trial and error, Scott has figured out which animations are best suited to Instagram’s ephemeral ecosystem. Now, Scott’s sharing his knowledge with you! In this charming and comprehensive class, Scott walks you through three core animation principles, helping you understand them and create them yourself without the overwhelming time commitment of more elaborate animation. Alongside Scott, you’ll learn how to: • Develop a sticker pack concept • Adapt your sketches and illustrations to animations • Use keyframes to create movement and life • Trick the eye with smear frames and other effects • Upload to Giphy and use your stickers on Instagram • By the end of the class, you’ll be able to create Instagram stickers to your heart’s content, and simply animate your illustrations just for the fun of it. While anyone can enjoy this class, it is designed specifically for illustrators and animation beginners who are comfortable with the basics of Adobe Photoshop, Adobe Illustrator, and Adobe After Effects.',
+      
+    },
+    
+    ];

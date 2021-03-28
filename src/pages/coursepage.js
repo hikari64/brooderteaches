@@ -1,9 +1,13 @@
 import React, {useState} from 'react';
+import CourseAbout from '../components/CourseDetails/about';
+import CourseDetails from '../components/CourseDetails/index';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar'
 import PageBar from '../components/PageBar';
 import PageHeader from '../components/PageHeader';
-import Sidebar from '../components/Sidebar'
+import Sidebar from '../components/Sidebar';
+import {CContainer, CContainer2 } from './PagesElements';
+
 
 const CoursePage = ({match:{params:{id}}}) => {
     const[isOpen, setIsOpen] = useState(false);
@@ -29,6 +33,9 @@ const CoursePage = ({match:{params:{id}}}) => {
         <Navbar toggle={toggle} navbar={navbar} changeBackground={changeBackground}/>
         <PageHeader id = {id} />
         <PageBar/>
+        <CContainer>
+             <CourseAbout id = {id}/>
+        </CContainer> 
         <Footer/> 
         </>
     )

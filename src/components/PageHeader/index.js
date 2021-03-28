@@ -4,9 +4,6 @@ import { courses } from '../AllCourses/CourseData';
 
 
 const PageHeader = ({ id }) => {
-    
-
-
     let isCoursePage;
     if (typeof id !== 'undefined') {
         // the variable is defined
