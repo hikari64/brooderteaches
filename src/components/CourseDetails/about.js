@@ -30,6 +30,8 @@ const CourseAbout = ({id}) => {
                    <CourseDets/>
                 </Column22>
             </CourseRow1>
+            <Heading to='' >Related Works
+                        </Heading>
         </CourseWrapper1>
     </CourseDetails>
 <AllCourses/>

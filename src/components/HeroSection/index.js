@@ -6,7 +6,7 @@ const HeroSection = () => {
     return (
         <HeroContainer>
             <HeroBg style={{
-                    backgroundImage: `url(${require('../../images/wave.png').default})`,
+                    backgroundImage: `url(${require('../../images/wave.png')})`,
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',

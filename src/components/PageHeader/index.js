@@ -30,7 +30,7 @@ const PageHeader = ({ id }) => {
     return (
         <HeaderContainer>
             <HeaderBg style={{
-                    backgroundImage: `url(${require('../../images/wave.png').default})`,
+                    backgroundImage: `url(${require('../../images/wave.png')})`,
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',

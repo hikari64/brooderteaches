@@ -8,7 +8,7 @@ export const CourseContainer = styled.div`
     padding: 0px 0 100px;
     
     @media screen and (max-width: 768px){
-        padding: 100px 0;
+        padding: 70px 0;
     }
 `;
 
@@ -41,7 +41,7 @@ export const CourseWrapper1 = styled.div`
 
 export const CourseRow = styled.div`
     display: grid;
-    grid-auto-columns: minmax(2fr, 1fr);
+    grid-auto-columns: minmax(auto, 1fr);
     align-items: center;
     grid-template-areas: ${({imgStart}) => 
     imgStart ? `'col2 col1'` : `'col1 col2'` };
@@ -54,32 +54,34 @@ export const CourseRow = styled.div`
 `;
  
 export const Column1 = styled.div`
-    margin-bottom: 0;
-    padding: 0 10px;
+    
+    margin-bottom: -100px;
+    padding: 70px 10px 10px;
     grid-area: col1;
 
     @media screen and (max-width:768px) {
           font-size: 16px;
-          text-align: center;
+          text-align: left;
           vertical-align: middle;
           left: 0!important;
           margin-left: -200px;
-        margin-bottom: -40px;
+        margin-top: 150px;
           color: white;
     }
 `;
 
 export const Column2 = styled.div`
-    margin: 20px 0 20px;
-    padding: 0 15px;
+ 
+
+    margin: 30px 0 -90px 0;
     grid-area: col2;
 
     @media screen and (max-width:768px) {
         vertical-align: middle;
-        margin-top: -350px;
-        margin-left: 60px;
         margin-bottom: 50px;
+        margin-top: -100px;
         color: white;
+        grid-area: col2;
     }
 `;
 
