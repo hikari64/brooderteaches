@@ -21,12 +21,21 @@ export const CourseDetails = styled.div`
 export const CourseWrapper = styled.div`
     display: grid;
     z-index: 1;
-    height: 200px;
+    height: 100%;
     width: 100%;
     max-width: 1100px;
     margin-right: auto;
     margin-left: auto;
     padding: 0 24px;
+    justify-content: center;
+`;
+
+export const CourseWrapper1 = styled.div`
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    max-width: 1100px;
+    margin-left: auto;
     justify-content: center;
 `;
 
@@ -73,6 +82,52 @@ export const Column2 = styled.div`
         color: white;
     }
 `;
+
+export const CourseRow1 = styled.div`
+    display: grid;
+    grid-auto-columns: minmax(1fr, 1fr);
+    align-items: right;
+    grid-template-areas: ${({imgStart}) => 
+    imgStart ? `'col2 col1'` : `'col1 col2'` };
+
+    @media and screen (max-width: 768px) {
+        grid-auto-columns: minmax(1fr, auto);
+        grid-template-areas: ${({imgStart}) => 
+        imgStart ? `'col2' 'col1'` : `'col2 col2' 'col1 col1'` };
+    };
+`;
+ 
+export const Column11 = styled.div`
+    margin: 30px 0 20px;
+    grid-area: col1;
+    text-align: left;
+    margin-left: auto;
+    line-height: 4.1;
+
+    
+    @media screen and (max-width:768px) {
+    line-height: 1.1;
+        text-align: left;
+        vertical-align: middle;
+        margin-left: 20px;
+        margin-bottom: -100px;
+        color: white;
+    }
+`;
+
+export const Column22 = styled.div`
+    margin: 20px 0 20px;
+    grid-area: col2;
+
+    @media screen and (max-width:768px) {
+        vertical-align: middle;
+        margin-top: 20px;
+        margin-left: 100px;
+        margin-bottom: 50px;
+        color: white;
+    }
+`;
+
 
 export const TextWrapper = styled.div`
     max-width: 540px;

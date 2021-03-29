@@ -15,7 +15,7 @@ const InfoSection = ({id, imgStart, headline, description, img, alt, lightBg }) 
                                 </Heading>
                                 <Subtitle>{description}
                                 </Subtitle>
-                                <NavBtnLink to='/class'>
+                                <NavBtnLink to='/courses'>
                                     Take A Class Now!
                                 </NavBtnLink>
                             </TextWrapper>

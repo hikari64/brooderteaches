@@ -22,7 +22,7 @@ const HeroSection = () => {
                 <br/> that project. Take a class now.
                 </HeroP>
                 <HeroBtnWrapper>
-                    <NavBtnLink to='/class'>
+                    <NavBtnLink to='/courses'>
                         Take A Class
                     </NavBtnLink>
                 </HeroBtnWrapper>

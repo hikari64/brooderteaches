@@ -38,7 +38,7 @@ const toggleHome = () => {
             </NavBtn>
             <NavBtn>
             <NavBtnLink2 to='/login'>Log in</NavBtnLink2>
-            <NavBtnLink to='/class'>Take A Class</NavBtnLink>
+            <NavBtnLink to='/courses'>Take A Class</NavBtnLink>
             </NavBtn>
             </NavbarContainer>
         </Nav>

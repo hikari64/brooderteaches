@@ -14,7 +14,6 @@ export const CourseSelectors = styled.div`
     display: grid;
     z-index: 1;
     height: 400px;
-    width: 20%;
     max-width: 1100px;
     margin-right: auto;
     margin-left: auto;
@@ -30,7 +29,6 @@ export const SelectorWrap = styled.div`
     max-width: 1100px;
     margin-right: auto;
     margin-left: auto;
-    padding: 0 24px;
     justify-content: center;
 `;
 

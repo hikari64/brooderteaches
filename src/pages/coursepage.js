@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
+import AllCourses from '../components/AllCourses';
 import CourseAbout from '../components/CourseDetails/about';
-import CourseDetails from '../components/CourseDetails/index';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar'
 import PageBar from '../components/PageBar';
 import PageHeader from '../components/PageHeader';
 import Sidebar from '../components/Sidebar';
-import {CContainer, CContainer2 } from './PagesElements';
+import {CContainer, CContainer2, Heading } from './PagesElements';
 
 
 const CoursePage = ({match:{params:{id}}}) => {
@@ -33,9 +33,15 @@ const CoursePage = ({match:{params:{id}}}) => {
         <Navbar toggle={toggle} navbar={navbar} changeBackground={changeBackground}/>
         <PageHeader id = {id} />
         <PageBar/>
+        <CourseAbout id = {id}/>
         <CContainer>
-             <CourseAbout id = {id}/>
+            <CContainer2>
+            <Heading to='' >Related Courses
+                        </Heading>
+                <AllCourses/>
+            </CContainer2>
         </CContainer> 
+
         <Footer/> 
         </>
     )

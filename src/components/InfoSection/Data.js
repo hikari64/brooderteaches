@@ -3,7 +3,8 @@ export const homeObjOne = {
     description: 'Acquire or hone the skill that will land you that dream job, or get you started on that project. Take a class now',
     imgStart: true,
     lightBg: false,
-    img: require('../../images/img-1.png').default,
+    // img: require('../../images/img-1.png').default,
+    img: require('../../images/img-1.png'),
     alt: 'Image',
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { CourseContainer, CourseDetails, 
-TextWrapper, Heading, Subtitle, Column1, Column2, Img, CourseRow, 
-CourseWrapper } from '../CourseSections/CourseElements';
+TextWrapper, Heading, Subtitle, Column11, Column22, Img, CourseRow1, 
+CourseWrapper1 } from '../CourseSections/CourseElements';
 import { coursedetails } from '../AllCourses/AboutData';
 import CourseDets from './index'
 
@@ -11,11 +11,11 @@ const CourseAbout = ({id}) => {
     isCoursePage = coursedetails.filter(
         (e) => e.id == id).map((coursedetails, index) => 
 
-    <CourseContainer>
+<CourseContainer>
     <CourseDetails>
-        <CourseWrapper>
-            <CourseRow>
-                <Column1>
+        <CourseWrapper1>
+            <CourseRow1>
+                <Column11>
                     <TextWrapper>
                         <Heading to='' >{coursedetails.headline}
                         </Heading>
@@ -23,12 +23,12 @@ const CourseAbout = ({id}) => {
                         </Subtitle>
                         
                     </TextWrapper>
-                </Column1>
-                <Column2>
+                </Column11>
+                <Column22>
                    <CourseDets/>
-                </Column2>
-            </CourseRow>
-        </CourseWrapper>
+                </Column22>
+            </CourseRow1>
+        </CourseWrapper1>
     </CourseDetails>
 </CourseContainer>
 
