@@ -4,6 +4,8 @@ TextWrapper, Heading, Subtitle, Column11, Column22, Img, CourseRow1,
 CourseWrapper1 } from '../CourseSections/CourseElements';
 import { coursedetails } from '../AllCourses/AboutData';
 import CourseDets from './index'
+import AllCourses from '../AllCourses';
+
 
 const CourseAbout = ({id}) => {
     let isCoursePage;
@@ -30,6 +32,7 @@ const CourseAbout = ({id}) => {
             </CourseRow1>
         </CourseWrapper1>
     </CourseDetails>
+<AllCourses/>
 </CourseContainer>
 
 );

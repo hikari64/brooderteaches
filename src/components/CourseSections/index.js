@@ -12,7 +12,7 @@ const CourseSections = () => {
                         <CourseRow imgStart={courses.imgStart}>
                             <Column1>
                                 <TextWrapper>
-                                    <Heading to={`/coursepreview/${courses.id}`} >{courses.headline}
+                                    <Heading to={`/about/${courses.id}`} >{courses.headline}
                                     </Heading>
                                     <Subtitle>{courses.description}
                                     </Subtitle>
@@ -21,7 +21,7 @@ const CourseSections = () => {
                                         <Data><StartIcon/>{courses.start}</Data>
                                         <Data><FeeIcon/>{courses.fee}</Data>
                                     </Details>
-                                    <CourseBtnLink to='/class'>
+                                    <CourseBtnLink to={`/preview/${courses.id}`}>
                                         Watch Preview
                                     </CourseBtnLink>
                                 </TextWrapper>

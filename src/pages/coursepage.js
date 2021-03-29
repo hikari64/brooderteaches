@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
-import AllCourses from '../components/AllCourses';
 import CourseAbout from '../components/CourseDetails/about';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar'
 import PageBar from '../components/PageBar';
 import PageHeader from '../components/PageHeader';
 import Sidebar from '../components/Sidebar';
-import {CContainer, CContainer2, Heading } from './PagesElements';
 
 
 const CoursePage = ({match:{params:{id}}}) => {
@@ -14,7 +12,13 @@ const CoursePage = ({match:{params:{id}}}) => {
 
     const toggle = () => {
         setIsOpen(!isOpen)
-    }
+    };
+
+    const [isActive, setActive] = useState(false);
+
+    const toggleClass = () => {
+        setActive(!isActive);
+    };
 
     const [navbar, setNavbar] = useState(false)
     const changeBackground = () => {
@@ -32,16 +36,8 @@ const CoursePage = ({match:{params:{id}}}) => {
         <Sidebar isOpen={isOpen} toggle={toggle}/>
         <Navbar toggle={toggle} navbar={navbar} changeBackground={changeBackground}/>
         <PageHeader id = {id} />
-        <PageBar/>
+        <PageBar isActive={isActive} toggleClass={toggleClass} id={id}/>
         <CourseAbout id = {id}/>
-        <CContainer>
-            <CContainer2>
-            <Heading to='' >Related Courses
-                        </Heading>
-                <AllCourses/>
-            </CContainer2>
-        </CContainer> 
-
         <Footer/> 
         </>
     )

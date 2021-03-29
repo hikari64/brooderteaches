@@ -23,6 +23,7 @@ export const BarItem2 = styled.li`
     padding-top: 20px;
     padding-bottom: 40px;
     display: inline-block;
+
 `;
 
 export const BarItem3 = styled.li`
@@ -31,6 +32,7 @@ export const BarItem3 = styled.li`
     padding-top: 20px;
     padding-bottom: 40px;
     display: inline-block;
+
 `;
 
 export const BarItem4 = styled.li`
@@ -39,7 +41,9 @@ export const BarItem4 = styled.li`
     padding-top: 20px;
     padding-bottom: 40px;
     display: inline-block;
+
 `;
+
 
 export const BarLinks = styled(LinkR)`
     color: #fff;
