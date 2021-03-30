@@ -1,6 +1,6 @@
 import React from 'react';
 import { CourseContainer, CourseDetails, 
-TextWrapper, Heading, Subtitle, Column11, Column22, Img, CourseRow1, 
+TextWrapper, Heading, Subtitle1, Column11, Column22, Img, CourseRow1, 
 CourseWrapper1 } from '../CourseSections/CourseElements';
 import { coursedetails } from '../AllCourses/AboutData';
 import CourseDets from './index'
@@ -21,8 +21,8 @@ const CourseAbout = ({id}) => {
                     <TextWrapper>
                         <Heading to='' >{coursedetails.headline}
                         </Heading>
-                        <Subtitle>{coursedetails.content}
-                        </Subtitle>
+                        <Subtitle1>{coursedetails.content}
+                        </Subtitle1>
                         
                     </TextWrapper>
                 </Column11>

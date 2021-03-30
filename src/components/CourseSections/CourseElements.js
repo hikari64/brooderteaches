@@ -87,10 +87,10 @@ export const Column2 = styled.div`
 
 export const CourseRow1 = styled.div`
     display: grid;
-    grid-auto-columns: minmax(1fr, 1fr);
+    grid-auto-columns: minmax(auto, 1fr);
     align-items: right;
     grid-template-areas: ${({imgStart}) => 
-    imgStart ? `'col2 col1'` : `'col1 col2'` };
+    imgStart ? `'col2 col1 col1'` : `'col1 col1 col2'` };
 
     @media and screen (max-width: 768px) {
         grid-auto-columns: minmax(1fr, auto);
@@ -103,7 +103,6 @@ export const Column11 = styled.div`
     margin: 30px 0 20px;
     grid-area: col1;
     text-align: left;
-    margin-left: auto;
     line-height: 4.1;
 
     
@@ -139,7 +138,7 @@ export const TextWrapper = styled.div`
 
 export const Heading = styled(LinkR)`
     color: black;
-    font-size: 20px;
+    font-size: 25px;
     margin-bottom: 24px;
     line-height: 1.1;
     font-weight: 600;
@@ -162,6 +161,18 @@ export const Subtitle = styled.p`
     font-size: 12px;
     line-height: 24px;
     color: black;
+`;
+
+export const Subtitle1 = styled.p`
+    margin-bottom: 35px;
+    font-size: 14px;
+    line-height: 28px;
+    color: black;
+
+    @media and screen(max-width: 768px) {
+        font-size: 12px;
+        line-height: 24px;
+    };
 `;
 
 export const ImgWrap = styled.div`
