@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Link as LinkR } from "react-router-dom";
 import { FaCalendarAlt,  FaMoneyBillWave, FaClock} from "react-icons/fa";
+import ReactPlayer from "react-player"
 
 
 export const CourseContainer = styled.div`
@@ -28,6 +29,10 @@ export const CourseWrapper = styled.div`
     margin-left: auto;
     padding: 0 24px;
     justify-content: center;
+
+    @media (max-width: 480px){
+        margin-top: -100px;
+    }
 `;
 
 export const CourseWrapper1 = styled.div`
@@ -83,6 +88,11 @@ export const Column2 = styled.div`
         color: white;
         grid-area: col2;
     }
+
+    @media (max-width: 480px) {
+        margin: 30px 0 120px 0;
+
+    };
 `;
 
 export const CourseRow1 = styled.div`
@@ -91,12 +101,23 @@ export const CourseRow1 = styled.div`
     align-items: right;
     grid-template-areas: ${({imgStart}) => 
     imgStart ? `'col2 col1 col1'` : `'col1 col1 col2'` };
+    margin-left: -140px;
 
-    @media and screen (max-width: 768px) {
+    @media screen and (max-width: 768px) {
+        margin-top: -120px;
         grid-auto-columns: minmax(1fr, auto);
         grid-template-areas: ${({imgStart}) => 
         imgStart ? `'col2' 'col1'` : `'col2 col2' 'col1 col1'` };
     };
+
+    @media (max-width: 1024px){
+        margin-left: 40px;
+    }
+
+    @media (max-width: 480px){
+        margin-left: -60px;
+        margin-top: -100px;
+    }
 `;
  
 export const Column11 = styled.div`
@@ -133,7 +154,13 @@ export const Column22 = styled.div`
 export const TextWrapper = styled.div`
     max-width: 540px;
     padding-top: 0;
-    padding-bottom: 60px;
+    padding-bottom: 50px;
+
+    @media (max-width: 480px) {
+        max-width: 100%;
+        padding-left: 50px;
+        margin-top: -30px;
+    };
 `;
 
 export const Heading = styled(LinkR)`
@@ -150,9 +177,28 @@ export const Heading = styled(LinkR)`
 
     }
 
-    @media and screen(max-width: 480px) {
-        font-size: 32px
+    @media (max-width: 480px) {
+        font-size: 14px
     };  
+
+`;
+
+export const Heading2 = styled.h1`
+    height: 100%;
+    width: 100%;
+    max-width: 1100px;
+    padding: 0 60px 0 90px;
+    margin-top: 90px 0 0 0;
+    font-size: 16px;
+
+    @media (max-width: 480px) {
+        max-width: 1100px;
+        padding: 0 60px 0 90px;
+        font-size: 16px;
+        margin-bottom: -60px;
+        margin-left: -50px;
+        margin-top: 20px;
+    }
 `;
 
 export const Subtitle = styled.p`
@@ -161,6 +207,11 @@ export const Subtitle = styled.p`
     font-size: 12px;
     line-height: 24px;
     color: black;
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+
+    };  
 `;
 
 export const Subtitle1 = styled.p`
@@ -169,7 +220,7 @@ export const Subtitle1 = styled.p`
     line-height: 28px;
     color: black;
 
-    @media and screen(max-width: 768px) {
+    @media screen and (max-width: 768px) {
         font-size: 12px;
         line-height: 24px;
     };
@@ -181,12 +232,30 @@ export const ImgWrap = styled.div`
 `;
 
 export const Img = styled.img`
-    height: 50%; 
-    width: 100%; 
+    height: 80%; 
+    width: 75%;
     object-fit: contain;  
-    border-radius: 10%;
-    margin: 0 0 10px 0;
+    border-radius: 58px;
+    margin: 0 0 10px 120px;
     padding-right: 0;
+
+    @media (max-width: 1024px) {
+        width: 80%; 
+        margin: 0 0 10px 50px;
+
+    };
+
+    @media (max-width: 768px) {
+        width: 80%; 
+        margin: 0 0 10px 60px;
+
+    };
+
+    @media (max-width: 480px) {
+        width: 100%; 
+        margin-left: -20px;
+        margin-top: -70px;
+    };
 `;
 
 export const CourseBtnLink = styled(LinkR)`
@@ -237,4 +306,37 @@ export const StartIcon = styled(FaCalendarAlt)`
 export const FeeIcon = styled(FaMoneyBillWave)`
     color: #000;
 `;
+
+export const PlayerStyle = styled.div`
+padding-top: -56.25%;
+height: 400px;
+  width: 640px;
+  border: 5px solid;
+  background: #efefef;
+  border-radius: 48px;
+  overflow: hidden;
+
+  @media screen and (max-width: 480px){
+    height: 200px;
+    width: 300px;
+    margin-left: 35px;
+  }
+`;
+
+export const Videocontainer = styled.div`
+    // position: absolute;
+    // top: 0;
+    // left: 0;
+
+    height: 400px;
+  width: 640px;
+  object-fit: fill;
+  border-radius: 40px;
+
+  @media screen and (max-width: 480px){
+    height: 20px;
+    width: 340px;
+  }
+`;
+
 

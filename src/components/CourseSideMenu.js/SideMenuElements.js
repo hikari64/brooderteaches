@@ -8,6 +8,18 @@ export const CourseContainer = styled.div`
     @media screen and (max-width: 768px){
         padding: 100px 0;
     }
+
+    @media screen and (max-width: 480px){
+        display: none;
+    }
+`;
+
+export const CourseContainer1 = styled.div`
+    color: #fff;
+    
+    @media screen and (max-width: 768px){
+        display: none;
+    }
 `;
 
 export const CourseSelectors = styled.div`
@@ -17,8 +29,10 @@ export const CourseSelectors = styled.div`
     max-width: 1100px;
     margin-right: auto;
     margin-left: auto;
+    margin-top: 60px;
     padding: 0 24px;
     justify-content: center;
+
 `;
 
 export const SelectorWrap = styled.div`
@@ -30,6 +44,7 @@ export const SelectorWrap = styled.div`
     margin-right: auto;
     margin-left: auto;
     justify-content: center;
+
 `;
 
 export const Column1Header = styled.h1`

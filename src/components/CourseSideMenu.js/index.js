@@ -25,10 +25,16 @@ const CourseSideMenu = () => {
                                 <Checkbox checked={isChecked} onChange={handleCheckboxChange}/>
                                 <span style={{ marginLeft: 30 }}>Beginner</span>
                             </label>
+                        </Column1Details>
+                        <Column1Details>
+                        
                             <label>
                                 <Checkbox checked={isChecked} onChange={handleCheckboxChange}/>
                                 <span style={{ marginLeft: 30 }}>Intermediate</span>
                             </label>
+                        </Column1Details>
+                        <Column1Details>
+                        
                             <label>
                                 <Checkbox checked={isChecked} onChange={handleCheckboxChange}/>
                                 <span style={{ marginLeft: 30 }}>Advanced</span>
@@ -44,6 +50,8 @@ const CourseSideMenu = () => {
                                 <Checkbox checked={isChecked} onChange={handleCheckboxChange}/>
                                 <span style={{ marginLeft: 30 }}>Week</span>
                             </label>
+                        </Column1Details>
+                        <Column1Details>
                             <label>
                                 <Checkbox checked={isChecked} onChange={handleCheckboxChange}/>
                                 <span style={{ marginLeft: 30 }}>Month</span>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CourseContainer, CourseSelectors, Column1Header, Column1Details, SelectorWrap, } from '../CourseSideMenu.js/SideMenuElements';
+import { CourseContainer1, CourseSelectors, Column1Header, Column1Details, SelectorWrap, } from '../CourseSideMenu.js/SideMenuElements';
 
 
 const CourseDets = () => {
@@ -7,7 +7,7 @@ const CourseDets = () => {
 
     return (
         <>
-        <CourseContainer>
+        <CourseContainer1>
             <CourseSelectors>
                     <SelectorWrap>
                         <Column1Header>
@@ -26,7 +26,7 @@ const CourseDets = () => {
                         </Column1Details>
                     </SelectorWrap>
                 </CourseSelectors>
-            </CourseContainer>
+            </CourseContainer1>
         </>
     )
 }

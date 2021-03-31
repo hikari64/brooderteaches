@@ -4,7 +4,7 @@ TextWrapper, Heading, Subtitle1, Column11, Column22, Img, CourseRow1,
 CourseWrapper1 } from '../CourseSections/CourseElements';
 import { coursedetails } from '../AllCourses/AboutData';
 import CourseDets from './index'
-import AllCourses from '../AllCourses';
+import RelatedCoursesSection from '../CourseSections/relatedcourses';
 
 
 const CourseAbout = ({id}) => {
@@ -30,11 +30,11 @@ const CourseAbout = ({id}) => {
                    <CourseDets/>
                 </Column22>
             </CourseRow1>
-            <Heading to='' >Related Works
-                        </Heading>
+            
         </CourseWrapper1>
     </CourseDetails>
-<AllCourses/>
+    <br/><br/>
+    <RelatedCoursesSection/>
 </CourseContainer>
 
 );

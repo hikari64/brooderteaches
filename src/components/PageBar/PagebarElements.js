@@ -5,6 +5,20 @@ export const BarContainer = styled.div`
     margin: 0;
     padding: 0;
     background: grey;
+    padding: 20px 30px;
+
+`;
+
+export const BarItems = styled.div`
+    display: flex; 
+    justify-content: space-evenly;  
+    // background: ${( {isActive }) => (isActive ? 'red' : '#D02C75')}; 
+
+      
+    @media screen and (max-width: 480px){
+        display: inline-block;
+    }
+
 `;
 
 export const BarItem1 = styled.li`
@@ -62,11 +76,4 @@ export const BarMenu = styled.ul`
     display: grid;
     grid-template-areas: 'item1 item2 item3 item4 item5 item item7';
     grid-gap: 40px;
-`;
-
-export const BarList = styled.li`
-    font-size: 1.2em;
-    line-height: 40px;
-    height: 40px;
-    border-bottom: 1px sollid #888;
 `;
