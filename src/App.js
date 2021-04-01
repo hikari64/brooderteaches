@@ -8,6 +8,9 @@ import { AuthProvider } from './contexts/AuthContext';
 import login from './pages/login';
 import signup from './pages/signup';
 import profile from './pages/profile';
+import PrivateRoute from './contexts/PrivateRoute';
+import ProfileUpdate from './pages/updateprofile';
+import forgotpassword from './pages/forgotpassword';
 
 
 function App() {
@@ -18,7 +21,9 @@ function App() {
         <Route path='/' exact component={Home} />
         <Route path='/login' component={login}/>
         <Route path='/signup' component={signup}/>
-        <Route path='/profile' component={profile}/>
+        <PrivateRoute path='/profile' component={profile}/>
+        <PrivateRoute path='/update-profile' component={ProfileUpdate}/>
+        <Route path='/forgot-password' component={forgotpassword}/>
         <Route path='/courses' component={Courses}/>
         <Route path='/about/:id' component={CoursePage}/>
         <Route path='/preview/:id' component={CoursePreview}/>

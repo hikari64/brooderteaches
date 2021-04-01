@@ -53,6 +53,7 @@ const SignupPage = () => {
                 </Form.Group>
                 <Button disabled={loading} type="submit">Signup</Button>
             </Form>
+            <Link to='/forgot-password'>Forgotten Password?</Link>
             Already have an account? <Link to='/login'>Login </Link>
         </div>
     );
