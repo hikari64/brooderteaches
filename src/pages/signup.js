@@ -1,15 +1,15 @@
 import React from 'react'
-import SigninPage from '../components/SiginInPage'
+import SignupPage from '../components/SiginInPage/signup'
 import { AuthProvider } from '../contexts/AuthContext'
 
-const login = () => {
+const signup = () => {
     return (
         <>
         <AuthProvider>
-            <SigninPage/>
+            <SignupPage/>
         </AuthProvider>
         </>
     )
 }
 
-export default login
+export default signup
