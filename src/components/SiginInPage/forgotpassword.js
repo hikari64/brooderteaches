@@ -44,6 +44,7 @@ const ForgotPassword = () => {
                 
                 <Button disabled={loading} type="submit">Reset Password</Button>
             </Form>
+            <Link to='/login'>Back to Login</Link>
         </div>
     );
 };

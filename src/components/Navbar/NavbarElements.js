@@ -139,3 +139,15 @@ export const NavBtnLink2 = styled(LinkR)`
     }
 `;
 
+export const Profile = styled.nav`
+    display: flex;
+    align-items: center;
+    margin: 0 20px 0 10px;
+    color: white;
+
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
+`;
+
+

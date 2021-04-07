@@ -3,10 +3,31 @@ import { FaBars } from "react-icons/fa";
 import { animateScroll as scroll} from "react-scroll";
 import { MobileIcon, Nav, NavbarContainer, 
     NavBtn, NavBtnLink2, NavBtnLink, NavItem, 
-    NavLinks, NavLogo, NavMenu } from './NavbarElements'
+    NavLinks, NavLogo, NavMenu, Profile } from './NavbarElements'
+import {useAuth} from '../../contexts/AuthContext'
+
+
 
 const Navbar = ({ toggle, navbar, changeBackground }) => {
     
+    const { currentUser } = useAuth();
+    let leftlabel, largescreen;
+    if (!(currentUser.email)){
+        // console.log(currentUser.email)
+        leftlabel = <MobileIcon onClick={toggle}>
+        <FaBars/>
+    </MobileIcon> 
+        largescreen = <NavBtn>
+        <NavBtnLink2 to='/login'>Log in</NavBtnLink2>
+        <NavBtnLink to='/courses'>Take A Class</NavBtnLink>
+        </NavBtn>
+    } else {
+        // leftlabel = <MobileIcon onClick={toggle}>{currentUser.email}</MobileIcon>
+        leftlabel = <MobileIcon onClick={toggle}>{currentUser.email}</MobileIcon>
+        largescreen = <Profile>{currentUser.email}</Profile>
+    }
+
+
 const toggleHome = () => {
     scroll.scrollToTop();
 };
@@ -16,9 +37,8 @@ const toggleHome = () => {
         <Nav onScroll={changeBackground} navbar={ navbar }>
             <NavbarContainer>
                 <NavLogo to='/' onClick={toggleHome}>BrooderHall</NavLogo>
-            <MobileIcon onClick={toggle}>
-                <FaBars/>
-            </MobileIcon>
+            {leftlabel}
+            
             <NavMenu>
                 <NavItem>
                     <NavLinks to='/courses'>Courses</NavLinks>
@@ -36,10 +56,7 @@ const toggleHome = () => {
             </NavMenu>
             <NavBtn>
             </NavBtn>
-            <NavBtn>
-            <NavBtnLink2 to='/login'>Log in</NavBtnLink2>
-            <NavBtnLink to='/courses'>Take A Class</NavBtnLink>
-            </NavBtn>
+            {largescreen}
             </NavbarContainer>
         </Nav>
         </>

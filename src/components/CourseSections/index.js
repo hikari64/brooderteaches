@@ -1,10 +1,35 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { CourseContainer, CourseDetails, 
 TextWrapper, Heading, Subtitle, ImgWrap, Column1, Column2, Img, CourseRow, 
 CourseWrapper, CourseBtnLink, Details, Data, DurationIcon, StartIcon, FeeIcon } from './CourseElements';
-import { courses } from '../AllCourses/CourseData';
+import firebase from '../../firebase';
 
 const CourseSections = () => {
+    const [courses, setCourses] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const ref = firebase.firestore().collection('courses');
+
+    function getCourses() {
+        setLoading(true);
+        ref.onSnapshot((querySnapshot) => {
+            const items = [];
+            querySnapshot.forEach((doc) => {
+                items.push(doc.data());
+            });
+            setCourses(items);
+            setLoading(false);
+        });
+    }
+
+    useEffect(() => {
+        getCourses();
+    }, [])
+
+    if (loading) {
+        return <h1>Fetching Courses...</h1>
+    }
+
     const result = courses.map(courses => (
         <CourseContainer>
                 <CourseDetails id={courses.id} lightBg={courses.lightBg}>
