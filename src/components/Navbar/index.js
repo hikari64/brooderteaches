@@ -12,7 +12,7 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
     
     const { currentUser } = useAuth();
     let leftlabel, largescreen;
-    if (!(currentUser.email)){
+    if (!(currentUser.displayName)){
         // console.log(currentUser.email)
         leftlabel = <MobileIcon onClick={toggle}>
         <FaBars/>
@@ -23,8 +23,8 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
         </NavBtn>
     } else {
         // leftlabel = <MobileIcon onClick={toggle}>{currentUser.email}</MobileIcon>
-        leftlabel = <MobileIcon onClick={toggle}>{currentUser.email}</MobileIcon>
-        largescreen = <Profile>{currentUser.email}</Profile>
+        leftlabel = <MobileIcon onClick={toggle}>{currentUser.displayName}</MobileIcon>
+        largescreen = <Profile>{currentUser.displayName}</Profile>
     }
 
 

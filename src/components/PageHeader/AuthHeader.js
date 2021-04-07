@@ -1,9 +1,13 @@
 import React from 'react'
 import { HeaderBg, Img, HeaderContainer, HeaderContent, HeaderH1, HeaderP, ImgWrapper } from "./HeaderElements";
 import { courses } from '../AllCourses/CourseData';
+import {useAuth} from '../../contexts/AuthContext'
 
 
 const AuthHeader = ({ id }) => {
+    const { currentUser} = useAuth();
+    console.log(currentUser.displayName)
+
     let isCoursePage;
     if (typeof id !== 'undefined') {
         // the variable is defined
@@ -39,7 +43,8 @@ const AuthHeader = ({ id }) => {
             </HeaderBg>
             {/* {isCoursePage} */}
             <Img style={{
-                backgroundImage: `url(${require('../../images/wave.png')})`,
+                // backgroundImage: `url(${require(currentUser.photoURL)})`,
+                backgroundImage: `url(${currentUser.photoURL})`,
                 }}></Img>
         </HeaderContainer>
         {/* <ImgWrapper> */}

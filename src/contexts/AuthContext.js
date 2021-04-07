@@ -31,6 +31,10 @@ export function AuthProvider ({children}) {
         return currentUser.updatePassword(password)
     }
 
+    function updateProfile(displayName, photoURL){
+        return currentUser.updateProfile({displayName, photoURL})
+    }
+
     function logout() {
         return auth.signOut()
     }
@@ -45,7 +49,7 @@ export function AuthProvider ({children}) {
 
     const value = {
         currentUser, 
-        signup, login, logout, resetPassword, updateEmail, updatePassword
+        signup, login, logout, resetPassword, updateEmail, updatePassword, updateProfile
     }
     return (
         <AuthContext.Provider value={value}>
