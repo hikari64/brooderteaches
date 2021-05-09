@@ -5,6 +5,8 @@ import {
   Route,
   useParams,
 } from "react-router-dom";
+
+// STUDENT & GENERAL PAGES
 import Home from "./pages";
 import Courses from "./pages/courses";
 import CoursePage from "./pages/coursepage";
@@ -17,8 +19,12 @@ import PrivateRoute from "./contexts/PrivateRoute";
 import ProfileUpdate from "./pages/updateprofile";
 import forgotpassword from "./pages/forgotpassword";
 
-// Importing Admin Components
+// ADMINISTRATOR COMPONENTS
 import AdminLogin from "./components/admin/AdminLogin";
+
+// TUTOR COMPONENTS
+import TutorLogin from "./components/tutor/auth/TutorLogin";
+import TutorSignUp from "./components/tutor/auth/TutorSignUp";
 
 function App() {
   return (
@@ -37,6 +43,10 @@ function App() {
 
           {/* ADMIN Routes */}
           <Route path="/admin" component={AdminLogin} />
+
+          {/* TUTOR ROUTES */}
+          <Route path="/tutor/login" component={TutorLogin} />
+          <Route path="/tutor/signup" component={TutorSignUp} />
         </Switch>
       </AuthProvider>
     </Router>

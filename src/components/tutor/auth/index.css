@@ -1,0 +1,10 @@
+.side-bg {
+  background-color: #100855;
+  min-height: 100vh;
+  color: white;
+}
+
+.header {
+  color: #100855;
+  font-weight: bold;
+}
