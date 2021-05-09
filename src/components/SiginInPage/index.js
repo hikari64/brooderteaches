@@ -54,7 +54,7 @@ const SigninPage = () => {
                 <h2 className="header">Welcome Back!</h2>
                 <p>Please sign in to continue</p>
                 {error && <Alert variant="danger">{error}</Alert>}
-                <Form>
+                <Form onSubmit={handleSubmit}>
                   <Form.Group>
                     <Form.Control
                       className="form-input"
@@ -62,7 +62,6 @@ const SigninPage = () => {
                       placeholder="Enter email"
                     />
                   </Form.Group>
-
                   <Form.Group controlId="formBasicPassword">
                     <Form.Control
                       className="form-input"
@@ -70,16 +69,22 @@ const SigninPage = () => {
                       placeholder="Password"
                     />
                   </Form.Group>
-                  <Link to="/tutor-dashboard">
-                    <Button
-                      variant="primary"
-                      className="primary-button"
-                      type="submit"
-                    >
-                      Submit
-                    </Button>
-                  </Link>
+
+                  <Button
+                    disabled={loading}
+                    variant="primary"
+                    className="primary-button"
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
                 </Form>
+                <p>
+                  Don't have an account yet? <Link to="/signup">Sign Up </Link>
+                </p>
+                <p>
+                  <Link to="/forgot-password">Forgotten Password?</Link>
+                </p>
               </Col>
             </Row>
           </Container>
