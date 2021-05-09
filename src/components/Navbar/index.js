@@ -67,7 +67,7 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
               <NavLinks to="/pricing">Pricing</NavLinks>
             </NavItem> */}
             <NavItem>
-              <NavLinks to="/tutor/signup">Become A Tutor</NavLinks>
+              <NavLinks to="/tutor">Become A Tutor</NavLinks>
             </NavItem>
             <NavItem>
               <NavLinks to="/about">About</NavLinks>

@@ -1,10 +1,13 @@
 import React from "react";
 
+// bootstrap imports
+import { Link } from "react-router-dom";
+
 // css import
 import "./index.css";
 
 // boostraP IMPOTS
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
 export default function TutorSignUp() {
   return (
@@ -39,13 +42,11 @@ export default function TutorSignUp() {
                   fermentum ut sit amet ante.
                 </p>
 
-                <Button
-                  variant="primary"
-                  className="primary-button"
-                  type="submit"
-                >
-                  Continue
-                </Button>
+                <Link to="/tutor-signup">
+                  <Button variant="primary" className="primary-button">
+                    Continue
+                  </Button>
+                </Link>
               </Col>
             </Row>
           </Container>

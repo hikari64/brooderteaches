@@ -13,12 +13,21 @@
   min-height: 100vh;
 }
 
+.height-half {
+  min-height: 50vh;
+}
+
 .form-input {
   border-radius: 2rem !important;
   text-align: center;
   margin: 1rem;
 }
 
+.page-header {
+  background-color: #100855;
+  min-height: 40vh;
+  color: #fff;
+}
 /* BUTTON STYLES */
 .primary-button {
   border-radius: 2rem !important;

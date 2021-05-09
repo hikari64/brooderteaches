@@ -25,6 +25,7 @@ import AdminLogin from "./components/admin/AdminLogin";
 // TUTOR COMPONENTS
 import TutorLogin from "./components/tutor/auth/TutorLogin";
 import TutorSignUp from "./components/tutor/auth/TutorSignUp";
+import Process from "./components/tutor/signupprocess/Process";
 
 function App() {
   return (
@@ -46,7 +47,8 @@ function App() {
 
           {/* TUTOR ROUTES */}
           <Route path="/tutor/login" component={TutorLogin} />
-          <Route path="/tutor/signup" component={TutorSignUp} />
+          <Route path="/tutor" component={TutorSignUp} />
+          <Route path="/tutor-signup" component={Process} />
         </Switch>
       </AuthProvider>
     </Router>
