@@ -1,15 +1,15 @@
-import React from 'react'
-import SigninPage from '../components/SiginInPage'
-import { AuthProvider } from '../contexts/AuthContext'
+import React from "react";
+import SigninPage from "../components/SiginInPage";
+import { AuthProvider } from "../contexts/AuthContext";
 
 const login = () => {
-    return (
-        <>
-        <AuthProvider>
-            <SigninPage/>
-        </AuthProvider>
-        </>
-    )
-}
+  return (
+    <>
+      <AuthProvider>
+        <SigninPage />
+      </AuthProvider>
+    </>
+  );
+};
 
-export default login
+export default login;

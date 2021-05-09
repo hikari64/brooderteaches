@@ -17,6 +17,10 @@
   min-height: 50vh;
 }
 
+.images-in-app {
+  width: 100%;
+}
+
 .form-input {
   border-radius: 2rem !important;
   text-align: center;

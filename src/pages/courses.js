@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import PageHeader from "../components/PageHeader";
@@ -8,6 +8,10 @@ import { CContainer, CContainer2 } from "./PagesElements";
 import CourseSections from "../components/CourseSections";
 
 const Courses = () => {
+  // scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {
