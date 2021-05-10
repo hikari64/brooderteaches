@@ -49,25 +49,44 @@ const UpdateProfile = () => {
         const uploadTask = storage.ref(`/images/${imageAsFile.name}`).put(imageAsFile)
         //initiates the firebase side uploading 
         uploadTask.on('state_changed', 
-        (snapShot) => {
-        //takes a snap shot of the process as it is happening
-        console.log(snapShot)
-        }, (err) => {
-        //catches the errors
-        console.log(err)
-        }, () => {
-        // gets the functions from storage refences the image storage in firebase by the children
-        // gets the download url then sets the image from firebase as the value for the imgUrl key:
-        storage.ref('images').child(imageAsFile.name).getDownloadURL()
-        .then(fireBaseUrl => {
-            setImageAsUrl(prevObject => ({...prevObject, imgUrl: fireBaseUrl}))
-            console.log(fireBaseUrl)
-        })
-        })
+        (snapshot) => {
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            switch (snapshot.state) {
+              case 'paused': // or 'paused'
+                console.log('Upload is paused');
+                break;
+              case 'running': // or 'running'
+                console.log('Upload is running');
+                break;
+            }
+          }, 
+          (error) => {
+            // A full list of error codes is available at
+            // https://firebase.google.com/docs/storage/web/handle-errors
+            switch (error.code) {
+              case 'storage/unauthorized':
+                // User doesn't have permission to access the object
+                break;
+              case 'storage/canceled':
+                // User canceled the upload
+                break;
+        
+              // ...
+        
+              case 'storage/unknown':
+                // Unknown error occurred, inspect error.serverResponse
+                break;
+            }
+          }, 
+          () => {
+            // Upload completed successfully, now we can get the download URL
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                console.log('File available at', downloadURL);
+                promises.push(updateProfile(displayNameRef.current.value, downloadURL) )
 
-        if (displayNameRef.current.value !== currentUser.displayName) {
-            promises.push(updateProfile(displayNameRef.current.value, uploadTask.fireBaseUrl) )
-        }
+            });
+        })
 
         if (passwordRef.current.value !== currentUser.password) {
             promises.push(updatePassword(passwordRef.current.value))
@@ -112,6 +131,8 @@ const UpdateProfile = () => {
                 </Form.Group>
                 <Button disabled={loading} type="submit">Update</Button>
             </Form>
+            {/* <img src={imageAsUrl.imgUrl} alt="image tag" /> */}
+
             <Link to='/profile'>Cancel </Link>
         </div>
     );
