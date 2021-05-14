@@ -18,15 +18,31 @@ const Courses = () => {
     setIsOpen(!isOpen);
   };
 
+//  const [courseLevel,setCourseLevel] = useState(0);
+
   const [filteredCourse, setFilteredCourse] = useState(courses)
   // filter mock data
 
 
-  const DataFilter= (Length) =>{
+  const DataFilter= (courseLength,courseLevel) =>{
     
-      setFilteredCourse( filteredCourse.filter(({period, difficulty}) => {
-        return period === Length 
-      }))
+      var data = courses;
+
+      if (courseLength + courseLevel === 0 ){
+        data = courses;
+      }
+      if((courseLevel) && (courseLength)){
+        data = courses.filter(({period, difficulty}) => {
+          return period === courseLength && difficulty === courseLevel;
+        })
+      }else{
+         data = courses.filter(({period, difficulty}) => {
+          return period === courseLength || difficulty === courseLevel;
+        })
+      }
+
+      setFilteredCourse(data)
+      
     
   }
 
@@ -54,7 +70,10 @@ const Courses = () => {
       />
       <PageHeader />
       <CContainer>
-        <CourseSideMenu setFilteredCourse={setFilteredCourse} DataFilter={DataFilter} />
+        <CourseSideMenu 
+        //setCourseLevel={setCourseLevel}
+        DataFilter={DataFilter} 
+        />
         <CContainer2>
           <CourseSections courses={filteredCourse} />
         </CContainer2>

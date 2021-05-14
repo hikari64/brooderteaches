@@ -58,8 +58,8 @@ const CourseSections = ({courses}) => {
 //const courses = filteredCourse
 
   const result = courses.map((courses) => (
-    <CourseContainer>
-      <CourseDetails id={courses.id} lightBg={courses.lightBg}>
+    <CourseContainer key={courses.id}>
+      <CourseDetails id={courses.id}  lightBg={courses.lightBg}>
         <CourseWrapper>
           <CourseRow imgStart={courses.imgStart}>
             <Column1>
