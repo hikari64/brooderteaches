@@ -13,6 +13,8 @@ export const courses = [
     description: "A comprehensive course to get you started",
     alt: "Image 1",
     preview_link: "https://www.youtube.com/watch?v=1wZoGFF_oi4",
+    period:1,
+    difficulty:3
   },
   {
     img:
@@ -28,6 +30,8 @@ export const courses = [
     description: "A comprehensive course to get you started",
     alt: "Image 1",
     preview_link: "https://www.youtube.com/watch?v=1wZoGFF_oi4",
+    period:1,
+    difficulty:1
   },
   {
     img:
@@ -43,6 +47,8 @@ export const courses = [
     description: "A comprehensive course to get you started",
     alt: "Image 1",
     preview_link: "https://www.youtube.com/watch?v=1wZoGFF_oi4",
+    period:2,
+    difficulty:3
   },
   {
     img:
@@ -58,6 +64,8 @@ export const courses = [
     description: "A comprehensive course to get you started",
     alt: "Image 1",
     preview_link: "https://www.youtube.com/watch?v=1wZoGFF_oi4",
+    period:1,
+    difficulty:2
   },
   {
     img:
@@ -73,5 +81,7 @@ export const courses = [
     description: "A comprehensive course to get you started",
     alt: "Image 1",
     preview_link: "https://www.youtube.com/watch?v=1wZoGFF_oi4",
+    period:2,
+    difficulty:1
   },
 ];

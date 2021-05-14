@@ -7,6 +7,10 @@ import Footer from "../../Footer";
 // boostrap impots
 import { Container, Row, Col, Button } from "react-bootstrap";
 
+//import Icons for circle
+import { BsCircle,BsCircleFill } from "react-icons/bs";
+
+
 export default function Payments(props) {
   // scroll to top
   useEffect(() => {
@@ -42,7 +46,8 @@ export default function Payments(props) {
         <Col md={10} className="mx-auto text-center my-auto">
           <h1>Payments</h1>
           <p className="text-muted">
-            Fill in Your Personal Information >> Verification >> Payments
+            
+            <BsCircle/> Fill in Your Personal Information {">>"} Verification {">>"} Payments
           </p>
         </Col>
       </Row>

@@ -8,6 +8,9 @@ import {
   SelectorWrap,
 } from "./SideMenuElements";
 
+//import mock data 
+
+
 const CourseSideMenu = () => {
   // const state = { checked: false }
   const [isChecked, setIsChecked] = useState(false);

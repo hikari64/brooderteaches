@@ -6,7 +6,7 @@ import Sidebar from "../components/Sidebar";
 import CourseSideMenu from "../components/CourseSideMenu.js";
 import { CContainer, CContainer2 } from "./PagesElements";
 import CourseSections from "../components/CourseSections";
-
+import {courses} from "../mock/mock"
 const Courses = () => {
   // scroll to top
   useEffect(() => {
@@ -17,6 +17,18 @@ const Courses = () => {
   const toggle = () => {
     setIsOpen(!isOpen);
   };
+
+  const [filteredCourse, setFilteredCourse] = useState(courses)
+  // filter mock data
+
+
+  const DataFilter= (Length) =>{
+    
+      setFilteredCourse( filteredCourse.filter(({period, difficulty}) => {
+        return period === Length 
+      }))
+    
+  }
 
   const [navbar, setNavbar] = useState(false);
   const changeBackground = () => {
@@ -42,9 +54,9 @@ const Courses = () => {
       />
       <PageHeader />
       <CContainer>
-        <CourseSideMenu />
+        <CourseSideMenu setFilteredCourse={setFilteredCourse} DataFilter={DataFilter} />
         <CContainer2>
-          <CourseSections />
+          <CourseSections courses={filteredCourse} />
         </CContainer2>
       </CContainer>
 

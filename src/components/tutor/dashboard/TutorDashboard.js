@@ -42,7 +42,7 @@ export default function TutorDashboard(props) {
         <Col md={10} className="mx-auto text-center my-auto">
           <h1>Payments</h1>
           <p className="text-muted">
-            Fill in Your Personal Information >> Verification >> Payments
+            Fill in Your Personal Information {">>"} Verification {">>"} Payments
           </p>
         </Col>
       </Row>
