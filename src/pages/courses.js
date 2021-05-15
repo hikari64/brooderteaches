@@ -28,9 +28,7 @@ const Courses = () => {
     
       var data = courses;
 
-      if (courseLength + courseLevel === 0 ){
-        data = courses;
-      }
+     
       if((courseLevel) && (courseLength)){
         data = courses.filter(({period, difficulty}) => {
           return period === courseLength && difficulty === courseLevel;
@@ -39,6 +37,9 @@ const Courses = () => {
          data = courses.filter(({period, difficulty}) => {
           return period === courseLength || difficulty === courseLevel;
         })
+      }
+       if (courseLength + courseLevel === 0 ){
+        data = courses;
       }
 
       setFilteredCourse(data)
