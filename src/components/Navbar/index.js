@@ -1,12 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 import { FaBars } from "react-icons/fa";
-import { animateScroll as scroll} from "react-scroll";
-import { MobileIcon, Nav, NavbarContainer, 
-    NavBtn, NavBtnLink2, NavBtnLink, NavItem, 
-    NavLinks, NavLogo, NavMenu, Profile } from './NavbarElements'
-import {useAuth} from '../../contexts/AuthContext'
+import { animateScroll as scroll } from "react-scroll";
+import {
+  MobileIcon,
+  Nav,
+  NavbarContainer,
+  NavBtn,
+  NavBtnLink2,
+  NavBtnLink,
+  NavItem,
+  NavLinks,
+  NavLogo,
+  NavMenu,
+  Profile,
+} from "./NavbarElements";
 
-
+// auth
+import { useAuth } from "../../contexts/AuthContext";
 
 const Navbar = ({ toggle, navbar, changeBackground }) => {
     
@@ -27,40 +37,42 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
         largescreen = <Profile>{currentUser.displayName}</Profile>
     }
 
-
-const toggleHome = () => {
+  const toggleHome = () => {
     scroll.scrollToTop();
+  };
+
+  return (
+    <>
+      <Nav onScroll={changeBackground} navbar={navbar}>
+        <NavbarContainer>
+          <NavLogo to="/" onClick={toggleHome}>
+            BrooderHall
+          </NavLogo>
+          {leftlabel}
+
+          <NavMenu>
+            <NavItem>
+              <NavLinks to="/courses">Courses</NavLinks>
+            </NavItem>
+            {/* <NavItem>
+              <NavLinks to="/pricing">Pricing</NavLinks>
+            </NavItem> */}
+            <NavItem>
+              <NavLinks to="/tutor">Become A Tutor</NavLinks>
+            </NavItem>
+            <NavItem>
+              <NavLinks to="/about">About</NavLinks>
+            </NavItem>
+            <NavItem>
+              <NavLinks to="/tutor-login">Tutor LogIn</NavLinks>
+            </NavItem>
+          </NavMenu>
+          <NavBtn></NavBtn>
+          {largescreen}
+        </NavbarContainer>
+      </Nav>
+    </>
+  );
 };
 
-    return (
-        <>
-        <Nav onScroll={changeBackground} navbar={ navbar }>
-            <NavbarContainer>
-                <NavLogo to='/' onClick={toggleHome}>BrooderHall</NavLogo>
-            {leftlabel}
-            
-            <NavMenu>
-                <NavItem>
-                    <NavLinks to='/courses'>Courses</NavLinks>
-                </NavItem>
-                <NavItem>
-                    <NavLinks to='/pricing'>Pricing</NavLinks>
-                </NavItem>
-                <NavItem>
-                    <NavLinks to='/tutor'>Become A Tutor</NavLinks>
-                </NavItem>
-                <NavItem>
-                    <NavLinks to='/about'>About</NavLinks>
-                </NavItem>
-
-            </NavMenu>
-            <NavBtn>
-            </NavBtn>
-            {largescreen}
-            </NavbarContainer>
-        </Nav>
-        </>
-    )
-}
-
-export default Navbar
+export default Navbar;

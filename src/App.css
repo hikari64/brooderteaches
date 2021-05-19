@@ -2,5 +2,74 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;  
+  font-family: "Poppins", sans-serif;
+}
+
+/* GLOBAL STYLES HERE */
+
+/* MAIN PAGE HEIGHT */
+
+.height-full {
+  min-height: 100vh;
+}
+
+.height-half {
+  min-height: 50vh;
+}
+
+.images-in-app {
+  width: 100%;
+}
+
+.form-input {
+  border-radius: 2rem !important;
+  text-align: center;
+  margin: 1rem;
+}
+
+.page-header {
+  background-color: #100855;
+  min-height: 40vh;
+  color: #fff;
+}
+/* BUTTON STYLES */
+.primary-button {
+  border-radius: 2rem !important;
+  color: #fff;
+  background-color: #d02c75 !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+  border: none !important;
+  margin: 1rem;
+}
+.primary-button:hover {
+  border-radius: 2rem !important;
+  color: #d02c75 !important;
+  border: 1px #d02c75 solid !important;
+  background-color: #fff !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+  margin: 1rem;
+}
+
+/* MEDIA QUERIES */
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) {
+  /* hide on mobile */
+  .hide-on-mobile {
+    visibility: hidden;
+    display: none;
+  }
+}
+
+/*  Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+}
+
+/*  Large devices (desktops, 992px and up) */
+@media (max-width: 992px) {
 }
