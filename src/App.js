@@ -27,6 +27,8 @@ import TutorLogin from "./components/tutor/auth/TutorLogin";
 import TutorSignUp from "./components/tutor/auth/TutorSignUp";
 import Process from "./components/tutor/signupprocess/Process";
 import TutorDashboard from "./components/tutor/dashboard/TutorDashboard";
+import TutorCreateCourse from "./components/tutor/courses/TutorCreateCourse";
+import TutorProfile from "./components/tutor/Profile/TutorProfile";
 
 function App() {
   return (
@@ -51,6 +53,9 @@ function App() {
           <Route path="/tutor" component={TutorSignUp} />
           <Route path="/tutor-signup" component={Process} />
           <Route path="/tutor-dashboard" component={TutorDashboard} />
+          <Route path="/tutor-courses" component={TutorDashboard} />
+          <Route path="/tutor-create-course" component={TutorCreateCourse} />
+          <Route path="/tutor-profile" component={TutorProfile} />
         </Switch>
       </AuthProvider>
     </Router>

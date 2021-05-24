@@ -19,14 +19,14 @@ import {
   TutorLinkActive,
   TutorSubNavbar,
   TutorSubNavbarLink,
-} from "./TutorDashboardElements";
+} from "../dashboard/TutorDashboardElements";
 
 //import Courses Sections Component from courses
 
   import CourseSections from "../../CourseSections/index"
 import { courses } from "../../../mock/mock";
 
-export default function TutorDashboard(props) {
+export default function TutorProfile(props) {
   // scroll to top
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -76,10 +76,10 @@ export default function TutorDashboard(props) {
           brownwinston@gmail.com
           </p>
           <hr/>
-            <TutorLinks to={"/tutor-courses"} active className="p-2 m-1">Your Courses</TutorLinks>
-            <TutorLinks to={"/tutor-create-course"} className="p-2 m-1">Create New Course</TutorLinks>
+            <TutorLinks to={"/tutor-courses"}  className="p-2 m-1">Your Courses</TutorLinks>
+            <TutorLinks to={"/tutor-create-course"}  className="p-2 m-1">Create New Course</TutorLinks>
 
-            <TutorLinks to={"/tutor-profile"} className="p-2 m-1">Edit Profile</TutorLinks>
+            <TutorLinks to={"/tutor-profile"} active className="p-2 m-1">Edit Profile</TutorLinks>
 
 
 
