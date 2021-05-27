@@ -6,7 +6,7 @@ import Navbar from "../../Navbar/TutorNav";
 import Footer from "../../Footer";
 
 // boostrap imports
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Form } from "react-bootstrap";
 
 //import image 
 import picture from "../../../images/code.jpg";
@@ -99,9 +99,83 @@ export default function TutorProfile(props) {
       <Container className="height-half">
 
         <Row className="mt-4 mb-4">
-          <Col md={12} className="mx-auto">
-            <CourseSections courses={courses}/>
-          </Col>
+          <Col md={8} className="mx-auto">
+          <Form inline >
+              {/* COURSE TITLE */}
+              <Form.Group className="row">
+                <Form.Label  className="col-3 align-bottom text-end my-auto" >First Name</Form.Label>
+                  <Form.Control
+                    className="form-input col lg"
+                    type="text"
+                    placeholder=""
+                  />
+              </Form.Group>
+              <Form.Group className="row">
+                <Form.Label  className="col-3 align-bottom text-end my-auto" >Last Name</Form.Label>
+                  <Form.Control
+                    className="form-input col lg"
+                    type="text"
+                    placeholder=""
+                  />
+              </Form.Group>
+              <Form.Group className="row">
+                <Form.Label  className="col-3 align-bottom text-end my-auto" >Other Names</Form.Label>
+                  <Form.Control
+                    className="form-input col lg"
+                    type="text"
+                    placeholder=""
+                  />
+              </Form.Group>
+              <Form.Group className="row">
+                <Form.Label  className="col-3 align-bottom text-end my-auto" >Date of Birth</Form.Label>
+                  <Form.Control
+                    className="form-input col lg"
+                    type="date"
+                    placeholder=""
+                  />
+              </Form.Group>
+              <Form.Group className="row">
+                <Form.Label  className="col-3 align-bottom text-end my-auto" >Address/Location</Form.Label>
+                  <Form.Control
+                    className="form-input col lg"
+                    type="text"
+                    placeholder=""
+                  />
+              </Form.Group>
+              <Form.Group className="row">
+                <Form.Label  className="col-3 align-bottom text-end my-auto" >Contact</Form.Label>
+                  <Form.Control
+                    className="form-input col lg"
+                    type="text"
+                    placeholder=""
+                  />
+              </Form.Group>
+              <Form.Group className="row">
+                <Form.Label  className="col-3 align-bottom text-end my-auto" >Email</Form.Label>
+                  <Form.Control
+                    className="form-input col lg"
+                    type="text"
+                    placeholder=""
+                  />
+              </Form.Group>
+              <Form.Group className="row">
+                <Form.Label  className="col-3 align-bottom text-end my-auto" >Expertise</Form.Label>
+                  <Form.Control
+                    className="form-input col lg"
+                    type="text"
+                    placeholder=""
+                  />
+              </Form.Group>
+             
+              <Col className="text-center">
+                <Button onClick={props.nextStep} className="primary-button text-center">
+                Update
+              </Button>
+              </Col>
+              
+            </Form>
+         
+            </Col>
         </Row>
       </Container>
       <Footer />

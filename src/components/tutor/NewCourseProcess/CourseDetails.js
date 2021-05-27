@@ -54,7 +54,7 @@ export default function CourseDetails(props) {
                 <Form.Label  className="col-3 align-bottom text-end text-end">Course Description</Form.Label>
                 <Form.Control
                   as="textarea" 
-                  rows={3}
+                  rows={6}
                   className="form-input col"
                   
                 />

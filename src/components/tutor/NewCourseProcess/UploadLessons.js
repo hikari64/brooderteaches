@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
 
 
+// material ui imports
+import { DropzoneArea } from "material-ui-dropzone";
 
 // boostrap impots
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 
 // import Custom css
 // import "./signupprocess.css";
+import {
+  LessonButtons,
+  AddLessonButtons
+} from "../dashboard/TutorDashboardElements";
+import { NewReleasesOutlined } from "@material-ui/icons";
+
 
 export default function UploadLessons(props) {
   // scroll to top
@@ -19,6 +27,9 @@ export default function UploadLessons(props) {
   const toggle = () => {
     setIsOpen(!isOpen);
   };
+
+  const [newLesson,SetNewLesson] = useState(5);
+
 
   const [navbar, setNavbar] = useState(false);
 
@@ -36,35 +47,67 @@ export default function UploadLessons(props) {
 
       <Container className="height-half">
         <Row className="mt-4 mb-4">
-          <Col md={8} className="mx-auto">
+          <Col md={3}>
+          <LessonButtons className="p-3 m-3 text-center">Lesson {2}</LessonButtons>
+            <LessonButtons className="p-3 m-3 text-center">Lesson {3}</LessonButtons>
+            <LessonButtons className="p-3 m-3 text-center">Lesson {4}</LessonButtons>
+            <LessonButtons className="p-3 m-3 text-center">Lesson {5}</LessonButtons>
+            <AddLessonButtons to={"/tutor-create-course"} className="p-3 m-3 text-center"> 
+              + Add Lesson
+            </AddLessonButtons>
+          </Col>
+          <Col md={8} className="mx-auto text-center">
             <Form inline >
               {/* COURSE TITLE */}
               <Form.Group className="row">
-              <Form.Label  className="col-3 align-bottom text-end my-auto" >Course Title</Form.Label>
                 <Form.Control
-                  className="form-input col lg"
+                  className="form-input col lg text-center"
                   type="text"
-                  placeholder=""
+                  placeholder="Lesson Title"
                 />
               </Form.Group>
               {/* COURSE DESCRIPTION*/}
-              <Form.Group  className="row">
-                <Form.Label  className="col-3 align-bottom text-end text-end">Course Description</Form.Label>
+              <Form.Group  className="row ">
                 <Form.Control
                   as="textarea" 
                   rows={3}
-                  className="form-input col"
+                  className="form-input col text-center"
+                  placeholder="Lesson Summary"
                   
                 />
               </Form.Group>
-              {/* INTRO VIDEO */}
-              <Form.Group  className="row">
-              <Form.Label  className="col-3 align-bottom text-end">Introductory Video</Form.Label>
-
+              <Form.Group className="row">
                 <Form.Control
-                  className="form-input col"
-                  type="name"
+                  className="form-input col lg text-center"
+                  type="date"
+                  placeholder="Lesson Date"
                 />
+              </Form.Group>
+              {/* INTRO VIDEO */}
+              <Form.Group  className="row mt-3">
+
+               <Col>
+               <DropzoneArea
+                    acceptedFiles={['video/*']}
+                    dropzoneText={"Upload Lesson Video"}
+                    onChange={(files) => console.log('Files:', files)}
+                    maxFileSize	={300000000}
+                    />
+               </Col>
+          
+              </Form.Group>
+              {/* Add ASSignment */}
+              <Form.Group  className="row mt-3">
+
+               <Col>
+               <DropzoneArea
+                    acceptedFiles={['application/pdf']}
+                    dropzoneText={"Add Assignment"}
+                    onChange={(files) => console.log('Files:', files)}
+                    maxFileSize	={300000000}
+                    />
+               </Col>
+               
               </Form.Group>
               
               <Col className="text-center">
