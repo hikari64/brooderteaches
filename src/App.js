@@ -21,6 +21,11 @@ import forgotpassword from "./pages/forgotpassword";
 
 // ADMINISTRATOR COMPONENTS
 import AdminLogin from "./components/admin/AdminLogin";
+import AdminAuthProvider from "./components/admin/contexts/AdminAuthContext";
+import Dashboard from "./components/admin/adminPages/Dashboard";
+import AdminPrivateRoute from "./components/admin/AdminPrivateRoute";
+import Students from "./components/admin/adminPages/Students";
+import Tutors from "./components/admin/adminPages/Tutors";
 
 // TUTOR COMPONENTS
 import TutorLogin from "./components/tutor/auth/TutorLogin";
@@ -34,29 +39,34 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/login" component={login} />
-          <Route path="/signup" component={signup} />
-          <PrivateRoute path="/profile" component={Profile} />
-          <PrivateRoute path="/update-profile" component={ProfileUpdate} />
-          <Route path="/forgot-password" component={forgotpassword} />
-          <Route path="/courses" component={Courses} />
-          <Route path="/about/:id" component={CoursePage} />
-          <Route path="/preview/:id" component={CoursePreview} />
+        <AdminAuthProvider>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/login" component={login} />
+            <Route path="/signup" component={signup} />
+            <PrivateRoute path="/profile" component={Profile} />
+            <PrivateRoute path="/update-profile" component={ProfileUpdate} />
+            <Route path="/forgot-password" component={forgotpassword} />
+            <Route path="/courses" component={Courses} />
+            <Route path="/about/:id" component={CoursePage} />
+            <Route path="/preview/:id" component={CoursePreview} />
 
-          {/* ADMIN Routes */}
-          <Route path="/admin" component={AdminLogin} />
+            {/* ADMIN Routes */}
+            <Route path="/admin" component={AdminLogin} />
+            <AdminPrivateRoute path="/dashboard" component={Dashboard} />
+            <AdminPrivateRoute path="/students" component={Students} />
+            <AdminPrivateRoute path="/tutors" component={Tutors} />
 
-          {/* TUTOR ROUTES */}
-          <Route path="/tutor-login" component={TutorLogin} />
-          <Route path="/tutor" component={TutorSignUp} />
-          <Route path="/tutor-signup" component={Process} />
-          <Route path="/tutor-dashboard" component={TutorDashboard} />
-          <Route path="/tutor-courses" component={TutorDashboard} />
-          <Route path="/tutor-create-course" component={TutorCreateCourse} />
-          <Route path="/tutor-profile" component={TutorProfile} />
-        </Switch>
+            {/* TUTOR ROUTES */}
+            <Route path="/tutor-login" component={TutorLogin} />
+            <Route path="/tutor" component={TutorSignUp} />
+            <Route path="/tutor-signup" component={Process} />
+            <Route path="/tutor-dashboard" component={TutorDashboard} />
+            <Route path="/tutor-courses" component={TutorDashboard} />
+            <Route path="/tutor-create-course" component={TutorCreateCourse} />
+            <Route path="/tutor-profile" component={TutorProfile} />
+          </Switch>
+        </AdminAuthProvider>
       </AuthProvider>
     </Router>
   );
