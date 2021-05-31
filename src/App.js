@@ -24,6 +24,8 @@ import AdminLogin from "./components/admin/AdminLogin";
 import AdminAuthProvider from "./components/admin/contexts/AdminAuthContext";
 import Dashboard from "./components/admin/adminPages/Dashboard";
 import AdminPrivateRoute from "./components/admin/AdminPrivateRoute";
+import Students from "./components/admin/adminPages/Students";
+import Tutors from "./components/admin/adminPages/Tutors";
 
 // TUTOR COMPONENTS
 import TutorLogin from "./components/tutor/auth/TutorLogin";
@@ -52,6 +54,8 @@ function App() {
             {/* ADMIN Routes */}
             <Route path="/admin" component={AdminLogin} />
             <AdminPrivateRoute path="/dashboard" component={Dashboard} />
+            <AdminPrivateRoute path="/students" component={Students} />
+            <AdminPrivateRoute path="/tutors" component={Tutors} />
 
             {/* TUTOR ROUTES */}
             <Route path="/tutor-login" component={TutorLogin} />
