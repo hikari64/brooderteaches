@@ -16,7 +16,6 @@ import head from "../../../images/img-1.png";
 export default function Students(props) {
   const { loading, students } = useFetchStudents();
 
-  console.log("Students", students);
   return (
     <React.Fragment>
       <Container fluid>
@@ -41,7 +40,11 @@ export default function Students(props) {
                     </Col>
                     <Col className="my-auto">
                       <h1>
-                        <strong>67</strong>
+                        {loading ? (
+                          <h6>Loading</h6>
+                        ) : (
+                          <strong>{students.length}</strong>
+                        )}
                       </h1>
                       <Card.Title>Students</Card.Title>
                     </Col>
