@@ -15,7 +15,6 @@ import another from "../../../images/img-2.png";
 import third from "../../../images/img-3.png";
 
 export default function Dashboard(props) {
-  console.log("props", props.email);
   return (
     <React.Fragment>
       <Container fluid>

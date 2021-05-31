@@ -17,7 +17,7 @@ export default function Navigation(props) {
         <Container>
           <Navbar.Brand>
             {" "}
-            <Link to="/dashboard">BroderHall Admin</Link>
+            <Link to="/dashboard">BrooderHall Admin</Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -35,7 +35,9 @@ export default function Navigation(props) {
               </Nav.Link>
               <NavDropdown title={props.email} id="basic-nav-dropdown">
                 <NavDropdown.Item>
-                  <h6 onClick={logout}>Sign Out</h6>
+                  <span className="text-dark" onClick={logout}>
+                    Sign Out
+                  </span>
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
