@@ -41,9 +41,10 @@ export default function Payments(props) {
   // PAYSTACK INTEGRATION
   const config = {
     reference: new Date().getTime(),
+    currency: "GHS",
     email: "user@example.com",
-    amount: 20000,
-    publicKey: "pk_test_dsdfghuytfd2345678gvxxxxxxxxxx",
+    amount: 50000,
+    publicKey: "pk_test_06edb4228000e624555d590bc908f9219f5d0dae",
   };
 
   // SUCCESSFULLY PAID
@@ -60,7 +61,7 @@ export default function Payments(props) {
 
   const componentProps = {
     ...config,
-    text: "Pay Now",
+    text: "Pay 500Ghs",
     onSuccess: (reference) => handlePaystackSuccessAction(reference),
     onClose: handlePaystackCloseAction,
   };
