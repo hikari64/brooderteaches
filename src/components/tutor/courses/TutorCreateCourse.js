@@ -56,6 +56,16 @@ export default function TutorCreateCourse(props) {
   };
 
   window.addEventListener("scroll", changeBackground);
+
+
+  // INDICATOR HOOKS
+
+const [indicator, SetIndicator] = useState(0)
+const [detailsIndicator, SetDetailsIndicator] = useState(true)
+const [lessonsIndicator, SetLessonsIndicator] = useState(false)
+const [reviewIndicator, SetReviewIndicator] = useState(false)
+
+
   return (
     <div fluid className="height-full">
       <Navbar
@@ -121,7 +131,7 @@ export default function TutorCreateCourse(props) {
 
         <Row className="mt-4 mb-4">
           <Col md={12} className="mx-auto">
-            <NewCourseProcess/>
+            <NewCourseProcess SetIndicator={SetIndicator}/>
           </Col>
         </Row>
       </Container>
