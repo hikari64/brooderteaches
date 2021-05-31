@@ -86,16 +86,7 @@ export default function TutorProfile(props) {
         </Col>
        </Container>
       </Row>
-      <TutorSubNavbar>
-        <Container className="mx-5">
-          <Container className="container mx-5 p-4 ">
-            <TutorSubNavbarLink to={"/tutor-courses"}  active className="p-2 m-1">Upcoming</TutorSubNavbarLink>
-              <TutorSubNavbarLink to={"/tutor-courses"} className="p-2 m-1">In Session</TutorSubNavbarLink>
-              <TutorSubNavbarLink to={"/tutor-courses"} className="p-2 m-1">Ended</TutorSubNavbarLink>
-          </Container>
-        </Container>
-     
-      </TutorSubNavbar>
+      
       <Container className="height-half">
 
         <Row className="mt-4 mb-4">
