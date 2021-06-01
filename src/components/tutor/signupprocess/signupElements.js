@@ -3,6 +3,23 @@ import { Link as LinkR } from "react-router-dom";
 import { FaCalendarAlt,  FaMoneyBillWave, FaClock} from "react-icons/fa";
 import ReactPlayer from "react-player";
 
+export const SignUpMainHeader = styled.h4`
+color: var(--unnamed-color-ffffff);
+text-align: left;
+font: normal normal bold 80px/120px Poppins;
+letter-spacing: 0px;
+color: #FFFFFF;
+opacity: 1;
+
+@media (max-width: 480px) {
+    font-size: 32px
+};
+
+@media (max-width: 768px){
+    font-size: 32px;
+}
+`;
+
 export const SignUpH1 = styled.h4`
 color: var(--unnamed-color-100855);
 text-align: center;
@@ -19,7 +36,7 @@ text-align: left;
 font: normal normal bold 42px/63px Poppins;
 letter-spacing: 0px;
 color: #100855;
-font-size:40px;
+font-size:30px;
 
 opacity:1;
 

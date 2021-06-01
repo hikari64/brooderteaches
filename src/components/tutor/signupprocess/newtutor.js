@@ -24,7 +24,7 @@ import {
 } from "../dashboard/TutorDashboardElements";
 
 // IMPORT STYLED ELEMENTS for this page
-import {SignUpH1,IndicatorHeader,IndicatorSubHeader} from "./signupElements.js";
+import {SignUpMainHeader,IndicatorHeader,IndicatorSubHeader} from "./signupElements.js";
 //import Courses Sections Component from courses
 
   import CourseSections from "../../CourseSections/index"
@@ -104,10 +104,8 @@ const ProcessIndicator =(newindicator)=>{
       />
       <Row className="page-header">
         <Col md={10} className="mx-auto text-center my-auto">
-          <h1>Personal Information</h1>
-          <p className="text-muted">
-            Fill in Your Personal Information {">>"} Verification {">>"} Payments
-          </p>
+          <SignUpMainHeader className="text-center">Become a Tutor</SignUpMainHeader>
+          
         </Col>
       </Row>
       <TutorSubNavbar>
@@ -115,7 +113,7 @@ const ProcessIndicator =(newindicator)=>{
           <Container className="container  p-4 row">
           <Col>
           <Row>
-            <Circle active={oneIndicator} className="rounded-circle col-2"/>
+            <Circle active={oneIndicator} className="rounded-circle col-2  my-auto"/>
             <NewCourseTabHeaders className="col my-auto">
              <IndicatorHeader>Step One</IndicatorHeader> 
               <IndicatorSubHeader>Personal Information</IndicatorSubHeader>
@@ -123,7 +121,7 @@ const ProcessIndicator =(newindicator)=>{
             </Row></Col>
             <Col>
               <Row>
-                <Circle active={twoIndicator}  className="rounded-circle col-2"/>
+                <Circle active={twoIndicator}  className="rounded-circle col-2  my-auto"/>
                 <NewCourseTabHeaders className="col my-auto">
                   <IndicatorHeader>Step Two</IndicatorHeader> 
                   <IndicatorSubHeader>Verification</IndicatorSubHeader>
@@ -132,7 +130,7 @@ const ProcessIndicator =(newindicator)=>{
             </Col>
             <Col>
               <Row>
-                <Circle active={threeIndicator}  className="rounded-circle col-2"/>
+                <Circle active={threeIndicator}  className="rounded-circle col-2  my-auto"/>
                 <NewCourseTabHeaders className="col my-auto">
                   <IndicatorHeader>Step Three</IndicatorHeader> 
                   <IndicatorSubHeader>Complete Registrationn</IndicatorSubHeader>
