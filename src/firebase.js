@@ -14,5 +14,11 @@ const fbapp = firebase.initializeApp({
 });
 
 const storage = firebase.storage();
+
+// auth
 export const auth = fbapp.auth();
+
+// firestore
+export const firestore = fbapp.firestore();
+
 export { storage, fbapp as default };

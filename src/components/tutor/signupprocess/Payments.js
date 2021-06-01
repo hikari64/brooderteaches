@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 
+// PAYSTACK BUTTON IMPORT
+import { PaystackButton } from "react-paystack";
+
 // navbar import
 import Navbar from "../../Navbar";
 import Footer from "../../Footer";
 
 // boostrap impots
 import { Container, Row, Col, Button } from "react-bootstrap";
+
+//import Icons for circle
+import { BsCircle } from "react-icons/bs";
 
 export default function Payments(props) {
   // scroll to top
@@ -31,6 +37,35 @@ export default function Payments(props) {
   };
 
   window.addEventListener("scroll", changeBackground);
+
+  // PAYSTACK INTEGRATION
+  const config = {
+    reference: new Date().getTime(),
+    currency: "GHS",
+    email: "user@example.com",
+    amount: 50000,
+    publicKey: "pk_test_06edb4228000e624555d590bc908f9219f5d0dae",
+  };
+
+  // SUCCESSFULLY PAID
+  const handlePaystackSuccessAction = (reference) => {
+    // Implementation for whatever you want to do with reference and after success call.
+    console.log(reference);
+  };
+
+  // you can call this function anything
+  const handlePaystackCloseAction = () => {
+    // implementation for  whatever you want to do when the Paystack dialog closed.
+    console.log("closed");
+  };
+
+  const componentProps = {
+    ...config,
+    text: "Pay 500Ghs",
+    onSuccess: (reference) => handlePaystackSuccessAction(reference),
+    onClose: handlePaystackCloseAction,
+  };
+
   return (
     <div fluid className="height-full">
       <Navbar
@@ -42,7 +77,8 @@ export default function Payments(props) {
         <Col md={10} className="mx-auto text-center my-auto">
           <h1>Payments</h1>
           <p className="text-muted">
-            Fill in Your Personal Information >> Verification >> Payments
+            <BsCircle /> Fill in Your Personal Information {">>"} Verification{" "}
+            {">>"} Payments
           </p>
         </Col>
       </Row>
@@ -58,7 +94,16 @@ export default function Payments(props) {
             </p>
           </Col>
           <Col md={8} className="mx-auto text-center mt-4">
-            <h4>Select Payment Option</h4>
+            <h4>Pay Via Mobile Money / Credit Card</h4>
+
+            <Row>
+              <Col md={8} className="mx-auto">
+                <PaystackButton
+                  className="paystack-button"
+                  {...componentProps}
+                />
+              </Col>
+            </Row>
             <Button onClick={props.prevStep} className="primary-button">
               Go back
             </Button>

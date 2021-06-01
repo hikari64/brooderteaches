@@ -8,3 +8,59 @@
   color: #100855;
   font-weight: bold;
 }
+
+.bg-wave{
+  /* top: 495px;
+left: 895px; */
+/* width: 1025px;
+height: 583px; */
+background: transparent url('../../../images/wave-1817646_1920.png') 0% 0% padding-box;
+opacity: 1;
+
+background-position-x: left;
+background-position-y: bottom;
+background-size: 140%;
+  background-repeat: no-repeat;
+}
+
+/* Starts here --- Tutor Signup header CSS */
+.Tutor-signup-header{
+  
+ position: fixed;
+ z-index: 2;
+}
+
+.floating-header{
+  top: 86px;
+  left: 130px;
+  width: 241px;
+  height: 59px;
+  color: var(--unnamed-color-e6e6e6);
+  text-align: left;
+  font: normal normal normal 49px/59px Impact;
+  letter-spacing: 0px;
+  color: #E6E6E6;
+  opacity: 1;
+}
+
+@media (max-width: 576px){
+  .Tutor-signup-header{
+    position: relative;
+    z-index: 2;
+   }
+   .floating-header{
+    top: 86px;
+    left: 130px;
+    width: 241px;
+    height: 59px;
+    color: var(--unnamed-color-e6e6e6);
+    text-align: left;
+    font: normal normal normal 49px/59px Impact;
+    letter-spacing: 0px;
+    color: #100855;
+    opacity: 1;
+  }
+  }
+
+
+/* End --- Tutor Signup header CSS */

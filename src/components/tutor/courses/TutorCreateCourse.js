@@ -19,14 +19,20 @@ import {
   TutorLinkActive,
   TutorSubNavbar,
   TutorSubNavbarLink,
-} from "./TutorDashboardElements";
+  Circle,
+  NewCourseTabHeaders
+} from "../dashboard/TutorDashboardElements";
 
 //import Courses Sections Component from courses
 
   import CourseSections from "../../CourseSections/index"
 import { courses } from "../../../mock/mock";
 
-export default function TutorDashboard(props) {
+//import Create New Course Processes
+
+import NewCourseProcess from "../NewCourseProcess/NewCourseProcess";
+
+export default function TutorCreateCourse(props) {
   // scroll to top
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -76,8 +82,8 @@ export default function TutorDashboard(props) {
           brownwinston@gmail.com
           </p>
           <hr/>
-            <TutorLinks to={"/tutor-courses"} active className="p-2 m-1">Your Courses</TutorLinks>
-            <TutorLinks to={"/tutor-create-course"} className="p-2 m-1">Create New Course</TutorLinks>
+            <TutorLinks to={"/tutor-courses"}  className="p-2 m-1">Your Courses</TutorLinks>
+            <TutorLinks to={"/tutor-create-course"} active className="p-2 m-1">Create New Course</TutorLinks>
 
             <TutorLinks to={"/tutor-profile"} className="p-2 m-1">Edit Profile</TutorLinks>
 
@@ -88,10 +94,25 @@ export default function TutorDashboard(props) {
       </Row>
       <TutorSubNavbar>
         <Container className="mx-5">
-          <Container className="container mx-5 p-4 ">
-            <TutorSubNavbarLink to={"/tutor-courses"}  active className="p-2 m-1">Upcoming</TutorSubNavbarLink>
-              <TutorSubNavbarLink to={"/tutor-courses"} className="p-2 m-1">In Session</TutorSubNavbarLink>
-              <TutorSubNavbarLink to={"/tutor-courses"} className="p-2 m-1">Ended</TutorSubNavbarLink>
+          <Container className="container mx-5 p-4 row">
+          <Col>
+          <Row>
+            <Circle active className="rounded-circle col-2"/>
+            <NewCourseTabHeaders className="col my-auto">Course Details</NewCourseTabHeaders>
+            </Row></Col>
+            <Col>
+              <Row>
+                <Circle className="rounded-circle col-2"/>
+                <NewCourseTabHeaders className="col my-auto">Upload Lessons</NewCourseTabHeaders> 
+              </Row>
+            </Col>
+            <Col>
+              <Row>
+                <Circle className="rounded-circle col-2"/>
+                <NewCourseTabHeaders className="col my-auto">Review and Publish</NewCourseTabHeaders>
+              </Row>
+            </Col>
+            
           </Container>
         </Container>
      
@@ -100,7 +121,7 @@ export default function TutorDashboard(props) {
 
         <Row className="mt-4 mb-4">
           <Col md={12} className="mx-auto">
-            <CourseSections courses={courses}/>
+            <NewCourseProcess/>
           </Col>
         </Row>
       </Container>

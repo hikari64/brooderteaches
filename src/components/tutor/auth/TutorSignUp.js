@@ -12,10 +12,15 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 // image imports
 import Image from "../../../images/img-2.png";
 
+// header import
+import {TutorAuthHeader} from "./TutorAuthHeader";
+
+
 export default function TutorSignUp() {
   return (
     <Container fluid>
-      <Row>
+      <Row>      <TutorAuthHeader/>
+
         <Col md={6} className="hide-on-mobile side-bg">
           <Container fluid className="my-auto">
             <Row className="height-full">
@@ -25,14 +30,17 @@ export default function TutorSignUp() {
             </Row>
           </Container>
         </Col>
-        <Col md={6}>
+        <Col md={6} className="bg-wave">
           <Container fluid className="my-auto">
             <Row className="height-full">
-              <Col md={10} className="mx-auto my-auto text-center">
+              <Col md={10} className="mx-auto my-auto text-center container">
                 <h2 className="header">Become A Tutor</h2>
                 <p>
                   Terms and conditions of being a tutor and pricing should go
-                  here Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  here
+                </p>
+                <p>
+                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                   Proin imperdiet ligula a lacus commodo, ut tincidunt magna
                   pellentesque. Aenean eu arcu ut ligula vehicula semper id
                   sodales sapien. Vestibulum lobortis blandit sem, nec molestie
