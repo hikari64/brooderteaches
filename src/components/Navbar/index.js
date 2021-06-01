@@ -14,12 +14,18 @@ import {
   NavMenu,
   Profile,
 } from "./NavbarElements";
+import {Dropdown} from 'react-bootstrap'
 
 // auth
 import { useAuth } from "../../contexts/AuthContext";
+import { auth } from "../../firebase";
+
 
 const Navbar = ({ toggle, navbar, changeBackground }) => {
-    
+  const logout = () => {
+    return auth.signOut();
+  };
+  
     const { currentUser } = useAuth();
     let leftlabel, largescreen;
     if (!(currentUser)){
@@ -34,7 +40,15 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
     } else {
         // leftlabel = <MobileIcon onClick={toggle}>{currentUser.email}</MobileIcon>
         leftlabel = <MobileIcon onClick={toggle}>{currentUser.displayName}</MobileIcon>
-        largescreen = <Profile>{currentUser.displayName}</Profile>
+        largescreen = <Profile><Dropdown>
+        <Dropdown.Toggle id="dropdown-basic">
+        {currentUser.displayName}
+        </Dropdown.Toggle>
+      
+        <Dropdown.Menu>
+          <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown></Profile>
     }
 
   const toggleHome = () => {
