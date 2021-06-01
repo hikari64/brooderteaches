@@ -60,10 +60,36 @@ export default function TutorCreateCourse(props) {
 
   // INDICATOR HOOKS
 
-const [indicator, SetIndicator] = useState(0)
+const [indicator, SetIndicator] = useState(1)
 const [detailsIndicator, SetDetailsIndicator] = useState(true)
 const [lessonsIndicator, SetLessonsIndicator] = useState(false)
 const [reviewIndicator, SetReviewIndicator] = useState(false)
+
+const setLevelCheck = (levelKey) =>{
+     
+  SetLessonsIndicator(false)
+  SetDetailsIndicator(false)
+  SetReviewIndicator(false)
+
+  SetDetailsIndicator(levelKey > 0 ? true: false )
+  SetLessonsIndicator(levelKey > 1 ? true: false )
+  SetReviewIndicator(levelKey > 2 ? true: false ) 
+  
+  
+}
+
+const ProcessIndicator =(newindicator)=>{
+  
+  var data = newindicator;      
+
+      SetIndicator(data)
+      setLevelCheck(data);
+      
+     
+    
+}
+
+
 
 
   return (
@@ -107,18 +133,18 @@ const [reviewIndicator, SetReviewIndicator] = useState(false)
           <Container className="container mx-5 p-4 row">
           <Col>
           <Row>
-            <Circle active className="rounded-circle col-2"/>
+            <Circle active={detailsIndicator} className="rounded-circle col-2"/>
             <NewCourseTabHeaders className="col my-auto">Course Details</NewCourseTabHeaders>
             </Row></Col>
             <Col>
               <Row>
-                <Circle className="rounded-circle col-2"/>
+                <Circle active={lessonsIndicator}  className="rounded-circle col-2"/>
                 <NewCourseTabHeaders className="col my-auto">Upload Lessons</NewCourseTabHeaders> 
               </Row>
             </Col>
             <Col>
               <Row>
-                <Circle className="rounded-circle col-2"/>
+                <Circle active={reviewIndicator}  className="rounded-circle col-2"/>
                 <NewCourseTabHeaders className="col my-auto">Review and Publish</NewCourseTabHeaders>
               </Row>
             </Col>
@@ -131,7 +157,7 @@ const [reviewIndicator, SetReviewIndicator] = useState(false)
 
         <Row className="mt-4 mb-4">
           <Col md={12} className="mx-auto">
-            <NewCourseProcess SetIndicator={SetIndicator}/>
+            <NewCourseProcess ProcessIndicator={ProcessIndicator}/>
           </Col>
         </Row>
       </Container>

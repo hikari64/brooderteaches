@@ -5,33 +5,34 @@ import CourseDetails from "./CourseDetails";
 import ReviewCourse from "./ReviewCourse";
 import UploadLessons from "./UploadLessons";
 
-export default function NewCourseProcess({SetIndicator}) {
+export default function NewCourseProcess({ProcessIndicator}) {
   const [step, setStep] = useState(1);
 
   // Proceed to next step
-  const nextStep = ({SetIndicator}) => {
+  const nextStep = () => {
     setStep(step + 1);
-    SetIndicator(step);
+    ProcessIndicator(step + 1);
   };
 
   // Previous step
-  const prevStep = ({SetIndicator}) => {
+  const prevStep = () => {
     setStep(step - 1);
-    SetIndicator(step);
+    ProcessIndicator(step + 1);
 
   };
 
+ 
   // handle
 
   switch (step) {
     case 1:
-      return <CourseDetails nextStep={nextStep(SetIndicator)} />;
+      return <CourseDetails nextStep={nextStep} />;
 
     case 2:
-      return <UploadLessons nextStep={nextStep(SetIndicator)} prevStep={prevStep(this.props.SetIndicator)} />;
+      return <UploadLessons nextStep={nextStep} prevStep={prevStep} />;
 
     case 3:
-      return <ReviewCourse prevStep={prevStep(SetIndicator)} />;
+      return <ReviewCourse nextStep={nextStep}  prevStep={prevStep} />;
 
     default:
       return <h1>Encountered an error</h1>;
