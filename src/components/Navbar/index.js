@@ -22,7 +22,7 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
   // const { currentUser } = useAuth();
 
   let currentUser = {
-    displayName: "Okraks",
+    displayName: "Hello there!",
   };
   let leftlabel, largescreen;
   if (!currentUser.displayName) {
