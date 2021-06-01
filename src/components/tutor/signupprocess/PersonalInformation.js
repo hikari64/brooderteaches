@@ -8,7 +8,7 @@ import Footer from "../../Footer";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 
 // import Custom css
-import "./signupprocess.css";
+import {SignUpH1} from "./signupElements.js";
 
 export default function PersonalInformation(props) {
   // scroll to top
@@ -32,43 +32,70 @@ export default function PersonalInformation(props) {
     }
   };
 
+ const eventHandler =(event)=>{
+    let val = event.target.value
+    let nam = event.target.name
+
+    props.updateData(nam,val);
+
+  }
+
   window.addEventListener("scroll", changeBackground);
   return (
-    <div fluid className="height-full">
-      <Navbar
-        toggle={toggle}
-        navbar={navbar}
-        changeBackground={changeBackground}
-      />
-      <Row className="page-header">
-        <Col md={10} className="mx-auto text-center my-auto">
-          <h1>Personal Information</h1>
-          <p className="text-muted">
-            Fill in Your Personal Information {">>"} Verification {">>"} Payments
-          </p>
-        </Col>
-      </Row>
-
-      <Container className="height-half">
+    <div>
         <Row className="mt-4 mb-4">
+          <SignUpH1 className="text-center mb-5">
+              Personal Information
+          </SignUpH1>
           <Col md={8} className="mx-auto">
+            
             <Form inline >
               {/* FULL NAME */}
               <Form.Group className="row">
-              <Form.Label  className="col-3 align-bottom text-end text-end" >Email</Form.Label>
+              <Form.Label  className="col-3 align-bottom text-end text-end" >First Name</Form.Label>
                 <Form.Control
                   className="form-input col lg"
-                  type="email"
-                  placeholder="Enter email"
+                  type="text"
+                  name="firstName"
+                  value={props.data.firstName}
+                  onChange={eventHandler}
+
                 />
               </Form.Group>
+              {/* FULL NAME */}
+              <Form.Group className="row">
+              <Form.Label  className="col-3 align-bottom text-end text-end" >Last Name</Form.Label>
+                <Form.Control
+                  className="form-input col lg"
+                  type="text"
+                  value={props.data.lastName}
+                  name="lastName"
+                  onChange={eventHandler}
+
+                />
+              </Form.Group>
+              {/* FULL NAME */}
+              <Form.Group className="row">
+              <Form.Label  className="col-3 align-bottom text-end text-end" >Other Names</Form.Label>
+                <Form.Control
+                  className="form-input col lg"
+                  type="text"
+                  name="otherNames"
+                  value={props.data.otherNames}
+                  onChange={eventHandler}
+                />
+              </Form.Group>
+             
               {/* DATE OF BIRTH */}
               <Form.Group  className="row">
                 <Form.Label  className="col-3 align-bottom text-end text-end">Date of Birth</Form.Label>
                 <Form.Control
                   type="date"
+                  name="DateofBirth"
                   className="form-input col"
-                  placeholder="Date of Birth"
+                  value={props.data.DateofBirth}
+                  onChange={eventHandler}
+
                 />
               </Form.Group>
               {/* ADDRESS LOCATION */}
@@ -77,8 +104,11 @@ export default function PersonalInformation(props) {
 
                 <Form.Control
                   className="form-input col"
-                  type="name"
-                  placeholder="Residential Address"
+                  type="text"
+                  name="Address"
+                  value={props.data.Address}
+                  onChange={eventHandler}
+
                 />
               </Form.Group>
               {/* Contact */}
@@ -88,7 +118,9 @@ export default function PersonalInformation(props) {
                 <Form.Control
                   className="form-input col"
                   type="number"
-                  placeholder="Phone Number"
+                  name="Contact"
+                  value={props.data.Contact}
+                  onChange={eventHandler}
                 />
               </Form.Group>
               {/* email */}
@@ -98,7 +130,11 @@ export default function PersonalInformation(props) {
                 <Form.Control
                   className="form-input col"
                   type="email"
+                  name="Email"
+                  value={props.data.Email}
                   placeholder="Email Address"
+                  onChange={eventHandler}
+
                 />
               </Form.Group>
               {/* Expertise */}
@@ -107,8 +143,11 @@ export default function PersonalInformation(props) {
 
                 <Form.Control
                   className="form-input col"
-                  type="name"
-                  placeholder="Expertise"
+                  type="text"
+                  name="Expertise"
+                  value={props.data.Expertise}
+                  onChange={eventHandler}
+
                 />
               </Form.Group>
               <Col className="text-center">
@@ -120,8 +159,7 @@ export default function PersonalInformation(props) {
             </Form>
           </Col>
         </Row>
-      </Container>
-      <Footer />
+      
     </div>
   );
 }

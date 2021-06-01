@@ -17,7 +17,7 @@ export default function NewCourseProcess({ProcessIndicator}) {
   // Previous step
   const prevStep = () => {
     setStep(step - 1);
-    ProcessIndicator(step + 1);
+    ProcessIndicator(step - 1);
 
   };
 

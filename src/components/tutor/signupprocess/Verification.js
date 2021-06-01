@@ -10,6 +10,9 @@ import { Container, Row, Button, Col } from "react-bootstrap";
 // material ui imports
 import { DropzoneArea } from "material-ui-dropzone";
 
+import {SignUpH1} from "./signupElements.js";
+
+
 export default function Verification(props) {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -31,31 +34,29 @@ export default function Verification(props) {
     }
   };
 
+ const handleChange=(File)=>{
+    let val = File[0]
+    let nam = "VerificationID"
+
+    props.updateData(nam,val);
+
+  }
+
   window.addEventListener("scroll", changeBackground);
   return (
-    <div fluid className="height-full">
-      <Navbar
-        toggle={toggle}
-        navbar={navbar}
-        changeBackground={changeBackground}
-      />
-      <Row className="page-header">
-        <Col md={10} className="mx-auto text-center my-auto">
-          <h1>Verification</h1>
-          <p className="text-muted">
-            Fill in Your Personal Information >> Verification >> Payments
-          </p>
-        </Col>
-      </Row>
-
-      <Container className="height-half">
+    <div>
+    
         <Row className="mt-4 mb-4 text-center">
+          <SignUpH1 className="text-center mb-5">
+            Verification
+          </SignUpH1>
+          
           <Col md={8} className="mx-auto">
             <h5 className="mb-4 mt-2">
               *Upload any valid National Identification Card for successful
               verification
             </h5>
-            <DropzoneArea />
+            <DropzoneArea onChange={handleChange} />
             <Button onClick={props.prevStep} className="primary-button">
               Go Back
             </Button>
@@ -64,8 +65,7 @@ export default function Verification(props) {
             </Button>
           </Col>
         </Row>
-      </Container>
-      <Footer />
     </div>
   );
 }
+
