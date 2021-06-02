@@ -21,4 +21,7 @@ export const auth = fbapp.auth();
 // firestore
 export const firestore = fbapp.firestore();
 
+//timestamp
+export const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+
 export { storage, fbapp as default };
