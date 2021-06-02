@@ -19,11 +19,11 @@ import {
 import { useAuth } from "../../contexts/AuthContext";
 
 const Navbar = ({ toggle, navbar, changeBackground }) => {
-  // const { currentUser } = useAuth();
+  const { currentUser } = useAuth();
 
-  let currentUser = {
-    displayName: "Okraks",
-  };
+  // let currentUser = {
+  //   displayName: "Okraks",
+  // };
   let leftlabel, largescreen;
   if (!currentUser.displayName) {
     // console.log(currentUser.email)

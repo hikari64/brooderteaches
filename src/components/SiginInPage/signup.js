@@ -30,7 +30,7 @@ const SignupPage = () => {
       setError("");
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
-      history.push("/profile");
+      history.push("/update-profile");
     } catch {
       setError("Failed to create account");
     }
@@ -58,32 +58,36 @@ const SignupPage = () => {
                 <p>Kindly fill in the form to get you started</p>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
-                  <Form.Group>
+                  {/* <Form.Group>
                     <Form.Control
                       className="form-input"
                       type="name"
                       placeholder="Full Name"
-                    />
-                  </Form.Group>
+                      ref={fullNameRef}
+                    required/>
+                  </Form.Group> */}
                   <Form.Group>
                     <Form.Control
                       className="form-input"
                       type="email"
                       placeholder="Enter email"
-                    />
+                      ref={emailRef}
+                    required/>
                   </Form.Group>
                   <Form.Group controlId="formBasicPassword">
                     <Form.Control
                       className="form-input"
                       type="password"
                       placeholder="Password"
-                    />
+                      ref={passwordRef}
+                   required />
                   </Form.Group>
                   <Form.Group controlId="formBasicPassword">
                     <Form.Control
                       className="form-input"
                       type="password"
                       placeholder="Confirm password"
+                      ref={passwordConfirmRef} required 
                     />
                   </Form.Group>
 
