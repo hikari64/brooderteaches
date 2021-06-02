@@ -43,7 +43,7 @@ const CoursePrev = ({id}) => {
     
     return (
         <>
-        <Heading2 to='' >Course Preview</Heading2>
+        {/* <Heading2 to='' >Course Preview</Heading2> */}
         {isCoursePage}
         </>
     )

@@ -13,10 +13,43 @@ export const CourseContainer = styled.div`
     }
 `;
 
+export const RegContainer = styled.div`
+    color: #fff;
+    padding: 0px 0 50px;
+    
+    @media screen and (max-width: 768px){
+        padding: 70px 0;
+    }
+`;
 export const CourseDetails = styled.div`
     margin-bottom: 15px;
     padding: 0 15px;
     width: 100%;
+`;
+
+export const CourseOutlineStyle = styled.div`
+    display: flex;
+`;
+
+export const OutlineVid = styled.div`
+    -ms-flex: 1;  /* IE 10 */  
+    flex: 1;
+`;
+
+export const OutlineContent = styled.div`
+    -ms-flex: 1;  /* IE 10 */  
+    flex: 1;
+    padding: 20px;
+`;
+
+export const OutlineList = styled.ul`
+    list-style-type: square;
+`;
+
+export const Outline = styled.li`
+    font-size: 13px;
+    color: black;
+    line-height: 2;
 `;
 
 export const CourseWrapper = styled.div`
@@ -150,6 +183,16 @@ export const Column22 = styled.div`
     }
 `;
 
+export const ExtraInfo = styled.div`
+    color: black;
+    font-size: 17px;
+
+    @media (max-width: 480px) {
+        max-width: 100%;
+        padding-left: 50px;
+        margin-top: -30px;
+    };
+`;
 
 export const TextWrapper = styled.div`
     max-width: 540px;
@@ -184,20 +227,16 @@ export const Heading = styled(LinkR)`
 `;
 
 export const Heading2 = styled.h1`
-    height: 100%;
+padding-top
     width: 100%;
-    max-width: 1100px;
-    padding: 0 60px 0 90px;
-    margin-top: 90px 0 0 0;
-    font-size: 16px;
+    font-size: 20px;
+    color: black;
 
     @media (max-width: 480px) {
-        max-width: 1100px;
-        padding: 0 60px 0 90px;
         font-size: 16px;
-        margin-bottom: -60px;
-        margin-left: -50px;
-        margin-top: 20px;
+        // margin-bottom: -60px;
+        // margin-left: 350px;
+        // margin-top: 320px;
     }
 `;
 
