@@ -84,6 +84,9 @@ const CourseSections = ({courses}) => {
                 <CourseBtnLink to={`/preview/${courses.id}`}>
                   Watch Preview
                 </CourseBtnLink>
+                <CourseBtnLink to={`/register/${courses.id}`}>
+                  Take this Class
+                </CourseBtnLink>
               </TextWrapper>
             </Column1>
             <Column2>
