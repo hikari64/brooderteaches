@@ -30,7 +30,7 @@ import Tutors from "./components/admin/adminPages/Tutors";
 // TUTOR COMPONENTS
 import TutorLogin from "./components/tutor/auth/TutorLogin";
 import TutorSignUp from "./components/tutor/auth/TutorSignUp";
-import Process from "./components/tutor/signupprocess/Process";
+import NewTutor from "./components/tutor/signupprocess/newtutor";
 import TutorDashboard from "./components/tutor/dashboard/TutorDashboard";
 import TutorCreateCourse from "./components/tutor/courses/TutorCreateCourse";
 import TutorProfile from "./components/tutor/Profile/TutorProfile";
@@ -60,7 +60,7 @@ function App() {
             {/* TUTOR ROUTES */}
             <Route path="/tutor-login" component={TutorLogin} />
             <Route path="/tutor" component={TutorSignUp} />
-            <Route path="/tutor-signup" component={Process} />
+            <Route path="/tutor-signup" component={NewTutor} />
             <Route path="/tutor-dashboard" component={TutorDashboard} />
             <Route path="/tutor-courses" component={TutorDashboard} />
             <Route path="/tutor-create-course" component={TutorCreateCourse} />

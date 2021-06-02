@@ -19,32 +19,23 @@ import {
 import { useAuth } from "../../contexts/AuthContext";
 
 const Navbar = ({ toggle, navbar, changeBackground }) => {
-  // const { currentUser } = useAuth();
-
-  let currentUser = {
-    displayName: "Hello there!",
-  };
-  let leftlabel, largescreen;
-  if (!currentUser.displayName) {
-    // console.log(currentUser.email)
-    leftlabel = (
-      <MobileIcon onClick={toggle}>
-        <FaBars />
-      </MobileIcon>
-    );
-    largescreen = (
-      <NavBtn>
-        <NavBtnLink2 to="/login">Log in</NavBtnLink2>
-        <NavBtnLink to="/courses">Take A Class</NavBtnLink>
-      </NavBtn>
-    );
-  } else {
-    // leftlabel = <MobileIcon onClick={toggle}>{currentUser.email}</MobileIcon>
-    leftlabel = (
-      <MobileIcon onClick={toggle}>{currentUser.displayName}</MobileIcon>
-    );
-    largescreen = <Profile>{currentUser.displayName}</Profile>;
-  }
+    
+    const { currentUser } = useAuth();
+    let leftlabel, largescreen;
+    if (!(currentUser)){
+        // console.log(currentUser.email)
+        leftlabel = <MobileIcon onClick={toggle}>
+        <FaBars/>
+    </MobileIcon> 
+        largescreen = <NavBtn>
+        <NavBtnLink2 to='/login'>Log in</NavBtnLink2>
+        <NavBtnLink to='/courses'>Take A Class</NavBtnLink>
+        </NavBtn>
+    } else {
+        // leftlabel = <MobileIcon onClick={toggle}>{currentUser.email}</MobileIcon>
+        leftlabel = <MobileIcon onClick={toggle}>{currentUser.displayName}</MobileIcon>
+        largescreen = <Profile>{currentUser.displayName}</Profile>
+    }
 
   const toggleHome = () => {
     scroll.scrollToTop();

@@ -10,6 +10,9 @@ import Footer from "../../Footer";
 // boostrap impots
 import { Container, Row, Col, Button } from "react-bootstrap";
 
+// IMPORT STYLED ELEMENTS
+import {SignUpH1} from "./signupElements.js";
+
 //import Icons for circle
 import { BsCircle } from "react-icons/bs";
 
@@ -67,24 +70,12 @@ export default function Payments(props) {
   };
 
   return (
-    <div fluid className="height-full">
-      <Navbar
-        toggle={toggle}
-        navbar={navbar}
-        changeBackground={changeBackground}
-      />
-      <Row className="page-header">
-        <Col md={10} className="mx-auto text-center my-auto">
-          <h1>Payments</h1>
-          <p className="text-muted">
-            <BsCircle /> Fill in Your Personal Information {">>"} Verification{" "}
-            {">>"} Payments
-          </p>
-        </Col>
-      </Row>
-
-      <Container className="height-half">
+    <div >
+     
         <Row className="mt-4 mb-4">
+          <SignUpH1 className="text-center mb-5">
+          Payments
+          </SignUpH1>
           <Col md={8} className="mx-auto text-center">
             <h3>Congratulations, you're almost done</h3>
             <p>
@@ -109,8 +100,7 @@ export default function Payments(props) {
             </Button>
           </Col>
         </Row>
-      </Container>
-      <Footer />
+    
     </div>
   );
 }

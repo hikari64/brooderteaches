@@ -73,7 +73,7 @@ const Courses = () => {
       <CContainer>
         <CourseSideMenu 
         //setCourseLevel={setCourseLevel}
-        DataFilter={DataFilter} 
+        DataFilter={DataFilter}  
         />
         <CContainer2>
           <CourseSections courses={filteredCourse} />
