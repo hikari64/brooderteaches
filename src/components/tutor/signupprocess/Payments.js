@@ -36,6 +36,7 @@ export default function Payments(props) {
   const handlePaystackSuccessAction = (reference) => {
     // Implementation for whatever you want to do with reference and after success call.
     console.log(reference);
+    
   };
 
   // you can call this function anything

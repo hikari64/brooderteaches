@@ -7,7 +7,7 @@ function AddTutor(data){
     let error = ''
     let newdata = ''
     
-    const {newUrl,} =AddFile(data.verificationID);
+    const {newUrl,} =AddFile(data.verificationID,'images');
     
         //references
         const createdAt = timestamp();
@@ -23,13 +23,16 @@ function AddTutor(data){
             verificationID:newUrl,
             verified:false,
             avatar:null,
+            courses:[],
             createdAt
         }).then((docRef) => {
             newdata = docRef;
+            let id = docRef.id;
+            tutors.doc(id).update({id});
             console.log("Document written with ID: ", docRef.id);
         })
         .catch((err) => {
-            error = err
+            error = err;
             console.error("Error adding document: ", error);
         });
         

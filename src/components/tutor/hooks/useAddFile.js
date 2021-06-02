@@ -1,13 +1,13 @@
 import React ,{ useState ,useEffect} from "react";
 import {storage} from '../../../firebase';
 
-function AddFile(file){
+function AddFile(file,path){
     let progress = 0
     let error = '';
     let newUrl ='';
     
         //references
-        const storageRef = storage.ref(file.name);
+        const storageRef = storage.ref(path);
         storageRef.put(file).on('state_changed',(snap) => {
             let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
             progress = percentage;
