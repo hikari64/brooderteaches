@@ -1,3 +1,4 @@
+import React from 'react';
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -11,6 +12,7 @@ import Home from "./pages";
 import Courses from "./pages/courses";
 import CoursePage from "./pages/coursepage";
 import CoursePreview from "./pages/coursepreview";
+import RegisterForCourse from "./pages/registerforcourse";
 import { AuthProvider } from "./contexts/AuthContext";
 import login from "./pages/login";
 import signup from "./pages/signup";
@@ -50,6 +52,8 @@ function App() {
             <Route path="/courses" component={Courses} />
             <Route path="/about/:id" component={CoursePage} />
             <Route path="/preview/:id" component={CoursePreview} />
+            <Route path="/register/:id" component={RegisterForCourse} />
+            {/* <PrivateRoute path="/register/:id" component={RegisterForCourse} /> */}
 
             {/* ADMIN Routes */}
             <Route path="/admin" component={AdminLogin} />

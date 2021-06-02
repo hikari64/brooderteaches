@@ -9,10 +9,10 @@ import Footer from "../../Footer/index";
 
 import { Container, Card, Row, Col } from "react-bootstrap";
 
-// image imports
-import head from "../../../images/img-1.png";
-import another from "../../../images/img-2.png";
-import third from "../../../images/img-3.png";
+// summary cards
+import TutorSum from "../TutorSum";
+import StudentSum from "../StudentSum";
+import CoursesSum from "../CoursesSum";
 
 export default function Dashboard(props) {
   return (
@@ -30,71 +30,17 @@ export default function Dashboard(props) {
           {/* ROW OF SUMMARIES  */}
           <Row className="mt-4 mb-4">
             <Col>
-              <Card className="admin-card">
-                <Card.Body>
-                  <Row>
-                    <Col>
-                      <img
-                        src={head}
-                        alt="admin card peek"
-                        className="admin-card-img"
-                      />
-                    </Col>
-                    <Col className="my-auto">
-                      <h1>
-                        <strong>67</strong>
-                      </h1>
-                      <Card.Title>Students</Card.Title>
-                    </Col>
-                  </Row>
-                </Card.Body>
-              </Card>
+              <StudentSum />
             </Col>
 
             {/* TUTORS */}
             <Col>
-              <Card className="admin-card">
-                <Card.Body>
-                  <Row>
-                    <Col>
-                      <img
-                        src={another}
-                        alt="admin card peek"
-                        className="admin-card-img"
-                      />
-                    </Col>
-                    <Col className="my-auto">
-                      <h1>
-                        <strong>59</strong>
-                      </h1>
-                      <Card.Title>Tutors</Card.Title>
-                    </Col>
-                  </Row>
-                </Card.Body>
-              </Card>
+              <TutorSum />
             </Col>
 
             {/* COURSES */}
             <Col>
-              <Card className="admin-card">
-                <Card.Body>
-                  <Row>
-                    <Col>
-                      <img
-                        src={third}
-                        alt="admin card peek"
-                        className="admin-card-img"
-                      />
-                    </Col>
-                    <Col className="my-auto">
-                      <h1>
-                        <strong>890</strong>
-                      </h1>
-                      <Card.Title>Courses</Card.Title>
-                    </Col>
-                  </Row>
-                </Card.Body>
-              </Card>
+              <CoursesSum />
             </Col>
           </Row>
 
