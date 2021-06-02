@@ -52,8 +52,8 @@ function App() {
             <Route path="/courses" component={Courses} />
             <Route path="/about/:id" component={CoursePage} />
             <Route path="/preview/:id" component={CoursePreview} />
-            <Route path="/register/:id" component={RegisterForCourse} />
-            {/* <PrivateRoute path="/register/:id" component={RegisterForCourse} /> */}
+            {/* <Route path="/register/:id" component={RegisterForCourse} /> */}
+            <PrivateRoute path="/register/:id" component={RegisterForCourse} />
 
             {/* ADMIN Routes */}
             <Route path="/admin" component={AdminLogin} />
