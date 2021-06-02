@@ -10,6 +10,9 @@ import Footer from "../../Footer";
 // boostrap impots
 import { Container, Row, Col, Button } from "react-bootstrap";
 
+// IMPORT STYLED ELEMENTS
+import {SignUpH1} from "./signupElements.js";
+
 //import Icons for circle
 import { BsCircle } from "react-icons/bs";
 
@@ -43,8 +46,8 @@ export default function Payments(props) {
     reference: new Date().getTime(),
     currency: "GHS",
     email: "user@example.com",
-    amount: 50000,
-    publicKey: "pk_test_06edb4228000e624555d590bc908f9219f5d0dae",
+    amount: 100,
+    publicKey: "pk_live_2bbc47bbdc506caec19278c6f7384d1eb25ccf40",
   };
 
   // SUCCESSFULLY PAID
@@ -61,30 +64,18 @@ export default function Payments(props) {
 
   const componentProps = {
     ...config,
-    text: "Pay 500Ghs",
+    text: "Pay 1Ghs",
     onSuccess: (reference) => handlePaystackSuccessAction(reference),
     onClose: handlePaystackCloseAction,
   };
 
   return (
-    <div fluid className="height-full">
-      <Navbar
-        toggle={toggle}
-        navbar={navbar}
-        changeBackground={changeBackground}
-      />
-      <Row className="page-header">
-        <Col md={10} className="mx-auto text-center my-auto">
-          <h1>Payments</h1>
-          <p className="text-muted">
-            <BsCircle /> Fill in Your Personal Information {">>"} Verification{" "}
-            {">>"} Payments
-          </p>
-        </Col>
-      </Row>
-
-      <Container className="height-half">
+    <div >
+     
         <Row className="mt-4 mb-4">
+          <SignUpH1 className="text-center mb-5">
+          Payments
+          </SignUpH1>
           <Col md={8} className="mx-auto text-center">
             <h3>Congratulations, you're almost done</h3>
             <p>
@@ -109,8 +100,7 @@ export default function Payments(props) {
             </Button>
           </Col>
         </Row>
-      </Container>
-      <Footer />
+    
     </div>
   );
 }
