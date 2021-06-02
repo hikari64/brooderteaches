@@ -5,15 +5,15 @@ import AddFile from "./useAddFile";
 
 
 
-function AddCourse(data){
-  const { currentUser } = useAuth;
-    
+const AddCourse =(data,setLoading,setCourseId)=>{
     let error = ''
     let newdata = ''
-    let loadingStatus =true;
-    
+    let loadingStatus =false;
+    let id="";
+  
     const {newUrl } =AddFile(data.preview,'videos');
     let tutorId = "4nWqp1P1rYqtfnU2JMTT"
+    
     
         //references
         const createdAt = timestamp();
@@ -32,15 +32,15 @@ function AddCourse(data){
             lesson:[],
             createdAt
         }).then((docRef) => {
-            newdata = docRef;
-            let id = docRef.id;
+            id = docRef.id;
             course.doc(id).update({id})
 
             //this function adds the course id to the tutors courses
             AddArrayField('tutors',"courses",id,tutorId)
 
             console.log("Document written with ID: ", docRef.id);
-            loadingStatus=false;
+            setLoading(false);
+            setCourseId(id);
         })
         .catch((err) => {
             error = err
@@ -48,8 +48,6 @@ function AddCourse(data){
         });
         
     
-
-    return {id,error,loadingStatus}
 
 }
 

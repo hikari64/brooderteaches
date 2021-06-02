@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useAuth } from "../../../contexts/AuthContext";
+import Spinner from "../../Spinner/Spinner";
 import AddCourse from "../hooks/useAddCourse";
+import AddLesson from "../hooks/useAddLesson";
 
 // other component imports
 import CourseDetails from "./CourseDetails";
@@ -11,7 +13,7 @@ import UploadLessons from "./UploadLessons";
 export default function NewCourseProcess({ProcessIndicator}) {
   const [step, setStep] = useState(1);
   const [loading,setLoading] = useState(false)
-  const [courseId,setCourseId] = useState(null)
+  const [courseId,setCourseId] = useState("0glNQdEhbYi4TNg7GAwf")
   const [courseData,setCourseData] = useState({
   
   title:'',
@@ -25,11 +27,25 @@ export default function NewCourseProcess({ProcessIndicator}) {
   students:["1","2"],
   lesson:["234223","2323423423"]
   })
+  const [lessonData,setLessonData] = useState({
+  title:'',
+  courseId:'',
+  summary:'',
+  video:'',
+  assigment:'',
+  date:'',
+  })
+
+
   const { currentUser } = useAuth;
 
 
   const UpdateData =(item,value)=>{
-    setCourseData(data => ({...data, [item]:value}))
+    setCourseData(courseData => ({...courseData, [item]:value}))
+   
+  }
+  const UpdateLessonData =(item,value)=>{
+    setLessonData(lessonData => ({...lessonData, [item]:value}))
    
   }
 
@@ -48,16 +64,23 @@ export default function NewCourseProcess({ProcessIndicator}) {
 
   const Submit = () =>{
     setLoading(!loading)
-    const {loadingStatus} = AddCourse(courseData);
-    setLoading(loadingStatus)
+    AddCourse(courseData,setLoading,setCourseId);
+    
+  }
+  const SubmitLesson = () =>{
+    setLoading(!loading)
+    AddLesson(lessonData,setLoading,courseId);
+    
   }
   // handle
+
+  
 
   switch (step) {
     case 1:
       return (
         <React.Fragment>
-              {loading && <h1>Loading</h1>}
+              {loading && <Spinner/>}
               {!loading && <CourseDetails Submit={Submit} data={courseData} updateData={UpdateData} nextStep={nextStep} />}
         </React.Fragment>
       )
@@ -66,8 +89,9 @@ export default function NewCourseProcess({ProcessIndicator}) {
 
       return (
         <React.Fragment>
-              {loading && <h1>Loading</h1>}
-              {!loading &&   <UploadLessons nextStep={nextStep} prevStep={prevStep} />}
+              {loading && <Spinner/>}
+              {courseId &&   <UploadLessons Submit={SubmitLesson} courseId={courseId} updateData={UpdateLessonData} data={lessonData} nextStep={nextStep} prevStep={prevStep} />}
+              {!courseId &&   <h1>You can't add a lesson, please create a course first</h1>}
         </React.Fragment>
       )
       
@@ -75,8 +99,9 @@ export default function NewCourseProcess({ProcessIndicator}) {
     case 3:
       return (
         <React.Fragment>
-              {loading && <h1>Loading</h1>}
+              {loading && <Spinner/>}
               {!loading && <ReviewCourse nextStep={nextStep}  prevStep={prevStep} />}
+              
         </React.Fragment>
       )
 

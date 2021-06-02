@@ -17,31 +17,40 @@ import { NewReleasesOutlined } from "@material-ui/icons";
 
 
 export default function UploadLessons(props) {
-  // scroll to top
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-  // NAVBAR CONTROLS
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggle = () => {
-    setIsOpen(!isOpen);
-  };
+  
 
   const [newLesson,SetNewLesson] = useState(5);
 
+  const eventHandler =(event)=>{
+    let val = event.target.value
+    let nam = event.target.name
 
-  const [navbar, setNavbar] = useState(false);
+    props.updateData(nam,val);
+    
 
-  const changeBackground = () => {
-    if (window.scrollY >= 150) {
-      setNavbar(true);
-    } else {
-      setNavbar(false);
-    }
-  };
+  }
+  const handleChange=(File,e)=>{
+    let val = File[0];
+    
+    let   nam = "video"
+    
+  
+    props.updateData(nam,val);
 
-  window.addEventListener("scroll", changeBackground);
+  }
+  const handleChangePdf=(File,e)=>{
+    let val = File[0];
+    
+    let   nam = "assignment"
+    
+  
+    props.updateData(nam,val);
+
+  }
+  const Proceed = ()=>{
+    props.updateData("courseId",props.courseId);
+     props.Submit();
+   }
   return (
     <div fluid className="height-full">
 
@@ -64,6 +73,9 @@ export default function UploadLessons(props) {
                   className="form-input col lg text-center"
                   type="text"
                   placeholder="Lesson Title"
+                  name="title"
+                  value={props.data.title}
+                  onChange={eventHandler}
                 />
               </Form.Group>
               {/* COURSE DESCRIPTION*/}
@@ -73,6 +85,9 @@ export default function UploadLessons(props) {
                   rows={3}
                   className="form-input col text-center"
                   placeholder="Lesson Summary"
+                  name="summary"
+                  value={props.data.summary}
+                  onChange={eventHandler}
                   
                 />
               </Form.Group>
@@ -81,6 +96,9 @@ export default function UploadLessons(props) {
                   className="form-input col lg text-center"
                   type="date"
                   placeholder="Lesson Date"
+                  name="date"
+                  value={props.data.date}
+                  onChange={eventHandler}
                 />
               </Form.Group>
               {/* INTRO VIDEO */}
@@ -92,6 +110,9 @@ export default function UploadLessons(props) {
                     dropzoneText={"Upload Lesson Video"}
                     onChange={(files) => console.log('Files:', files)}
                     maxFileSize	={300000000}
+                    name="video"
+                  value={props.data.video}
+                  onChange={handleChange}
                     />
                </Col>
           
@@ -105,11 +126,18 @@ export default function UploadLessons(props) {
                     dropzoneText={"Add Assignment"}
                     onChange={(files) => console.log('Files:', files)}
                     maxFileSize	={300000000}
+                    name="assignment"
+                  value={props.data.assignment}
+                  onChange={handleChangePdf}
                     />
                </Col>
                
               </Form.Group>
-              
+              <Container className="contain">
+              <Button onClick={Proceed} className="primary-button col-5">
+                Upload lesson
+              </Button>
+              </Container>
               <Col className="text-center">
                 <Button onClick={props.prevStep} className="primary-button">
                 Go Back
