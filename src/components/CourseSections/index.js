@@ -26,8 +26,7 @@ import firebase from "../../firebase";
 //import { courses } from "../../mock/mock.js";  Disabled inport at this level to rec
 // ieve courses list as props from course section
 
-
-const CourseSections = ({courses}) => {
+const CourseSections = ({ courses }) => {
   // DISABLED FIREBASE CALLS FOR NOW
   //   const [courses, setCourses] = useState([]);
   //   const [loading, setLoading] = useState(false);
@@ -55,11 +54,11 @@ const CourseSections = ({courses}) => {
   //   }
 
   // MOCK DATA COURSES
-//const courses = filteredCourse
+  //const courses = filteredCourse
 
   const result = courses.map((courses) => (
     <CourseContainer key={courses.id}>
-      <CourseDetails id={courses.id}  lightBg={courses.lightBg}>
+      <CourseDetails id={courses.id} lightBg={courses.lightBg}>
         <CourseWrapper>
           <CourseRow imgStart={courses.imgStart}>
             <Column1>
