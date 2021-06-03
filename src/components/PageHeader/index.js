@@ -10,12 +10,11 @@ import firestore from "../../firebase";
 
 const PageHeader = ({ id }) => {
   let isCoursePage;
+  const [courses, setCourses] = useState([]);
+
   if (typeof id !== "undefined") {
     // the variable is defined
-    const [courses, setCourses] = useState([]);
 
-    useEffect(() => {
-        const fetchCourses = async()=>{
         const db = firestore.firestore();
         db.collection('courses').where("id", "==", id).get().then((querySnapshot) => {
                 
@@ -28,8 +27,6 @@ const PageHeader = ({ id }) => {
                 
         });
     })
-    }; fetchCourses();
-    }, [])
 
         isCoursePage = courses.map((data, index) => (
 

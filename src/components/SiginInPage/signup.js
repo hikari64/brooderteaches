@@ -10,14 +10,18 @@ import { useAuth } from "../../contexts/AuthContext";
 // image imports
 import Image from "../../images/img-3.png";
 
+import firestore from '../../firebase';
+
 const SignupPage = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const { signup } = useAuth();
   const [error, setError] = useState("");
+  const [ref, setRef] = useState();
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+
+  const db = firestore.firestore();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -27,11 +31,23 @@ const SignupPage = () => {
     }
 
     try {
+      console.log("1")
       setError("");
+      console.log("1")
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
-      history.push("/update-profile");
+      console.log("1")
+      db.collection("students").add({
+        email: emailRef.current.value,
+        password: passwordRef.current.value
+      })
+      .then((docRef) => {
+          setRef(docRef.id)
+          console.log("Document written with ID: ", docRef.id);
+      });
+      // await signup(emailRef.current.value, passwordRef.current.value);
+      history.push(`/update-profile/${ref}`);
     } catch {
+      console.log("1")
       setError("Failed to create account");
     }
 
