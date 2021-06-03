@@ -30,24 +30,16 @@ function reducer(state, action) {
   }
 }
 
-export default function useFetchLessonById(params) {
-  const [state, dispatch] = useReducer(reducer, { lessons: [], loading: true });
-  console.log("1 data:", params);
+export default function useFetchLessonById(params,setStateMylessons) {
+
   useEffect(() => {
     //retrieving all the courses
-    let allcourses = [];
-    dispatch({ type: ACTIONS.MAKE_REQUEST });
-    async function getAllCourses() {
+    async function getAllCourses(setStateMylessons) {
       const courses = firestore.collection("lessons").doc(params);
       
-      await courses.get().then((doc) => {
+      courses.get().then((doc) => {
         if (doc.exists) {
-          allcourses = doc.data();
-          dispatch({
-            type: ACTIONS.GET_DATA,
-            payload: { lessons: doc.data() },
-          });
-            console.log(" 2 Document data:", doc.data());
+          setStateMylessons(doc.data());
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
@@ -57,8 +49,8 @@ export default function useFetchLessonById(params) {
   
     }
 
-    getAllCourses();
-  }, [params]);
+    getAllCourses(setStateMylessons);
+  }, []);
 
-  return state;
+  return ;
 }

@@ -10,26 +10,26 @@ import { LessonButtons, ReviewHeadings ,CourseTitle,CourseDescription,PlayerStyl
 import ReactPlayer from "react-player"
 import useFetchLessonById from "../hooks/useFetchLessonById";
 import Spinner from "../../Spinner/Spinner";
+import { CourseDetails } from "../courses/components";
 
 // import Custom css
+export default function ReviewCourse(props) {
+   
 // import "./signupprocess.css";
-const LessonDetails =(id)=>{
-  const { loading, lessons } = useFetchLessonById(id);
-  if(lessons){
+
+const [mylessons, setStateMylessons] =useState(null)
+
+ function LessonDetails(id){
+  useFetchLessonById(id,setStateMylessons);
+  console.log(mylessons)
     return (
       <LessonButtons key={id} to={"/tutor-create-course"} className="p-3 m-3 text-center"> 
-                {!loading && "lessons"}
-                {loading && <Spinner/>}
+                {mylessons && mylessons.title}
+                {!mylessons && <Spinner/>}
       </LessonButtons>
       );
-  }
-   console.log("recieved unique, " + lessons)
-  return (
-    <LessonButtons key={id} to={"/tutor-create-course"} className="p-3 m-3 text-center"> 
-              {!loading && "lessons"}
-              {loading && <Spinner/>}
-    </LessonButtons>
-  );
+  
+  
 }
 
 // Display the list of lessons
@@ -37,8 +37,7 @@ const LessonList =(lessons)=>{
   return lessons.map((lesson) => (LessonDetails(lesson)));
 }
 
-export default function ReviewCourse(props) {
-  
+
   // NAVBAR CONTROLS
   const [isOpen, setIsOpen] = useState(false);
 
@@ -48,7 +47,12 @@ export default function ReviewCourse(props) {
 
   const [navbar, setNavbar] = useState(false);
 
-
+const LoadLessonTab=()=>{
+  
+}
+const LoadCourseTab=()=>{
+  
+}
 
   return (
     <div fluid className="">
@@ -56,38 +60,17 @@ export default function ReviewCourse(props) {
       <Container className="height-half">
         <Row className="mt-4 mb-4">
         <Col md={3}>
-            <LessonButtons to={"/tutor-create-course"} active className="p-3 m-3 text-center"> 
+            <LessonButtons  active className="p-3 m-3 text-center"> 
             Course Details
             </LessonButtons>
             {props.courses.lesson && LessonList(props.courses.lesson)}
-            {/* {props.courses.lesson.map((id) => (LessonDetails(id)))} */}
             
           </Col>
-          <Col md={8} className="mx-auto">
-            <ReviewHeadings className="m-2 mx-auto">
-              Course Title
-            </ReviewHeadings>
-            <CourseTitle>
-            {props.courses.title}
+          {
 
-            </CourseTitle>
-            <ReviewHeadings className="m-2 mx-auto">Course Description</ReviewHeadings>
-            <CourseDescription>
-            {props.courses.about}
-            </CourseDescription>
-            <ReviewHeadings  className="m-2 mx-auto">Introductory Video</ReviewHeadings>
-            <PlayerStyle >
-                        <ReactPlayer url={props.courses.preview}
-                            className={Videocontainer}
-                            playing
-                            width="100%"
-                            height="100%"
-                            controls={false}
-                        />
-              </PlayerStyle>
-            
-          </Col>
-
+          }
+          <CourseDetails courses={props.courses}/>
+         
         </Row>
         <Col className="text-center">
                 <Button onClick={props.prevStep} className="primary-button">
