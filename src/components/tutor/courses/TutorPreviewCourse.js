@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link} from "react-router-dom";
+import { Link, useParams} from "react-router-dom";
 
 // navbar import
 import Navbar from "../../Navbar/TutorNav";
@@ -19,17 +19,22 @@ import {
   TutorLinkActive,
   TutorSubNavbar,
   TutorSubNavbarLink,
-} from "./TutorDashboardElements";
+} from "../dashboard/TutorDashboardElements";
 
 //import Courses Sections Component from courses
 
-  import CourseSections from "../courses"
-import useFetchCourses from "../hooks/useFetchCourses";
-import Spinner from "../../Spinner/Spinner";
+  import CourseSections from "."
+import useFetchCoursesById from "../hooks/useFetchCoursesById";
+import ReviewCourse from "../NewCourseProcess/ReviewCourse";
 
-export default function TutorDashboard(props) {
-  const { loading, courses } = useFetchCourses();
+export default function TutorPreviewCourse(props) {
   const [Id, setId] = useState('1267283472364');
+  const { id } = useParams();
+  const { loading, courses } = useFetchCoursesById(id);
+console.log(courses);
+  
+
+  // .where("count", ">=", 1)
 
   // scroll to top
   useEffect(() => {
@@ -104,8 +109,7 @@ export default function TutorDashboard(props) {
 
         <Row className="mt-4 mb-4">
           <Col md={12} className="mx-auto">
-            {loading && <Spinner/>}
-            <CourseSections courses={courses}/>
+            <ReviewCourse courses={courses[0]}/>
           </Col>
         </Row>
       </Container>

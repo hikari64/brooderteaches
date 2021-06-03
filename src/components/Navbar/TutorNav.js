@@ -25,7 +25,7 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
   //   displayName: "Okraks",
   // };
   let leftlabel, largescreen;
-  if (!currentUser.displayName) {
+  if (!currentUser) {
     // console.log(currentUser.email)
     leftlabel = (
       <MobileIcon onClick={toggle}>

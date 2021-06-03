@@ -36,6 +36,7 @@ import NewTutor from "./components/tutor/signupprocess/newtutor";
 import TutorDashboard from "./components/tutor/dashboard/TutorDashboard";
 import TutorCreateCourse from "./components/tutor/courses/TutorCreateCourse";
 import TutorProfile from "./components/tutor/Profile/TutorProfile";
+import TutorPreviewCourse from './components/tutor/courses/TutorPreviewCourse';
 
 function App() {
   return (
@@ -67,6 +68,7 @@ function App() {
             <Route path="/tutor-signup" component={NewTutor} />
             <Route path="/tutor-dashboard" component={TutorDashboard} />
             <Route path="/tutor-courses" component={TutorDashboard} />
+            <Route path="/tutor-preview-course/:id" component={TutorPreviewCourse} />
             <Route path="/tutor-create-course" component={TutorCreateCourse} />
             <Route path="/tutor-profile" component={TutorProfile} />
           </Switch>
