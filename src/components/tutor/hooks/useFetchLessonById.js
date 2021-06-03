@@ -12,17 +12,17 @@ const ACTIONS = {
 function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.MAKE_REQUEST:
-      return { loading: true, courses: [] };
+      return { loading: true, lessons: [] };
 
     case ACTIONS.GET_DATA:
-      return { ...state, loading: false, courses: action.payload.courses };
+      return { ...state, loading: false, lessons: action.payload.courses };
 
     case ACTIONS.ERROR:
       return {
         ...state,
         loading: false,
         error: action.payload.error,
-        courses: [],
+        lessons: [],
       };
 
     default:
@@ -30,24 +30,24 @@ function reducer(state, action) {
   }
 }
 
-export default function useFetchCoursesById(params) {
-  const [state, dispatch] = useReducer(reducer, { courses: [], loading: true });
-
+export default function useFetchLessonById(params) {
+  const [state, dispatch] = useReducer(reducer, { lessons: [], loading: true });
+  console.log("1 data:", params);
   useEffect(() => {
     //retrieving all the courses
     let allcourses = [];
     dispatch({ type: ACTIONS.MAKE_REQUEST });
     async function getAllCourses() {
-      const courses = firestore.collection("courses").doc(params);
+      const courses = firestore.collection("lessons").doc(params);
       
-      courses.get().then((doc) => {
+      await courses.get().then((doc) => {
         if (doc.exists) {
           allcourses = doc.data();
           dispatch({
             type: ACTIONS.GET_DATA,
-            payload: { courses: allcourses },
+            payload: { lessons: doc.data() },
           });
-            console.log("Document data:", doc.data());
+            console.log(" 2 Document data:", doc.data());
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
