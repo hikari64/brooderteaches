@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import ProfileContent from '../components/Profile/content'
 import Footer from '../components/Footer';
-import AuthHeader from '../components/PageHeader/AuthHeader';
+import StudentDashboardHeader from '../components/PageHeader/StudentDashboardHeader'
 import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar';
 
@@ -34,7 +34,7 @@ const Profile = () => {
         <>
             <Sidebar isOpen={isOpen} toggle={toggle}/>
             <Navbar toggle={toggle} navbar={navbar} changeBackground={changeBackground}/>
-            <AuthHeader/>
+            <StudentDashboardHeader/>
             <ProfileContent/>
             <Footer/>
             

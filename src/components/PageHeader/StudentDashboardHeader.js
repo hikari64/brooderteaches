@@ -71,7 +71,7 @@ const StudentDashboardHeader = ({ id }) => {
               <TutorLinks to={"/tutor-courses"}  className="p-2 m-1">Your Courses</TutorLinks>
               <TutorLinks to={"/tutor-create-course"}  className="p-2 m-1">All Courses</TutorLinks>
   
-              <TutorLinks to={"/update-profile"} active className="p-2 m-1">Edit Profile</TutorLinks>
+              <TutorLinks to={"/profile"} active className="p-2 m-1">Profile</TutorLinks>
   
   
   

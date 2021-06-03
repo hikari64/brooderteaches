@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
   HeaderBg,
   HeaderContainer,
@@ -6,18 +6,36 @@ import {
   HeaderH1,
   HeaderP,
 } from "./PgHeaderElements";
-import { courses } from "../AllCourses/CourseData";
+import firestore from "../../firebase";
 
 const PageHeader = ({ id }) => {
   let isCoursePage;
   if (typeof id !== "undefined") {
     // the variable is defined
-    isCoursePage = courses
-      .filter((e) => e.id == id)
-      .map((courses, index) => (
+    const [courses, setCourses] = useState([]);
+
+    useEffect(() => {
+        const fetchCourses = async()=>{
+        const db = firestore.firestore();
+        db.collection('courses').where("id", "==", id).get().then((querySnapshot) => {
+                
+        // Loop through the data and store
+        // it in array to display
+        querySnapshot.forEach(element => {
+            var data = element.data();
+            setCourses(arr => [...arr , data]);
+            console.log(data.length)
+                
+        });
+    })
+    }; fetchCourses();
+    }, [])
+
+        isCoursePage = courses.map((data, index) => (
+
         <HeaderContent key={index}>
-          <HeaderH1>{courses.headline}</HeaderH1>
-          <HeaderP>{courses.tagline}</HeaderP>
+          <HeaderH1>{data.title}</HeaderH1>
+          <HeaderP>{data.subtitle}</HeaderP>
         </HeaderContent>
       ));
   } else {

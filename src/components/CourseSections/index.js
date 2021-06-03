@@ -20,13 +20,13 @@ import {
 } from "./CourseElements";
 
 // firebase imports
-import firebase from "../../firebase";
+import firestore from "../../firebase";
 
 // IMPORTING MOCK DATA FOR NOW
 //import { courses } from "../../mock/mock.js";  Disabled inport at this level to rec
 // ieve courses list as props from course section
 
-const CourseSections = ({ courses }) => {
+const CourseSections = () => {
   // DISABLED FIREBASE CALLS FOR NOW
   //   const [courses, setCourses] = useState([]);
   //   const [loading, setLoading] = useState(false);
@@ -55,35 +55,61 @@ const CourseSections = ({ courses }) => {
 
   // MOCK DATA COURSES
   //const courses = filteredCourse
+  // const db = firestore.firestore();
+  // db.collection('courses').get().then((querySnapshot) => {
+  //   querySnapshot.forEach((doc) => {
+  //       console.log(`${doc.id} => ${doc.data()}`);
+  //   });
+  // });
+  const lightBg = false;
+  const imgStart = true;
 
-  const result = courses.map((courses) => (
-    <CourseContainer key={courses.id}>
-      <CourseDetails id={courses.id} lightBg={courses.lightBg}>
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const db = firestore.firestore();
+      db.collection("courses")
+        .get()
+        .then((querySnapshot) => {
+          // Loop through the data and store
+          // it in array to display
+          querySnapshot.forEach((element) => {
+            var data = element.data();
+            setCourses((arr) => [...arr, data]);
+            console.log(data.length);
+          });
+        });
+    };
+    fetchCourses();
+  }, []);
+
+  const result = courses.map((data) => (
+    <CourseContainer key={data.id}>
+      <CourseDetails id={data.id} lightBg={lightBg}>
         <CourseWrapper>
-          <CourseRow imgStart={courses.imgStart}>
+          <CourseRow imgStart={lightBg}>
             <Column1>
               <TextWrapper>
-                <Heading to={`/about/${courses.id}`}>
-                  {courses.headline}
-                </Heading>
-                <Subtitle>{courses.description}</Subtitle>
+                <Heading to={`/about/${data.id}`}>{data.title}</Heading>
+                <Subtitle>{data.about}</Subtitle>
                 <Details>
                   <Data>
-                    <DurationIcon /> {courses.duration}
+                    <DurationIcon /> {data.duration}
                   </Data>
                   <Data>
                     <StartIcon />
-                    {courses.start}
+                    {data.startDate}
                   </Data>
                   <Data>
                     <FeeIcon />
-                    {courses.fee}
+                    {data.price}
                   </Data>
                 </Details>
-                <CourseBtnLink to={`/preview/${courses.id}`}>
+                <CourseBtnLink to={`/preview/${data.id}`}>
                   Watch Preview
                 </CourseBtnLink>
-                <CourseBtnLink to={`/register/${courses.id}`}>
+                <CourseBtnLink to={`/register/${data.id}`}>
                   Take this Class
                 </CourseBtnLink>
               </TextWrapper>
@@ -91,7 +117,7 @@ const CourseSections = ({ courses }) => {
             <Column2>
               <ImgWrap>
                 {/* <Img> */}
-                <Img src={courses.img} alt={courses.alt}></Img>
+                <Img src={data.img} alt={data.alt}></Img>
               </ImgWrap>
             </Column2>
           </CourseRow>
@@ -99,6 +125,7 @@ const CourseSections = ({ courses }) => {
       </CourseDetails>
     </CourseContainer>
   ));
+
   return <>{result}</>;
 };
 
