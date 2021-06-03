@@ -23,7 +23,6 @@ import {
 
 //import Courses Sections Component from courses
 
-  import CourseSections from "."
 import useFetchCoursesById from "../hooks/useFetchCoursesById";
 import ReviewCourse from "../NewCourseProcess/ReviewCourse";
 

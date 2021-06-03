@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import {
   HeaderBg,
   HeaderContainer,
@@ -9,43 +9,44 @@ import {
 import firestore from "../../firebase";
 
 const PageHeader = ({ id }) => {
-  let isCoursePage;
-  if (typeof id !== "undefined") {
-    // the variable is defined
-    const [courses, setCourses] = useState([]);
+  let isCoursePage = useRef('');
+  const [courses, setCourses] = useState([]);
 
     useEffect(() => {
-        const fetchCourses = async()=>{
-        const db = firestore.firestore();
-        db.collection('courses').where("id", "==", id).get().then((querySnapshot) => {
-                
-        // Loop through the data and store
-        // it in array to display
-        querySnapshot.forEach(element => {
-            var data = element.data();
-            setCourses(arr => [...arr , data]);
-            console.log(data.length)
-                
-        });
-    })
-    }; fetchCourses();
+      if (typeof id !== "undefined") {
+        // the variable is defined
+            const fetchCourses = async()=>{
+              const db = firestore.firestore();
+              db.collection('courses').where("id", "==", id).get().then((querySnapshot) => {
+                      
+              // Loop through the data and store
+              // it in array to display
+              querySnapshot.forEach(element => {
+                  var data = element.data();
+                  setCourses(arr => [...arr , data]);
+                  console.log(data.length)
+                      
+              });
+          })
+          }; fetchCourses();    
+            isCoursePage.current = courses.map((data, index) => (
+            <HeaderContent key={index}>
+              <HeaderH1>{data.title}</HeaderH1>
+              <HeaderP>{data.subtitle}</HeaderP>
+            </HeaderContent>
+          ));
+      } else {
+        isCoursePage = (
+          <HeaderContent>
+            <HeaderH1>Start Your Journey</HeaderH1>
+            <HeaderP>Pick a course</HeaderP>
+          </HeaderContent>
+        );
+      }
+        
     }, [])
 
-        isCoursePage = courses.map((data, index) => (
-
-        <HeaderContent key={index}>
-          <HeaderH1>{data.title}</HeaderH1>
-          <HeaderP>{data.subtitle}</HeaderP>
-        </HeaderContent>
-      ));
-  } else {
-    isCoursePage = (
-      <HeaderContent>
-        <HeaderH1>Start Your Journey</HeaderH1>
-        <HeaderP>Pick a course</HeaderP>
-      </HeaderContent>
-    );
-  }
+  
   return (
     <HeaderContainer>
       <HeaderBg
