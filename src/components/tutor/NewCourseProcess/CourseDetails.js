@@ -5,34 +5,31 @@ import React, { useState, useEffect } from "react";
 import { DropzoneArea } from "material-ui-dropzone";
 
 // boostrap impots
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Button, Form ,InputGroup } from "react-bootstrap";
 
 // import Custom css
 // import "./signupprocess.css";
 
 export default function CourseDetails(props) {
-  // scroll to top
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-  // NAVBAR CONTROLS
-  const [isOpen, setIsOpen] = useState(false);
+  const eventHandler =(event)=>{
+    let val = event.target.value
+    let nam = event.target.name
 
-  const toggle = () => {
-    setIsOpen(!isOpen);
-  };
+    props.updateData(nam,val);
 
-  const [navbar, setNavbar] = useState(false);
+  }
+  const handleChange=(File)=>{
+    let val = File[0]
+    let nam = "preview"
 
-  const changeBackground = () => {
-    if (window.scrollY >= 150) {
-      setNavbar(true);
-    } else {
-      setNavbar(false);
-    }
-  };
+    props.updateData(nam,val);
 
-  window.addEventListener("scroll", changeBackground);
+  }
+  const Proceed = ()=>{
+    props.nextStep();
+     props.Submit();
+   }
+  
   return (
     <div fluid className="">
 
@@ -46,7 +43,9 @@ export default function CourseDetails(props) {
                 <Form.Control
                   className="form-input col lg"
                   type="text"
-                  placeholder=""
+                  name="title"
+                  value={props.data.title}
+                  onChange={eventHandler}
                 />
               </Form.Group>
               {/* COURSE DESCRIPTION*/}
@@ -56,8 +55,41 @@ export default function CourseDetails(props) {
                   as="textarea" 
                   rows={6}
                   className="form-input col"
+                  name="about"
+                  value={props.data.about}
+                  onChange={eventHandler}
                   
                 />
+              </Form.Group>
+              {/* COURSE Price */}
+              <Form.Group className="row">
+              <Form.Label  className="col-3 align-bottom text-end my-auto" >Course Price </Form.Label>
+                <InputGroup className="form-input col">
+                    <InputGroup.Prepend className="col-3">
+                      <InputGroup.Text>GHC</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <Form.Control
+                      className="col p-0 m-0"
+                      type="number"
+                      name="price"
+                      value={props.data.price}
+                      onChange={eventHandler}
+                    />
+                  </InputGroup>
+                
+              </Form.Group>
+              {/* COURSE Level*/}
+              <Form.Group  className="row">
+                <Form.Label  className="col-3 align-bottom text-end text-end">Course Level</Form.Label>
+                <Form.Control as="select"
+                className="form-input col"
+                name="level"
+                value={props.data.level}
+                onChange={eventHandler}>
+                  <option>biginner</option>
+                  <option>intermediate</option>
+                  <option>advanced</option>
+                </Form.Control>
               </Form.Group>
               {/* INTRO VIDEO */}
               <Form.Group  className="row">
@@ -69,12 +101,13 @@ export default function CourseDetails(props) {
                     dropzoneText={"Drag and drop an Introductory Video here or click"}
                     onChange={(files) => console.log('Files:', files)}
                     maxFileSize	={300000000}
+                    onChange={handleChange}
                     />
                </Col>
               </Form.Group>
               
               <Col className="text-center">
-                <Button onClick={props.nextStep} className="primary-button text-center">
+                <Button onClick={Proceed} className="primary-button text-center">
                 Proceed
               </Button>
               </Col>

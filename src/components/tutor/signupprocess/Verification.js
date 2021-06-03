@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, {  useEffect } from "react";
 
-// navbar import
-import Navbar from "../../Navbar";
-import Footer from "../../Footer";
 
 // boostrap impots
-import { Container, Row, Button, Col } from "react-bootstrap";
+import { Row, Button, Col } from "react-bootstrap";
 
 // material ui imports
 import { DropzoneArea } from "material-ui-dropzone";
@@ -14,35 +11,21 @@ import {SignUpH1} from "./signupElements.js";
 
 
 export default function Verification(props) {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-  // NAVBAR CONTROLS
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggle = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const [navbar, setNavbar] = useState(false);
-
-  const changeBackground = () => {
-    if (window.scrollY >= 150) {
-      setNavbar(true);
-    } else {
-      setNavbar(false);
-    }
-  };
-
+ 
+  
  const handleChange=(File)=>{
     let val = File[0]
-    let nam = "VerificationID"
+    let nam = "verificationID"
 
     props.updateData(nam,val);
 
   }
 
-  window.addEventListener("scroll", changeBackground);
+  const Proceed = ()=>{
+   props.nextStep();
+    props.Submit();
+  }
+
   return (
     <div>
     
@@ -60,7 +43,7 @@ export default function Verification(props) {
             <Button onClick={props.prevStep} className="primary-button">
               Go Back
             </Button>
-            <Button onClick={props.nextStep} className="primary-button">
+            <Button onClick={Proceed} className="primary-button">
               Proceed
             </Button>
           </Col>

@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-// navbar import
-import Navbar from "../../Navbar";
-import Footer from "../../Footer";
 
 // boostrap impots
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
@@ -12,27 +9,7 @@ import {SignUpH1} from "./signupElements.js";
 
 export default function PersonalInformation(props) {
   // scroll to top
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-  // NAVBAR CONTROLS
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggle = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const [navbar, setNavbar] = useState(false);
-
-  const changeBackground = () => {
-    if (window.scrollY >= 150) {
-      setNavbar(true);
-    } else {
-      setNavbar(false);
-    }
-  };
-
- const eventHandler =(event)=>{
+   const eventHandler =(event)=>{
     let val = event.target.value
     let nam = event.target.name
 
@@ -40,7 +17,6 @@ export default function PersonalInformation(props) {
 
   }
 
-  window.addEventListener("scroll", changeBackground);
   return (
     <div>
         <Row className="mt-4 mb-4">
@@ -91,9 +67,9 @@ export default function PersonalInformation(props) {
                 <Form.Label  className="col-3 align-bottom text-end text-end">Date of Birth</Form.Label>
                 <Form.Control
                   type="date"
-                  name="DateofBirth"
+                  name="dateOfBirth"
                   className="form-input col"
-                  value={props.data.DateofBirth}
+                  value={props.data.dateOfBirth}
                   onChange={eventHandler}
 
                 />
@@ -105,8 +81,8 @@ export default function PersonalInformation(props) {
                 <Form.Control
                   className="form-input col"
                   type="text"
-                  name="Address"
-                  value={props.data.Address}
+                  name="address"
+                  value={props.data.address}
                   onChange={eventHandler}
 
                 />
@@ -118,8 +94,8 @@ export default function PersonalInformation(props) {
                 <Form.Control
                   className="form-input col"
                   type="number"
-                  name="Contact"
-                  value={props.data.Contact}
+                  name="contact"
+                  value={props.data.contact}
                   onChange={eventHandler}
                 />
               </Form.Group>
@@ -130,8 +106,8 @@ export default function PersonalInformation(props) {
                 <Form.Control
                   className="form-input col"
                   type="email"
-                  name="Email"
-                  value={props.data.Email}
+                  name="email"
+                  value={props.data.email}
                   placeholder="Email Address"
                   onChange={eventHandler}
 
@@ -144,8 +120,8 @@ export default function PersonalInformation(props) {
                 <Form.Control
                   className="form-input col"
                   type="text"
-                  name="Expertise"
-                  value={props.data.Expertise}
+                  name="expertise"
+                  value={props.data.expertise}
                   onChange={eventHandler}
 
                 />

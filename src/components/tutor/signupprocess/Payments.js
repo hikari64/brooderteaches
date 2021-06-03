@@ -3,9 +3,6 @@ import React, { useState, useEffect } from "react";
 // PAYSTACK BUTTON IMPORT
 // import { PaystackButton } from "react-paystack";
 
-// navbar import
-import Navbar from "../../Navbar";
-import Footer from "../../Footer";
 
 // boostrap impots
 import { Container, Row, Col, Button } from "react-bootstrap";
@@ -13,8 +10,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 // IMPORT STYLED ELEMENTS
 import {SignUpH1} from "./signupElements.js";
 
-//import Icons for circle
-import { BsCircle } from "react-icons/bs";
+
 
 export default function Payments(props) {
   // scroll to top
@@ -25,21 +21,7 @@ export default function Payments(props) {
   // NAVBAR CONTROLS
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggle = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const [navbar, setNavbar] = useState(false);
-
-  const changeBackground = () => {
-    if (window.scrollY >= 150) {
-      setNavbar(true);
-    } else {
-      setNavbar(false);
-    }
-  };
-
-  window.addEventListener("scroll", changeBackground);
+  
 
   // PAYSTACK INTEGRATION
   const config = {
@@ -54,6 +36,7 @@ export default function Payments(props) {
   const handlePaystackSuccessAction = (reference) => {
     // Implementation for whatever you want to do with reference and after success call.
     console.log(reference);
+    
   };
 
   // you can call this function anything
