@@ -36,7 +36,7 @@ const PageHeader = ({ id }) => {
             </HeaderContent>
           ));
       } else {
-        isCoursePage = (
+        isCoursePage.current = (
           <HeaderContent>
             <HeaderH1>Start Your Journey</HeaderH1>
             <HeaderP>Pick a course</HeaderP>
