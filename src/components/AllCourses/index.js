@@ -6,7 +6,7 @@ import { courses } from './CourseData';
 const AllCourses = () => {
     return (
         <>
-        <CourseSections {...courses}/>
+        <CourseSections/>
         </>
     )
 }
