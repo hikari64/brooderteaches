@@ -1,17 +1,38 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { CourseContainer, CourseDetails, 
 TextWrapper, Heading, Subtitle1, Column11, Column22, Img, CourseRow1, 
-CourseWrapper1 } from '../CourseSections/CourseElements';
-import { coursedetails } from '../AllCourses/AboutData';
+CourseWrapper1, CourseBtnLink } from '../CourseSections/CourseElements';
+// import { coursedetails } from '../AllCourses/AboutData';
 import CourseDets from './index'
 import RelatedCoursesSection from '../CourseSections/relatedcourses';
+
+import firestore from "../../firebase";
+
 
 
 const CourseAbout = ({id}) => {
     let isCoursePage;
 
-    isCoursePage = coursedetails.filter(
-        (e) => e.id == id).map((coursedetails, index) => 
+    const [courses, setCourses] = useState([]);
+
+useEffect(() => {
+    const fetchCourses = async()=>{
+    const db = firestore.firestore();
+    db.collection('courses').where("id", "==", id).get().then((querySnapshot) => {
+             
+      // Loop through the data and store
+      // it in array to display
+      querySnapshot.forEach(element => {
+          var data = element.data();
+          setCourses(arr => [...arr , data]);
+          console.log(data.length)
+            
+      });
+  })
+}; fetchCourses();
+}, [])
+
+    isCoursePage = courses.map((data) =>  
 
 <CourseContainer>
     <CourseDetails>
@@ -19,9 +40,11 @@ const CourseAbout = ({id}) => {
             <CourseRow1>
                 <Column11>
                     <TextWrapper>
-                        <Heading to='' >{coursedetails.headline}
-                        </Heading>
-                        <Subtitle1>{coursedetails.content}
+                        <Heading to='' >{data.title}
+                        </Heading><CourseBtnLink to={`/register/${data.id}`} style={{ textAlign: 'left'}}>
+                    Take this Class
+                  </CourseBtnLink>
+                        <Subtitle1>{data.about}
                         </Subtitle1>
                         
                     </TextWrapper>

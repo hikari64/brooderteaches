@@ -1,21 +1,63 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { RegContainer, CourseOutlineStyle, OutlineContent, OutlineVid, OutlineList, Outline, Heading2, PlayerStyle, Videocontainer, ExtraInfo } from '../CourseSections/CourseElements';
 import { courses } from '../AllCourses/CourseData';
 import ReactPlayer from "react-player"
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 
+import firestore from "../../firebase";
+
+
 
 const CourseRegistration = ({id}, props) => {
     let isCoursePage;
 
-    isCoursePage = courses.filter(
-        (e) => e.id == id).map((courses, index) => 
+    const [courses, setCourses] = useState([]);
+    const [lessons, setLessons] = useState([]);
+    const [price, setPrice] = useState();
+
+    useEffect(() => {
+      const db = firestore.firestore();
+      
+        const fetchCourses = async()=>{
+        db.collection('courses').where("id", "==", id).get().then((querySnapshot) => {
+                
+        // Loop through the data and store
+        // it in array to display
+        querySnapshot.forEach(element => {
+            var data = element.data();
+            setCourses(arr => [...arr , data]);
+            setPrice(data.price)
+                
+        });
+    })
+    };
+
+    const fetchOutline = async()=>{
+      db.collection('lessons').where("courseId", "==", id).get().then((querySnapshot) => {
+              
+      // Loop through the data and store
+      // it in array to display
+      querySnapshot.forEach(element => {
+          var outline = element.data();
+          setLessons(arr => [...arr , outline]);
+              
+      });
+  })
+  };
+    
+    
+    
+    fetchCourses();
+    fetchOutline();
+    }, [])
+
+    isCoursePage = courses.map((data) => 
 
 <RegContainer>
     <CourseOutlineStyle>
         <OutlineVid>
             <PlayerStyle >
-                <ReactPlayer url={courses.preview_link}
+                <ReactPlayer url={data.preview}
                     className={Videocontainer}
                     playing
                     width="100%"
@@ -27,18 +69,13 @@ const CourseRegistration = ({id}, props) => {
         <OutlineContent>
             <Heading2 to='' >Course Outline</Heading2>
             <OutlineList>
+            {lessons.map((lesson, index) => {
+              return (
                 <Outline>
-                Dummy List 1
+                {lesson.title}
                 </Outline>
-                <Outline>
-                Dummy List 2
-                </Outline>
-                <Outline>
-                Dummy List 3
-                </Outline>
-                <Outline>
-                Dummy List 4
-                </Outline>
+              );
+            })} 
             </OutlineList>
             <ExtraInfo>
             Project work and assignments will be required. 
@@ -124,7 +161,7 @@ const CourseRegistration = ({id}, props) => {
                 />
               </Form.Group>
               <Col className="text-center">
-                Total Cost is {courses.fee}
+                Total Cost is {price}
               </Col>
               <Col className="text-center">
                 <Button onClick={props.nextStep} className="primary-button text-center">

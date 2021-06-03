@@ -62,6 +62,8 @@ const CourseSections = () => {
 //       console.log(`${doc.id} => ${doc.data()}`);
 //   });
 // });
+const lightBg = false;
+const imgStart = true;
 
  const [courses, setCourses] = useState([]);
 
@@ -75,20 +77,20 @@ useEffect(() => {
       querySnapshot.forEach(element => {
           var data = element.data();
           setCourses(arr => [...arr , data]);
-          console.log(data)
+          console.log(data.length)
             
       });
   })
 }; fetchCourses();
-})
+}, [])
    
   
     
     const result =  courses.map((data) => (
       <CourseContainer key={data.id}>
-        <CourseDetails id={data.id}  lightBg={data.lightBg}>
+        <CourseDetails id={data.id}  lightBg={lightBg}>
           <CourseWrapper>
-            <CourseRow imgStart={data.imgStart}>
+            <CourseRow imgStart={lightBg}>
               <Column1>
                 <TextWrapper>
                   <Heading to={`/about/${data.id}`}>
