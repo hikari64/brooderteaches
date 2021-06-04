@@ -17,15 +17,14 @@ export default function ReviewCourse(props) {
    
 // import "./signupprocess.css";
 
-const [mylessons, setStateMylessons] =useState(null)
 
- function LessonDetails(id){
-  useFetchLessonById(id,setStateMylessons);
-  console.log(mylessons)
+function LessonDetails(id){
+  const { loading, lessons } =  useFetchLessonById(id);
+  console.log(lessons)
     return (
       <LessonButtons key={id} to={"/tutor-create-course"} className="p-3 m-3 text-center"> 
-                {mylessons && mylessons.title}
-                {!mylessons && <Spinner/>}
+                {!loading && lessons.title}
+                {loading && <Spinner/>}
       </LessonButtons>
       );
   

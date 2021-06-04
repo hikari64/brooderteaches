@@ -16,7 +16,7 @@ const AddCourse =(data,setLoading,setCourseId)=>{
     
     
         //references
-        const createdAt = timestamp();
+        const createdAt = timestamp;
         const course = firestore.collection('courses')
         course.add({
             
