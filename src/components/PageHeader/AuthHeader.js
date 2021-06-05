@@ -11,7 +11,7 @@ import firestore from "../../firebase";
 
 const AuthHeader = ({ id }) => {
     const { currentUser} = useAuth();
-    console.log(currentUser.displayName)
+    // console.log(currentUser.displayName)
 
     let isCoursePage;
     if (typeof id !== 'undefined') {

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState,  } from "react";
 
 // react boostrap imports
 import { Form, Button, Alert, Container, Row, Col } from "react-bootstrap";
@@ -7,18 +7,19 @@ import { Form, Button, Alert, Container, Row, Col } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 
 // react router dom imports
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 
 // image imports
 import Image from "../../images/img-1.png";
 
+
 const SigninPage = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
+  const { login } = useAuth()
+  const history = useHistory()
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -26,9 +27,11 @@ const SigninPage = () => {
     try {
       setError("");
       setLoading(true);
+      console.log("here?");
       await login(emailRef.current.value, passwordRef.current.value);
-      history.push("/profile");
+      history.push("/profile")
     } catch {
+      console.log("here???");
       setError("Failed to log in");
     }
 
@@ -60,6 +63,7 @@ const SigninPage = () => {
                       className="form-input"
                       type="email"
                       placeholder="Enter email"
+                      ref={emailRef} required 
                     />
                   </Form.Group>
                   <Form.Group controlId="formBasicPassword">
@@ -67,6 +71,7 @@ const SigninPage = () => {
                       className="form-input"
                       type="password"
                       placeholder="Password"
+                      ref={passwordRef} required 
                     />
                   </Form.Group>
 

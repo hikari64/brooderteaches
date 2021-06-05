@@ -6,7 +6,7 @@ import CourseDets from './index'
 import ReactPlayer from "react-player"
 import RelatedCoursesSection from '../CourseSections/relatedcourses';
 
-import firestore from "../../firebase";
+import fbapp from "../../firebase";
 
 
 const CoursePrev = ({id}) => {
@@ -16,7 +16,7 @@ const CoursePrev = ({id}) => {
 
     useEffect(() => {
         const fetchCourses = async()=>{
-        const db = firestore.firestore();
+        const db = fbapp.firestore();
         db.collection('courses').where("id", "==", id).get().then((querySnapshot) => {
                 
         // Loop through the data and store

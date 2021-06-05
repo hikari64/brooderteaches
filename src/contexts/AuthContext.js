@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { auth } from "../firebase";
+import { auth, fbapp } from "../firebase";
 
 const AuthContext = React.createContext();
 
@@ -9,13 +9,47 @@ export function useAuth() {
 export function AuthProvider ({children}) {
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
+    const db = fbapp.firestore()
+    const [userID, setuserID] = useState()
 
-    function signup(email, password) {
+    function signup(email, password, firstName, lastName ) {
         return auth.createUserWithEmailAndPassword(email, password)
-    }
+                    .then((response) => {
+                        const uid = response.user.uid
+                        const data = {
+                            id: uid,
+                            email,
+                            password,
+                            firstName,
+                            lastName
+                        };
+                        const usersRef = db.collection('students')
+                        usersRef
+                            .doc(uid)
+                            .set(data)
+                            .then(() => {
+                                console.log("succes? You can login now")
+                                setuserID(uid)
+                            // toast.show("Success!", {type: 'success'});
+                            // navigation.navigate('Login', { user: data })
+                            })
+                            .catch((error) => {
+                                console.log("failed?", error.message)
+                            // toast.show(error.message, {type: 'danger'});
+                            });
+                    })
+                    // .catch((error) => {
+                    //     console.log("error?", error.message)
+                    // // toast.show(error.message, {type: 'danger'});
+                    // });
+                }
 
     function login(email, password) {
         return auth.signInWithEmailAndPassword(email, password)
+    }
+
+    function verifyUser(){
+        return currentUser.sendEmailVerification()
     }
 
     function resetPassword(email) {
@@ -30,9 +64,39 @@ export function AuthProvider ({children}) {
         return currentUser.updatePassword(password)
     }
 
-    function updateProfile(displayName, photoURL){
-        console.log(photoURL);
+    function updateProfile(displayName, photoURL, uid, email, password, location, firstName, lastName, otherNames, dob, contact){
+        console.log("within profile update", uid, photoURL);
         return currentUser.updateProfile({displayName, photoURL})
+            .then((response) => {
+            // const uid = response.user.uid
+            const data = {
+                photoURL,
+                email,
+                password,
+                firstName,
+                lastName,
+                displayName, location,
+                otherNames, dob, contact
+            };
+            const usersRef = db.collection('students')
+            usersRef
+                .doc(uid)
+                .update(data)
+                .then(() => {
+                    console.log("successfully updated this guy")
+                // toast.show("Success!", {type: 'success'});
+                // navigation.navigate('Login', { user: data })
+                })
+                .catch((error) => {
+                    console.log("failed?", error.message)
+                // toast.show(error.message, {type: 'danger'});
+                });
+        })
+        // .catch((error) => {
+        //     console.log("error?", error.message)
+        // // toast.show(error.message, {type: 'danger'});
+        // });
+    
     }
 
     function logout() {
@@ -42,14 +106,16 @@ export function AuthProvider ({children}) {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
+            setuserID(user.uid)
             setLoading(false)
         })
         return unsubscribe
     }, [])
 
     const value = {
-        currentUser, 
-        signup, login, logout, resetPassword, updateEmail, updatePassword, updateProfile
+        currentUser, userID,
+        signup, login, logout, resetPassword, updateEmail, updatePassword, updateProfile,
+        verifyUser
     }
     return (
         <AuthContext.Provider value={value}>

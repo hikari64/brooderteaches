@@ -4,7 +4,7 @@ import { courses } from '../AllCourses/CourseData';
 import {useAuth} from '../../contexts/AuthContext'
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import picture from "../../images/img-1.png";
-import Navbar from "../Navbar/TutorNav";
+import Navbar from "../Navbar/StudentNav";
 
 import {
     ProfileImge,
@@ -18,7 +18,7 @@ import {
 
 const StudentDashboardHeader = ({ id }) => {
     const { currentUser} = useAuth();
-    console.log(currentUser.displayName)
+    // console.log(currentUser.displayName)
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -68,8 +68,8 @@ const StudentDashboardHeader = ({ id }) => {
             {currentUser.displayName}
             </p>
             <hr/>
-              <TutorLinks to={"/tutor-courses"}  className="p-2 m-1">Your Courses</TutorLinks>
-              <TutorLinks to={"/tutor-create-course"}  className="p-2 m-1">All Courses</TutorLinks>
+              <TutorLinks to={"/my-courses"}  className="p-2 m-1">Your Courses</TutorLinks>
+              <TutorLinks to={"/courses"}  className="p-2 m-1">All Courses</TutorLinks>
   
               <TutorLinks to={"/profile"} active className="p-2 m-1">Profile</TutorLinks>
   

@@ -66,6 +66,13 @@ export default function TutorSignUp() {
                     Continue
                   </Button>
                 </Link>
+                Already have an account?
+                <Link to="/tutor-login">
+                  <Button variant="primary" className="primary-button">
+                    Login 
+                  </Button>
+                </Link>
+                
               </Col>
             </Row>
           </Container>

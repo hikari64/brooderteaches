@@ -7,7 +7,7 @@ import Footer from '../Footer/index'
 import { Container, Row, Col, Button, Form, Alert } from "react-bootstrap";
 import firestore from '../../firebase';
 
-const UpdateProfile = ({ref}) => {
+const UpdateProfile = () => {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
@@ -19,215 +19,84 @@ const UpdateProfile = ({ref}) => {
     const otherNamesRef = useRef()
     const dobRef = useRef() 
     const contactRef = useRef()
-    const { currentUser, updateEmail, updatePassword, updateProfile } = useAuth()
+    const { userID, currentUser, updateEmail, updatePassword, updateProfile } = useAuth()
     const [error, setError ] = useState('')
     const [loading, setLoading ] = useState(false)
     const history = useHistory();
-  const db = firestore.firestore();
 
+    const [imageUrl, setImageUrl] = useState(null)
 
-    const allInputs = {photoURL: ''}
-    const [imageAsFile, setImageAsFile] = useState('')
-    const [imageAsUrl, setImageAsUrl] = useState(allInputs)
-
-    const handleImageAsFile = (e) => {
-        const image = e.target.files[0]
-        setImageAsFile(imageFile => (image))
+    const handleImageAsFile = async (e) => {
+      console.log("successfully set the image");
+        const file = e.target.files[0];
+        const fileRef = storage.ref().child(`images/${file.name}`);
+        await fileRef.put(file)
+        setImageUrl(await fileRef.getDownloadURL())
     }
 
-    // var photoRef = storageRef.child('images/mountains.jpg');
-    // const [state, setState] = useState({
-    //         email: "",
-    //         firstName: "",
-    //         lastName: "",
-    //         location: "",
-    //         otherNames: "",
-    //         password: "",
-    //         dob: "",
-    //         contact: "",
-    //         username: "",
-    //   });
-
-    // const addUser = (e) => {
-    //     e.preventDefault();
-    //     console.log("got here")
-    //     const db = firestore.firestore();
-    //     db.settings({
-    //         timestampsInSnapshots: true
-    //     });
-    //     db.collection('students').add({
-    //         fullname: state.fullname,
-    //         email: state.email,
-    //         lastName: state.lastName,
-    //         location: state.location,
-    //         otherNames: state.otherNames,
-    //         password: state.password,
-    //         dob: state.dob,
-    //         contact: state.contact,
-    //         username: state.username,
-    //     }).then((docRef) => {
-    //         console.log("Document written with ID: ", docRef.id);
-    //     })
-    //     .catch((error) => {
-    //         console.error("Error adding document: ", error);
-    //     });
-    //     setState({
-    //         email: "",
-    //         firstName: "",
-    //         lastName: "",
-    //         location: "",
-    //         otherNames: "",
-    //         password: "",
-    //         dob: "",
-    //         contact: "",
-    //         username: "",
-    //       });
-    //     };
-
-    // const updateInput = (evt) => {  
-    //     setState( {
-    //     ...state,
-    //     [evt.target.name] : evt.target.value
-    // });
-    // }
-
-
     function handleSubmit(e) {
+      console.log(userID)
         setLoading(true)
         setError('')
         e.preventDefault()
 
+        console.log("do you even get here?")
         if (passwordRef.current.value !== passwordConfirmRef.current.value) {
             return setError('Passwords do not match')
         }
 
-        // if (emailRef.current.value !== currentUser.email) {
-        //     promises.push(updateEmail(emailRef.current.value))
-        // }
+        const promises = []
+        console.log("you made a promise!")
 
-        if(imageAsFile === '' ) {
-            console.error(`not an image, the image file is a ${typeof(imageAsFile)}`)
-          }
+        if (emailRef.current.value !== currentUser.email) {
+        console.log("we're changing email")
+           
+          promises.push(updateEmail(emailRef.current.value))
+        }
 
-        const uploadTask = storage.ref(`/images/${imageAsFile.name}`).put(imageAsFile)
-        //initiates the firebase side uploading 
-        uploadTask.on('state_changed', 
-        (snapshot) => {
-            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
-            switch (snapshot.state) {
-              case 'paused': // or 'paused'
-                console.log('Upload is paused');
-                break;
-              case 'running': // or 'running'
-                console.log('Upload is running');
-                break;
-            }
-          }, 
-          (error) => {
-            // A full list of error codes is available at
-            // https://firebase.google.com/docs/storage/web/handle-errors
-            switch (error.code) {
-              case 'storage/unauthorized':
-                // User doesn't have permission to access the object
-                break;
-              case 'storage/canceled':
-                // User canceled the upload
-                break;
-        
-              // ...
-        
-              case 'storage/unknown':
-                // Unknown error occurred, inspect error.serverResponse
-                break;
-            }
-          }, 
-          () => {
-            // Upload completed successfully, now we can get the download URL
-            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                console.log('File available at', downloadURL);
-                // promises.push(updateProfile(displayNameRef.current.value, downloadURL) )
+        console.log("ok so maybe email didnt change or not")
 
-            });
-        })
+        if (passwordRef.current.value) {
+        console.log("did you?")
+        promises.push(updatePassword(passwordRef.current.value))
+        }
 
-        var updateUserRef = db.collection("students").doc(ref);
+        console.log("password changed? nope")
 
-          return updateUserRef.update({
-              email: emailRef.current.value,
-              password: passwordRef.current.value,
-              username: displayNameRef.current.value,
-              profile_picture: photoRef.current.value,
-              address: locationRef.current.value,
-              firstName: firstNameRef.current.value,
-              lastName: lastNameRef.current.value,
-              otherNames: otherNamesRef.current.value,
-              dob: dobRef.current.value,
-              contact: contactRef.current.value,
-          })
-          .then(() => {
-              console.log("Document successfully updated!");
-              history.push('/profile')
-          })
-          .catch((error) => {
-              // The document probably doesn't exist.
-              console.error("Error updating document: ", error);
-          });
-            // promises.push(updatePassword(passwordRef.current.value))
-
+        promises.push(updateProfile(displayNameRef.current.value, imageUrl, 
+                  userID, emailRef.current.value,
+                  passwordRef.current.value,
+                  locationRef.current.value,
+                  firstNameRef.current.value,
+                  lastNameRef.current.value,
+                  otherNamesRef.current.value,
+                  dobRef.current.value,
+                  contactRef.current.value) )
             
-        // Promise.all(promises).then(() => {
-        //     history.push('/profile')
-        // }).catch(() =>{
-        //     setError('Failed to update account')
-        // }).finally(()=> {
-        //     setLoading(false)
-        // })
+        Promise.all(promises).then(() => {
+            history.push('/profile')
+        }).catch(() =>{
+            setError('Failed to update account')
+        }).finally(()=> {
+            setLoading(false)
+        })
 
 
     }
 
-
     return (
         <div>
             <StudentDashboardHeader/>
-            {/* <h1>Update Profile</h1>
-            {error && <Alert variant="danger">{error}</Alert> }
-            <Form onSubmit={handleSubmit}>
-                <Form.Group id="displayName">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control type="text" ref={displayNameRef} required defaultValue={currentUser.displayName} />
-                </Form.Group>
-                <Form.Group id="profilePhoto">
-                    <Form.Label>Profile Picture</Form.Label>
-                    <input type="file" ref={photoRef} name="photo" onChange={handleImageAsFile}/>
-                </Form.Group>
-                <Form.Group id="email">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" ref={emailRef} required defaultValue={currentUser.email} />
-                </Form.Group>
-                <Form.Group id="password">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" ref={passwordRef} placeholder='Leave blank to keep the same' />
-                </Form.Group>
-                <Form.Group id="password-confirm">
-                    <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control type="password" ref={passwordConfirmRef} placeholder='Leave blank to keep the same' />
-                </Form.Group>
-                <Button disabled={loading} type="submit">Update</Button>
-            </Form>
-            <img src={imageAsUrl.imgUrl} alt="image tag" /> */}
-
             <Container className="height-half">
 
         <Row className="mt-4 mb-4">
           <Col md={8} className="mx-auto">
           {error && <Alert variant="danger">{error}</Alert> }
             <Form onSubmit={handleSubmit} inline>
-              {/* COURSE TITLE */}
           <h3 style={{ textAlign: 'center'}}>Update Profile</h3><br />
 
               <Form.Group className="row">
+            <img src={imageUrl} alt="image tag" /> 
                 <Form.Label  className="col-3 align-bottom text-end my-auto" >Profile Picture</Form.Label>
                   <Form.Control
                     className="form-input col lg"
@@ -242,11 +111,10 @@ const UpdateProfile = ({ref}) => {
                   <Form.Control
                     className="form-input col lg"
                     type="text"
-                    ref={displayNameRef} required 
-                    // defaultValue={currentUser.displayName}
-                    // onChange={updateInput}
-                    //     defaultValue={state.username}
-                    // ref = {displayNameRef}
+                    ref={displayNameRef} 
+                     
+                    defaultValue={currentUser.displayName}
+                    
                   />
               </Form.Group>
               <Form.Group className="row">
@@ -254,7 +122,7 @@ const UpdateProfile = ({ref}) => {
                   <Form.Control
                     className="form-input col lg"
                     type="text"
-                    required 
+                     
                     ref={firstNameRef}
                     // onChange={updateInput}
                     //     defaultValue={state.firstName}
@@ -325,17 +193,26 @@ const UpdateProfile = ({ref}) => {
                   <Form.Control
                     className="form-input col lg"
                     type="text"
-                    required 
+                     
                     // // defaultValue={currentUser.email}
                     // onChange={updateInput}
                     //     defaultValue={state.email}
+                    defaultValue={currentUser.email}
                     ref={emailRef}
 
                   />
               </Form.Group>
+              <Form.Group className="row" id="password">
+                    <Form.Label className="col-3 align-bottom text-end my-auto">Password</Form.Label>
+                    <Form.Control className="form-input col lg" type="password" ref={passwordRef} placeholder='Leave blank to keep the same' />
+                </Form.Group>
+                <Form.Group className="row" id="password-confirm">
+                    <Form.Label className="col-3 align-bottom text-end my-auto">Confirm Password</Form.Label>
+                    <Form.Control className="form-input col lg" type="password" ref={passwordConfirmRef} placeholder='Leave blank to keep the same' />
+                </Form.Group>
              
               <Col className="text-center">
-                <Button className="primary-button text-center">
+                <Button type="submit" disabled={loading} className="primary-button text-center">
                 Update
               </Button>
             <Link to='/profile'>Cancel </Link>

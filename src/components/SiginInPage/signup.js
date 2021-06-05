@@ -5,23 +5,27 @@ import { Form, Button, Alert, Container, Row, Col } from "react-bootstrap";
 
 // router dom
 import { Link, useHistory } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
 
 // image imports
 import Image from "../../images/img-3.png";
 
 import firestore from '../../firebase';
+import { useAuth } from "../../contexts/AuthContext";
 
 const SignupPage = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
+  const firstNameRef= useRef()
+  const lastNameRef = useRef()
+  // const usernameRef = useRef()
   const passwordConfirmRef = useRef();
   const [error, setError] = useState("");
   const [ref, setRef] = useState();
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  const db = firestore.firestore();
+  // const db = firestore.firestore();
+  const {signup, verifyUser, login } = useAuth();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -31,23 +35,17 @@ const SignupPage = () => {
     }
 
     try {
-      console.log("1")
       setError("");
-      console.log("1")
       setLoading(true);
-      console.log("1")
-      db.collection("students").add({
-        email: emailRef.current.value,
-        password: passwordRef.current.value
-      })
-      .then((docRef) => {
-          setRef(docRef.id)
-          console.log("Document written with ID: ", docRef.id);
-      });
-      // await signup(emailRef.current.value, passwordRef.current.value);
-      history.push(`/update-profile/${ref}`);
+      await signup(emailRef.current.value, passwordRef.current.value, firstNameRef.current.value,
+                    lastNameRef.current.value);
+      // console.log("completed signup, going to login")
+      //               await login(emailRef.current.value, passwordRef.current.value);
+      //               console.log("completed login, going to verify")
+                   
+      //               await verifyUser();
+          history.push("/login")
     } catch {
-      console.log("1")
       setError("Failed to create account");
     }
 
@@ -74,14 +72,32 @@ const SignupPage = () => {
                 <p>Kindly fill in the form to get you started</p>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
-                  {/* <Form.Group>
-                    <Form.Control
-                      className="form-input"
-                      type="name"
-                      placeholder="Full Name"
-                      ref={fullNameRef}
-                    required/>
-                  </Form.Group> */}
+                {/* <Form.Group className="row">
+                  <Form.Control
+                    className="form-input col lg"
+                    type="text"
+                    ref={usernameRef} required 
+                    placeholder = "Enter username" 
+                  />
+              </Form.Group> */}
+              <Form.Group className="row">
+                  <Form.Control
+                    className="form-input col lg"
+                    type="text"
+                    required 
+                    ref={firstNameRef}
+                    placeholder = "Enter first name"  
+                  />
+              </Form.Group>
+              <Form.Group className="row">
+                  <Form.Control
+                    className="form-input col lg"
+                    type="text"
+                    required
+                    ref={lastNameRef}
+                    placeholder = "Enter last name"  
+                  />
+                </Form.Group>
                   <Form.Group>
                     <Form.Control
                       className="form-input"

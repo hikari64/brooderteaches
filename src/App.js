@@ -20,6 +20,8 @@ import Profile from "./pages/profile";
 import PrivateRoute from "./contexts/PrivateRoute";
 import ProfileUpdate from "./pages/updateprofile";
 import forgotpassword from "./pages/forgotpassword";
+import AllCourses from './pages/Students/AllCourses';
+import MyCourses from './pages/Students/MyCourses';
 
 // ADMINISTRATOR COMPONENTS
 import AdminLogin from "./components/admin/AdminLogin";
@@ -54,6 +56,8 @@ function App() {
             <Route path="/preview/:id" component={CoursePreview} />
             {/* <Route path="/register/:id" component={RegisterForCourse} /> */}
             <PrivateRoute path="/register/:id" component={RegisterForCourse} />
+            <PrivateRoute path="/my-courses" component={MyCourses} />
+            <PrivateRoute path="/all-courses" component={AllCourses} />
 
             {/* ADMIN Routes */}
             <Route path="/admin" component={AdminLogin} />

@@ -27,6 +27,7 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
   };
   
     const { currentUser } = useAuth();
+    // console.log(currentUser.email)
     let leftlabel, largescreen;
     if (!(currentUser)){
         // console.log(currentUser.email)
@@ -44,8 +45,8 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
         <Dropdown.Toggle id="dropdown-basic">
         {currentUser.displayName}
         </Dropdown.Toggle>
+      
         <Dropdown.Menu>
-          <Dropdown.Item onClick={logout}>My Courses</Dropdown.Item>
           <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown></Profile>
@@ -63,25 +64,7 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
             BrooderHall
           </NavLogo>
           {leftlabel}
-
-          <NavMenu>
-            <NavItem>
-              <NavLinks to="/courses">Courses</NavLinks>
-            </NavItem>
-            {/* <NavItem>
-              <NavLinks to="/pricing">Pricing</NavLinks>
-            </NavItem> */}
-            <NavItem>
-              <NavLinks to="/tutor">For Tutors</NavLinks>
-            </NavItem>
-            <NavItem>
-              <NavLinks to="/about">About</NavLinks>
-            </NavItem>
-            {/* <NavItem>
-              <NavLinks to="/tutor-login">Tutor LogIn</NavLinks>
-            </NavItem> */}
-          </NavMenu>
-          <NavBtn></NavBtn>
+          {/* <NavBtn></NavBtn> */}
           {largescreen}
         </NavbarContainer>
       </Nav>

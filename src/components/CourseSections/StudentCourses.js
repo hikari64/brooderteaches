@@ -21,6 +21,8 @@ import {
 
 // firebase imports
 import {fbapp} from "../../firebase";
+import {useAuth} from '../../contexts/AuthContext'
+
 
 // IMPORTING MOCK DATA FOR NOW
 //import { courses } from "../../mock/mock.js";  Disabled inport at this level to rec
@@ -64,22 +66,40 @@ const CourseSections = () => {
 // });
 const lightBg = false;
 const imgStart = true;
+const { userID } = useAuth()
+console.log(userID)
+const db = fbapp.firestore();
+
 
  const [courses, setCourses] = useState([]);
 
+
+
 useEffect(() => {
     const fetchCourses = async()=>{
-    const db = fbapp.firestore();
-    db.collection('courses').get().then((querySnapshot) => {
-             
+    db.collection('students').doc(userID)
+        .get()
+        .then((doc) => {
+            if (doc.exists) {
+                var data = doc.data().courses
+                console.log(data)
+                console.log(data.length)
+                // setCourses(arr => [...arr , data]);
+                 data.forEach(fetchMyCourses)
+
+
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
       // Loop through the data and store
       // it in array to display
-      querySnapshot.forEach(element => {
-          var data = element.data();
-          setCourses(arr => [...arr , data]);
-          console.log(data.length)
+    //   querySnapshot.forEach(element => {
+    //       var data = element.data();
+    //       setCourses(arr => [...arr , data]);
+    //       console.log(data.length)
             
-      });
+    //   });
   })
 }; fetchCourses();
 }, [])
@@ -131,8 +151,7 @@ useEffect(() => {
       ));
       
 
-      return <>{result}</>
-    
+      return <>{result}</> 
  
 };
 

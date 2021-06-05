@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import ProfileContent from '../components/Profile/content'
 import Footer from '../components/Footer';
 import StudentDashboardHeader from '../components/PageHeader/StudentDashboardHeader'
-import Navbar from '../components/Navbar'
+import Navbar from '../components/Navbar/StudentNav'
 import Sidebar from '../components/Sidebar';
 
 

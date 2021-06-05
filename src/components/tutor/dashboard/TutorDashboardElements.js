@@ -15,7 +15,7 @@ opacity: 1;
 export const TutorName = styled.h4`
 color: var(--unnamed-color-e6e6e6);
 text-align: left;
-font: normal normal 600 54px/81px Poppins;
+font: normal normal 600 34px/81px Poppins;
 letter-spacing: 0px;
 color: #E6E6E6;
 opacity: 1;

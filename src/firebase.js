@@ -41,4 +41,4 @@ export const AddArrayField=(collection,field,NewId,destinationID)=>{
   })
 }
 
-export { storage, fbapp as default };
+export { storage, fbapp, auth as default };
