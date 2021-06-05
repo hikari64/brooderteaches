@@ -10,6 +10,7 @@ import {courses} from "../../mock/mock"
 import {fbapp} from "../../firebase";
 import {useAuth} from '../../contexts/AuthContext'
 import Spinner from "../../components/Spinner/Spinner";
+import { Container } from "react-bootstrap";
 
 
 
@@ -18,16 +19,15 @@ import Spinner from "../../components/Spinner/Spinner";
 const MyCourses = () => {
   const lightBg = false;
   const imgStart = true;
-  //const { userID } = useAuth()
+  const { userID } = useAuth()
   
-  
-  let userID ="a3n1oGDjNldi6cnGMqmmg3R6Ll83";
-  
+
   const db = fbapp.firestore();
   
   
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [emptyCourse, setEmptyCourse] = useState(false);
   //  const [courseLevel,setCourseLevel] = useState(0);
   
   const [filteredCourse, setFilteredCourse] = useState(courses)
@@ -39,15 +39,22 @@ const MyCourses = () => {
         .then((doc) => {
             if (doc.exists) {
                 var data = doc.data().courses
-                console.log(data)
-                console.log(data.length)
-                // setCourses(arr => [...arr , data]);
-                data.forEach((dat) => {
+                
+                if(data){
+                  data.forEach((dat) => {
                   //allcourses.push(doc.data());
                   setFilteredCourse(filteredCourse => [...filteredCourse ,dat]);
-                  
+                  setEmptyCourse(false)
+                  setLoading(false)
                 });
-                setLoading(false)
+                }else{
+                  setEmptyCourse(true)
+                  setLoading(false)
+
+                }
+                // setCourses(arr => [...arr , data]);
+                
+                
 
 
             } else {
@@ -74,34 +81,6 @@ const MyCourses = () => {
   const toggle = () => {
     setIsOpen(!isOpen);
   };
-// declare usefull
-
-
-  // filter mock data
-
-
-  // const DataFilter= (courseLength,courseLevel) =>{
-    
-  //     var data = courses;
-
-     
-  //     if((courseLevel) && (courseLength)){
-  //       data = courses.filter(({period, difficulty}) => {
-  //         return period === courseLength && difficulty === courseLevel;
-  //       })
-  //     }else{
-  //        data = courses.filter(({period, difficulty}) => {
-  //         return period === courseLength || difficulty === courseLevel;
-  //       })
-  //     }
-  //      if (courseLength + courseLevel === 0 ){
-  //       data = courses;
-  //     }
-
-  //     setFilteredCourse(data)
-      
-    
-  // }
 
   const [navbar, setNavbar] = useState(false);
   const changeBackground = () => {
@@ -124,6 +103,7 @@ const MyCourses = () => {
       <StudentDashboardHeader/>
       <CContainer>
         {loading && <Spinner/>}
+        {emptyCourse && <Container className="mx-auto my-auto">No courses, consider taking a course already!</Container>}
         {!loading && <CourseSections courses={filteredCourse} />}
         
       </CContainer>
