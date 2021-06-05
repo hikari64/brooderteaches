@@ -11,7 +11,7 @@ export function AuthProvider ({children}) {
     const [loading, setLoading] = useState(true)
     const db = fbapp.firestore()
     const [userID, setuserID] = useState()
-
+    
     function signup(email, password, firstName, lastName ) {
         return auth.createUserWithEmailAndPassword(email, password)
                     .then((response) => {
@@ -144,7 +144,9 @@ export function AuthProvider ({children}) {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
-            user && setuserID(user.uid)
+            if (user) {
+                setuserID(user.uid)
+            }
             setLoading(false)
         })
         return unsubscribe
