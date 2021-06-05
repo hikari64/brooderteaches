@@ -13,6 +13,9 @@ function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.MAKE_REQUEST:
       return { loading: true, lessons: [] };
+    
+    case ACTIONS.EMPTY_DATA:
+      return { loading: false, lessons: [] };
 
     case ACTIONS.GET_DATA:
       return { ...state, loading: false, lessons: action.payload.lessons };
@@ -27,33 +30,36 @@ function reducer(state, action) {
 
     default:
       return state;
-  }
+  } 
 }
 
-export default function useFetchLessonById(params) {
+export default function useFetchLessonByCourseId(params) {
   const [state, dispatch] = useReducer(reducer, { lessons: [], loading: true });
 
   useEffect(() => {
-    //retrieving all the courses
+    //retrieving all the lessons form course
+    
     let allcourses = [];
     dispatch({ type: ACTIONS.MAKE_REQUEST });
     async function getAllCourses() {
-      const courses = firestore.collection("lessons").doc(params);
+      const courses = firestore.collection("lessons").where("courseId", "==", params);
       
-      courses.get().then((doc) => {
-        if (doc.exists) {
-          allcourses=doc.data();
-          dispatch({
-            type: ACTIONS.GET_DATA,
-            payload: { lessons: allcourses },
-          });
-            console.log("lesson data: fetched", doc.data());
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-            return;
-        }
-    })
+      const snapshot = await courses.get();
+      if (snapshot.empty) {
+       
+        dispatch({
+          type: ACTIONS.EMPTY_DATA, 
+        });
+        return;
+      }
+
+      snapshot.forEach((doc) => {
+        allcourses.push(doc.data());
+        dispatch({
+          type: ACTIONS.GET_DATA,
+          payload: { lessons: allcourses  },
+        });
+      });
   
     }
 

@@ -58,7 +58,7 @@ export default function useFetchCoursesById(params) {
     }
 
     getAllCourses();
-  }, [params]);
+  }, []);
 
   return state;
 }

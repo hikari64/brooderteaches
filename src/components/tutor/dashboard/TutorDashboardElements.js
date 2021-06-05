@@ -220,8 +220,8 @@ export const LessonButtons = styled(LinkR)`
 
 export const PlayerStyle = styled.div`
 padding-top: -56.25%;
-height: 400px;
-  width: 640px;
+height: auto;
+  width: auto;
   border: 5px solid;
   background: #efefef;
   border-radius: 48px;

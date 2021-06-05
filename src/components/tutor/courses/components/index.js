@@ -5,7 +5,7 @@ import { CourseTitle, ReviewHeadings ,CourseDescription,PlayerStyle,Videocontain
 
 export const CourseDetails =(props)=>{
     return(
-        <Col md={8} className="mx-auto">
+        <Col xs={8} className="mx-md-auto">
             <ReviewHeadings className="m-2 mx-auto">
             Course Title
             </ReviewHeadings>
@@ -31,11 +31,11 @@ export const CourseDetails =(props)=>{
 
     )
 }  
-export const LessonDetails =(props)=>{
+export const ViewLessonDetails =(props)=>{
     return(
-        <Col md={8} className="mx-auto">
+        <Col xs={8} className="mx-md-auto ">
             <ReviewHeadings className="m-2 mx-auto">
-            Course Title
+            Lesson Title
             </ReviewHeadings>
             <CourseTitle>
             {props.courses.title}

@@ -14,13 +14,22 @@ import {
   AddLessonButtons
 } from "../dashboard/TutorDashboardElements";
 import { NewReleasesOutlined } from "@material-ui/icons";
+import CourseLessonBtnLists from "./CourseLessonBtnLists";
 
 
 export default function UploadLessons(props) {
+const [view,setView] = useState(1)
+const [displayData,setDisplayData] = useState(null)
+
+  const LoadLessonTab=(lessons)=>{
   
-
-  const [newLesson,SetNewLesson] = useState(5);
-
+    setDisplayData(lessons);
+    setView(2);
+  
+  }
+  const LoadCourseTab=()=>{
+    setView(1); 
+  }
   const eventHandler =(event)=>{
     let val = event.target.value
     let nam = event.target.name
@@ -58,9 +67,7 @@ export default function UploadLessons(props) {
         <Row className="mt-4 mb-4">
           <Col md={3}>
           <LessonButtons className="p-3 m-3 text-center">Lesson {2}</LessonButtons>
-            <LessonButtons className="p-3 m-3 text-center">Lesson {3}</LessonButtons>
-            <LessonButtons className="p-3 m-3 text-center">Lesson {4}</LessonButtons>
-            <LessonButtons className="p-3 m-3 text-center">Lesson {5}</LessonButtons>
+         <CourseLessonBtnLists id={props.courseId} />
             <AddLessonButtons to={"/tutor-create-course"} className="p-3 m-3 text-center"> 
               + Add Lesson
             </AddLessonButtons>

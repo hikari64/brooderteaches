@@ -13,7 +13,7 @@ import UploadLessons from "./UploadLessons";
 export default function NewCourseProcess({ProcessIndicator}) {
   const [step, setStep] = useState(1);
   const [loading,setLoading] = useState(false)
-  const [courseId,setCourseId] = useState("e34FIfKJmHDQpbhRRvgW")
+  const [courseId,setCourseId] = useState("0glNQdEhbYi4TNg7GAwf")
   const [courseData,setCourseData] = useState({
   
   title:'',

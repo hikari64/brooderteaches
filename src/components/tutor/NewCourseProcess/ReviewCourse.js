@@ -10,24 +10,27 @@ import { LessonButtons, ReviewHeadings ,CourseTitle,CourseDescription,PlayerStyl
 import ReactPlayer from "react-player"
 import useFetchLessonById from "../hooks/useFetchLessonById";
 import Spinner from "../../Spinner/Spinner";
-import { CourseDetails } from "../courses/components";
+import { CourseDetails,ViewLessonDetails } from "../courses/components";
 
 // import Custom css
 export default function ReviewCourse(props) {
    
 // import "./signupprocess.css";
+const [view,setView] = useState(1)
+const [displayData,setDisplayData] = useState(null)
 
 
 function LessonDetails(id){
   const { loading, lessons } =  useFetchLessonById(id);
-  console.log(lessons)
+  const loadview=()=>{
+    LoadLessonTab(lessons)
+  }
     return (
-      <LessonButtons key={id} to={"/tutor-create-course"} className="p-3 m-3 text-center"> 
+      <LessonButtons key={id} onClick={loadview} className="p-3 m-3 text-center"> 
                 {!loading && lessons.title}
                 {loading && <Spinner/>}
       </LessonButtons>
       );
-  
   
 }
 
@@ -46,29 +49,36 @@ const LessonList =(lessons)=>{
 
   const [navbar, setNavbar] = useState(false);
 
-const LoadLessonTab=()=>{
+const LoadLessonTab=(lesson)=>{
   
+  setDisplayData(lesson);
+  setView(2);
+
 }
 const LoadCourseTab=()=>{
-  
+  setView(1); 
 }
 
+if(!props.courses){ 
+  return <h2 className="text-danger">Error : we couldn't fecth your data at this time, please reload your tab </h2>;
+}
   return (
     <div fluid className="">
 
-      <Container className="height-half">
-        <Row className="mt-4 mb-4">
-        <Col md={3}>
-            <LessonButtons  active className="p-3 m-3 text-center"> 
+      <Container className="height-half mx-sm-0">
+        <Row className="mt-4 mb-4 mx-sm-0">
+        <Col xs={3}>
+            <LessonButtons  active onClick={LoadCourseTab} className="p-3 m-3 text-center"> 
             Course Details
             </LessonButtons>
             {props.courses.lesson && LessonList(props.courses.lesson)}
             
           </Col>
-          {
+          {view === 1 && <CourseDetails courses={props.courses}/>}
+          {view === 2 && <ViewLessonDetails courses={displayData}/>}
+         
 
-          }
-          <CourseDetails courses={props.courses}/>
+          
          
         </Row>
         <Col className="text-center">
