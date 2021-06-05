@@ -18,7 +18,7 @@ export default function ReviewCourse(props) {
 // import "./signupprocess.css";
 const [view,setView] = useState(1)
 const [displayData,setDisplayData] = useState(null)
-
+ 
 
 function LessonDetails(id){
   const { loading, lessons } =  useFetchLessonById(id);

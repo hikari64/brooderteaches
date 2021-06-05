@@ -144,7 +144,7 @@ export function AuthProvider ({children}) {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
-            setuserID(user.uid)
+            user && setuserID(user.uid)
             setLoading(false)
         })
         return unsubscribe

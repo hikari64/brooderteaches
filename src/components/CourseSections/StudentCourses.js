@@ -22,87 +22,75 @@ import {
 // firebase imports
 import {fbapp} from "../../firebase";
 import {useAuth} from '../../contexts/AuthContext'
+import useFetchCoursesById from "./hooks/useFetchCoursesById";
+import { CourseDescription } from "../tutor/dashboard/TutorDashboardElements";
 
 
-const CourseSections = () => {
+const CourseSections = (props) => {
 
 const lightBg = false;
 const imgStart = true;
-const { userID } = useAuth()
+//const { userID } = useAuth()
+let userID ="a3n1oGDjNldi6cnGMqmmg3R6Ll83";
+
 console.log(userID)
 const db = fbapp.firestore();
 
 
- const [courses, setCourses] = useState([]);
+ //const [courses, setCourses] = useState([]);
 
 //  Delete this function and rather implement the hook for fetching 
 //  courses based on the user's ID
 //  user ID is defined here: const { userID } = useAuth()
 
+
  function fetchMyCourses(item, index, array) {
 
  }
 
+ const CourseList =(lessons)=>{
+  return lessons.map((lesson) => (MyCourseDetails(lesson)));
+  // return(
+  //   <h1>returning </h1>
+  //       // {props.courses && CourseList(props.courses)}
+  // )
 
-useEffect(() => {
-    const fetchCourses = async()=>{
-    db.collection('students').doc(userID)
-        .get()
-        .then((doc) => {
-            if (doc.exists) {
-                var data = doc.data().courses
-                console.log(data)
-                console.log(data.length)
-                // setCourses(arr => [...arr , data]);
-                 data.forEach(fetchMyCourses)
+}
 
 
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-      // Loop through the data and store
-      // it in array to display
-    //   querySnapshot.forEach(element => {
-    //       var data = element.data();
-    //       setCourses(arr => [...arr , data]);
-    //       console.log(data.length)
-            
-    //   });
-  })
-}; fetchCourses();
-}, [])
-   
-  
-    
-    const result =  courses.map((data) => (
-      <CourseContainer key={data.id}>
-        <CourseDetails id={data.id}  lightBg={lightBg}>
+function MyCourseDetails(data){
+   const { courses } =  useFetchCoursesById(data);
+  // const loadview=()=>{
+  //   LoadLessonTab(lessons)
+  // }
+    return (
+      <CourseContainer key={data}>
+        <CourseDetails id={courses.id}  lightBg={lightBg}>
           <CourseWrapper>
             <CourseRow imgStart={lightBg}>
               <Column1>
                 <TextWrapper>
-                  <Heading to={`/about/${data.id}`}>
-                    {data.title}
+                  <Heading to={`/about/${courses.id}`}>
+                    {courses.title}
                   </Heading>
-                  <Subtitle>{data.about}</Subtitle>
+                  <Subtitle>{courses.about}</Subtitle>
                   <Details>
                     <Data>
-                      <DurationIcon /> {data.duration}
+                      <DurationIcon /> {courses.duration}
                     </Data>
                     <Data>
                       <StartIcon />
-                      {data.startDate}
+                      {courses.startDate}
                     </Data>
                     <Data>
                       <FeeIcon />
-                      {data.price}
+                      {courses.price}
                     </Data>
                   </Details>
-                  <CourseBtnLink to={`/preview/${data.id}`}>
+                  <CourseBtnLink to={`/preview/${courses.id}`}>
                     Watch Preview
                   </CourseBtnLink>
-                  <CourseBtnLink to={`/register/${data.id}`}>
+                  <CourseBtnLink to={`/register/${courses.id}`}>
                     Take this Class
                   </CourseBtnLink>
                 </TextWrapper>
@@ -110,17 +98,31 @@ useEffect(() => {
               <Column2>
                 <ImgWrap>
                   {/* <Img> */}
-                  <Img src={data.img} alt={data.alt}></Img>
+                  <Img src={courses.img} alt={courses.alt}></Img>
                 </ImgWrap>
               </Column2>
             </CourseRow>
           </CourseWrapper>
         </CourseDetails>
       </CourseContainer>
-      ));
+    
+      );
+  //     return(
+  //   <h1>returning </h1>
+  //       // {props.courses && CourseList(props.courses)}
+  // )
+  
+}
+    // const result =  courses.map((data) => (
+     
+    //   ));
+    console.log(props.courses)
       
 
-      return <>{result}</> 
+      return(
+        
+            props.courses && CourseList(props.courses)
+      )
  
 };
 
