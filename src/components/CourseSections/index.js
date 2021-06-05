@@ -26,7 +26,6 @@ import {fbapp} from "../../firebase";
 //import { courses } from "../../mock/mock.js";  Disabled inport at this level to rec
 // ieve courses list as props from course section
 
-
 const CourseSections = () => {
   // DISABLED FIREBASE CALLS FOR NOW
   //   const [courses, setCourses] = useState([]);
@@ -55,17 +54,35 @@ const CourseSections = () => {
   //   }
 
   // MOCK DATA COURSES
-//const courses = filteredCourse
-// const db = firestore.firestore();
-// db.collection('courses').get().then((querySnapshot) => {
-//   querySnapshot.forEach((doc) => {
-//       console.log(`${doc.id} => ${doc.data()}`);
-//   });
-// });
-const lightBg = false;
-const imgStart = true;
+  //const courses = filteredCourse
+  // const db = firestore.firestore();
+  // db.collection('courses').get().then((querySnapshot) => {
+  //   querySnapshot.forEach((doc) => {
+  //       console.log(`${doc.id} => ${doc.data()}`);
+  //   });
+  // });
+  const lightBg = false;
+  const imgStart = true;
 
- const [courses, setCourses] = useState([]);
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const db = firestore.firestore();
+      db.collection("courses")
+        .get()
+        .then((querySnapshot) => {
+          // Loop through the data and store
+          // it in array to display
+          querySnapshot.forEach((element) => {
+            var data = element.data();
+            setCourses((arr) => [...arr, data]);
+            console.log(data.length);
+          });
+        });
+    };
+    fetchCourses();
+  }, []);
 
 useEffect(() => {
     const fetchCourses = async()=>{
@@ -131,9 +148,7 @@ useEffect(() => {
       ));
       
 
-      return <>{result}</>
-    
- 
+  return <>{result}</>;
 };
 
 export default CourseSections;

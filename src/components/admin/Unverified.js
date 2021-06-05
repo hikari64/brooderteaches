@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Container, Table, Button, Card, Row, Col } from "react-bootstrap";
+import { Table, Row, Col } from "react-bootstrap";
 
 // hooks
 import useFetchTutors from "./hooks/useFetchUnverifiedTutors";

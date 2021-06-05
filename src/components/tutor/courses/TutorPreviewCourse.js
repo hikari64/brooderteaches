@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link} from "react-router-dom";
+import ReactDOM from "react-dom";
+import {Route,Link, useParams} from "react-router-dom";
+
 
 // navbar import
 import Navbar from "../../Navbar/TutorNav";
@@ -19,48 +21,27 @@ import {
   TutorLinkActive,
   TutorSubNavbar,
   TutorSubNavbarLink,
-} from "./TutorDashboardElements";
+} from "../dashboard/TutorDashboardElements";
 
 //import Courses Sections Component from courses
 
-  import CourseSections from "../courses"
-import useFetchCourses from "../hooks/useFetchCourses";
+import useFetchCoursesById from "../hooks/useFetchCoursesById";
+import ReviewCourse from "../NewCourseProcess/ReviewCourse";
 import Spinner from "../../Spinner/Spinner";
 
-export default function TutorDashboard(props) {
-  const { loading, courses } = useFetchCourses();
+export default function TutorPreviewCourse(props) {
   const [Id, setId] = useState('1267283472364');
+  let { id } = useParams();
+  const { loading, courses } = useFetchCoursesById(id);
+  
+
+  // .where("count", ">=", 1)
 
   // scroll to top
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  // NAVBAR CONTROLS
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggle = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const [navbar, setNavbar] = useState(false);
-
-  const changeBackground = () => {
-    if (window.scrollY >= 150) {
-      setNavbar(true);
-    } else {
-      setNavbar(false);
-    }
-  };
-
-  window.addEventListener("scroll", changeBackground);
+  
   return (
     <div fluid className="height-full">
-      <Navbar
-        toggle={toggle}
-        navbar={navbar}
-        changeBackground={changeBackground}
-      />
+      
       <Row className="page-header " >
         <Container className="row mt-5 p-5">
          <Col md={3} className="text-end my-auto hide-on-mobile">
@@ -105,7 +86,7 @@ export default function TutorDashboard(props) {
         <Row className="mt-4 mb-4">
           <Col md={12} className="mx-auto">
             {loading && <Spinner/>}
-            <CourseSections courses={courses}/>
+            {!loading && <ReviewCourse courses={courses}/>}
           </Col>
         </Row>
       </Container>

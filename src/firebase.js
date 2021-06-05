@@ -22,7 +22,8 @@ export const auth = fbapp.auth();
 export const firestore = fbapp.firestore();
 
 //timestamp
-export const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+// export const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+export const timestamp = "firebase.firestore.FieldValue.serverTimestamp";
 
 //push to array , takes the Id of the primary collection and inserts into parent or child collection
 //eg. after uploading a new course you can the course id to ther tutors array of courses.

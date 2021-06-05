@@ -1,13 +1,18 @@
-import React from "react";
+import React ,{ useRef, useState } from "react";
+import { auth } from "../../../firebase";
+// router dom
+import { Link, useHistory } from "react-router-dom";
+import { useAuth } from "./contexts/AuthContext";
 
-// bootstrap imports
-import { Link } from "react-router-dom";
+
 
 // css import
 import "./index.css";
 
 // boostraP IMPOTS
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Form, Alert } from "react-bootstrap";
+
+
 
 // image imports
 import Image from "../../../images/img-2.png";
@@ -17,6 +22,32 @@ import {TutorAuthHeader} from "./TutorAuthHeader";
 
 
 export default function TutorSignUp() {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
+  //const  {signup}  = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+      return setError("Passwords do not match");
+    }
+
+    // try {
+    //   setError("");
+    //   setLoading(true);
+    //   await signup(emailRef.current.value, passwordRef.current.value);
+    //   history.push("/update-profile");
+    // } catch {
+    //   setError("Failed to create account");
+    // }
+
+    setLoading(false);
+  }
   return (
     <Container fluid>
       <Row>      <TutorAuthHeader/>
@@ -60,6 +91,51 @@ export default function TutorSignUp() {
                   Sed molestie maximus nulla. In bibendum sem in odio molestie
                   fermentum ut sit amet ante.
                 </p>
+                {error && <Alert variant="danger">{error}</Alert>}
+                <Form onSubmit={handleSubmit}>
+                  {/* <Form.Group>
+                    <Form.Control
+                      className="form-input"
+                      type="name"
+                      placeholder="Full Name"
+                      ref={fullNameRef}
+                    required/>
+                  </Form.Group> */}
+                  <Form.Group>
+                    <Form.Control
+                      className="form-input"
+                      type="email"
+                      placeholder="Enter email"
+                      ref={emailRef}
+                    required/>
+                  </Form.Group>
+                  <Form.Group controlId="formBasicPassword">
+                    <Form.Control
+                      className="form-input"
+                      type="password"
+                      placeholder="Password"
+                      ref={passwordRef}
+                   required />
+                  </Form.Group>
+                  <Form.Group controlId="formBasicPassword">
+                    <Form.Control
+                      className="form-input"
+                      type="password"
+                      placeholder="Confirm password"
+                      ref={passwordConfirmRef} required 
+                    />
+                  </Form.Group>
+
+                  <Button
+                    disabled={loading}
+                    variant="primary"
+                    className="primary-button"
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
+                </Form>
+                
 
                 <Link to="/tutor-signup">
                   <Button variant="primary" className="primary-button">
