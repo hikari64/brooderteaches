@@ -9,7 +9,6 @@ import { Link, useHistory } from "react-router-dom";
 // image imports
 import Image from "../../images/img-3.png";
 
-import firestore from '../../firebase';
 import { useAuth } from "../../contexts/AuthContext";
 
 const SignupPage = () => {
@@ -45,8 +44,8 @@ const SignupPage = () => {
                    
       //               await verifyUser();
           history.push("/login")
-    } catch {
-      setError("Failed to create account");
+    } catch (error) {
+      setError(error.message);
     }
 
     setLoading(false);
@@ -72,14 +71,6 @@ const SignupPage = () => {
                 <p>Kindly fill in the form to get you started</p>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
-                {/* <Form.Group className="row">
-                  <Form.Control
-                    className="form-input col lg"
-                    type="text"
-                    ref={usernameRef} required 
-                    placeholder = "Enter username" 
-                  />
-              </Form.Group> */}
               <Form.Group className="row">
                   <Form.Control
                     className="form-input col lg"

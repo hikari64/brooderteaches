@@ -24,46 +24,8 @@ import {fbapp} from "../../firebase";
 import {useAuth} from '../../contexts/AuthContext'
 
 
-// IMPORTING MOCK DATA FOR NOW
-//import { courses } from "../../mock/mock.js";  Disabled inport at this level to rec
-// ieve courses list as props from course section
-
-
 const CourseSections = () => {
-  // DISABLED FIREBASE CALLS FOR NOW
-  //   const [courses, setCourses] = useState([]);
-  //   const [loading, setLoading] = useState(false);
 
-  //   const ref = firebase.firestore().collection("courses");
-
-  //   function getCourses() {
-  //     setLoading(true);
-  //     ref.onSnapshot((querySnapshot) => {
-  //       const items = [];
-  //       querySnapshot.forEach((doc) => {
-  //         items.push(doc.data());
-  //       });
-  //       setCourses(items);
-  //       setLoading(false);
-  //     });
-  //   }
-
-  //   useEffect(() => {
-  //     getCourses();
-  //   }, []);
-
-  //   if (loading) {
-  //     return <h1>Fetching Courses...</h1>;
-  //   }
-
-  // MOCK DATA COURSES
-//const courses = filteredCourse
-// const db = firestore.firestore();
-// db.collection('courses').get().then((querySnapshot) => {
-//   querySnapshot.forEach((doc) => {
-//       console.log(`${doc.id} => ${doc.data()}`);
-//   });
-// });
 const lightBg = false;
 const imgStart = true;
 const { userID } = useAuth()
@@ -73,6 +35,13 @@ const db = fbapp.firestore();
 
  const [courses, setCourses] = useState([]);
 
+//  Delete this function and rather implement the hook for fetching 
+//  courses based on the user's ID
+//  user ID is defined here: const { userID } = useAuth()
+
+ function fetchMyCourses(item, index, array) {
+
+ }
 
 
 useEffect(() => {

@@ -68,7 +68,7 @@ const CourseSections = () => {
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const db = firestore.firestore();
+      const db = fbapp.firestore();
       db.collection("courses")
         .get()
         .then((querySnapshot) => {

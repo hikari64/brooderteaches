@@ -30,9 +30,9 @@ const SigninPage = () => {
       console.log("here?");
       await login(emailRef.current.value, passwordRef.current.value);
       history.push("/profile")
-    } catch {
+    } catch(error) {
       console.log("here???");
-      setError("Failed to log in");
+      setError(error.message);
     }
 
     setLoading(false);
@@ -96,26 +96,7 @@ const SigninPage = () => {
         </Col>
       </Row>
     </Container>
-    // <div>
-    //   <h1>Login</h1>
-    //   {error && <Alert variant="danger">{error}</Alert>}
-    //   <Form onSubmit={handleSubmit}>
-    //     <Form.Group id="email">
-    //       <Form.Label>Email</Form.Label>
-    //       <Form.Control type="email" ref={emailRef} required />
-    //     </Form.Group>
-    //     <Form.Group id="password">
-    //       <Form.Label>Password</Form.Label>
-    //       <Form.Control type="password" ref={passwordRef} required />
-    //     </Form.Group>
-
-    //     <Button disabled={loading} type="submit">
-    //       Login
-    //     </Button>
-    //   </Form>
-    //   Don't have an account yet? <Link to="/signup">Sign Up </Link>
-    //   <Link to="/forgot-password">Forgotten Password?</Link>
-    // </div>
+    
   );
 };
 

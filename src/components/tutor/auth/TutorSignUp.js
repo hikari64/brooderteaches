@@ -1,8 +1,7 @@
 import React ,{ useRef, useState } from "react";
-import { auth } from "../../../firebase";
 // router dom
 import { Link, useHistory } from "react-router-dom";
-import { useAuth } from "./contexts/AuthContext";
+import { useAuth } from "../../../contexts/AuthContext";
 
 
 
@@ -24,11 +23,17 @@ import {TutorAuthHeader} from "./TutorAuthHeader";
 export default function TutorSignUp() {
   const emailRef = useRef();
   const passwordRef = useRef();
+  const firstNameRef= useRef()
+  const lastNameRef = useRef()
+  // const usernameRef = useRef()
   const passwordConfirmRef = useRef();
-  //const  {signup}  = useAuth();
   const [error, setError] = useState("");
+  const [ref, setRef] = useState();
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+
+  // const db = firestore.firestore();
+  const {tutor_signup } = useAuth();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -37,14 +42,20 @@ export default function TutorSignUp() {
       return setError("Passwords do not match");
     }
 
-    // try {
-    //   setError("");
-    //   setLoading(true);
-    //   await signup(emailRef.current.value, passwordRef.current.value);
-    //   history.push("/update-profile");
-    // } catch {
-    //   setError("Failed to create account");
-    // }
+    try {
+      setError("");
+      setLoading(true);
+      await tutor_signup(emailRef.current.value, passwordRef.current.value, firstNameRef.current.value,
+                    lastNameRef.current.value);
+      // console.log("completed signup, going to login")
+      //               await login(emailRef.current.value, passwordRef.current.value);
+      //               console.log("completed login, going to verify")
+                   
+      //               await verifyUser();
+          history.push("/tutor-login")
+    } catch (error) {
+      setError(error.message);
+    }
 
     setLoading(false);
   }
@@ -93,14 +104,24 @@ export default function TutorSignUp() {
                 </p>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
-                  {/* <Form.Group>
-                    <Form.Control
-                      className="form-input"
-                      type="name"
-                      placeholder="Full Name"
-                      ref={fullNameRef}
-                    required/>
-                  </Form.Group> */}
+              <Form.Group className="row">
+                  <Form.Control
+                    className="form-input col lg"
+                    type="text"
+                    required 
+                    ref={firstNameRef}
+                    placeholder = "Enter first name"  
+                  />
+              </Form.Group>
+              <Form.Group className="row">
+                  <Form.Control
+                    className="form-input col lg"
+                    type="text"
+                    required
+                    ref={lastNameRef}
+                    placeholder = "Enter last name"  
+                  />
+                </Form.Group>
                   <Form.Group>
                     <Form.Control
                       className="form-input"
@@ -135,20 +156,9 @@ export default function TutorSignUp() {
                     Submit
                   </Button>
                 </Form>
-                
-
-                <Link to="/tutor-signup">
-                  <Button variant="primary" className="primary-button">
-                    Continue
-                  </Button>
-                </Link>
-                Already have an account?
-                <Link to="/tutor-login">
-                  <Button variant="primary" className="primary-button">
-                    Login 
-                  </Button>
-                </Link>
-                
+                <p>
+                  Already have an account <Link to="/login">Sign In </Link>
+                </p>
               </Col>
             </Row>
           </Container>

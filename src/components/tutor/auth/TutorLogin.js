@@ -1,18 +1,43 @@
-import React from "react";
+import React, { useRef, useState }  from "react";
 
 // link
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // css import
 import "./index.css";
+import { useAuth } from "../../../contexts/AuthContext";
 
 // boostraP IMPOTS
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Alert, Col, Form, Button } from "react-bootstrap";
 
 // image imports
 import Image from "../../../images/img-3.png";
 
 export default function TutorLogin() {
+    const emailRef = useRef();
+    const passwordRef = useRef();
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+    const { tutor_login } = useAuth()
+    const history = useHistory()
+  
+    async function handleSubmit(e) {
+      e.preventDefault();
+  
+      try {
+        setError("");
+        setLoading(true);
+        console.log("here?");
+        await tutor_login(emailRef.current.value, passwordRef.current.value);
+        history.push("/tutor-dashboard")
+      } catch (error) {
+        console.log("here???");
+        setError(error.message);
+      }
+  
+      setLoading(false);
+    }
+
   return (
     <Container fluid>
       <Row>
@@ -31,32 +56,40 @@ export default function TutorLogin() {
               <Col md={7} className="mx-auto my-auto text-center">
                 <h2 className="header">Tutor Sign In</h2>
                 <p>Please sign in to continue</p>
-                <Form>
+                {error && <Alert variant="danger">{error}</Alert>}
+                <Form onSubmit={handleSubmit}>
                   <Form.Group>
                     <Form.Control
                       className="form-input"
                       type="email"
                       placeholder="Enter email"
+                      ref={emailRef} required 
                     />
                   </Form.Group>
-
                   <Form.Group controlId="formBasicPassword">
                     <Form.Control
                       className="form-input"
                       type="password"
                       placeholder="Password"
+                      ref={passwordRef} required 
                     />
                   </Form.Group>
-                  <Link to="/tutor-dashboard">
-                    <Button
-                      variant="primary"
-                      className="primary-button"
-                      type="submit"
-                    >
-                      Submit
-                    </Button>
-                  </Link>
+
+                  <Button
+                    disabled={loading}
+                    variant="primary"
+                    className="primary-button"
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
                 </Form>
+                <p>
+                  Don't have an account yet? <Link to="/signup">Sign Up </Link>
+                </p>
+                <p>
+                  <Link to="/forgot-password">Forgotten Password?</Link>
+                </p>
               </Col>
             </Row>
           </Container>

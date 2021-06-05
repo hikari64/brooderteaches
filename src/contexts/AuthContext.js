@@ -44,9 +44,47 @@ export function AuthProvider ({children}) {
                     // });
                 }
 
+    function tutor_signup(email, password, firstName, lastName ) {
+        return auth.createUserWithEmailAndPassword(email, password)
+                    .then((response) => {
+                        const uid = response.user.uid
+                        const data = {
+                            id: uid,
+                            email,
+                            password,
+                            firstName,
+                            lastName
+                        };
+                        const usersRef = db.collection('tutors')
+                        usersRef
+                            .doc(uid)
+                            .set(data)
+                            .then(() => {
+                                console.log("succes? You can login now")
+                                setuserID(uid)
+                            // toast.show("Success!", {type: 'success'});
+                            // navigation.navigate('Login', { user: data })
+                            })
+                            .catch((error) => {
+                                console.log("failed?", error.message)
+                            // toast.show(error.message, {type: 'danger'});
+                            });
+                    })
+                    // .catch((error) => {
+                    //     console.log("error?", error.message)
+                    // // toast.show(error.message, {type: 'danger'});
+                    // });
+                }
+
+
     function login(email, password) {
         return auth.signInWithEmailAndPassword(email, password)
     }
+
+    function tutor_login(email, password) {
+        return auth.signInWithEmailAndPassword(email, password)
+    }
+
 
     function verifyUser(){
         return currentUser.sendEmailVerification()
@@ -115,7 +153,7 @@ export function AuthProvider ({children}) {
     const value = {
         currentUser, userID,
         signup, login, logout, resetPassword, updateEmail, updatePassword, updateProfile,
-        verifyUser
+        verifyUser, tutor_login, tutor_signup
     }
     return (
         <AuthContext.Provider value={value}>
