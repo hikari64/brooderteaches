@@ -14,19 +14,12 @@ import Navbar from "../../Navbar";
 import Image from "../../../images/img-2.png";
 
 // header import
-import { TutorAuthHeader } from "./TutorAuthHeader";
 
 export default function TutorSignUp() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {
     setIsOpen(!isOpen);
-  };
-
-  const [isActive, setActive] = useState(false);
-
-  const toggleClass = () => {
-    setActive(!isActive);
   };
 
   const [navbar, setNavbar] = useState(false);
@@ -47,7 +40,6 @@ export default function TutorSignUp() {
   // const usernameRef = useRef()
   const passwordConfirmRef = useRef();
   const [error, setError] = useState("");
-  const [ref, setRef] = useState();
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
@@ -116,10 +108,7 @@ export default function TutorSignUp() {
                   imperdiet ligula a lacus commodo, ut tincidunt magna
                   pellentesque. Aenean eu arcu ut ligula vehicula semper id
                   sodales sapien. Vestibulum lobortis blandit sem, nec molestie
-                  velit hendrerit vitae. Donec fringilla neque iaculis rhoncus
-                  aliquam. Praesent suscipit ac nisi vel luctus. Mauris id
-                  pretium justo, a imperdiet dolor. Phasellus non purus sed
-                  ligula ornare porta quis ut erat. Integer ut dui maximus,
+                  velit hendrerit vitae. 
                 </p>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
@@ -179,9 +168,9 @@ export default function TutorSignUp() {
                   </Button>
                 </Form>
                 <p>
-                  Already have an account{" "}
-                  <Link to="/tutor-login" style="color: #100855 !important;">
-                    Sign In{" "}
+                  Already have an account
+                  <Link to="/tutor-login">
+                    Sign In
                   </Link>
                 </p>
               </Col>

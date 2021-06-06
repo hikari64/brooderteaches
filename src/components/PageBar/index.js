@@ -38,10 +38,10 @@ const PageBar = ({isActive, toggleClass, id}) => {
                             <BarLinks to={`/preview/${data.id}`}>Course Preview</BarLinks>
                         {/* </BarItem2> */}
                         {/* <BarItem3 isActive={isActive} onClick={toggleClass}> */}
-                            <BarLinks to={`/preview/${data.id}`}>Reviews</BarLinks>
+                            <BarLinks></BarLinks>
                         {/* </BarItem3> */}
                         {/* <BarItem4 isActive={isActive} onClick={toggleClass}> */}
-                        <BarLinks to={`/preview/${data.id}`}>Projects and Resources</BarLinks>
+                        <BarLinks></BarLinks>
                         <BarLinks></BarLinks>
                             <BarLinks></BarLinks>
                             <BarLinks></BarLinks>
