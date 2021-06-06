@@ -61,7 +61,7 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
 
           <NavMenu className="">
             <NavItem>
-              <NavLinks to="/courses">Courses</NavLinks>
+              <NavLinks to="/tutor-courses">Courses</NavLinks>
             </NavItem>
             {/* <NavItem>
               <NavLinks to="/pricing">Pricing</NavLinks>
