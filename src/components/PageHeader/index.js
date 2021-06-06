@@ -6,7 +6,7 @@ import {
   HeaderH1,
   HeaderP,
 } from "./PgHeaderElements";
-import fbapp from "../../firebase";
+import {fbapp} from "../../firebase";
 
 const PageHeader = ({ id }) => {
   let isCoursePage = useRef('');
