@@ -37,10 +37,12 @@ export default function TutorDashboard(props) {
 
   const { userID } = useAuth()
 
-//const [Id, setId] = useState('1267283472364');
 const { loading, tutors } = useFetchTutorsById(userID);
-if(!tutors.verified){
-  history.push("/tutor-complete-signup")
+
+if(!loading){
+  if(!tutors.verified){
+    history.push("/tutor-complete-signup")
+  }
 }
 const { courses } = useFetchCoursesByTutorId(userID);
 
