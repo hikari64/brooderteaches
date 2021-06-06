@@ -2,6 +2,9 @@ import React from "react";
 
 import { Table, Row, Col } from "react-bootstrap";
 
+// comp
+import SingleTutor from "./SingleTutor";
+
 // hooks
 import useFetchTutors from "./hooks/useFetchUnverifiedTutors";
 export default function Unverified() {
@@ -30,22 +33,13 @@ export default function Unverified() {
                   <th>Full Name</th>
                   <th>Email</th>
                   <th>Contact</th>
-
+                  <th>Number of Courses Authored</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {tutors.map((tutor) => {
-                  return (
-                    <tr>
-                      {/* <td>{tutor.id}</td> */}
-                      <td>{tutor.name}</td>
-                      <td>{tutor.email}</td>
-
-                      <td>-</td>
-                      <td>View More</td>
-                    </tr>
-                  );
+                  return <SingleTutor tutor={tutor} />;
                 })}
               </tbody>
             </Table>

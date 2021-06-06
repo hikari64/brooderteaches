@@ -5,6 +5,9 @@ import Navigation from "../Navigation";
 // footer import
 import Footer from "../../Footer/index";
 
+// components
+import SingleTutor from "../SingleTutor";
+
 // hooks
 import useFetchTutors from "../hooks/useFetchTutors";
 
@@ -54,16 +57,7 @@ export default function Tutors(props) {
                     </thead>
                     <tbody>
                       {tutors.map((tutor) => {
-                        return (
-                          <tr>
-                            {/* <td>{tutor.id}</td> */}
-                            <td>{tutor.name}</td>
-                            <td>{tutor.email}</td>
-                            <td>{tutor.contact}</td>
-                            <td>-</td>
-                            <td>View More</td>
-                          </tr>
-                        );
+                        return <SingleTutor tutor={tutor} />;
                       })}
                     </tbody>
                   </Table>

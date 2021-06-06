@@ -1,9 +1,7 @@
-import React ,{ useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 // router dom
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
-
-
 
 // css import
 import "./index.css";
@@ -17,8 +15,7 @@ import Navbar from "../../Navbar";
 import Image from "../../../images/img-2.png";
 
 // header import
-import {TutorAuthHeader} from "./TutorAuthHeader";
-
+import { TutorAuthHeader } from "./TutorAuthHeader";
 
 export default function TutorSignUp() {
   const[isOpen, setIsOpen] = useState(false);
@@ -46,8 +43,8 @@ export default function TutorSignUp() {
 
   const emailRef = useRef();
   const passwordRef = useRef();
-  const firstNameRef= useRef()
-  const lastNameRef = useRef()
+  const firstNameRef = useRef();
+  const lastNameRef = useRef();
   // const usernameRef = useRef()
   const passwordConfirmRef = useRef();
   const [error, setError] = useState("");
@@ -56,7 +53,7 @@ export default function TutorSignUp() {
   const history = useHistory();
 
   // const db = firestore.firestore();
-  const {tutor_signup } = useAuth();
+  const { tutor_signup } = useAuth();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -68,14 +65,18 @@ export default function TutorSignUp() {
     try {
       setError("");
       setLoading(true);
-      await tutor_signup(emailRef.current.value, passwordRef.current.value, firstNameRef.current.value,
-                    lastNameRef.current.value);
+      await tutor_signup(
+        emailRef.current.value,
+        passwordRef.current.value,
+        firstNameRef.current.value,
+        lastNameRef.current.value
+      );
       // console.log("completed signup, going to login")
       //               await login(emailRef.current.value, passwordRef.current.value);
       //               console.log("completed login, going to verify")
-                   
+
       //               await verifyUser();
-          history.push("/tutor-login")
+      history.push("/tutor-login");
     } catch (error) {
       setError(error.message);
     }
@@ -106,8 +107,8 @@ export default function TutorSignUp() {
                   here
                 </p>
                 <p>
-                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Proin imperdiet ligula a lacus commodo, ut tincidunt magna
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
+                  imperdiet ligula a lacus commodo, ut tincidunt magna
                   pellentesque. Aenean eu arcu ut ligula vehicula semper id
                   sodales sapien. Vestibulum lobortis blandit sem, nec molestie
                   velit hendrerit vitae. Donec fringilla neque iaculis rhoncus
@@ -118,31 +119,32 @@ export default function TutorSignUp() {
                 </p>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
-              <Form.Group className="row">
-                  <Form.Control
-                    className="form-input col lg"
-                    type="text"
-                    required 
-                    ref={firstNameRef}
-                    placeholder = "Enter first name"  
-                  />
-              </Form.Group>
-              <Form.Group className="row">
-                  <Form.Control
-                    className="form-input col lg"
-                    type="text"
-                    required
-                    ref={lastNameRef}
-                    placeholder = "Enter last name"  
-                  />
-                </Form.Group>
+                  <Form.Group className="row">
+                    <Form.Control
+                      className="form-input col lg"
+                      type="text"
+                      required
+                      ref={firstNameRef}
+                      placeholder="Enter first name"
+                    />
+                  </Form.Group>
+                  <Form.Group className="row">
+                    <Form.Control
+                      className="form-input col lg"
+                      type="text"
+                      required
+                      ref={lastNameRef}
+                      placeholder="Enter last name"
+                    />
+                  </Form.Group>
                   <Form.Group>
                     <Form.Control
                       className="form-input"
                       type="email"
                       placeholder="Enter email"
                       ref={emailRef}
-                    required/>
+                      required
+                    />
                   </Form.Group>
                   <Form.Group controlId="formBasicPassword">
                     <Form.Control
@@ -150,14 +152,16 @@ export default function TutorSignUp() {
                       type="password"
                       placeholder="Password"
                       ref={passwordRef}
-                   required />
+                      required
+                    />
                   </Form.Group>
                   <Form.Group controlId="formBasicPassword">
                     <Form.Control
                       className="form-input"
                       type="password"
                       placeholder="Confirm password"
-                      ref={passwordConfirmRef} required 
+                      ref={passwordConfirmRef}
+                      required
                     />
                   </Form.Group>
 

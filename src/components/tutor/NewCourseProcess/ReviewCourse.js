@@ -36,7 +36,11 @@ function LessonDetails(id){
 
 // Display the list of lessons
 const LessonList =(lessons)=>{
-  return lessons.map((lesson) => (LessonDetails(lesson)));
+  if (lessons.length) {
+      return lessons.map((lesson) => (LessonDetails(lesson)));
+  }else{
+    return <h4 className="text-secondary text-center">no lessons</h4>;
+  }
 }
 
 

@@ -8,10 +8,10 @@ import Footer from "../../Footer/index";
 // hooks
 import useFetchStudents from "../hooks/useFetchStudents";
 
-import { Container, Table, Card, Row, Col } from "react-bootstrap";
+import { Container, Table, Row, Col } from "react-bootstrap";
 
 // image imports
-import head from "../../../images/img-1.png";
+import StudentSum from "../StudentSum";
 
 export default function Students(props) {
   const { loading, students } = useFetchStudents();
@@ -28,29 +28,7 @@ export default function Students(props) {
 
           <Row>
             <Col md={12}>
-              <Card className="admin-card">
-                <Card.Body>
-                  <Row>
-                    <Col>
-                      <img
-                        src={head}
-                        alt="admin card peek"
-                        className="admin-card-img"
-                      />
-                    </Col>
-                    <Col className="my-auto">
-                      <h1>
-                        {loading ? (
-                          <h6>Loading</h6>
-                        ) : (
-                          <strong>{students.length}</strong>
-                        )}
-                      </h1>
-                      <Card.Title>Students</Card.Title>
-                    </Col>
-                  </Row>
-                </Card.Body>
-              </Card>
+              <StudentSum />
             </Col>
           </Row>
 
@@ -65,7 +43,7 @@ export default function Students(props) {
 
           {/* STUDENTS TABLE */}
           <Row>
-            {loading ? (
+            {loading && students !== undefined ? (
               <h2>Loading</h2>
             ) : (
               <Col md={12}>
