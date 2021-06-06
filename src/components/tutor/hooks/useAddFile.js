@@ -42,19 +42,22 @@ function AddFile(file,path){
             let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
             
             dispatch({
-                type: ACTIONS.UPLOADING,
+                type: ACTIONS.MAKE_REQUEST,
                 payload: { progress: percentage },
               });
         }, (err) => {
             error =err;
         }, async () =>{
             const url = await storageRef.getDownloadURL();
-            url;
+            dispatch({
+                type: ACTIONS.GET_DATA,
+                payload: { newUrl:  url},
+              });
         })
         
     
 
-    return {progress,newUrl,error}
+        return state;
 
 }
 
