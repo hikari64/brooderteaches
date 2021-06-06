@@ -85,9 +85,11 @@ export default function TutorSignUp() {
   }
   return (
     <Container fluid>
-      <Row>   <Navbar toggle={toggle} navbar={navbar} changeBackground={changeBackground}/>   
+      <Row>  
+        <TutorAuthHeader/>
+         {/* <Navbar toggle={toggle} navbar={navbar} changeBackground={changeBackground}/>    */}
 
-        <Col md={6} className="hide-on-mobile side-bg">
+        <Col md={6} className="hide-on-mobile side-bg ">
           <Container fluid className="my-auto">
             <Row className="height-full">
               <Col md={7} className="mx-auto my-auto text-center">
