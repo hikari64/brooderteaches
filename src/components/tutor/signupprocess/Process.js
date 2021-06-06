@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 
+
+import { useAuth } from "../../../contexts/AuthContext";
 // other component imports
 import PersonalInformation from "./PersonalInformation";
 import Verification from "./Verification";
 import Payments from "./Payments";
 import AddTutor from "../hooks/useAddTutor";
+import useFetchTutorsById from "../hooks/useFetchTutorById";
+import Spinner from "../../Spinner/Spinner";
 
 
 export default function Process({ProcessIndicator}) {
-  const [step, setStep] = useState(1);
-  const [data,setData] = useState({
-    names:null,
-    dateOfBirth:null,
-    address:null,
-    contact:null,
-    email:null,
-    verificationID:null,
-    avatar:null,
-  })
+  
+  const { userID,currentUser } = useAuth()
+
+ const { loading, tutors } = useFetchTutorsById(userID); 
+ const [step, setStep] = useState(1);
+  const [data,setData] = useState({...tutors})
   
   const UpdateData =(item,value)=>{
     setData(data => ({...data, [item]:value}))
@@ -47,11 +47,11 @@ export default function Process({ProcessIndicator}) {
   
    
     
-  
+  if (tutors){
 
   switch (step) {
     case 1:
-      return <PersonalInformation data={data} updateData={UpdateData} nextStep={nextStep} />;
+      return <PersonalInformation data={tutors} updateData={UpdateData} nextStep={nextStep} />;
 
     case 2:
       return <Verification Submit={Submit} updateData={UpdateData} nextStep={nextStep} prevStep={prevStep} />;
@@ -61,5 +61,10 @@ export default function Process({ProcessIndicator}) {
 
     default:
       return <h1>Encountered an error</h1>;
-  }
+    } 
+
+   }
+   
+   return (loading && <Spinner/>);
+
 }

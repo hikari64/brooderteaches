@@ -14,37 +14,70 @@ import {
   NavMenu,
   Profile,
 } from "./NavbarElements";
-
+import {Dropdown} from 'react-bootstrap'
 // auth
 import { useAuth } from "../../contexts/AuthContext";
+import { auth } from "../../firebase";
 
 const Navbar = ({ toggle, navbar, changeBackground }) => {
   const { currentUser } = useAuth();
-
+  
+  const logout = () => {
+    return auth.signOut();
+  };
   // let currentUser = {
   //   displayName: "Okraks",
   // };
+
+  
   let leftlabel, largescreen;
-  if (!currentUser) {
-    // console.log(currentUser.email)
-    leftlabel = (
-      <MobileIcon onClick={toggle}>
-        <FaBars />
-      </MobileIcon>
-    );
-    largescreen = (
-      <NavBtn>
-        <NavBtnLink2 to="/tutor-login">Log in</NavBtnLink2>
-        {/* <NavBtnLink to="/courses">Take A Class</NavBtnLink> */}
+  if (!(currentUser)){
+      // console.log(currentUser.email)
+      leftlabel = <MobileIcon onClick={toggle}>
+      <FaBars/>
+  </MobileIcon> 
+      largescreen = <NavBtn>
+      <NavBtnLink2 to='/tutor-login'>Log in</NavBtnLink2>
+      <NavBtnLink to='/tutor'>Become A Tutor</NavBtnLink>
       </NavBtn>
-    );
   } else {
-    // leftlabel = <MobileIcon onClick={toggle}>{currentUser.email}</MobileIcon>
-    leftlabel = (
-      <MobileIcon onClick={toggle}>{currentUser.displayName}</MobileIcon>
-    );
-    largescreen = <Profile>{currentUser.displayName}</Profile>;
+      // leftlabel = <MobileIcon onClick={toggle}>{currentUser.email}</MobileIcon>
+      leftlabel = <MobileIcon onClick={toggle}>{currentUser.displayName}</MobileIcon>
+      largescreen = <Profile><Dropdown>
+      <Dropdown.Toggle id="dropdown-basic">
+      {currentUser.displayName}
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+        <Dropdown.Item onClick={logout}>My Courses</Dropdown.Item>
+        <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown></Profile>
   }
+
+
+
+
+  // let leftlabel, largescreen;
+  // if (!currentUser) {
+  //   // console.log(currentUser.email)
+  //   leftlabel = (
+  //     <MobileIcon onClick={toggle}>
+  //       <FaBars />
+  //     </MobileIcon>
+  //   );
+  //   largescreen = (
+  //     <NavBtn>
+  //       <NavBtnLink2 to="/tutor-login">Log in</NavBtnLink2>
+  //       {/* <NavBtnLink to="/courses">Take A Class</NavBtnLink> */}
+  //     </NavBtn>
+  //   );
+  // } else {
+  //   // leftlabel = <MobileIcon onClick={toggle}>{currentUser.email}</MobileIcon>
+  //   leftlabel = (
+  //     <MobileIcon onClick={toggle}>{currentUser.displayName}</MobileIcon>
+  //   );
+  //   largescreen = <Profile>{currentUser.displayName}</Profile>;
+  // }
 
   const toggleHome = () => {
     scroll.scrollToTop();
