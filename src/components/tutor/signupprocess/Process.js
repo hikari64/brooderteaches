@@ -13,7 +13,7 @@ import Spinner from "../../Spinner/Spinner";
 
 export default function Process({ProcessIndicator}) {
   
-  const { userID,currentUser } = useAuth()
+  const { userID } = useAuth()
 
  const { loading, tutors } = useFetchTutorsById(userID); 
  const [step, setStep] = useState(1);

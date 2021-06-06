@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { BarContainer, BarItem1, BarItem2, BarItem3, BarItem4, BarMenu, BarLinks, BarItems } from "./PagebarElements";
 // import { courses } from "../AllCourses/CourseData";
-import firestore from "../../firebase";
+import { fbapp } from "../../firebase";
 
 
 const PageBar = ({isActive, toggleClass, id}) => {
@@ -11,7 +11,7 @@ const PageBar = ({isActive, toggleClass, id}) => {
 
     useEffect(() => {
         const fetchCourses = async()=>{
-        const db = firestore.firestore();
+        const db = fbapp.firestore();
         db.collection('courses').where("id", "==", id).get().then((querySnapshot) => {
                 
         // Loop through the data and store
