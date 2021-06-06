@@ -10,7 +10,6 @@ import "./index.css";
 import { Container, Row, Col, Button, Form, Alert } from "react-bootstrap";
 import Navbar from "../../Navbar";
 
-
 // image imports
 import Image from "../../../images/img-2.png";
 
@@ -18,28 +17,28 @@ import Image from "../../../images/img-2.png";
 import { TutorAuthHeader } from "./TutorAuthHeader";
 
 export default function TutorSignUp() {
-  const[isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-    const toggle = () => {
-        setIsOpen(!isOpen)
-    };
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
 
-    const [isActive, setActive] = useState(false);
+  const [isActive, setActive] = useState(false);
 
-    const toggleClass = () => {
-        setActive(!isActive);
-    };
+  const toggleClass = () => {
+    setActive(!isActive);
+  };
 
-    const [navbar, setNavbar] = useState(false)
-    const changeBackground = () => {
-        if(window.scrollY >=150){
-            setNavbar(true);
-        } else {
-            setNavbar(false);
-        }
+  const [navbar, setNavbar] = useState(false);
+  const changeBackground = () => {
+    if (window.scrollY >= 150) {
+      setNavbar(true);
+    } else {
+      setNavbar(false);
     }
-    
-    window.addEventListener('scroll', changeBackground)
+  };
+
+  window.addEventListener("scroll", changeBackground);
 
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -85,8 +84,13 @@ export default function TutorSignUp() {
   }
   return (
     <Container fluid>
-      <Row>   <Navbar toggle={toggle} navbar={navbar} changeBackground={changeBackground}/>   
-
+      <Row>
+        {" "}
+        <Navbar
+          toggle={toggle}
+          navbar={navbar}
+          changeBackground={changeBackground}
+        />
         <Col md={6} className="hide-on-mobile side-bg">
           <Container fluid className="my-auto">
             <Row className="height-full">
@@ -100,7 +104,8 @@ export default function TutorSignUp() {
           <Container fluid className="my-auto">
             <Row className="height-full">
               <Col md={10} className="mx-auto my-auto text-center container">
-                <br /><br />
+                <br />
+                <br />
                 <h2 className="header">Become A Tutor</h2>
                 <p>
                   Terms and conditions of being a tutor and pricing should go
@@ -115,7 +120,6 @@ export default function TutorSignUp() {
                   aliquam. Praesent suscipit ac nisi vel luctus. Mauris id
                   pretium justo, a imperdiet dolor. Phasellus non purus sed
                   ligula ornare porta quis ut erat. Integer ut dui maximus,
-                  
                 </p>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
@@ -175,7 +179,10 @@ export default function TutorSignUp() {
                   </Button>
                 </Form>
                 <p>
-                  Already have an account <Link to="/tutor-login" style="color: #100855 !important;">Sign In </Link>
+                  Already have an account{" "}
+                  <Link to="/tutor-login" style="color: #100855 !important;">
+                    Sign In{" "}
+                  </Link>
                 </p>
               </Col>
             </Row>
