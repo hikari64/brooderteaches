@@ -69,7 +69,7 @@ function App() {
             {/* TUTOR ROUTES */}
             <Route path="/tutor-login" component={TutorLogin} />
             <Route path="/tutor" component={TutorSignUp} />
-            <Route path="/tutor-signup" component={NewTutor} />
+            <Route path="/tutor-complete-signup" component={NewTutor} />
             <Route path="/tutor-dashboard" component={TutorDashboard} />
             <Route path="/tutor-courses" component={TutorDashboard} />
             <Route path="/tutor-preview-course/:id" component={TutorPreviewCourse} />

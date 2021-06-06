@@ -30,8 +30,7 @@ const CourseSections = (props) => {
 
 const lightBg = false;
 const imgStart = true;
-//const { userID } = useAuth()
-let userID ="a3n1oGDjNldi6cnGMqmmg3R6Ll83";
+const { userID } = useAuth()
 
 console.log(userID)
 const db = fbapp.firestore();

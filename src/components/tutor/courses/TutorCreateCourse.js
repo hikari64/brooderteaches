@@ -10,6 +10,8 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 
 //import image 
 import picture from "../../../images/code.jpg";
+import {useAuth} from '../../../contexts/AuthContext'
+import useFetchTutorsById from "../hooks/useFetchTutorById";
 
 //import ELement for this page
 import {
@@ -31,32 +33,14 @@ import { courses } from "../../../mock/mock";
 //import Create New Course Processes
 
 import NewCourseProcess from "../NewCourseProcess/NewCourseProcess";
+import TutorDashboardHeader from "../dashboard/TutorDashboardHeader";
 
 export default function TutorCreateCourse(props) {
-  // scroll to top
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  const { userID } = useAuth()
 
-  // NAVBAR CONTROLS
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggle = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const [navbar, setNavbar] = useState(false);
-
-  const changeBackground = () => {
-    if (window.scrollY >= 150) {
-      setNavbar(true);
-    } else {
-      setNavbar(false);
-    }
-  };
-
-  window.addEventListener("scroll", changeBackground);
-
+//const [Id, setId] = useState('1267283472364');
+const { loading, tutors } = useFetchTutorsById(userID);
+ 
 
   // INDICATOR HOOKS
 
@@ -94,40 +78,7 @@ const ProcessIndicator =(newindicator)=>{
 
   return (
     <div fluid className="height-full">
-      <Navbar
-        toggle={toggle}
-        navbar={navbar}
-        changeBackground={changeBackground}
-      />
-      <Row className="page-header " >
-        <Container className="row mt-5 p-5">
-         <Col md={3} className="text-end my-auto hide-on-mobile">
-         
-            <img  
-            width="150"
-            height="150"
-            src={picture} alt="myimage" 
-            className="rounded-circle" />
-
-       
-        </Col>
-        <Col md={7} className=" text-start my-auto ">
-         
-          <TutorName>Winston Brown</TutorName>
-          <p className="text-muted">
-          brownwinston@gmail.com
-          </p>
-          <hr/>
-            <TutorLinks to={"/tutor-courses"}  className="p-2 m-1">Your Courses</TutorLinks>
-            <TutorLinks to={"/tutor-create-course"} active className="p-2 m-1">Create New Course</TutorLinks>
-
-            <TutorLinks to={"/tutor-profile"} className="p-2 m-1">Edit Profile</TutorLinks>
-
-
-
-        </Col>
-       </Container>
-      </Row>
+      <TutorDashboardHeader tutors={tutors}/>
       <TutorSubNavbar>
         <Container className="mx-5">
           <Container className="container mx-5 p-4 row">
