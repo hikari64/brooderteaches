@@ -1,25 +1,27 @@
 import React ,{ useState ,useEffect} from "react";
 import {firestore,timestamp} from '../../../firebase';
+import AddFile from "./useAddFile";
 import { useAuth } from "../../../contexts/AuthContext";
 
 
-function AddTutor(data,userID){
-    //const { userID } = useAuth()
+function useAddTutorVerificationId(data,userID){
 
     let error = ''
-    let newdata = ''
-    
+  
+    const {progress,newUrl,} =AddFile(data.verificationID,'images');
     
         //references
         const createdAt = timestamp();
         const tutors = firestore.collection('tutors').doc(userID)
         tutors.update({
-            ...data,
-            verified:false,
-            state:2,
-            avatar:null,
-            courses:[],
-            createdAt
+            
+            verificationID:newUrl,
+            state:3
+            
+        }).then((docRef) => {
+            
+            
+            console.log("Image added completely ");
         })
         .catch((err) => {
             error = err;
@@ -27,8 +29,8 @@ function AddTutor(data,userID){
         });
         
     
-    return {newdata,error}
+    return {progress,error}
 
 }
 
-export default AddTutor;
+export default useAddTutorVerificationId;

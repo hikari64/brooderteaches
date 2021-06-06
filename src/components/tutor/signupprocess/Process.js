@@ -8,6 +8,7 @@ import Verification from "./Verification";
 import Payments from "./Payments";
 import AddTutor from "../hooks/useAddTutor";
 import useFetchTutorsById from "../hooks/useFetchTutorById";
+import useAddTutorVerificationId from "../hooks/useAddTutorVerificationId";
 import Spinner from "../../Spinner/Spinner";
 
 
@@ -17,15 +18,18 @@ export default function Process({ProcessIndicator}) {
 
  const { loading, tutors } = useFetchTutorsById(userID); 
  const [step, setStep] = useState(1);
-  const [data,setData] = useState({...tutors})
-  
+  const [data,setData] = useState()
+
   const UpdateData =(item,value)=>{
     setData(data => ({...data, [item]:value}))
    
   }
 
   const Submit = () =>{
-    AddTutor(data);
+    AddTutor(data,userID);
+  }
+  const SubmitImage = () =>{
+    useAddTutorVerificationId(data,userID);
   }
 
   // Proceed to next step
@@ -51,10 +55,10 @@ export default function Process({ProcessIndicator}) {
 
   switch (step) {
     case 1:
-      return <PersonalInformation data={tutors} updateData={UpdateData} nextStep={nextStep} />;
+      return <PersonalInformation Submit={Submit} data={tutors} updateData={UpdateData} nextStep={nextStep} />;
 
     case 2:
-      return <Verification Submit={Submit} updateData={UpdateData} nextStep={nextStep} prevStep={prevStep} />;
+      return <Verification Submit={SubmitImage} updateData={UpdateData} nextStep={nextStep} prevStep={prevStep} />;
 
     case 3:
       return <Payments data={data} updateData={UpdateData} prevStep={prevStep} />;
