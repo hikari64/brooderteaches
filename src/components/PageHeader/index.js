@@ -22,9 +22,7 @@ const PageHeader = ({ id }) => {
               // it in array to display
               querySnapshot.forEach(element => {
                   var data = element.data();
-                  setCourses(arr => [...arr , data]);
-                  console.log(data.length)
-                      
+                  setCourses(arr => [...arr , data]);                      
               });
           })
           }; fetchCourses();    
