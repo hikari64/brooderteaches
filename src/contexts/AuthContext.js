@@ -50,6 +50,7 @@ export function AuthProvider ({children}) {
                         const uid = response.user.uid
                         const data = {
                             id: uid,
+                            state:1,
                             email,
                             password,
                             firstName,

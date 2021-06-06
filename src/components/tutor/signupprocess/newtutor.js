@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link} from "react-router-dom";
 
 // navbar import
-import Navbar from "../../Navbar/index";
+import Navbar from "../../Navbar/TutorNav";
 import Footer from "../../Footer";
 
 // boostrap imports

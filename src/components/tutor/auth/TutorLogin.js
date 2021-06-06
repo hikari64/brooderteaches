@@ -3,13 +3,16 @@ import React, { useRef, useState }  from "react";
 // link
 import { Link, useHistory } from "react-router-dom";
 
+
+import { useAuth } from "../../../contexts/AuthContext";
 // css import
 import "./index.css";
-import { useAuth } from "../../../contexts/AuthContext";
-
 // boostraP IMPOTS
 import { Container, Row, Alert, Col, Form, Button } from "react-bootstrap";
 import Navbar from "../../Navbar";
+
+// header import
+import { TutorAuthHeader } from "./TutorAuthHeader";
 
 // image imports
 import Image from "../../../images/img-3.png";
@@ -64,7 +67,9 @@ export default function TutorLogin() {
 
   return (
     <Container fluid>
-      <Row> <Navbar />
+      <Row>
+      <TutorAuthHeader/>
+         {/* <Navbar /> */}
         <Col md={6} className="hide-on-mobile side-bg">
           <Container fluid className="my-auto">
             <Row className="height-full">
@@ -74,7 +79,7 @@ export default function TutorLogin() {
             </Row>
           </Container>
         </Col>
-        <Col md={6}>
+        <Col md={6} className="bg-wave">
           <Container fluid className="my-auto">
             <Row className="height-full">
               <Col md={7} className="mx-auto my-auto text-center">

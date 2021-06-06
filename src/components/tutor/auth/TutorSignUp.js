@@ -168,12 +168,10 @@ export default function TutorSignUp() {
                   </Button>
                 </Form>
                 <p>
-                  Already have an account
-                  <Link to="/tutor-login">
-                    Sign In
-                  </Link>
+                  Already have an account <Link to="/tutor-login" style={{color: "#100855 !important"}} >Sign In </Link>
                 </p>
               </Col>
+              
             </Row>
           </Container>
         </Col>
