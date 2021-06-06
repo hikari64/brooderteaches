@@ -80,6 +80,21 @@ export function AuthProvider ({children}) {
 
     function login(email, password) {
         return auth.signInWithEmailAndPassword(email, password)
+                    // .then((response) => {
+                    //     const uid = response.user.uid
+
+                    //     const checkIfStudent = db.collection('students').doc(uid)
+                    //     checkIfStudent.get().then((doc) => {
+                    //         if (doc.exists) {
+                    //             console.log("truly a student");
+                    //         } else {
+                    //             // doc.data() will be undefined in this case
+                    //             console.log("not a student");
+                    //         }
+                    //     }).catch((error) => {
+                    //         console.log("Error getting document:", error);
+                    //     });
+                    // })
     }
 
     function tutor_login(email, password) {
@@ -145,10 +160,11 @@ export function AuthProvider ({children}) {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
-            setLoading(false)
             if (user) {
                 setuserID(user.uid)
             }
+            setLoading(false)
+
         })
         return unsubscribe
     }, [])

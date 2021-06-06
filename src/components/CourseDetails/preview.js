@@ -6,7 +6,7 @@ import CourseDets from './index'
 import ReactPlayer from "react-player"
 import RelatedCoursesSection from '../CourseSections/relatedcourses';
 
-import fbapp from "../../firebase";
+import { fbapp } from "../../firebase";
 
 
 const CoursePrev = ({id}) => {

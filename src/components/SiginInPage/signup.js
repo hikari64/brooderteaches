@@ -78,7 +78,7 @@ const SignupPage = () => {
 
   return (
     <Container fluid>
-      <Row> <Navbar />
+      <Row> <Navbar toggle={toggle} navbar={navbar} changeBackground={changeBackground} />
         <Col md={6} className="hide-on-mobile side-bg">
           <Container fluid className="my-auto">
             <Row className="height-full">
@@ -91,7 +91,7 @@ const SignupPage = () => {
         <Col md={6}>
           <Container fluid className="my-auto">
             <Row className="height-full">
-              <Col md={7} className="mx-auto my-auto text-center">
+              <Col md={7} className="mx-auto my-auto text-center"><br/>
                 <h2 className="header">We're glad you're here</h2>
                 <p>Kindly fill in the form to get you started</p>
                 {error && <Alert variant="danger">{error}</Alert>}
