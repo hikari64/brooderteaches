@@ -18,9 +18,11 @@ import {
   StartIcon,
   FeeIcon,
 } from "./CourseElements";
+import { Container, Row, Col } from "react-bootstrap";
 
 // firebase imports
 import { fbapp } from "../../firebase";
+import Spinner from '../Spinner/Spinner'
 
 // IMPORTING MOCK DATA FOR NOW
 //import { courses } from "../../mock/mock.js";  Disabled inport at this level to rec
@@ -51,7 +53,15 @@ const CourseSections = () => {
     }, []);
 
     if (loading) {
-      return <h1>Fetching Courses...</h1>;
+      return (
+      <Container className="height-half">
+      <Row className="mt-4 mb-4">
+        <Col md={12} className="mx-auto">
+          {loading && <Spinner style="textAlign: center;"/>}
+        </Col>
+      </Row>
+    </Container>);
+
     }
 
   // MOCK DATA COURSES
@@ -67,8 +77,8 @@ const imgStart = true;
  
   
     
-    const result =  courses.map((data) => (
-      <CourseContainer key={data.id}>
+    const result =  courses.map((data, index) => (
+      <CourseContainer key={index}>
         <CourseDetails id={data.id}  lightBg={lightBg}>
           <CourseWrapper>
             <CourseRow imgStart={imgStart}>

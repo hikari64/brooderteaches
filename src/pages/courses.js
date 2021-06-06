@@ -22,7 +22,6 @@ const Courses = () => {
 
 //  const [courseLevel,setCourseLevel] = useState(0);
 const courses =  useFetchCourses();
-console.log(courses)
 
   const [filteredCourse, setFilteredCourse] = useState(courses)
   // filter mock data
