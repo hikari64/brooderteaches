@@ -1,7 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-
-// link
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
 
 import { Redirect } from "react-router-dom";
 
@@ -15,7 +12,7 @@ import { auth } from "../../firebase";
 import { AdminAuthContext } from "./contexts/AdminAuthContext";
 
 // boostraP IMPOTS
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Alert, Form, Button } from "react-bootstrap";
 
 // image imports
 import Image from "../../images/img-3.png";
@@ -23,18 +20,37 @@ import Image from "../../images/img-3.png";
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const { loading, loggedIn, user } = useContext(AdminAuthContext);
+  const { loggedIn, user } = useContext(AdminAuthContext);
 
   // Handle Login Process
-  const handleLogin = async () => {
+  // async function handleLogin(e) {
+  //   e.preventDefault();
+  //   try {
+  //     const credential = auth.signInWithEmailAndPassword(email, password);
+  //     console.log("auth credential", credential);
+  //     setError(error.message);
+  //   } catch (error) {
+  //     setError(error.message);
+  //     console.log("error: ", error.message);
+  //   }
+  // }
+
+  async function handleLogin(e) {
+    e.preventDefault();
+
     try {
-      const credential = auth.signInWithEmailAndPassword(email, password);
-      console.log("auth credential", credential);
+      setError("");
+      setLoading(true);
+      await auth.signInWithEmailAndPassword(email, password);
     } catch (error) {
-      console.log("error: ", error.message);
+      setError(error.message);
     }
-  };
+
+    setLoading(false);
+  }
 
   // CHECKS TO ADMIN COLLECTION
 
@@ -60,12 +76,13 @@ export default function AdminLogin() {
               <Col md={7} className="mx-auto my-auto text-center">
                 <h2 className="header">Administrator </h2>
                 <p>Please enter your credentials to continue </p>
-
-                <Form>
+                {error && <Alert variant="danger">{error}</Alert>}
+                <Form onSubmit={handleLogin}>
                   <Form.Group>
                     <Form.Control
-                      className="form-input-official"
+                      className="form-input-official form-input"
                       type="email"
+                      required
                       placeholder="Enter email"
                       onChange={(e) => setEmail(e.target.value)}
                     />
@@ -73,17 +90,20 @@ export default function AdminLogin() {
 
                   <Form.Group controlId="formBasicPassword">
                     <Form.Control
-                      className="form-input-official"
+                      className="form-input-official form-input"
                       type="password"
+                      required
                       placeholder="Password"
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </Form.Group>
 
                   <Button
+                    type="submit"
                     variant="primary"
                     className="primary-button"
-                    onClick={handleLogin}
+                    disabled={loading}
+                    // onClick={handleLogin}
                   >
                     Submit
                   </Button>
