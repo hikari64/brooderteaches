@@ -6,7 +6,9 @@ import Sidebar from "../components/Sidebar";
 import CourseSideMenu from "../components/CourseSideMenu.js";
 import { CContainer, CContainer2 } from "./PagesElements";
 import CourseSections from "../components/CourseSections";
-import {courses} from "../mock/mock"
+import useFetchCourses from "../components/tutor/hooks/useFetchCourses";
+
+
 const Courses = () => {
   // scroll to top
   useEffect(() => {
@@ -19,6 +21,8 @@ const Courses = () => {
   };
 
 //  const [courseLevel,setCourseLevel] = useState(0);
+const courses =  useFetchCourses();
+console.log(courses)
 
   const [filteredCourse, setFilteredCourse] = useState(courses)
   // filter mock data

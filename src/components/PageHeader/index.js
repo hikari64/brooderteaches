@@ -6,17 +6,16 @@ import {
   HeaderH1,
   HeaderP,
 } from "./PgHeaderElements";
-import firestore from "../../firebase";
+import fbapp from "../../firebase";
 
 const PageHeader = ({ id }) => {
   let isCoursePage = useRef('');
   const [courses, setCourses] = useState([]);
 
-    useEffect(() => {
       if (typeof id !== "undefined") {
         // the variable is defined
             const fetchCourses = async()=>{
-              const db = firestore.firestore();
+              const db = fbapp.firestore();
               db.collection('courses').where("id", "==", id).get().then((querySnapshot) => {
                       
               // Loop through the data and store
@@ -29,14 +28,14 @@ const PageHeader = ({ id }) => {
               });
           })
           }; fetchCourses();    
-            isCoursePage.current = courses.map((data, index) => (
+            isCoursePage = courses.map((data, index) => (
             <HeaderContent key={index}>
               <HeaderH1>{data.title}</HeaderH1>
               <HeaderP>{data.subtitle}</HeaderP>
             </HeaderContent>
           ));
       } else {
-        isCoursePage.current = (
+        isCoursePage = (
           <HeaderContent>
             <HeaderH1>Start Your Journey</HeaderH1>
             <HeaderP>Pick a course</HeaderP>
@@ -44,7 +43,6 @@ const PageHeader = ({ id }) => {
         );
       }
         
-    }, [])
 
   
   return (

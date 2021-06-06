@@ -4,7 +4,7 @@ import { courses } from '../AllCourses/CourseData';
 import ReactPlayer from "react-player"
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 
-import firestore from "../../firebase";
+import {fbapp} from "../../firebase";
 
 
 
@@ -14,11 +14,14 @@ const CourseRegistration = ({id}, props) => {
     const [courses, setCourses] = useState([]);
     const [lessons, setLessons] = useState([]);
     const [price, setPrice] = useState();
+    const [loading, setLoading] = useState(false);
+
 
     useEffect(() => {
-      const db = firestore.firestore();
+      const db = fbapp.firestore();
       
         const fetchCourses = async()=>{
+        setLoading(true);
         db.collection('courses').where("id", "==", id).get().then((querySnapshot) => {
                 
         // Loop through the data and store
@@ -27,6 +30,7 @@ const CourseRegistration = ({id}, props) => {
             var data = element.data();
             setCourses(arr => [...arr , data]);
             setPrice(data.price)
+
                 
         });
     })
@@ -40,8 +44,10 @@ const CourseRegistration = ({id}, props) => {
       querySnapshot.forEach(element => {
           var outline = element.data();
           setLessons(arr => [...arr , outline]);
+          
               
       });
+      setLoading(false);
   })
   };
     
@@ -51,9 +57,9 @@ const CourseRegistration = ({id}, props) => {
     fetchOutline();
     }, [])
 
-    isCoursePage = courses.map((data) => 
+    isCoursePage = courses.map((data, index) => 
 
-<RegContainer>
+<RegContainer key={index}>
     <CourseOutlineStyle>
         <OutlineVid>
             <PlayerStyle >

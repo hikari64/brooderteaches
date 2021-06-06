@@ -3,11 +3,10 @@ import Footer from "../../components/Footer";
 import Sidebar from "../../components/Sidebar";
 import CourseSideMenu from "../../components/CourseSideMenu.js";
 import { CContainer, CContainer2 } from "../PagesElements";
-import CourseSections from "../../components/CourseSections";
+import CourseSections from "../../components/CourseSections/GeneralCourses";
 import StudentDashboardHeader from "../../components/PageHeader/StudentDashboardHeader";
 import Navbar from '../../components/Navbar/StudentNav';
-import {courses} from "../../mock/mock"
-
+import useFetchCourses from "../../components/CourseSections/hooks/useFetchCourses";
 
 const AllCourses = () => {
   // scroll to top
@@ -21,13 +20,13 @@ const AllCourses = () => {
   };
 
 //  const [courseLevel,setCourseLevel] = useState(0);
+  const { courses } =  useFetchCourses();
 
   const [filteredCourse, setFilteredCourse] = useState(courses)
   // filter mock data
 
 
   const DataFilter= (courseLength,courseLevel) =>{
-    
       var data = courses;
 
      
@@ -70,7 +69,7 @@ const AllCourses = () => {
       <StudentDashboardHeader/>
       <CContainer>
         <CourseSideMenu 
-        //setCourseLevel={setCourseLevel}
+        // setCourseLevel={setCourseLevel}
         DataFilter={DataFilter}  
         />
         <CContainer2>

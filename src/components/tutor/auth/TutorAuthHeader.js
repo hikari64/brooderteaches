@@ -7,7 +7,7 @@ import "./index.css";
 export const TutorAuthHeader=()=>{
     return(
         <Row className="Tutor-signup-header">
-            <h3 className="floating-header p-3 m-3">BrooderHall</h3>
+            <h5 className="floating-header p-3 m-3">BrooderHall</h5>
         </Row>
     )
 }
