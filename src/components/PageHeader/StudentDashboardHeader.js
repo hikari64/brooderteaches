@@ -69,7 +69,7 @@ const StudentDashboardHeader = ({ id }) => {
             </p>
             <hr/>
               <TutorLinks to={"/my-courses"}  className="p-2 m-1">Your Courses</TutorLinks>
-              <TutorLinks to={"/courses"}  className="p-2 m-1">All Courses</TutorLinks>
+              <TutorLinks to={"/all-courses"}  className="p-2 m-1">All Courses</TutorLinks>
   
               <TutorLinks to={"/profile"} active className="p-2 m-1">Profile</TutorLinks>
   

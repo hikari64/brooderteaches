@@ -10,8 +10,33 @@ import { Link, useHistory } from "react-router-dom";
 import Image from "../../images/img-3.png";
 
 import { useAuth } from "../../contexts/AuthContext";
+import Navbar from "../../components/Navbar"
+
 
 const SignupPage = () => {
+  const[isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => {
+      setIsOpen(!isOpen)
+  };
+
+  const [isActive, setActive] = useState(false);
+
+  const toggleClass = () => {
+      setActive(!isActive);
+  };
+
+  const [navbar, setNavbar] = useState(false)
+  const changeBackground = () => {
+      if(window.scrollY >=150){
+          setNavbar(true);
+      } else {
+          setNavbar(false);
+      }
+  }
+  
+  window.addEventListener('scroll', changeBackground)
+  
   const emailRef = useRef();
   const passwordRef = useRef();
   const firstNameRef= useRef()
@@ -53,7 +78,7 @@ const SignupPage = () => {
 
   return (
     <Container fluid>
-      <Row>
+      <Row> <Navbar />
         <Col md={6} className="hide-on-mobile side-bg">
           <Container fluid className="my-auto">
             <Row className="height-full">

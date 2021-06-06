@@ -14,6 +14,7 @@ import {
   NavMenu,
   Profile,
 } from "./NavbarElements";
+import { Link, useHistory } from "react-router-dom";
 import {Dropdown} from 'react-bootstrap'
 
 // auth
@@ -47,6 +48,7 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
         </Dropdown.Toggle>
       
         <Dropdown.Menu>
+        <Dropdown.Item><Link to='/my-courses'> My Profile</Link></Dropdown.Item>
           <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown></Profile>
