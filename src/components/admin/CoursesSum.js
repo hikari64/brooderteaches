@@ -4,7 +4,11 @@ import { Card, Row, Col } from "react-bootstrap";
 
 import another from "../../images/img-3.png";
 
+// hooks
+import useFetchCourses from "./hooks/useFetchCourses";
+
 export default function CoursesSum() {
+  const { loading, courses } = useFetchCourses();
   return (
     <Card className="admin-card">
       <Card.Body>
@@ -18,7 +22,7 @@ export default function CoursesSum() {
           </Col>
           <Col className="my-auto">
             <h1>
-              <strong>59</strong>
+              {loading ? <h6>Loading</h6> : <strong>{courses.length}</strong>}
             </h1>
             <Card.Title>Courses</Card.Title>
           </Col>
