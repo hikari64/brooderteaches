@@ -40,8 +40,11 @@ export default function TutorDashboard(props) {
 const { loading, tutors } = useFetchTutorsById(userID);
 
 if(!loading){
-  if(!tutors.verified){
+  if(tutors.state){
+    if(tutors.state < 2){
+
     history.push("/tutor-complete-signup")
+    }
   }
 }
 const { courses } = useFetchCoursesByTutorId(userID);

@@ -16,6 +16,10 @@ export default function PersonalInformation(props) {
     props.updateData(nam,val);
 
   }
+  const Proceed = ()=>{
+    props.nextStep();
+     props.Submit();
+   }
 
   return (
     <div>
@@ -127,7 +131,7 @@ export default function PersonalInformation(props) {
                 />
               </Form.Group>
               <Col className="text-center">
-                <Button onClick={props.nextStep} className="primary-button text-center">
+                <Button onClick={Proceed} className="primary-button text-center">
                 Proceed
               </Button>
               </Col>
