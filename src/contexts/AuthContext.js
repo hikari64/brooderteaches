@@ -147,6 +147,7 @@ export function AuthProvider ({children}) {
             if (user) {
                 setuserID(user.uid)
             }
+            
             setLoading(false)
         })
         return unsubscribe

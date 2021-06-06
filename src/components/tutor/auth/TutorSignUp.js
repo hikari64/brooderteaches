@@ -160,7 +160,7 @@ export default function TutorSignUp() {
                   </Button>
                 </Form>
                 <p>
-                  Already have an account <Link to="/login">Sign In </Link>
+                  Already have an account <Link to="/tutor-login">Sign In </Link>
                 </p>
               </Col>
             </Row>

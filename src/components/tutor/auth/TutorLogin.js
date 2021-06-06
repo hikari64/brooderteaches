@@ -85,7 +85,7 @@ export default function TutorLogin() {
                   </Button>
                 </Form>
                 <p>
-                  Don't have an account yet? <Link to="/signup">Sign Up </Link>
+                  Don't have an account yet? <Link to="/tutor">Sign Up </Link>
                 </p>
                 <p>
                   <Link to="/forgot-password">Forgotten Password?</Link>
