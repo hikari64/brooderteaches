@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   CourseContainer,
   CourseDetails,
@@ -19,27 +19,54 @@ import {
   FeeIcon,
 } from "./CourseElements";
 
+// firebase imports
+import {fbapp} from "../../firebase";
+import {useAuth} from '../../contexts/AuthContext'
 import useFetchCoursesById from "./hooks/useFetchCoursesById";
+import { CourseDescription } from "../tutor/dashboard/TutorDashboardElements";
 
 
 const CourseSections = (props) => {
 
 const lightBg = false;
 const imgStart = true;
+const { userID } = useAuth()
 
-const CourseList =(lessons)=>{
+console.log(userID)
+const db = fbapp.firestore();
+
+
+ //const [courses, setCourses] = useState([]);
+
+//  Delete this function and rather implement the hook for fetching 
+//  courses based on the user's ID
+//  user ID is defined here: const { userID } = useAuth()
+
+
+ function fetchMyCourses(item, index, array) {
+
+ }
+
+ const CourseList =(lessons)=>{
   return lessons.map((lesson) => (MyCourseDetails(lesson)));
+  // return(
+  //   <h1>returning </h1>
+  //       // {props.courses && CourseList(props.courses)}
+  // )
 
 }
 
 
 function MyCourseDetails(data){
    const { courses } =  useFetchCoursesById(data);
+  // const loadview=()=>{
+  //   LoadLessonTab(lessons)
+  // }
     return (
       <CourseContainer key={data}>
         <CourseDetails id={courses.id}  lightBg={lightBg}>
           <CourseWrapper>
-            <CourseRow imgStart={imgStart}>
+            <CourseRow imgStart={lightBg}>
               <Column1>
                 <TextWrapper>
                   <Heading to={`/about/${courses.id}`}>
@@ -79,8 +106,16 @@ function MyCourseDetails(data){
       </CourseContainer>
     
       );
+  //     return(
+  //   <h1>returning </h1>
+  //       // {props.courses && CourseList(props.courses)}
+  // )
   
 }
+    // const result =  courses.map((data) => (
+     
+    //   ));
+    console.log(props.courses)
       
 
       return(

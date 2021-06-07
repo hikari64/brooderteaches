@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 // PAYSTACK BUTTON IMPORT
-// import { PaystackButton } from "react-paystack";
+import { PaystackButton } from "react-paystack";
 
 // boostrap impots
 import { Container, Row, Col, Button } from "react-bootstrap";
@@ -63,10 +63,7 @@ export default function Payments(props) {
 
           <Row>
             <Col md={8} className="mx-auto">
-              {/* <PaystackButton
-                  className="paystack-button"
-                  {...componentProps}
-                /> */}
+              <PaystackButton className="paystack-button" {...componentProps} />
             </Col>
           </Row>
           <Button onClick={props.prevStep} className="primary-button">

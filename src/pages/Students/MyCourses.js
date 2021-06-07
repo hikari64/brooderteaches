@@ -5,7 +5,6 @@ import { CContainer, CContainer2 } from "../PagesElements";
 import CourseSections from "../../components/CourseSections/StudentCourses";
 import StudentDashboardHeader from "../../components/PageHeader/StudentDashboardHeader";
 import Navbar from '../../components/Navbar/StudentNav';
-import {courses} from "../../mock/mock"
 
 import {fbapp} from "../../firebase";
 import {useAuth} from '../../contexts/AuthContext'
@@ -17,8 +16,6 @@ import { Container } from "react-bootstrap";
 
 
 const MyCourses = () => {
-  const lightBg = false;
-  const imgStart = true;
   const { userID } = useAuth()
   
 

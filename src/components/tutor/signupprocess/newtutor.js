@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // navbar import
 import Navbar from "../../Navbar/TutorNav";
@@ -8,7 +8,7 @@ import Footer from "../../Footer";
 // boostrap imports
 import { Container, Row, Col, Button } from "react-bootstrap";
 
-//import image 
+//import image
 import picture from "../../../images/code.jpg";
 
 //import Styled ELement from dashboard elements
@@ -20,14 +20,18 @@ import {
   TutorSubNavbar,
   TutorSubNavbarLink,
   Circle,
-  NewCourseTabHeaders
+  NewCourseTabHeaders,
 } from "../dashboard/TutorDashboardElements";
 
 // IMPORT STYLED ELEMENTS for this page
-import {SignUpMainHeader,IndicatorHeader,IndicatorSubHeader} from "./signupElements.js";
+import {
+  SignUpMainHeader,
+  IndicatorHeader,
+  IndicatorSubHeader,
+} from "./signupElements.js";
 //import Courses Sections Component from courses
 
-  import CourseSections from "../../CourseSections/index"
+import CourseSections from "../../CourseSections/index";
 import { courses } from "../../../mock/mock";
 
 //import Create New Course Processes
@@ -59,43 +63,31 @@ export default function NewTutor(props) {
 
   window.addEventListener("scroll", changeBackground);
 
-
   // INDICATOR HOOKS
 
-const [indicator, SetIndicator] = useState(1)
-const [oneIndicator, SetOneIndicator] = useState(true)
-const [twoIndicator, SetTwoIndicator] = useState(false)
-const [threeIndicator, SetThreeIndicator] = useState(false)
+  const [indicator, SetIndicator] = useState(1);
+  const [oneIndicator, SetOneIndicator] = useState(true);
+  const [twoIndicator, SetTwoIndicator] = useState(false);
+  const [threeIndicator, SetThreeIndicator] = useState(false);
 
-const setLevelCheck = (levelKey) =>{
-     
-  SetTwoIndicator(false)
-  SetOneIndicator(false)
-  SetThreeIndicator(false)
+  const setLevelCheck = (levelKey) => {
+    SetTwoIndicator(false);
+    SetOneIndicator(false);
+    SetThreeIndicator(false);
 
-  SetOneIndicator(levelKey > 0 ? true: false )
-  SetTwoIndicator(levelKey > 1 ? true: false )
-  SetThreeIndicator(levelKey > 2 ? true: false ) 
-  
-  
-}
+    SetOneIndicator(levelKey > 0 ? true : false);
+    SetTwoIndicator(levelKey > 1 ? true : false);
+    SetThreeIndicator(levelKey > 2 ? true : false);
+  };
 
-const ProcessIndicator =(newindicator)=>{
-  
-  var data = newindicator;      
+  const ProcessIndicator = (newindicator) => {
+    var data = newindicator;
 
-      SetIndicator(data)
-      setLevelCheck(data);
-      
-     
-    
-}
-
-
-
+    SetIndicator(data);
+    setLevelCheck(data);
+  };
 
   return (
-    
     <div fluid className="height-full">
       <Navbar
         toggle={toggle}
@@ -104,49 +96,59 @@ const ProcessIndicator =(newindicator)=>{
       />
       <Row className="page-header">
         <Col md={10} className="mx-auto text-center my-auto">
-          <SignUpMainHeader className="text-center">Become a Tutor</SignUpMainHeader>
-          
+          <SignUpMainHeader className="text-center">
+            Become a Tutor
+          </SignUpMainHeader>
         </Col>
       </Row>
       <TutorSubNavbar>
         <Container className="">
           <Container className="container  p-4 row">
-          <Col>
-          <Row>
-            <Circle active={oneIndicator} className="rounded-circle col-2  my-auto"/>
-            <NewCourseTabHeaders className="col my-auto">
-             <IndicatorHeader>Step One</IndicatorHeader> 
-              <IndicatorSubHeader>Personal Information</IndicatorSubHeader>
-              </NewCourseTabHeaders>
-            </Row></Col>
             <Col>
               <Row>
-                <Circle active={twoIndicator}  className="rounded-circle col-2  my-auto"/>
+                <Circle
+                  active={oneIndicator}
+                  className="rounded-circle col-2  my-auto"
+                />
                 <NewCourseTabHeaders className="col my-auto">
-                  <IndicatorHeader>Step Two</IndicatorHeader> 
-                  <IndicatorSubHeader>Verification</IndicatorSubHeader>
-                </NewCourseTabHeaders> 
-              </Row>
-            </Col>
-            <Col>
-              <Row>
-                <Circle active={threeIndicator}  className="rounded-circle col-2  my-auto"/>
-                <NewCourseTabHeaders className="col my-auto">
-                  <IndicatorHeader>Step Three</IndicatorHeader> 
-                  <IndicatorSubHeader>Complete Registrationn</IndicatorSubHeader>
+                  <IndicatorHeader>Step One</IndicatorHeader>
+                  <IndicatorSubHeader>Personal Information</IndicatorSubHeader>
                 </NewCourseTabHeaders>
               </Row>
             </Col>
-            
+            <Col>
+              <Row>
+                <Circle
+                  active={twoIndicator}
+                  className="rounded-circle col-2  my-auto"
+                />
+                <NewCourseTabHeaders className="col my-auto">
+                  <IndicatorHeader>Step Two</IndicatorHeader>
+                  <IndicatorSubHeader>Verification</IndicatorSubHeader>
+                </NewCourseTabHeaders>
+              </Row>
+            </Col>
+            <Col>
+              <Row>
+                <Circle
+                  active={threeIndicator}
+                  className="rounded-circle col-2  my-auto"
+                />
+                <NewCourseTabHeaders className="col my-auto">
+                  <IndicatorHeader>Step Three</IndicatorHeader>
+                  <IndicatorSubHeader>
+                    Complete Registrationn
+                  </IndicatorSubHeader>
+                </NewCourseTabHeaders>
+              </Row>
+            </Col>
           </Container>
         </Container>
-     
       </TutorSubNavbar>
       <Container className="height-half">
-
         <Row className="mt-4 mb-4">
           <Col md={12} className="mx-auto">
-            <Process ProcessIndicator={ProcessIndicator}/>
+            <Process ProcessIndicator={ProcessIndicator} />
           </Col>
         </Row>
       </Container>
