@@ -15,6 +15,11 @@ const fbapp = firebase.initializeApp({
 
 const storage = firebase.storage();
 
+// storage ref for uploads
+const storageRef = firebase.storage().ref();
+
+export { storageRef };
+
 // auth
 export const auth = fbapp.auth();
 
