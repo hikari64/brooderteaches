@@ -2,6 +2,7 @@ import React ,{ useState ,useEffect} from "react";
 import { useAuth } from "../../../contexts/AuthContext";
 import {firestore,timestamp,AddArrayField} from '../../../firebase';
 import AddFile from "./useAddFile";
+import {storage} from '../../../firebase';
 
 
 
@@ -10,6 +11,7 @@ const AddLesson =(data,setLoading,courseId)=>{
     let newdata = ''
     let loadingStatus =false;
     let id="";
+    let progress;
   
     let video =AddFile(data.video,'videos');
      
@@ -19,28 +21,45 @@ const AddLesson =(data,setLoading,courseId)=>{
     
         //references
         const createdAt = timestamp;
+
         const course = firestore.collection('lessons');
-        course.add({
-            title:data.title,
-            courseId:courseId,
-            summary:data.summary,
-            video:video.newUrl,
-            assignment: assignment.newUrl,
-            date: data.date,
-        }).then((docRef) => {
-            id = docRef.id;
-            course.doc(id).update({id})
 
-            //this function adds the course id to the course lessons
-            AddArrayField('courses',"lesson",id,courseId)
+        const storageRef = storage.ref('IDs');
 
-            console.log("Document written with ID: ", docRef.id);
-            setLoading(false);
+        storageRef.put(data.verificationID).on('state_changed',(snap) => {
+            let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+            progress = percentage;
+        }, (err) => {
+            error =err;
+        }, async () =>{
+            const url = await storageRef.getDownloadURL();
+            
+            course.add({
+                title:data.title,
+                courseId:courseId,
+                summary:data.summary,
+                video:video.newUrl,
+                assignment: assignment.url,
+                date: data.date,
+            }).then((docRef) => {
+                id = docRef.id;
+                course.doc(id).update({id})
+    
+                //this function adds the course id to the course lessons
+                AddArrayField('courses',"lesson",id,courseId)
+    
+                console.log("Document written with ID: ", docRef.id);
+                setLoading(false);
+            })
+            .catch((err) => {
+                error = err
+                console.error("Error adding document: ", error);
+            });
+            
+            
         })
-        .catch((err) => {
-            error = err
-            console.error("Error adding document: ", error);
-        });
+        
+
         
     
 

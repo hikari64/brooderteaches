@@ -37,7 +37,7 @@ export default function NewCourseProcess({ProcessIndicator}) {
   })
 
 
-  const { currentUser } = useAuth;
+  const { currentUser,userID } = useAuth();
 
 
   const UpdateData =(item,value)=>{
@@ -64,7 +64,7 @@ export default function NewCourseProcess({ProcessIndicator}) {
 
   const Submit = () =>{
     setLoading(!loading)
-    AddCourse(courseData,setLoading,setCourseId);
+    AddCourse(courseData,setLoading,setCourseId,userID);
     
   }
   const SubmitLesson = () =>{

@@ -41,7 +41,7 @@ const { loading, tutors } = useFetchTutorsById(userID);
 
 if(!loading){
   if(tutors.state){
-    if(tutors.state < 2){
+    if(tutors.state < 3){
 
     history.push("/tutor-complete-signup")
     }

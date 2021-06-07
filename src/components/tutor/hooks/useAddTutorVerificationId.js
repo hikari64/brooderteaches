@@ -2,31 +2,45 @@ import React ,{ useState ,useEffect} from "react";
 import {firestore,timestamp} from '../../../firebase';
 import AddFile from "./useAddFile";
 import { useAuth } from "../../../contexts/AuthContext";
+import {storage} from '../../../firebase';
 
 
 function useAddTutorVerificationId(data,userID){
 
     let error = ''
+    let progress = 0
   
-    const {progress,newUrl,} =AddFile(data.verificationID,'images');
+    //const {progress,newUrl} = AddFile(,'images');
+    const tutors = firestore.collection('tutors').doc(userID)
     
         //references
-        const createdAt = timestamp();
-        const tutors = firestore.collection('tutors').doc(userID)
-        tutors.update({
+        const storageRef = storage.ref('');
+
+        storageRef.put(data.verificationID).on('state_changed',(snap) => {
+            let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+            progress = percentage;
+        }, (err) => {
+            error =err;
+        }, async () =>{
+            const url = await storageRef.getDownloadURL();
             
-            verificationID:newUrl,
-            state:3
-            
-        }).then((docRef) => {
-            
-            
-            console.log("Image added completely ");
+            tutors.update({
+
+                verificationID:url,
+                state:3
+                
+            }).then((docRef) => {
+                
+                
+                console.log("Image added completely ");
+            })
+            .catch((err) => {
+                error = err;
+                console.error("Error adding document: ", error);
+            });
+
         })
-        .catch((err) => {
-            error = err;
-            console.error("Error adding document: ", error);
-        });
+        
         
     
     return {progress,error}
