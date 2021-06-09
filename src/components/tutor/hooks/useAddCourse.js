@@ -30,6 +30,7 @@ const AddCourse =(data,setLoading,setCourseId,userID,url)=>{
                 price: data.price,
                 level: data.level,
                 preview: url,
+                period:data.period,
                 tutorId,
                 students:[],
                 lesson:[],

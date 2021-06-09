@@ -56,7 +56,7 @@ const CourseSections = ({courses}) => {
           <CourseRow imgStart={courses.imgStart}>
             <Column1>
               <TextWrapper>
-                <Heading to={`/about/${courses.id}`}>
+                <Heading to={`/tutor-about/${courses.id}`}>
                   {courses.title}
                 </Heading>
                 <Subtitle>{courses.description}</Subtitle>

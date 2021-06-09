@@ -41,18 +41,18 @@ export const ViewLessonDetails =(props)=>{
             {props.courses.title}
 
             </CourseTitle>
-            <ReviewHeadings className="m-2 mx-auto">Course Description</ReviewHeadings>
+            <ReviewHeadings className="m-2 mx-auto">Lesson Summary</ReviewHeadings>
             <CourseDescription>
-            {props.courses.about}
+            {props.courses.summary}
             </CourseDescription>
-            <ReviewHeadings  className="m-2 mx-auto">Introductory Video</ReviewHeadings>
+            <ReviewHeadings  className="m-2 mx-auto">Lesson Video</ReviewHeadings>
             <PlayerStyle >
-                        <ReactPlayer url={props.courses.preview}
+                        <ReactPlayer url={props.courses.video}
                             className={Videocontainer}
                             playing
                             width="100%"
                             height="100%"
-                            controls={false}
+                            controls={true}
                         />
             </PlayerStyle>
       </Col>

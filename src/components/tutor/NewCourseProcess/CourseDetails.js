@@ -123,6 +123,43 @@ export default function CourseDetails(props) {
                   <option>Advanced</option>
                 </Form.Control>
               </Form.Group>
+              {/* COURSE Duration*/}
+              <Form.Group className="row">
+                <Form.Label className="col-3 align-bottom text-end text-end">
+                  Course Duration
+                </Form.Label>
+                <Form.Control
+                  as="select"
+                  className="form-input col"
+                  name="duration"
+                  value={props.data.duration}
+                  onChange={eventHandler}
+                >
+                  <option>Select duration</option>
+                  <option>Weeks</option>
+                  <option>Months</option>
+                  
+                </Form.Control>
+              </Form.Group>
+               {/* COURSE Price */}
+               <Form.Group className="row">
+                <Form.Label className="col-3 align-bottom text-end my-auto">
+                  Number of week(s)/month(s){" "}
+                </Form.Label>
+                <InputGroup className="form-input col">
+                  <InputGroup.Prepend className="col-3">
+                    <InputGroup.Text>{!props.data.duration && 'Duration'}
+                    {props.data.duration}</InputGroup.Text>
+                  </InputGroup.Prepend>
+                  <Form.Control
+                    className="col p-0 m-0"
+                    type="number"
+                    name="period"
+                    value={props.data.period}
+                    onChange={eventHandler}
+                  />
+                </InputGroup>
+              </Form.Group>
               {/* INTRO VIDEO */}
               <Form.Group className="row">
                 <Form.Label className="col-3 align-bottom text-end">

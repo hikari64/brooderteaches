@@ -23,8 +23,13 @@ export default function UploadLessons(props) {
 const [view,setView] = useState(1)
 const [progress, setProgress] = useState(0);
 const [assignmentProgress, setAssignmentProgress] = useState(0);
+const [assignment, setAssignment] = useState();
 const [displayData,setDisplayData] = useState(null)
 const [error, setError] = useState(null);
+
+const [files, setFiles] = useState(null);
+
+  console.log("files", files);
 
   const LoadLessonTab=(lessons)=>{
   
@@ -48,12 +53,13 @@ const [error, setError] = useState(null);
     // and updating URLS array for storage in firestore
 
     const file = File[0];
-    console.log(file)
     var d = new Date();
     var n = d.getTime();
-    const filename = n+file.name;
+    
     // references
-   if(file){ const storeVideoRef = storageRef.child(`/lessonVideos/${filename}`);
+   if(file){ 
+     const filename = n+file.name;
+    const storeVideoRef = storageRef.child(`/lessonVideos/${filename}`);
     
     storeVideoRef.put(file).on('state_changed', (snap) => {
       let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
@@ -64,8 +70,7 @@ const [error, setError] = useState(null);
       const url = await storeVideoRef.getDownloadURL();
       
     let   nam = "video"
-    
-  
+     
          props.updateData(nam,url); 
 
     });
@@ -76,12 +81,14 @@ const [error, setError] = useState(null);
   
   const handleChangePdf=(File)=>{
     const file = File[0];
-    console.log(file)
+    //console.log(file)
     var d = new Date();
     var n = d.getTime();
-    const filename = n+file.name;
     // references
-   if(file){ const storeVideoRef = storageRef.child(`/lessonAssigments/${filename}`);
+   if(file){ 
+    
+    const filename = n+file.name;
+    const storeVideoRef = storageRef.child(`/lessonAssigments/${filename}`);
     
       storeVideoRef.put(file).on('state_changed', (snap) => {
         let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
@@ -98,20 +105,25 @@ const [error, setError] = useState(null);
       });
     }
   }
-  const Proceed = ()=>{
+  const delay = ms => new Promise(res => setTimeout(res, ms));
 
-    props.updateData("courseId",props.courseId);
-     props.Submit();
-   }
+   const Proceed = async (e) => {
+    
+    await delay(3000)
+    console.log("waited 3000ms")
+    props.Submit();
+  
+  };
+
+
   return (
     <div fluid className="height-full">
 
       <Container className="height-half">
         <Row className="mt-4 mb-4">
           <Col md={3}>
-          <LessonButtons className="p-3 m-3 text-center">Lesson {2}</LessonButtons>
          <CourseLessonBtnLists id={props.courseId} />
-            <AddLessonButtons to={"/tutor-create-course/"} className="p-3 m-3 text-center"> 
+            <AddLessonButtons to={"/tutor-create-course"} className="p-3 m-3 text-center"> 
               + Add Lesson
             </AddLessonButtons>
           </Col>
@@ -154,41 +166,42 @@ const [error, setError] = useState(null);
               {/* INTRO VIDEO */}
               <Form.Group  className="row mt-3">
                 
-                <Col>
-                <ProgressBar/>
-                 {progress !== 0 && <ProgressBar now={progress} />}
-                <DropzoneArea
-                     acceptedFiles={['video/*']}
-                     dropzoneText={"Upload Lesson Video"}
-                      onChange={(files) => handleChange(files)}
-                    // Icon={AttachFile}
-                     //onAdd={(files) => handleChange(files)}
-                     //onChange={(files) => setFiles(files)}
-                     maxFileSize	={300000000}
-                     name="video"
-                     value={props.data.video}
-                     />
-                </Col>
-           
-               </Form.Group>
-               {/* Add ASSignment */}
-               <Form.Group  className="row mt-3">
- 
-                <Col>
-                <ProgressBar/>
-                 {assignmentProgress !== 0 && <ProgressBar now={assignmentProgress} />}
-                <DropzoneArea
-                     acceptedFiles={['application/pdf']}
-                     dropzoneText={"Add Assignment"}
-                     // onChange={handleChangePdf}
-                     onChange={(files) => handleChangePdf(files)}
- 
-                     // onChange={(files) => setAssignment(files)}
-                     maxFileSize	={300000000}
-                     name="assignment"
-                   value={props.data.assignment}
-                     />
-                </Col>            
+               <Col>
+               <ProgressBar/>
+                {progress !== 0 && <ProgressBar animated  now={progress} />}
+               <DropzoneArea
+                    acceptedFiles={['video/*']}
+                    dropzoneText={"Upload Lesson Video"}
+                     onChange={(files) => handleChange(files)}
+                   // Icon={AttachFile}
+                    //onAdd={(files) => handleChange(files)}
+                    // onChange={(files) => setFiles(files)}
+                    maxFileSize	={300000000}
+                    name="video"
+                  //  value={props.data.video}
+                    />
+               </Col>
+          
+              </Form.Group>
+              {/* Add ASSignment */}
+              <Form.Group  className="row mt-3">
+
+               <Col>
+               <ProgressBar/>
+                {assignmentProgress !== 0 && <ProgressBar animated now={assignmentProgress} />}
+               <DropzoneArea
+                    acceptedFiles={['application/pdf']}
+                    dropzoneText={"Add Assignment"}
+                    // onChange={handleChangePdf}
+                    onChange={(files) => handleChangePdf(files)}
+
+                    //  onChange={(files) => setAssignment(files)}
+                    maxFileSize	={300000000}
+                    name="assignment"
+                //  value={props.data.assignment}
+                    />
+               </Col>
+               
               </Form.Group>
               <Container className="contain">
               <Button onClick={Proceed} className="primary-button col-5">
@@ -196,10 +209,10 @@ const [error, setError] = useState(null);
               </Button>
               </Container>
               <Col className="text-center">
-                <Button onClick={props.prevStep} className="primary-button">
+                <Button className="primary-button">
                 Go Back
               </Button>
-              <Button onClick={props.nextStep} className="primary-button">
+              <Button className="primary-button">
                 Proceed
               </Button>
               </Col>

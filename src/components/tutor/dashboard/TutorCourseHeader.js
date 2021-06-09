@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link} from "react-router-dom";
 
 //import image 
-import picture from "../../../images/code.jpg";
+import picture from '../../../images/code.jpg';
 
 // navbar import
 import Navbar from "../../Navbar/TutorNav";
@@ -19,10 +19,11 @@ import {
   TutorLinkActive,
   TutorSubNavbar,
   TutorSubNavbarLink,
+  CourseHeaderContainer
 } from "./TutorDashboardElements";
 
 
-export default function TutorDashboardHeader(props){
+export default function TutorCourseHeader(props){
     // scroll to top
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -54,35 +55,22 @@ export default function TutorDashboardHeader(props){
                 navbar={navbar}
                 changeBackground={changeBackground}
                 />
-            <Row className="page-header " >
-                <Container className="row mt-5 p-5">
-                <Col md={3} className="text-lg-end my-auto hide-on-mobile">
+            <CourseHeaderContainer img={picture} className="page-header " >
+                <Container className="row mt-5 p-5 mx-auto">
                 
-                    <img  
-                    width="150"
-                    height="150"
-                    src={picture} alt="myimage" 
-                    className="rounded-circle" />
-
-            
-                </Col>
-                <Col md={7} className=" text-start my-auto ">
+                <Container md={7} className="text-center mx-auto my-auto ">
                 
-                <TutorName>{props.tutors.firstName} {props.tutors.lastName}</TutorName>
+                <TutorName className="text-center">{props.course.title}</TutorName>
                 <p className="text-muted">
-                {props.tutors.email}
+                {props.course.tag}
                 </p>
-                <hr/>
-                    <TutorLinks to={"/tutor-courses"} active className="p-2 m-1">Your Courses</TutorLinks>
-                    <TutorLinks to={"/tutor-create-course"} className="p-2 m-1">Create New Course</TutorLinks>
-
-                    <TutorLinks to={"/tutor-profile"} className="p-2 m-1">Edit Profile</TutorLinks>
+               
 
 
 
-                </Col>
+                </Container>
             </Container>
-            </Row>
+            </CourseHeaderContainer>
             
             
         </>

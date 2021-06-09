@@ -20,6 +20,7 @@ export default function NewCourseProcess({ ProcessIndicator }) {
     startDate: "",
     price: null,
     level: "",
+    period:'',
     preview: null,
     tutorId: null,
     students: [],
@@ -37,6 +38,8 @@ export default function NewCourseProcess({ ProcessIndicator }) {
   console.log("courseData", courseData);
 
   const { currentUser,userID } = useAuth();
+
+  
 
   const UpdateData = (item, value) => {
     setCourseData((courseData) => ({ ...courseData, [item]: value }));
@@ -57,14 +60,14 @@ export default function NewCourseProcess({ ProcessIndicator }) {
     ProcessIndicator(step - 1);
   };
 
-  const Submit = () =>{
+  const Submit = (url) =>{
     setLoading(!loading)
-    AddCourse(courseData,setLoading,setCourseId,userID);
+     AddCourse(courseData,setLoading,setCourseId,userID,url);
     
   }
-  const SubmitLesson = () =>{
+  const SubmitLesson = (url) =>{
     setLoading(!loading)
-    AddLesson(lessonData,setLoading,courseId);
+    AddLesson(lessonData,setLoading,courseId,url);
     
   }
   // handle
@@ -109,7 +112,7 @@ export default function NewCourseProcess({ ProcessIndicator }) {
       return (
         <React.Fragment>
           {loading && <Spinner />}
-          {!loading && <ReviewCourse nextStep={nextStep} prevStep={prevStep} />}
+          {!loading && <ReviewCourse courseId={courseId} nextStep={nextStep} prevStep={prevStep} />}
         </React.Fragment>
       );
 

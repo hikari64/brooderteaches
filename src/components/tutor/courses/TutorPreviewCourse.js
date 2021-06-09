@@ -44,7 +44,7 @@ export default function TutorPreviewCourse(props) {
       
       <Row className="page-header " >
         <Container className="row mt-5 p-5">
-         <Col md={3} className="text-end my-auto hide-on-mobile">
+         <Col md={3} className="text-lg-end te my-auto hide-on-mobile">
          
             <img  
             width="150"
@@ -86,7 +86,7 @@ export default function TutorPreviewCourse(props) {
         <Row className="mt-4 mb-4">
           <Col md={12} className="mx-auto">
             {loading && <Spinner/>}
-            {!loading && <ReviewCourse courses={courses}/>}
+            {!loading && <ReviewCourse courseId={id} courses={courses}/>}
           </Col>
         </Row>
       </Container>

@@ -39,6 +39,8 @@ import TutorDashboard from "./components/tutor/dashboard/TutorDashboard";
 import TutorCreateCourse from "./components/tutor/courses/TutorCreateCourse";
 import TutorProfile from "./components/tutor/Profile/TutorProfile";
 import TutorPreviewCourse from './components/tutor/courses/TutorPreviewCourse';
+import AddLessonToCourse from './components/tutor/addLesson';
+import TutorCoursePage from './components/tutor/courses/about/index.js';
 
 function App() {
   return (
@@ -71,10 +73,13 @@ function App() {
             <Route path="/tutor" component={TutorSignUp} />
             <Route path="/tutor-complete-signup" component={NewTutor} />
             <Route path="/tutor-dashboard" component={TutorDashboard} />
+            <Route path="/tutor-about/:id" component={TutorCoursePage} />
             <Route path="/tutor-courses" component={TutorDashboard} />
             <Route path="/tutor-preview-course/:id" component={TutorPreviewCourse} />
             <Route path="/tutor-create-course" component={TutorCreateCourse} />
+            <Route path="/tutor-create-lesson/:courseIdParam" component={AddLessonToCourse} />
             <Route path="/tutor-profile" component={TutorProfile} />
+            
           </Switch>
         </AdminAuthProvider>
       </AuthProvider>

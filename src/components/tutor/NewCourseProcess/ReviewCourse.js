@@ -5,7 +5,14 @@ import React, { useState, useEffect } from "react";
 // boostrap impots
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 
-import { LessonButtons, ReviewHeadings ,CourseTitle,CourseDescription,PlayerStyle,Videocontainer} from "../dashboard/TutorDashboardElements";
+import { LessonButtons,
+   ReviewHeadings ,  
+  CourseTitle,
+  CourseDescription,
+  PlayerStyle,
+  Videocontainer,
+  AddLessonButtons
+  } from "../dashboard/TutorDashboardElements";
 
 import ReactPlayer from "react-player"
 import useFetchLessonById from "../hooks/useFetchLessonById";
@@ -76,7 +83,9 @@ if(!props.courses){
             Course Details
             </LessonButtons>
             {props.courses.lesson && LessonList(props.courses.lesson)}
-            
+            <AddLessonButtons to={`/tutor-create-lesson/${props.courses.id}`} className="p-3 m-3 text-center"> 
+              + Add Lesson
+            </AddLessonButtons>
           </Col>
           {view === 1 && <CourseDetails courses={props.courses}/>}
           {view === 2 && <ViewLessonDetails courses={displayData}/>}

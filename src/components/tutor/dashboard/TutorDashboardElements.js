@@ -95,6 +95,41 @@ export const TutorSubNavbarLink = styled(LinkR)`
             font-size: 12px;
         }
 `;
+export const TutorSubNavbarLinkBlock = styled(LinkR)`
+        color: var(--unnamed-color-100855);
+        text-align: left;
+        font: normal normal medium 25px/38px Poppins;
+        letter-spacing: 0px;
+        color: #100855;
+        opacity: 1;
+        font-size: 15px;
+        text-decoration: none;
+       
+        ${props=>props.active ? `
+        background: #D02C75 0% 0% no-repeat padding-box;
+        color: #fffff !important;
+        padding:0px;
+
+        `:``
+        }
+
+        &:active {
+            
+
+        }
+        &:hover {
+            transition: all 0.2s ease-in-out;
+            color: #100855;
+        }
+
+        @media (max-width: 480px) {
+            font-size: 12px
+        };
+
+        @media (max-width: 768px){
+            font-size: 12px;
+        }
+`;
 // Circle styles
 export const NewCourseTabHeaders=styled.span`
     color: var(--unnamed-color-100855);
@@ -146,7 +181,7 @@ color: #020120;
 opacity: 1;
 
 `;
-export const AddLessonButtons = styled.a`
+export const AddLessonButtons = styled(LinkR)`
     color: var(--unnamed-color-ffffff);
     display: block;
     text-align: left;
@@ -248,4 +283,8 @@ export const Videocontainer = styled.div`
     height: 20px;
     width: 340px;
   }
+`;
+export const CourseHeaderContainer = styled.div`
+background: transparent linear-gradient(180deg, #00000080 0%, #030030E6 100%) 0% 0% url('${props=>props.img}') 0% 0% no-repeat padding-box;
+opacity: 1;
 `;
