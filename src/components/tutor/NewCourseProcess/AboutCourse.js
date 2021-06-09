@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 
 
 // boostrap impots
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
 import { LessonButtons,
-   ReviewHeadings ,  
-  CourseTitle,
-  CourseDescription,
-  PlayerStyle,
-  Videocontainer,
+
   AddLessonButtons
   } from "../dashboard/TutorDashboardElements";
 
@@ -52,14 +48,7 @@ const LessonList =(lessons)=>{
 
 
   // NAVBAR CONTROLS
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggle = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const [navbar, setNavbar] = useState(false);
-
+ 
 const LoadLessonTab=(lesson)=>{
   
   setDisplayData(lesson);

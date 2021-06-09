@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Link} from "react-router-dom";
 
 //import image 
 import picture from '../../../images/code.jpg';
 
 // navbar import
 import Navbar from "../../Navbar/TutorNav";
-import Footer from "../../Footer";
 
 // boostrap imports
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 //import ELement for this page
 import {
-  ProfileImge,
-  TutorLinks,
+ 
   TutorName,
-  TutorLinkActive,
-  TutorSubNavbar,
-  TutorSubNavbarLink,
+ 
   CourseHeaderContainer
 } from "./TutorDashboardElements";
 

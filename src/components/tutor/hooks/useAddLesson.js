@@ -1,17 +1,11 @@
-import React ,{ useState ,useEffect} from "react";
-import { useAuth } from "../../../contexts/AuthContext";
 import {firestore,timestamp,AddArrayField} from '../../../firebase';
-import AddFile from "./useAddFile";
-import {storage} from '../../../firebase';
+
 
 
 
 const AddLesson =(data,setLoading,courseId)=>{
     let error = ''
-    let newdata = ''
-    let loadingStatus =false;
     let id="";
-    let progress;
   
     
     

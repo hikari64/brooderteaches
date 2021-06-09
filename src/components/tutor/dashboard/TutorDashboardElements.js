@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Link as LinkR } from "react-router-dom";
 import { FaCalendarAlt,  FaMoneyBillWave, FaClock} from "react-icons/fa";
-import ReactPlayer from "react-player";
 
 export const ProfileImge = styled.img`
 // top: 186px;

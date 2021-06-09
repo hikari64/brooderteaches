@@ -1,22 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { Link, useHistory, useParams} from "react-router-dom";
+import React, { useState } from "react";
+import {  useHistory, useParams} from "react-router-dom";
 
 // navbar import
-import Navbar from "../../Navbar/TutorNav";
 import Footer from "../../Footer";
 
 // boostrap imports
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 //import image 
-import picture from "../../../images/code.jpg";
 
 //import ELement for this page
 import {
-  ProfileImge,
-  TutorLinks,
-  TutorName,
-  TutorLinkActive,
+ 
   TutorSubNavbar,
   TutorSubNavbarLink,
 } from "../dashboard/TutorDashboardElements";
@@ -25,8 +20,6 @@ import {useAuth} from '../../../contexts/AuthContext'
 
 //import Courses Sections Component from courses
 
-  import CourseSections from "../courses"
-import useFetchCourses from "../hooks/useFetchCourses";
 import Spinner from "../../Spinner/Spinner";
 import useFetchTutorsById from "../hooks/useFetchTutorById";
 import TutorDashboardHeader from "../dashboard/TutorDashboardHeader";
@@ -38,7 +31,7 @@ export default function AddLessonToCourse(props) {
   const { userID } = useAuth()
   const { courseIdParam } = useParams();
 const { loading, tutors } = useFetchTutorsById(userID);
-const [myloading, setLoading] = useState(false);
+const [myloading, setmyLoading] = useState(false);
 
 const [courseId, setCourseId] = useState(courseIdParam);
 
@@ -60,8 +53,8 @@ const UpdateLessonData = (item, value) => {
 
 
 const SubmitLesson = async (url) =>{
-  setLoading(!loading)
- await AddLesson(lessonData,setLoading,courseId);
+  setmyLoading(!loading)
+ await AddLesson(lessonData,setmyLoading,courseId);
   setLessonData({
     title: "",
     courseId: "",
