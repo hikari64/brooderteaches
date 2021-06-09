@@ -102,9 +102,7 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
             {/* <NavItem>
               <NavLinks to="/tutor">Become A Tutor</NavLinks>
             </NavItem> */}
-            <NavItem>
-              <NavLinks to="/about">About</NavLinks>
-            </NavItem>
+            
             {/* <NavItem>
               <NavLinks to="/tutor-login">Tutor LogIn</NavLinks>
             </NavItem> */}
