@@ -42,15 +42,17 @@ export default function CourseDetails(props) {
     await fileRef.getDownloadURL().then((getURL) => {
       const data = {
         url: getURL,
-        fileName: file.name,
+       // fileName: file.name,
+        fileName: "preview",
       };
-      props.updateData(data.url, data.fileName);
+      props.updateData(data.fileName,data.url);
       setFiles(null);
+      props.Submit(getURL);
     });
 
     // continue with other rendering
     props.nextStep();
-    props.Submit();
+    
   };
 
   return (

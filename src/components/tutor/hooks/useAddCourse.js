@@ -6,7 +6,7 @@ import {storage} from '../../../firebase';
 
 
 
-const AddCourse =(data,setLoading,setCourseId,userID)=>{
+const AddCourse =(data,setLoading,setCourseId,userID,url)=>{
     let error = ''
     let newdata = ''
     let progress ='';
@@ -21,16 +21,6 @@ const AddCourse =(data,setLoading,setCourseId,userID)=>{
         //references
         const createdAt = timestamp();
         const course = firestore.collection('courses')
-        const storageRef = storage.ref('previews');
-
-        storageRef.put(data.verificationID).on('state_changed',(snap) => {
-            let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
-           let progress = percentage;
-        }, (err) => {
-            error =err;
-        }, async () =>{
-            const url = await storageRef.getDownloadURL();
-            
             course.add({
             
                 title: data.title,
@@ -60,12 +50,6 @@ const AddCourse =(data,setLoading,setCourseId,userID)=>{
                 console.error("Error adding document: ", error);
             });
             
-        })
-        
-        
-        
-    
-
 }
 
 export default AddCourse;
