@@ -73,7 +73,7 @@ const CourseSections = ({courses}) => {
                     {courses.fee}
                   </Data>
                 </Details>
-                <CourseBtnLink to={`/tutor-preview-course/${courses.id}`}>
+                <CourseBtnLink to={`/tutor-about/${courses.id}`}>
                   Watch Preview
                 </CourseBtnLink>
                 

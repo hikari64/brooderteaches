@@ -29,6 +29,7 @@ import {
 import useFetchCoursesById from "../../hooks/useFetchCoursesById";
 import ReviewCourse from "../../NewCourseProcess/ReviewCourse";
 import Spinner from "../../../Spinner/Spinner";
+import { CourseReviewDetails } from "../components";
 
 export default function TutorCoursePage(props) {
   let { id } = useParams();
@@ -60,7 +61,9 @@ export default function TutorCoursePage(props) {
         <Row className="mt-4 mb-4">
           <Col md={12} className="mx-auto">
             {loading && <Spinner/>}
-            {!loading && <ReviewCourse courseId={id} courses={courses}/>}
+            {view === 1 && <CourseReviewDetails courseId={id} courses={courses}/>}
+            {view === 2 && <ReviewCourse courseId={id} courses={courses}/>}
+            {view === 3 && <ReviewCourse courseId={id} courses={courses}/>}
           </Col>
         </Row>
       </Container>
