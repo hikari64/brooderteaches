@@ -243,8 +243,9 @@ padding-top
 export const Subtitle = styled.p`
     max-width: 440px;
     margin-bottom: 35px;
-    font-size: 12px;
+    font-size: 16px;
     line-height: 24px;
+    margin-top: 20px;
     color: black;
 
     @media (max-width: 480px) {
@@ -298,17 +299,15 @@ export const Img = styled.img`
 `;
 
 export const CourseBtnLink = styled(LinkR)`
-    border-radius: 10px;
-    background: #D02C75;
-    white-space: nowrap;
-    padding: 8px 10px;
-    color: #fff;
-    font-size: 12px;
-    outline: none;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    text-decoration: none;
+        border-radius: 50px;
+        background: #d02c75;
+        white-space: nowrap;
+        padding: 10px 22px;
+        color: #fff;
+        font-size: 16px;
+        outline: none;
+        border: none;
+        cursor: pointer;
 
     &:hover {
         transition: all 0.2s ease-in-out;
@@ -327,10 +326,10 @@ export const Details = styled.div`
 
 export const Data = styled.p`
     max-width: 440px;
-    margin-bottom: 5px;
-    font-size: 11px;
+    font-size: 20px;
     line-height: 24px;
     color: black;
+    padding-right: 15px;
 
 `;
 

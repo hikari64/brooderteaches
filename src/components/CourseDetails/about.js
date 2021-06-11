@@ -6,7 +6,7 @@ CourseWrapper1, CourseBtnLink } from '../CourseSections/CourseElements';
 import CourseDets from './index'
 import RelatedCoursesSection from '../CourseSections/relatedcourses';
 
-import firestore from "../../firebase";
+import {fbapp} from "../../firebase";
 
 
 
@@ -17,7 +17,7 @@ const CourseAbout = ({id}) => {
 
 useEffect(() => {
     const fetchCourses = async()=>{
-    const db = firestore.firestore();
+    const db = fbapp.firestore();
     db.collection('courses').where("id", "==", id).get().then((querySnapshot) => {
              
       // Loop through the data and store
@@ -41,7 +41,8 @@ useEffect(() => {
                 <Column11>
                     <TextWrapper>
                         <Heading to='' >{data.title}
-                        </Heading><CourseBtnLink to={`/register/${data.id}`} style={{ textAlign: 'left'}}>
+                        </Heading><br />
+                        <CourseBtnLink to={`/register/${data.id}`} style={{ textAlign: 'left'}}>
                     Take this Class
                   </CourseBtnLink>
                         <Subtitle1>{data.about}
