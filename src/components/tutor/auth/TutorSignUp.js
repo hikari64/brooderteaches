@@ -8,31 +8,15 @@ import "./index.css";
 
 // boostraP IMPOTS
 import { Container, Row, Col, Button, Form, Alert } from "react-bootstrap";
-import Navbar from "../../Navbar";
 
 // image imports
 import Image from "../../../images/img-2.png";
+import { TutorAuthHeader } from "./TutorAuthHeader";
+
 
 // header import
 
 export default function TutorSignUp() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggle = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const [navbar, setNavbar] = useState(false);
-  const changeBackground = () => {
-    if (window.scrollY >= 150) {
-      setNavbar(true);
-    } else {
-      setNavbar(false);
-    }
-  };
-
-  window.addEventListener("scroll", changeBackground);
-
   const emailRef = useRef();
   const passwordRef = useRef();
   const firstNameRef = useRef();
@@ -78,11 +62,8 @@ export default function TutorSignUp() {
     <Container fluid>
       <Row>
         {" "}
-        <Navbar
-          toggle={toggle}
-          navbar={navbar}
-          changeBackground={changeBackground}
-        />
+        <TutorAuthHeader/>
+
         <Col md={6} className="hide-on-mobile side-bg">
           <Container fluid className="my-auto">
             <Row className="height-full">
@@ -96,8 +77,7 @@ export default function TutorSignUp() {
           <Container fluid className="my-auto">
             <Row className="height-full">
               <Col md={10} className="mx-auto my-auto text-center container">
-                <br />
-                <br />
+               
                 <h2 className="header">Become A Tutor</h2>
                 <p>
                   Terms and conditions of being a tutor and pricing should go

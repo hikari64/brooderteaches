@@ -9,7 +9,6 @@ import { useAuth } from "../../../contexts/AuthContext";
 import "./index.css";
 // boostraP IMPOTS
 import { Container, Row, Alert, Col, Form, Button } from "react-bootstrap";
-import Navbar from "../../Navbar";
 
 // header import
 import { TutorAuthHeader } from "./TutorAuthHeader";
@@ -18,29 +17,6 @@ import { TutorAuthHeader } from "./TutorAuthHeader";
 import Image from "../../../images/img-3.png";
 
 export default function TutorLogin() {
-  const[isOpen, setIsOpen] = useState(false);
-
-    const toggle = () => {
-        setIsOpen(!isOpen)
-    };
-
-    const [isActive, setActive] = useState(false);
-
-    const toggleClass = () => {
-        setActive(!isActive);
-    };
-
-    const [navbar, setNavbar] = useState(false)
-    const changeBackground = () => {
-        if(window.scrollY >=150){
-            setNavbar(true);
-        } else {
-            setNavbar(false);
-        }
-    }
-    
-    window.addEventListener('scroll', changeBackground)
-
     const emailRef = useRef();
     const passwordRef = useRef();
     const [error, setError] = useState("");
