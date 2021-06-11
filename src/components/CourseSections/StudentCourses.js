@@ -21,52 +21,43 @@ import {
 
 // firebase imports
 import {fbapp} from "../../firebase";
-import {useAuth} from '../../contexts/AuthContext'
-import useFetchCoursesById from "./hooks/useFetchCoursesById";
-import { CourseDescription } from "../tutor/dashboard/TutorDashboardElements";
 
 
 const CourseSections = (props) => {
 
 const lightBg = false;
 const imgStart = true;
-const { userID } = useAuth()
 
-console.log(userID)
 const db = fbapp.firestore();
+const [courses, setCourses] = useState([])
+const coursesArray = props.courses;
+let result;
 
+useEffect(() => {
+  const fetchCourses = async()=>{
+  console.log(coursesArray)
+  coursesArray.map((id) => 
 
- //const [courses, setCourses] = useState([]);
+  db.collection('courses').where("id", "==", id).get().then((querySnapshot) => {
+           
+    // Loop through the data and store
+    // it in array to display
+    querySnapshot.forEach(element => {
+        var data = element.data();
+        setCourses(arr => [...arr , data]);
+          
+    });
+}) 
+)
+}; fetchCourses();
+}, [])
 
-//  Delete this function and rather implement the hook for fetching 
-//  courses based on the user's ID
-//  user ID is defined here: const { userID } = useAuth()
-
-
- function fetchMyCourses(item, index, array) {
-
- }
-
- const CourseList =(lessons)=>{
-  return lessons.map((lesson) => (MyCourseDetails(lesson)));
-  // return(
-  //   <h1>returning </h1>
-  //       // {props.courses && CourseList(props.courses)}
-  // )
-
-}
-
-
-function MyCourseDetails(data){
-   const { courses } =  useFetchCoursesById(data);
-  // const loadview=()=>{
-  //   LoadLessonTab(lessons)
   // }
-    return (
-      <CourseContainer key={data}>
+    result = courses.map((data, index) => 
+      <CourseContainer key={index}>
         <CourseDetails id={courses.id}  lightBg={lightBg}>
           <CourseWrapper>
-            <CourseRow imgStart={lightBg}>
+            <CourseRow imgStart={imgStart}>
               <Column1>
                 <TextWrapper>
                   <Heading to={`/about/${courses.id}`}>
@@ -106,22 +97,8 @@ function MyCourseDetails(data){
       </CourseContainer>
     
       );
-  //     return(
-  //   <h1>returning </h1>
-  //       // {props.courses && CourseList(props.courses)}
-  // )
-  
-}
-    // const result =  courses.map((data) => (
-     
-    //   ));
-    console.log(props.courses)
-      
 
-      return(
-        
-            props.courses && CourseList(props.courses)
-      )
+return ( <>{result}</> )
  
 };
 

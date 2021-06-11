@@ -21,13 +21,11 @@ const MyCourses = () => {
 
   const db = fbapp.firestore();
   
-  
-  const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [emptyCourse, setEmptyCourse] = useState(false);
   //  const [courseLevel,setCourseLevel] = useState(0);
   
-  const [filteredCourse, setFilteredCourse] = useState(courses)
+  const [filteredCourse, setFilteredCourse] = useState([])
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetchCourses = async()=>{
@@ -36,14 +34,15 @@ const MyCourses = () => {
         .then((doc) => {
             if (doc.exists) {
                 var data = doc.data().courses
+                // console.log(data)
                 
                 if(data){
-                  data.forEach((dat) => {
+                  // data.forEach((dat) => {
                   //allcourses.push(doc.data());
-                  setFilteredCourse(filteredCourse => [...filteredCourse ,dat]);
+                  setFilteredCourse(filteredCourse => [...filteredCourse ,data]);
                   setEmptyCourse(false)
                   setLoading(false)
-                });
+                // });
                 }else{
                   setEmptyCourse(true)
                   setLoading(false)

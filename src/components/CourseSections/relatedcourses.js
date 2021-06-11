@@ -4,7 +4,7 @@ RelatedTextWrapper, RelatedHeading, RelatedHeading2, RelatedSubtitle, RelatedImg
 RelatedCourseWrapper, RelatedCourseBtnLink, RelatedDetails, RelatedData, RelatedDurationIcon, RelatedStartIcon, RelatedFeeIcon } from './RelatedElements';
 // import { courses } from '../AllCourses/CourseData';
 
-import firestore from "../../firebase";
+import {fbapp} from "../../firebase";
 
 const RelatedCoursesSection = () => {
 
@@ -15,7 +15,7 @@ const imgStart = true;
 
 useEffect(() => {
     const fetchCourses = async()=>{
-    const db = firestore.firestore();
+    const db = fbapp.firestore();
     db.collection('courses').get().then((querySnapshot) => {
              
       // Loop through the data and store
