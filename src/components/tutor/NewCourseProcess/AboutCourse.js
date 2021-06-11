@@ -6,10 +6,11 @@ import React, { useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 import { LessonButtons,
- 
+
   AddLessonButtons
   } from "../dashboard/TutorDashboardElements";
 
+import ReactPlayer from "react-player"
 import useFetchLessonById from "../hooks/useFetchLessonById";
 import Spinner from "../../Spinner/Spinner";
 import { CourseDetails,ViewLessonDetails } from "../courses/components";
@@ -47,8 +48,7 @@ const LessonList =(lessons)=>{
 
 
   // NAVBAR CONTROLS
-
-
+ 
 const LoadLessonTab=(lesson)=>{
   
   setDisplayData(lesson);

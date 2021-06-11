@@ -2,7 +2,59 @@ import React from 'react'
 import { Col } from 'react-bootstrap'
 import ReactPlayer from 'react-player'
 import { CourseTitle, ReviewHeadings ,CourseDescription,PlayerStyle,Videocontainer} from '../../dashboard/TutorDashboardElements'
+import {
+    CourseContainer,
+   // CourseDetails,
+    TextWrapper,
+    Heading,
+    Subtitle,
+    ImgWrap,
+    Column1,
+    Column2,
+    Img,
+    CourseRow,
+    CourseWrapper,
+    CourseBtnLink,
+    Details,
+    Data,
+    DurationIcon,
+    StartIcon,
+    FeeIcon,
+  } from "../../../CourseSections/CourseElements";
 
+export const CourseReviewDetails =(props)=>{
+    return(
+        <Col xs={8} className="">
+            <CourseTitle className="m-2 mx-auto">
+                {props.courses.title}
+            </CourseTitle>
+            <CourseDescription>
+                {props.courses.about}
+            </CourseDescription>
+           <hr/>
+            <Details className="row">
+            <Data className="col">
+                <DurationIcon /> {props.courses.duration}
+            </Data>
+            <Data className="col">
+                <StartIcon />
+                {props.courses.startDate}
+            </Data>
+            <Data className="col">
+                <FeeIcon />
+                {props.courses.price}
+            </Data>
+            </Details>
+            
+
+            <ReviewHeadings className="m-2 mx-auto">About This Course</ReviewHeadings>
+            <CourseDescription>
+            {props.courses.about}
+            </CourseDescription>
+       </Col>
+
+    )
+}  
 export const CourseDetails =(props)=>{
     return(
         <Col xs={8} className="mx-md-auto">
