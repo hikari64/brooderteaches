@@ -12,17 +12,17 @@ import UploadLessons from "./UploadLessons";
 export default function NewCourseProcess({ ProcessIndicator }) {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [courseId, setCourseId] = useState("0glNQdEhbYi4TNg7GAwf");
+  const [courseId, setCourseId] = useState("");
   const [courseData, setCourseData] = useState({
     title: "",
     about: "",
     duration: "",
     startDate: "",
-    price: null,
+    price: '',
     level: "",
     period:'',
-    preview: null,
-    tutorId: null,
+    preview: '',
+    tutorId: '',
     students: [],
     lesson: [],
   });
@@ -34,6 +34,20 @@ export default function NewCourseProcess({ ProcessIndicator }) {
     assigment: "",
     date: "",
   });
+  const [error, setError] = useState({
+    title: "",
+    about: "",
+    duration: "",
+    startDate: "",
+    price: '',
+    level: "",
+    period:'',
+    preview: '',
+    previewImg: '',
+    tutorId: '',
+    students: [],
+    lesson: [],
+  });
 
   console.log("courseData", courseData);
 
@@ -43,9 +57,12 @@ export default function NewCourseProcess({ ProcessIndicator }) {
 
   const UpdateData = (item, value) => {
     setCourseData((courseData) => ({ ...courseData, [item]: value }));
+    setError((error) => ({ ...error, [item]: null }));
   };
   const UpdateLessonData = (item, value) => {
     setLessonData((lessonData) => ({ ...lessonData, [item]: value }));
+    setError((error) => ({ ...error, [item]: null }));
+
   };
 
   // Proceed to next step
@@ -60,16 +77,20 @@ export default function NewCourseProcess({ ProcessIndicator }) {
     ProcessIndicator(step - 1);
   };
 
-  const Submit = (url) =>{
+  //submit New Course
+  const Submit = () =>{
     setLoading(!loading)
-     AddCourse(courseData,setLoading,setCourseId,userID,url);
+     AddCourse(courseData,setLoading,setCourseId,userID);
     
   }
+
+  // Submit New Lesson
   const SubmitLesson = (url) =>{
     setLoading(!loading)
     AddLesson(lessonData,setLoading,courseId,url);
     
   }
+  
   // handle
 
   switch (step) {
@@ -81,6 +102,8 @@ export default function NewCourseProcess({ ProcessIndicator }) {
             <CourseDetails
               Submit={Submit}
               data={courseData}
+              error={error}
+              setError={setError}
               updateData={UpdateData}
               nextStep={nextStep}
             />
@@ -98,6 +121,8 @@ export default function NewCourseProcess({ ProcessIndicator }) {
               courseId={courseId}
               updateData={UpdateLessonData}
               data={lessonData}
+              error={error}
+              setError={setError}
               nextStep={nextStep}
               prevStep={prevStep}
             />
@@ -112,7 +137,7 @@ export default function NewCourseProcess({ ProcessIndicator }) {
       return (
         <React.Fragment>
           {loading && <Spinner />}
-          {!loading && <ReviewCourse courseId={courseId} nextStep={nextStep} prevStep={prevStep} />}
+          {!loading && <ReviewCourse courseId={courseId} error={error}  nextStep={nextStep} prevStep={prevStep} />}
         </React.Fragment>
       );
 

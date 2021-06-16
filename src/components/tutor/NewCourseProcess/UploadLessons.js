@@ -51,9 +51,11 @@ const [error, setError] = useState(null);
     console.log(file)
     var d = new Date();
     var n = d.getTime();
-    const filename = n+file.name;
     // references
-   if(file){ const storeVideoRef = storageRef.child(`/lessonVideos/${filename}`);
+   if(file){
+   const filename = n+file.name;
+
+    const storeVideoRef = storageRef.child(`/lessonVideos/${filename}`);
     
     storeVideoRef.put(file).on('state_changed', (snap) => {
       let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
@@ -79,9 +81,11 @@ const [error, setError] = useState(null);
     console.log(file)
     var d = new Date();
     var n = d.getTime();
-    const filename = n+file.name;
+   
     // references
-   if(file){ const storeVideoRef = storageRef.child(`/lessonAssigments/${filename}`);
+   if(file){ 
+      const filename = n+file.name;
+    const storeVideoRef = storageRef.child(`/lessonAssigments/${filename}`);
     
       storeVideoRef.put(file).on('state_changed', (snap) => {
         let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
@@ -155,7 +159,6 @@ const [error, setError] = useState(null);
               <Form.Group  className="row mt-3">
                 
                 <Col>
-                <ProgressBar/>
                  {progress !== 0 && <ProgressBar now={progress} />}
                 <DropzoneArea
                      acceptedFiles={['video/*']}
@@ -175,7 +178,6 @@ const [error, setError] = useState(null);
                <Form.Group  className="row mt-3">
  
                 <Col>
-                <ProgressBar/>
                  {assignmentProgress !== 0 && <ProgressBar now={assignmentProgress} />}
                 <DropzoneArea
                      acceptedFiles={['application/pdf']}

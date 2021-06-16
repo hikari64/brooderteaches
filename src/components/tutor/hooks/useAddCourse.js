@@ -6,7 +6,7 @@ import {storage} from '../../../firebase';
 
 
 
-const AddCourse =(data,setLoading,setCourseId,userID,url)=>{
+const AddCourse =(data,setLoading,setCourseId,userID)=>{
     let error = ''
     let newdata = ''
     let progress ='';
@@ -29,7 +29,8 @@ const AddCourse =(data,setLoading,setCourseId,userID,url)=>{
                 startDate: data.startDate,
                 price: data.price,
                 level: data.level,
-                preview: url,
+                preview: data.preview,
+                previewImg: data.previewImg,
                 period:data.period,
                 tutorId,
                 students:[],

@@ -53,16 +53,16 @@ const CourseSections = ({courses}) => {
     <CourseContainer key={courses.id}>
       <CourseDetails id={courses.id}  lightBg={courses.lightBg}>
         <CourseWrapper>
-          <CourseRow imgStart={courses.imgStart}>
+          <CourseRow imgStart={courses.previewImg}>
             <Column1>
               <TextWrapper>
                 <Heading to={`/tutor-about/${courses.id}`}>
                   {courses.title}
                 </Heading>
-                <Subtitle>{courses.description}</Subtitle>
+                <Subtitle>{courses.about}</Subtitle>
                 <Details>
                   <Data>
-                    <DurationIcon /> {courses.duration}
+                    <DurationIcon /> {courses.duration}{courses.period ==1 && " Weeks"}{courses.period ==2 && "Months"}
                   </Data>
                   <Data>
                     <StartIcon />
@@ -70,7 +70,7 @@ const CourseSections = ({courses}) => {
                   </Data>
                   <Data>
                     <FeeIcon />
-                    {courses.fee}
+                     GHC {courses.price}
                   </Data>
                 </Details>
                 <CourseBtnLink to={`/tutor-about/${courses.id}`}>
@@ -82,7 +82,7 @@ const CourseSections = ({courses}) => {
             <Column2>
               <ImgWrap>
                 {/* <Img> */}
-                <Img src={courses.img} alt={courses.alt}></Img>
+                <Img src={courses.previewImg} alt={courses.alt}></Img>
               </ImgWrap>
             </Column2>
           </CourseRow>
