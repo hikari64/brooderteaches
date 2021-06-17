@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link, useHistory} from "react-router-dom";
+
 import { FaBars } from "react-icons/fa";
 import { animateScroll as scroll } from "react-scroll";
 import {
@@ -13,22 +15,30 @@ import {
   NavLogo,
   NavMenu,
   Profile,
+  MenuItem,
 } from "./NavbarElements";
 import {Dropdown} from 'react-bootstrap'
 // auth
 import { useAuth } from "../../contexts/AuthContext";
 import { auth } from "../../firebase";
 
-const Navbar = ({ toggle, navbar, changeBackground }) => {
+const Navbar = ({ toggle, navbar, changeBackground,tutor }) => {
   const { currentUser } = useAuth();
+  const history = useHistory();
   
+
   const logout = () => {
     return auth.signOut();
   };
   // let currentUser = {
   //   displayName: "Okraks",
   // };
+  if(!currentUser){
+    
 
+    history.push("/tutor-login")
+    
+  }
   
   let leftlabel, largescreen;
   if (!(currentUser)){
@@ -42,13 +52,18 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
       </NavBtn>
   } else {
       // leftlabel = <MobileIcon onClick={toggle}>{currentUser.email}</MobileIcon>
-      leftlabel = <MobileIcon onClick={toggle}>{currentUser.displayName}</MobileIcon>
-      largescreen = <Profile><Dropdown>
+      leftlabel = <MobileIcon onClick={toggle}>{currentUser.email}</MobileIcon>
+      largescreen = <Profile>
+       <span>{currentUser.email}</span>
+        <Dropdown>
       <Dropdown.Toggle id="dropdown-basic">
-      {currentUser.displayName}
+      
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item onClick={logout}>My Courses</Dropdown.Item>
+        {/* <Dropdown.Item><MenuItem to='/tutor-courses'>Dashboard</MenuItem></Dropdown.Item> */}
+        <Dropdown.Item><MenuItem to='/tutor-courses'>My Courses</MenuItem></Dropdown.Item>
+        <Dropdown.Item><MenuItem to='/tutor-profile'>Profile</MenuItem></Dropdown.Item>
+        <Dropdown.Item><MenuItem to='/tutor-create-course'>Create New Course</MenuItem></Dropdown.Item>
         <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown></Profile>

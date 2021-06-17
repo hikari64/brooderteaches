@@ -130,6 +130,22 @@ export const NavBtnLink2 = styled(LinkR)`
     color: #fff;
   }
 `;
+export const MenuItem = styled(LinkR)`
+  background: transparent;
+  white-space: nowrap;
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    color: #fff;
+  }
+`;
 
 export const Profile = styled.nav`
   display: flex;

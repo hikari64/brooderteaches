@@ -36,7 +36,7 @@ export default function TutorProfile(props) {
 const { loading, tutors } = useFetchTutorsById(userID);
   return (
     <div fluid className="height-full">
-      <TutorDashboardHeader tutors={tutors}/>
+      <TutorDashboardHeader tutors={tutors} view={3}/>
       
       <Container className="height-half">
 

@@ -52,7 +52,7 @@ const { courses } = useFetchCoursesByTutorId(userID);
 
   return (
     <div fluid className="height-full">
-      <TutorDashboardHeader tutors={tutors}/>
+      <TutorDashboardHeader tutors={tutors} view={1} />
       <TutorSubNavbar>
                 <Container className="mx-5">
                 <Container className="container mx-5 p-4 ">

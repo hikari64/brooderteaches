@@ -47,6 +47,7 @@ export default function TutorDashboardHeader(props){
             <Navbar
                 toggle={toggle}
                 navbar={navbar}
+                tutor={props.tutor}
                 changeBackground={changeBackground}
                 />
             <Row className="page-header " >
@@ -68,10 +69,10 @@ export default function TutorDashboardHeader(props){
                 {props.tutors.email}
                 </p>
                 <hr/>
-                    <TutorLinks to={"/tutor-courses"} active className="p-2 m-1">Your Courses</TutorLinks>
-                    <TutorLinks to={"/tutor-create-course"} className="p-2 m-1">Create New Course</TutorLinks>
+                    <TutorLinks to={"/tutor-courses"} active={props.view === 1 && true} className="p-2 m-1">Your Courses</TutorLinks>
+                    <TutorLinks to={"/tutor-create-course"} active={props.view === 2 && true} className="p-2 m-1">Create New Course</TutorLinks>
 
-                    <TutorLinks to={"/tutor-profile"} className="p-2 m-1">Edit Profile</TutorLinks>
+                    <TutorLinks to={"/tutor-profile"} active={props.view === 3 && true} className="p-2 m-1">Edit Profile</TutorLinks>
 
 
 

@@ -50,7 +50,7 @@ export default function TutorCourseHeader(props){
                 navbar={navbar}
                 changeBackground={changeBackground}
                 />
-            <CourseHeaderContainer img={picture} className="page-header " >
+            <CourseHeaderContainer img={props.course.previewImg} className="page-header " >
                 <Container className="row mt-5 p-5 mx-auto">
                 
                 <Container md={7} className="text-center mx-auto my-auto ">

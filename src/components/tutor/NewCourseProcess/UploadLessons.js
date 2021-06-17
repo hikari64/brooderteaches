@@ -25,6 +25,8 @@ const [progress, setProgress] = useState(0);
 const [assignmentProgress, setAssignmentProgress] = useState(0);
 const [displayData,setDisplayData] = useState(null)
 const [error, setError] = useState(null);
+const [validated, setValidated] = useState(false);
+
 
   const LoadLessonTab=(lessons)=>{
   
@@ -40,8 +42,25 @@ const [error, setError] = useState(null);
     let nam = event.target.name
 
     props.updateData(nam,val);
-    
+    props.updateData("courseId",props.courseId);
 
+  }
+
+  const findFormErrors = () => {
+    const newErrors = {}
+    // name errors
+    if ( !props.data.title || props.data.title === '' ) newErrors.title = 'cannot be blank!'
+    else if ( props.data.title.length > 100 ) newErrors.title = 'Title is too long!'
+    // Summary errors
+    if ( !props.data.summary || props.data.summary === '' ) newErrors.summary = 'summary cannot be blank!'
+    else if ( props.data.summary.length > 300 ) newErrors.summary = 'Summary is too long!'
+    // food errors
+    if ( !props.data.date || props.data.date === '' ) newErrors.date = 'select a date!'
+    // rating errors
+    if ( !props.data.assignment || props.data.assignment === '' ) newErrors.assignment = 'Add an Assignment!'
+    if ( !props.data.video || props.data.video === '' ) newErrors.video = 'Add an Introductory Video!'
+    
+    return newErrors;
   }
   const handleChange = (File) => {
     // Uploading to firebase storage
@@ -102,10 +121,25 @@ const [error, setError] = useState(null);
       });
     }
   }
-  const Proceed = ()=>{
+  const Proceed = (event)=>{
 
-    props.updateData("courseId",props.courseId);
+    event.preventDefault();
+ 
+  const newErrors = findFormErrors()
+    // Conditional logic:
+    if ( Object.keys(newErrors).length > 0 ) {
+      // We got errors!
+      props.setError(newErrors)
+    } else {
+      // No errors! Put any logic here for the form submission!
+      alert('Thank you for your feedback!')
+      // continue with other rendering
+        
+    
      props.Submit();
+     props.nextStep();
+    }
+
    }
   return (
     <div fluid className="height-full">
@@ -120,7 +154,7 @@ const [error, setError] = useState(null);
             </AddLessonButtons>
           </Col>
           <Col md={8} className="mx-auto text-center">
-            <Form inline >
+            <Form noValidate validated={validated} onSubmit={Proceed}  inline >
               {/* COURSE TITLE */}
               <Form.Group className="row">
                 <Form.Control
@@ -130,7 +164,12 @@ const [error, setError] = useState(null);
                   name="title"
                   value={props.data.title}
                   onChange={eventHandler}
+                  isInvalid={ !!props.error.title }
+
                 />
+                <Form.Control.Feedback type="invalid">
+              {props.error.title}
+            </Form.Control.Feedback>
               </Form.Group>
               {/* COURSE DESCRIPTION*/}
               <Form.Group  className="row ">
@@ -142,8 +181,12 @@ const [error, setError] = useState(null);
                   name="summary"
                   value={props.data.summary}
                   onChange={eventHandler}
+                  isInvalid={ !!props.error.summary}
                   
                 />
+                <Form.Control.Feedback type="invalid">
+              {props.error.summary}
+            </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="row">
                 <Form.Control
@@ -153,8 +196,14 @@ const [error, setError] = useState(null);
                   name="date"
                   value={props.data.date}
                   onChange={eventHandler}
+                  isInvalid={ !!props.error.date }
+
                 />
+                <Form.Control.Feedback type="invalid">
+              {props.error.date}
+            </Form.Control.Feedback>
               </Form.Group>
+
               {/* INTRO VIDEO */}
               <Form.Group  className="row mt-3">
                 
@@ -171,6 +220,7 @@ const [error, setError] = useState(null);
                      name="video"
                      value={props.data.video}
                      />
+                     {props.error.video && <div className="alert-danger">{props.error.video} </div>}
                 </Col>
            
                </Form.Group>
@@ -178,7 +228,7 @@ const [error, setError] = useState(null);
                <Form.Group  className="row mt-3">
  
                 <Col>
-                 {assignmentProgress !== 0 && <ProgressBar now={assignmentProgress} />}
+                 {assignmentProgress !== 0 && <ProgressBar striped now={assignmentProgress} />}
                 <DropzoneArea
                      acceptedFiles={['application/pdf']}
                      dropzoneText={"Add Assignment"}
@@ -190,10 +240,11 @@ const [error, setError] = useState(null);
                      name="assignment"
                    value={props.data.assignment}
                      />
+                     {props.error.assignment && <div className="alert-danger">{props.error.assignment} </div>}
                 </Col>            
               </Form.Group>
               <Container className="contain">
-              <Button onClick={Proceed} className="primary-button col-5">
+              <Button type="submit" className="primary-button col-5">
                 Upload lesson
               </Button>
               </Container>

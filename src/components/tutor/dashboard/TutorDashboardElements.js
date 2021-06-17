@@ -284,6 +284,9 @@ export const Videocontainer = styled.div`
   }
 `;
 export const CourseHeaderContainer = styled.div`
-background: transparent linear-gradient(180deg, #00000080 0%, #030030E6 100%) 0% 0% url('${props=>props.img}') 0% 0% no-repeat padding-box;
+
+background: transparent url('${props=>props.img}') 0% 0% no-repeat padding-box cover;
+
+//background: transparent linear-gradient(180deg, #00000080 0%, #030030E6 100%) 0% 0% url('${props=>props.img}') 0% 0% no-repeat padding-box;
 opacity: 1;
 `;

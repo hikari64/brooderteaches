@@ -68,7 +68,7 @@ export default function TutorCreateCourse(props) {
 
   return (
     <div fluid className="height-full">
-      <TutorDashboardHeader tutors={tutors} />
+      <TutorDashboardHeader tutors={tutors} view={2} />
       <TutorSubNavbar>
         <Container className="mx-5">
           <Container className="container mx-5 p-4 row">

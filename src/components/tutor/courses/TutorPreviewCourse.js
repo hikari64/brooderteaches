@@ -28,6 +28,7 @@ import {
 import useFetchCoursesById from "../hooks/useFetchCoursesById";
 import ReviewCourse from "../NewCourseProcess/ReviewCourse";
 import Spinner from "../../Spinner/Spinner";
+import TutorDashboardHeader from "../dashboard/TutorDashboardHeader";
 
 export default function TutorPreviewCourse(props) {
   const [Id, setId] = useState('1267283472364');
@@ -42,35 +43,7 @@ export default function TutorPreviewCourse(props) {
   return (
     <div fluid className="height-full">
       
-      <Row className="page-header " >
-        <Container className="row mt-5 p-5">
-         <Col md={3} className="text-lg-end te my-auto hide-on-mobile">
-         
-            <img  
-            width="150"
-            height="150"
-            src={picture} alt="myimage" 
-            className="rounded-circle" />
-
-       
-        </Col>
-        <Col md={7} className=" text-start my-auto ">
-         
-          <TutorName>Winston Brown</TutorName>
-          <p className="text-muted">
-          brownwinston@gmail.com
-          </p>
-          <hr/>
-            <TutorLinks to={"/tutor-courses"} active className="p-2 m-1">Your Courses</TutorLinks>
-            <TutorLinks to={"/tutor-create-course"} className="p-2 m-1">Create New Course</TutorLinks>
-
-            <TutorLinks to={"/tutor-profile"} className="p-2 m-1">Edit Profile</TutorLinks>
-
-
-
-        </Col>
-       </Container>
-      </Row>
+      <TutorDashboardHeader view={3}/>
       <TutorSubNavbar>
         <Container className="mx-5">
           <Container className="container mx-5 p-4 ">
