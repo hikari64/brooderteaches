@@ -8,7 +8,7 @@ import CourseSections from "../../components/CourseSections";
 import {fbapp} from "../../firebase";
 import {useAuth} from '../../contexts/AuthContext'
 import Spinner from "../../components/Spinner/Spinner";
-import { Container } from "react-bootstrap";
+import { Container, Card, Button } from "react-bootstrap";
 import {
   CourseContainer,
   CourseDetails,
@@ -28,7 +28,7 @@ import {
   StartIcon,
   FeeIcon,
 } from "../../components/CourseSections/CourseElements";
-
+import { NavBtnLink } from "../../components/Navbar/NavbarElements";
 
 
 
@@ -51,14 +51,18 @@ const MyCourses = () => {
         .then((doc) => {
             if (doc.exists) {
                 var data = doc.data().courses
-                // console.log(data)
+                console.log(data)
                 
                 if(data){
+                  if (!!data) {
+                    setEmptyCourse(true)
+                  setLoading(false)
+                  } 
                   // data.forEach((dat) => {
                   //allcourses.push(doc.data());
                   // setFilteredCourse(filteredCourse => [...filteredCourse ,data]);
                   
-                data.forEach((dat) => {
+                else { data.forEach((dat) => {
                   db.collection("courses").where("id", "==", dat)
     .get()
     .then((querySnapshot) => {
@@ -73,6 +77,7 @@ const MyCourses = () => {
         console.log("Error getting documents: ", error);
     });
    } ) 
+  }
 
                 // });
                 }else{
@@ -176,7 +181,20 @@ const result =  mycourses.map((data, index) => (
       <StudentDashboardHeader/>
       <Container>
         {loading && <Spinner/>}
-        {emptyCourse && <Container className="mx-auto my-auto">No courses, consider taking a course already!</Container>}
+        {emptyCourse && 
+        <Container><br /><br />
+          <Card className="text-center">
+            <Card.Body>
+              <Card.Title>Ooops</Card.Title>
+              <Card.Text>
+             You have no courses yet, consider taking a course already!
+              </Card.Text>
+              <NavBtnLink to='/courses'>
+                        Take A Class
+              </NavBtnLink>
+            </Card.Body>
+          </Card><br /><br />
+        </Container>}
         {!loading && result}
         
       </Container>
