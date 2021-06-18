@@ -2,15 +2,32 @@ import React, { useState, useEffect } from "react";
 import Footer from "../../components/Footer";
 import Sidebar from "../../components/Sidebar";
 import { CContainer, CContainer2 } from "../PagesElements";
-import CourseSections from "../../components/CourseSections/StudentCourses";
 import StudentDashboardHeader from "../../components/PageHeader/StudentDashboardHeader";
 import Navbar from '../../components/Navbar/StudentNav';
-
+import CourseSections from "../../components/CourseSections";
 import {fbapp} from "../../firebase";
 import {useAuth} from '../../contexts/AuthContext'
 import Spinner from "../../components/Spinner/Spinner";
 import { Container } from "react-bootstrap";
-
+import {
+  CourseContainer,
+  CourseDetails,
+  TextWrapper,
+  Heading,
+  Subtitle,
+  ImgWrap,
+  Column1,
+  Column2,
+  Img,
+  CourseRow,
+  CourseWrapper,
+  CourseBtnLink,
+  Details,
+  Data,
+  DurationIcon,
+  StartIcon,
+  FeeIcon,
+} from "../../components/CourseSections/CourseElements";
 
 
 
@@ -25,7 +42,7 @@ const MyCourses = () => {
   const [emptyCourse, setEmptyCourse] = useState(false);
   //  const [courseLevel,setCourseLevel] = useState(0);
   
-  const [filteredCourse, setFilteredCourse] = useState([])
+  const [mycourses, setMyCourses] = useState([])
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetchCourses = async()=>{
@@ -40,18 +57,16 @@ const MyCourses = () => {
                   // data.forEach((dat) => {
                   //allcourses.push(doc.data());
                   // setFilteredCourse(filteredCourse => [...filteredCourse ,data]);
-                  // setEmptyCourse(false)
-                  // setLoading(false)
-                console.log(data)
+                  
                 data.forEach((dat) => {
-                  console.log(dat)
-                  db.collection('courses').where('id', '==', dat)
+                  db.collection("courses").where("id", "==", dat)
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-            console.log("here?");
+          var data = doc.data();
+          setMyCourses(arr => [...arr , data]);
+          setEmptyCourse(false)
+          setLoading(false)
         });
     })
     .catch((error) => {
@@ -86,7 +101,52 @@ const MyCourses = () => {
 }; fetchCourses();
 }, [])
  
- 
+const lightBg = false;
+const imgStart = true;
+
+const result =  mycourses.map((data, index) => (
+  <CourseContainer key={index}>
+    <CourseDetails id={data.id}  lightBg={lightBg}>
+      <CourseWrapper>
+        <CourseRow imgStart={imgStart}>
+          <Column1>
+            <TextWrapper>
+              <Heading to={`/about/${data.id}`}>
+                {data.title}
+              </Heading>
+              <Subtitle>{data.about}</Subtitle>
+              <Details>
+                <Data>
+                  <DurationIcon /> {data.duration}
+                </Data>
+                <Data>
+                  <StartIcon />
+                  {data.startDate}
+                </Data>
+                <Data>
+                  <FeeIcon />
+                  {data.price}
+                </Data>
+              </Details>
+              <CourseBtnLink to={`/preview/${data.id}`}>
+                Watch Preview
+              </CourseBtnLink>
+              <CourseBtnLink to={`/register/${data.id}`}>
+                Take this Class
+              </CourseBtnLink>
+            </TextWrapper>
+          </Column1>
+          <Column2>
+            <ImgWrap>
+              {/* <Img> */}
+              <Img src={data.img} alt={data.alt}></Img>
+            </ImgWrap>
+          </Column2>
+        </CourseRow>
+      </CourseWrapper>
+    </CourseDetails>
+  </CourseContainer>
+  ));
   // scroll to top
   
   const [isOpen, setIsOpen] = useState(false);
@@ -114,12 +174,12 @@ const MyCourses = () => {
       <Sidebar isOpen={isOpen} toggle={toggle} />      
       <Navbar toggle={toggle} navbar={navbar} changeBackground={changeBackground}/>
       <StudentDashboardHeader/>
-      <CContainer>
-        {/* {loading && <Spinner/>} */}
-        {/* {emptyCourse && <Container className="mx-auto my-auto">No courses, consider taking a course already!</Container>} */}
-        {/* {!loading && <CourseSections courses={filteredCourse} />} */}
+      <Container>
+        {loading && <Spinner/>}
+        {emptyCourse && <Container className="mx-auto my-auto">No courses, consider taking a course already!</Container>}
+        {!loading && result}
         
-      </CContainer>
+      </Container>
 
       <Footer />
     </>
