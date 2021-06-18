@@ -83,10 +83,11 @@ const UpdateProfile = () => {
 
 
     }
+    const id=3;
 
     return (
         <div>
-            <StudentDashboardHeader/>
+            <StudentDashboardHeader id={id}/>
             <Container className="height-half">
 
         <Row className="mt-4 mb-4">

@@ -14,11 +14,39 @@ import {
     TutorSubNavbar,
     TutorSubNavbarLink,
   } from "../tutor/dashboard/TutorDashboardElements";
+import { Link, useHistory } from "react-router-dom";
+
 
 
 const StudentDashboardHeader = ({ id }) => {
     const { currentUser} = useAuth();
     // console.log(currentUser.displayName)
+
+    const [toggleState, setToggleState] = useState(id);
+
+    let path;
+    
+  const toggleTab = (index) => {
+    console.log(index)
+    setToggleState(index);
+
+    if (index == 1){
+      path = `/my-courses`; 
+    history.push(path);
+    }
+
+    if (index == 2){
+      path = `/all-courses`; 
+    history.push(path);
+    }
+
+    if (index == 3){
+      path = `/profile`; 
+    history.push(path);
+    }
+  };
+
+  const history = useHistory();
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -68,11 +96,19 @@ const StudentDashboardHeader = ({ id }) => {
             {currentUser.displayName}
             </p>
             <hr/>
-              <TutorLinks to={"/my-courses"}  className="p-2 m-1">Your Courses</TutorLinks>
+              {/* <TutorLinks to={"/my-courses"}  className="p-2 m-1" >Your Courses</TutorLinks>
               <TutorLinks to={"/all-courses"}  className="p-2 m-1">All Courses</TutorLinks>
   
               <TutorLinks to={"/profile"} active className="p-2 m-1">Profile</TutorLinks>
+   */}
+
+<TutorLinks className={toggleState === 1 ? "tabs active-tab" : "tabs"}
+          onClick={() => toggleTab(1)}>Your Courses</TutorLinks>
+              <TutorLinks className={toggleState === 2 ? "tabs active-tab" : "tabs"}
+          onClick={() => toggleTab(2)}>All Courses</TutorLinks>
   
+              <TutorLinks className={toggleState === 3 ? "tabs active-tab" : "tabs"}
+          onClick={() => toggleTab(3)}>Profile</TutorLinks>
   
   
           </Col>

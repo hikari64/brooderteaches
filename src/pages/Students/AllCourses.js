@@ -63,12 +63,13 @@ const courses =  useFetchCourses();
 
   // Define an image to give to Pageheader
   // Pass that image to the Pageheader
+  const id=2
 
   return (
     <>
       <Sidebar isOpen={isOpen} toggle={toggle} />      
       <Navbar toggle={toggle} navbar={navbar} changeBackground={changeBackground}/>
-      <StudentDashboardHeader/>
+      <StudentDashboardHeader id={id}/>
       <CContainer>
         <CourseSideMenu 
         //setCourseLevel={setCourseLevel}
