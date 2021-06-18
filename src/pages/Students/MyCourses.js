@@ -39,9 +39,26 @@ const MyCourses = () => {
                 if(data){
                   // data.forEach((dat) => {
                   //allcourses.push(doc.data());
-                  setFilteredCourse(filteredCourse => [...filteredCourse ,data]);
-                  setEmptyCourse(false)
-                  setLoading(false)
+                  // setFilteredCourse(filteredCourse => [...filteredCourse ,data]);
+                  // setEmptyCourse(false)
+                  // setLoading(false)
+                console.log(data)
+                data.forEach((dat) => {
+                  console.log(dat)
+                  db.collection('courses').where('id', '==', dat)
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            console.log("here?");
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+   } ) 
+
                 // });
                 }else{
                   setEmptyCourse(true)
@@ -98,9 +115,9 @@ const MyCourses = () => {
       <Navbar toggle={toggle} navbar={navbar} changeBackground={changeBackground}/>
       <StudentDashboardHeader/>
       <CContainer>
-        {loading && <Spinner/>}
-        {emptyCourse && <Container className="mx-auto my-auto">No courses, consider taking a course already!</Container>}
-        {!loading && <CourseSections courses={filteredCourse} />}
+        {/* {loading && <Spinner/>} */}
+        {/* {emptyCourse && <Container className="mx-auto my-auto">No courses, consider taking a course already!</Container>} */}
+        {/* {!loading && <CourseSections courses={filteredCourse} />} */}
         
       </CContainer>
 

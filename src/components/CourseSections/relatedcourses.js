@@ -16,14 +16,14 @@ const imgStart = true;
 useEffect(() => {
     const fetchCourses = async()=>{
     const db = fbapp.firestore();
-    db.collection('courses').get().then((querySnapshot) => {
+    const coursesRef = db.collection('courses').orderBy("createdAt").limit(3);
+    coursesRef.get().then((querySnapshot) => {
              
       // Loop through the data and store
       // it in array to display
       querySnapshot.forEach(element => {
           var data = element.data();
           setCourses(arr => [...arr , data]);
-          console.log(data.length)
             
       });
   })
@@ -39,7 +39,7 @@ useEffect(() => {
                                 <RelatedTextWrapper>
                                     <RelatedHeading to={`/about/${data.id}`} >{data.title}
                                     </RelatedHeading>
-                                    <RelatedSubtitle>{data.subtitle}
+                                    <RelatedSubtitle>{data.about}
                                     </RelatedSubtitle>
                                     <RelatedDetails>
                                         <RelatedData><RelatedDurationIcon/> {data.duration}</RelatedData>
@@ -67,6 +67,7 @@ useEffect(() => {
     return (
         <>
         <RelatedHeading2 to='' >Related Courses</RelatedHeading2>
+        <br />
         {result}
              </>
     )
