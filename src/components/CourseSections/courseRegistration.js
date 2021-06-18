@@ -32,6 +32,7 @@ import { fbapp } from "../../firebase";
 
 const CourseRegistration = ({ id }, props) => {
   let isCoursePage;
+  let outline;
 
   const [courses, setCourses] = useState([]);
   const [lessons, setLessons] = useState([]);
@@ -126,8 +127,11 @@ const CourseRegistration = ({ id }, props) => {
   };
 
   // END OF PAYSTACK INTEGRATION
+outline = lessons.map((lesson, index) => (
+  <Outline key={index}>{lesson.title}</Outline>
+))
 
-  isCoursePage = courses.map((data, index) => (
+isCoursePage = courses.map((data, index) => (
     <RegContainer key={index}>
       <CourseOutlineStyle>
         <OutlineVid>
@@ -145,9 +149,7 @@ const CourseRegistration = ({ id }, props) => {
         <OutlineContent>
           <Heading2 to="">Course Outline</Heading2>
           <OutlineList>
-            {lessons.map((lesson, index) => {
-              <Outline>{lesson.title}</Outline>;
-            })}
+          {outline}
           </OutlineList>
           <ExtraInfo>
             Project work and assignments will be required. Group presentations
