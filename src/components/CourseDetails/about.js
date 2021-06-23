@@ -57,7 +57,6 @@ useEffect(() => {
             
         </CourseWrapper1>
     </CourseDetails>
-    <br/><br/>
     <RelatedCoursesSection/>
 </CourseContainer>
 

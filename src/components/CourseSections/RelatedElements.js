@@ -115,18 +115,22 @@ export const RelatedHeading = styled(LinkR)`
 `;
 
 export const RelatedHeading2 = styled.h1`
+    color: black;
     height: 100%;
     width: 100%;
     max-width: 1100px;
-    padding: 100px 60px 0 90px;
+    padding: 100px 60px 0 55px;
     margin-top: 110px 0 0 0;
-    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.1;
+    font-size: 20px;
 
     @media (max-width: 480px) {
-        font-size: 16px;
-        margin-bottom: -60px;
-        margin-left: 350px;
-        margin-top: 320px;
+        font-size: 12px
+    };
+    
+    @media (max-width: 768px){
+        font-size: 12px;
     }
 `;
 

@@ -26,6 +26,19 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
   const logout = () => {
     return auth.signOut();
   };
+
+  const history = useHistory();
+
+  const routeChange = () =>{ 
+    let path = `/my-courses`; 
+    history.push(path);
+  }
+
+  const profile = () =>{ 
+    let path = `/profile`; 
+    history.push(path);
+  }
+
   
     const { currentUser } = useAuth();
     // console.log(currentUser.email)
@@ -48,7 +61,8 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
         </Dropdown.Toggle>
       
         <Dropdown.Menu>
-        <Dropdown.Item><Link to='/my-courses'> My Profile</Link></Dropdown.Item>
+        <Dropdown.Item onClick={routeChange}> My Courses</Dropdown.Item>
+        <Dropdown.Item onClick={profile}> My Profile</Dropdown.Item>
           <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown></Profile>

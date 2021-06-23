@@ -19,12 +19,26 @@ import {Dropdown} from 'react-bootstrap'
 // auth
 import { useAuth } from "../../contexts/AuthContext";
 import { auth } from "../../firebase";
+import { Link, useHistory } from "react-router-dom";
+
 
 
 const Navbar = ({ toggle, navbar, changeBackground }) => {
   const logout = () => {
     return auth.signOut();
   };
+
+  const history = useHistory();
+
+  const routeChange = () =>{ 
+    let path = `/my-courses`; 
+    history.push(path);
+  }
+
+  const profile = () =>{ 
+    let path = `/profile`; 
+    history.push(path);
+  }
   
     const { currentUser } = useAuth();
     let leftlabel, largescreen;
@@ -45,7 +59,8 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
         {currentUser.displayName}
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item onClick={logout}>My Courses</Dropdown.Item>
+        <Dropdown.Item onClick={routeChange}> My Courses</Dropdown.Item>
+        <Dropdown.Item onClick={profile}> My Profile</Dropdown.Item>
           <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown></Profile>
@@ -74,9 +89,9 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
             <NavItem>
               <NavLinks to="/tutor">For Tutors</NavLinks>
             </NavItem>
-            <NavItem>
+            {/* <NavItem>
               <NavLinks to="/about">About</NavLinks>
-            </NavItem>
+            </NavItem> */}
             {/* <NavItem>
               <NavLinks to="/tutor-login">Tutor LogIn</NavLinks>
             </NavItem> */}

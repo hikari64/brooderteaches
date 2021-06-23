@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 //PAYSTACK BUTTON IMPORT
 import { PaystackButton } from "react-paystack";
+import {useAuth} from '../../contexts/AuthContext'
+
 
 // course elements imports
 import {
@@ -30,16 +32,35 @@ import { fbapp } from "../../firebase";
 
 const CourseRegistration = ({ id }, props) => {
   let isCoursePage;
+  let outline;
 
   const [courses, setCourses] = useState([]);
   const [lessons, setLessons] = useState([]);
   const [price, setPrice] = useState();
+  const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const { userID, currentUser, updateEmail, updatePassword, updateProfile } = useAuth()
+  
   // FIRESTORE CALLS
 
   useEffect(() => {
     const db = fbapp.firestore();
+    
+    var usersRef =  db.collection("students").doc(userID);
+
+    usersRef.get().then((doc) => {
+    if (doc.exists) {
+        console.log("Document data:", doc.data());
+        setUser(doc.data())
+        console.log(user.lastName)
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+}).catch((error) => {
+    console.log("Error getting document:", error);
+});
+
 
     const fetchCourses = async () => {
       setLoading(true);
@@ -106,8 +127,11 @@ const CourseRegistration = ({ id }, props) => {
   };
 
   // END OF PAYSTACK INTEGRATION
+outline = lessons.map((lesson, index) => (
+  <Outline key={index}>{lesson.title}</Outline>
+))
 
-  isCoursePage = courses.map((data, index) => (
+isCoursePage = courses.map((data, index) => (
     <RegContainer key={index}>
       <CourseOutlineStyle>
         <OutlineVid>
@@ -125,9 +149,7 @@ const CourseRegistration = ({ id }, props) => {
         <OutlineContent>
           <Heading2 to="">Course Outline</Heading2>
           <OutlineList>
-            {lessons.map((lesson, index) => {
-              return <Outline key={index}>{lesson.title}</Outline>;
-            })}
+          {outline}
           </OutlineList>
           <ExtraInfo>
             Project work and assignments will be required. Group presentations
@@ -159,6 +181,7 @@ const CourseRegistration = ({ id }, props) => {
                   className="form-input col lg"
                   type="text"
                   placeholder="Enter First Name"
+                  defaultValue={user.firstName}
                 />
               </Form.Group>
               <Form.Group className="row">
@@ -168,6 +191,7 @@ const CourseRegistration = ({ id }, props) => {
                 <Form.Control
                   className="form-input col lg"
                   type="text"
+                  defaultValue={user.lastName}
                   placeholder="Enter Last Name"
                 />
               </Form.Group>
@@ -178,6 +202,7 @@ const CourseRegistration = ({ id }, props) => {
                 <Form.Control
                   className="form-input col lg"
                   type="text"
+                  defaultValue={user.otherNames}
                   placeholder="Enter Other Names"
                 />
               </Form.Group>
@@ -189,6 +214,7 @@ const CourseRegistration = ({ id }, props) => {
                 <Form.Control
                   type="date"
                   className="form-input col"
+                  defaultValue={user.dob}
                   placeholder="Date of Birth"
                 />
               </Form.Group>
@@ -201,6 +227,7 @@ const CourseRegistration = ({ id }, props) => {
                 <Form.Control
                   className="form-input col"
                   type="text"
+                  defaultValue={user.location}
                   placeholder="Residential Address"
                 />
               </Form.Group>
@@ -213,6 +240,7 @@ const CourseRegistration = ({ id }, props) => {
                 <Form.Control
                   className="form-input col"
                   type="number"
+                  defaultValue={user.contact}
                   placeholder="Phone Number"
                 />
               </Form.Group>
@@ -225,10 +253,11 @@ const CourseRegistration = ({ id }, props) => {
                 <Form.Control
                   className="form-input col"
                   type="email"
+                  defaultValue={user.email}
                   placeholder="Email Address"
                 />
               </Form.Group>
-              <Col className="text-center">Total Cost is {price}</Col>
+              <Col className="text-center">Total Cost is GHS {price}</Col>
               <Col className="text-center">
                 <PaystackButton
                   className="paystack-button"
