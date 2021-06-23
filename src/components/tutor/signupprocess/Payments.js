@@ -10,10 +10,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { SignUpH1 } from "./signupElements.js";
 
 export default function Payments(props) {
-  // scroll to top
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+ 
 
   // NAVBAR CONTROLS
   const [isOpen, setIsOpen] = useState(false);

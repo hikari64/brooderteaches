@@ -322,6 +322,8 @@ export default function CourseDetails(props) {
                     onChange={(files) => handleChangefil(files)}
                     maxFileSize={300000000}
                     filesLimit={1}
+                    cancelButtonText={"cancel"}
+                    submitButtonText={"submit"}
                   />
               {props.error.previewImg && <div className="alert-danger">{props.error.previewImg} </div>}
             

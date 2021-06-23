@@ -74,7 +74,7 @@ const CourseRegistration = ({ id }, props) => {
 
     fetchCourses();
     fetchOutline();
-  }, []);
+  }, [id]);
 
   // PAYSTACK INTEGRATION
 
@@ -102,7 +102,7 @@ const CourseRegistration = ({ id }, props) => {
     ...config,
     text: "Pay 1Ghs",
     onSuccess: (reference) => handlePaystackSuccessAction(reference),
-    onClose: handlePaystackCloseAction,
+    onClose: () => handlePaystackCloseAction(),
   };
 
   // END OF PAYSTACK INTEGRATION
@@ -126,7 +126,7 @@ const CourseRegistration = ({ id }, props) => {
           <Heading2 to="">Course Outline</Heading2>
           <OutlineList>
             {lessons.map((lesson, index) => {
-              return <Outline>{lesson.title}</Outline>;
+              return <Outline key={index}>{lesson.title}</Outline>;
             })}
           </OutlineList>
           <ExtraInfo>
@@ -149,7 +149,7 @@ const CourseRegistration = ({ id }, props) => {
             </Heading2>
             <br />
 
-            <Form inline>
+            {/* <Form onSubmit={(e)=>preventDefault(e)} inline> */}
               {/* FULL NAME */}
               <Form.Group className="row">
                 <Form.Label className="col-3 align-bottom text-end text-end">
@@ -235,7 +235,7 @@ const CourseRegistration = ({ id }, props) => {
                   {...componentProps}
                 />
               </Col>
-            </Form>
+            {/* </Form> */}
           </Col>
         </Row>
       </Container>

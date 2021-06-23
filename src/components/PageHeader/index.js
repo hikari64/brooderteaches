@@ -12,7 +12,7 @@ const PageHeader = ({ id }) => {
   let isCoursePage = useRef('');
   const [courses, setCourses] = useState([]);
 
-      if (typeof id !== "undefined") {
+      if ((typeof id !== "undefined") &&  (courses !== [])) {
         // the variable is defined
             const fetchCourses = async()=>{
               const db = fbapp.firestore();

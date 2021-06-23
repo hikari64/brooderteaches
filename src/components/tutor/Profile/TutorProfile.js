@@ -6,40 +6,102 @@ import Navbar from "../../Navbar/TutorNav";
 import Footer from "../../Footer";
 
 // boostrap imports
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Button, Form, ProgressBar } from "react-bootstrap";
+import Spinner from "../../Spinner/Spinner"
+// import storage ref
+import { storageRef } from "../../../firebase";
 
-//import image 
-import picture from "../../../images/code.jpg";
+// material ui imports
+import { DropzoneArea } from "material-ui-dropzone";
 
 //import ELement for this page
-import {
-  ProfileImge,
-  TutorLinks,
-  TutorName,
-  TutorLinkActive,
-  TutorSubNavbar,
-  TutorSubNavbarLink,
-} from "../dashboard/TutorDashboardElements";
 
 //import Courses Sections Component from courses
 
-  import CourseSections from "../../CourseSections/index"
-import { courses } from "../../../mock/mock";
 import TutorDashboardHeader from "../dashboard/TutorDashboardHeader";
 import useFetchTutorsById from "../hooks/useFetchTutorById";
 import { useAuth } from "../../../contexts/AuthContext";
+import AddTutor from "../hooks/useAddTutor";
 
 export default function TutorProfile(props) {
   const { userID } = useAuth ()
+  const [progressImg, setProgressImg] = useState(0);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [tutorData, setTutorData] = useState({
+   
+  });
 
+  const UpdateData = (item, value) => {
+
+    setTutorData((tutorData) => ({ ...tutorData, [item]: value }));
+  };
+  const eventHandler = (event) => {
+    let val = event.target.value;
+    let nam = event.target.name;
+
+    UpdateData(nam, val);
+  };
+  const handleChangefil = (File) => {
+    // Uploading to firebase storage
+     // and updating URLS array for storage in firestore
+ 
+     const file = File[0];
+     console.log(file)
+     if(file){
+     var d = new Date();
+     var n = d.getTime();
+     const filename = n+file.name;
+     // references
+    
+     
+     const storeVideoRef = storageRef.child(`/CoverPictures/${filename}`);
+     
+     storeVideoRef.put(file).on('state_changed', (snap) => {
+       let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+       setProgressImg(percentage);
+     }, (err) => {
+       setError(err);
+     }, async () => {
+       const url = await storeVideoRef.getDownloadURL();
+       
+     let   nam = "photoUrl"
+     
+   
+          UpdateData(nam,url); 
+ 
+     });
+   }
+ 
+   };
+
+   const Proceed = async()=>{
+     alert(tutorData)
+
+     //AddTutor(tutorData,userID)
+   }
 //const [Id, setId] = useState('1267283472364');
-const { loading, tutors } = useFetchTutorsById(userID);
+const Load =async()=>{
+  const { loading, tutors } = await useFetchTutorsById(userID);
+
+    setTutorData(tutors)
+    setLoading(loading)
+}
+
+Load()
+
   return (
+    <>
+    
+    
     <div fluid className="height-full">
-      <TutorDashboardHeader tutors={tutors} view={3}/>
+      <TutorDashboardHeader tutors={tutorData} view={3}/>
+      {loading && <Spinner/>}
+      {
+      !loading &&
       
       <Container className="height-half">
-
+        
         <Row className="mt-4 mb-4">
           <Col md={8} className="mx-auto">
           <Form inline >
@@ -49,7 +111,9 @@ const { loading, tutors } = useFetchTutorsById(userID);
                   <Form.Control
                     className="form-input col lg"
                     type="text"
-                    value={tutors.firstName}
+                    value={tutorData.firstName}
+                    name="firstName"
+                    onChange={eventHandler}
                     placeholder=""
                   />
               </Form.Group>
@@ -59,8 +123,9 @@ const { loading, tutors } = useFetchTutorsById(userID);
                     className="form-input col lg"
                     type="text"
                     placeholder=""
-                    value={tutors.lastName}
-
+                    value={tutorData.lastName}
+                    name="lastName"
+                    onChange={(event)=>eventHandler(event)}
                   />
               </Form.Group>
               <Form.Group className="row">
@@ -69,7 +134,9 @@ const { loading, tutors } = useFetchTutorsById(userID);
                     className="form-input col lg"
                     type="text"
                     placeholder=""
-                    value={tutors.otherNames}
+                    value={tutorData.otherNames}
+                    onChange={(event)=>eventHandler(event)}
+                    name="otherNames"
 
                   />
               </Form.Group>
@@ -79,7 +146,9 @@ const { loading, tutors } = useFetchTutorsById(userID);
                     className="form-input col lg"
                     type="date"
                     placeholder=""
-                    value={tutors.dateOfBirth}
+                    value={tutorData.dateOfBirth}
+                    onChange={(event)=>eventHandler(event)}
+                    name="dateOfBirth"
 
                   />
               </Form.Group>
@@ -89,8 +158,9 @@ const { loading, tutors } = useFetchTutorsById(userID);
                     className="form-input col lg"
                     type="text"
                     placeholder=""
-                    value={tutors.address}
-
+                    value={tutorData.address}
+                    onChange={(event)=>eventHandler(event)}
+                    name="address"
                   />
               </Form.Group>
               <Form.Group className="row">
@@ -99,17 +169,20 @@ const { loading, tutors } = useFetchTutorsById(userID);
                     className="form-input col lg"
                     type="text"
                     placeholder=""
-                    value={tutors.contact}
+                    value={tutorData.contact}
+                    onChange={(event)=>eventHandler(event)}
+                    name="contact"
 
                   />
               </Form.Group>
               <Form.Group className="row">
                 <Form.Label  className="col-3 align-bottom text-end my-auto" >Email</Form.Label>
                   <Form.Control
+                  disabled
                     className="form-input col lg"
                     type="text"
                     placeholder=""
-                    value={tutors.email}
+                    value={tutorData.email}
 
                   />
               </Form.Group>
@@ -119,13 +192,33 @@ const { loading, tutors } = useFetchTutorsById(userID);
                     className="form-input col lg"
                     type="text"
                     placeholder=""
-                    value={tutors.expertise}
+                    onChange={(event)=>eventHandler(event)}
+                    value={tutorData.expertise}
+                    name="expertise"
 
                   />
               </Form.Group>
-             
+              <Form.Group className="row m-2" controlId="validationCustom07">
+                <Form.Label className="col-3 align-bottom my-auto text-end">
+                  Introductory Video
+                </Form.Label>
+
+                <Col>
+                {progressImg !== 0 && <ProgressBar striped variant="success" now={progressImg} />}
+                
+                  <DropzoneArea
+
+                    acceptedFiles={["image/*"]}
+                    dropzoneText={"Upload a Profile picture"}
+                    onChange={(files) => handleChangefil(files)}
+                    maxFileSize={300000000}
+                    filesLimit={1}
+                  />
+            
+                </Col>
+              </Form.Group>
               <Col className="text-center">
-                <Button onClick={props.nextStep} className="primary-button text-center">
+                <Button onClick={Proceed} className="primary-button text-center">
                 Update
               </Button>
               </Col>
@@ -134,8 +227,10 @@ const { loading, tutors } = useFetchTutorsById(userID);
          
             </Col>
         </Row>
-      </Container>
+      </Container> } 
       <Footer />
     </div>
-  );
+    
+     </>
+     );
 }
