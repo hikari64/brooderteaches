@@ -9,7 +9,7 @@ import Footer from "../../Footer";
 import { Container, Row, Col, Button, Form, ProgressBar } from "react-bootstrap";
 import Spinner from "../../Spinner/Spinner"
 // import storage ref
-import { storageRef } from "../../../firebase";
+import { storageRef,firestore } from "../../../firebase";
 
 // material ui imports
 import { DropzoneArea } from "material-ui-dropzone";
@@ -21,7 +21,7 @@ import { DropzoneArea } from "material-ui-dropzone";
 import TutorDashboardHeader from "../dashboard/TutorDashboardHeader";
 import useFetchTutorsById from "../hooks/useFetchTutorById";
 import { useAuth } from "../../../contexts/AuthContext";
-import AddTutor from "../hooks/useAddTutor";
+import UpdateTutor from "../hooks/useUpdateTutor";
 
 export default function TutorProfile(props) {
   const { userID } = useAuth ()
@@ -29,7 +29,6 @@ export default function TutorProfile(props) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [tutorData, setTutorData] = useState({
-   
   });
 
   const UpdateData = (item, value) => {
@@ -76,19 +75,37 @@ export default function TutorProfile(props) {
    };
 
    const Proceed = async()=>{
-     alert(tutorData)
+    //  alert(tutorData)
 
-     //AddTutor(tutorData,userID)
+    UpdateTutor(tutorData,userID)
    }
 //const [Id, setId] = useState('1267283472364');
-const Load =async()=>{
-  const { loading, tutors } = await useFetchTutorsById(userID);
+useEffect(() => {
+  let currenttutors='';
+  async function Load() {
+    const courses = firestore.collection("tutors").doc(userID);
+    
+    courses.get().then((doc) => {
+      if (doc.exists) {
+        currenttutors=doc.data();
+        setTutorData(currenttutors)
+        setLoading(false)
+          console.log("lesson data: fetched", doc.data());
+      } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+          return;
+      }
+  })
 
-    setTutorData(tutors)
-    setLoading(loading)
-}
+  }
 
-Load()
+
+    Load()
+
+
+
+}, []);
 
   return (
     <>

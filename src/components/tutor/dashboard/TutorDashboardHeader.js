@@ -57,7 +57,8 @@ export default function TutorDashboardHeader(props){
                     <img  
                     width="150"
                     height="150"
-                    src={picture} alt="myimage" 
+                    src={props.tutors.photoUrl ? props.tutors.photoUrl : picture} 
+                    alt="Profile Photo" 
                     className="rounded-circle" />
 
             
