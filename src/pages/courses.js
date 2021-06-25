@@ -7,13 +7,20 @@ import CourseSideMenu from "../components/CourseSideMenu.js";
 import { CContainer, CContainer2 } from "./PagesElements";
 import CourseSections from "../components/CourseSections";
 import useFetchCourses from "../components/tutor/hooks/useFetchCourses";
+import { fbapp } from "../firebase";
+import Spinner from "../components/Spinner/Spinner";
+import { Alert,Row,Col } from "react-bootstrap";
 
 
 const Courses = () => {
-  // scroll to top
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [last, setLast] = useState('');
+  const [ref,setRef] = useState(fbapp.firestore().collection("courses"))
+
+  
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {
@@ -21,7 +28,50 @@ const Courses = () => {
   };
 
 //  const [courseLevel,setCourseLevel] = useState(0);
-const courses =  useFetchCourses();
+
+
+
+
+
+
+useEffect(() => {
+  async function getCourses() {
+    setCourses([]);
+    setLoading(true);
+    setError(null)
+let newref = '';
+      if (last){
+         newref =  ref.startAfter(last).limit(2);
+      }else{
+         newref = ref.limit(2);
+
+      }
+      const snapshot = await newref.get();
+
+       
+      const items = [];
+
+      if (snapshot.empty) {
+       
+       setError('Sorry, content not found')
+          setLoading(false);
+        return;
+      }
+      var lastVisible = snapshot.docs[snapshot.docs.length-1];
+      setLast(lastVisible);
+      console.log("last", lastVisible);
+      snapshot.forEach((doc) => {
+        items.push(doc.data());
+      
+      });
+      setCourses(items);
+      setLoading(false);
+  
+  }
+  getCourses();
+}, [ref]);
+
+// const courses =  useFetchCourses();
 
   const [filteredCourse, setFilteredCourse] = useState(courses)
   // filter mock data
@@ -29,26 +79,30 @@ const courses =  useFetchCourses();
 
   const DataFilter= (courseLength,courseLevel) =>{
     
-      var data = courses;
 
+    if((courseLevel !== 0) && (courseLength !== 0)){
+      //load course with this specifications
+    const filterRef = fbapp.firestore().collection("courses").where("period", "==", courseLength).where("level", "==", courseLevel);
+
+    setRef(filterRef)
+    }
+    if((courseLevel !== 0) && (courseLength === 0)){
+      const filterRef = fbapp.firestore().collection("courses").where("level", "==", courseLevel);
+
+
+      setRef(filterRef) 
+    }
+    if((courseLevel === 0) && (courseLength !== 0)){
+      const filterRef = fbapp.firestore().collection("courses").where("period", "==", courseLength);
+      setRef(filterRef) 
+    }
+     if (courseLength + courseLevel === 0 ){
      
-      if((courseLevel) && (courseLength)){
-        data = courses.filter(({period, difficulty}) => {
-          return period === courseLength && difficulty === courseLevel;
-        })
-      }else{
-         data = courses.filter(({period, difficulty}) => {
-          return period === courseLength || difficulty === courseLevel;
-        })
-      }
-       if (courseLength + courseLevel === 0 ){
-        data = courses;
-      }
 
-      setFilteredCourse(data)
-      
-    
-  }
+      setRef(fbapp.firestore().collection("courses")) 
+    }
+}
+
 
   const [navbar, setNavbar] = useState(false);
   const changeBackground = () => {
@@ -78,8 +132,18 @@ const courses =  useFetchCourses();
         //setCourseLevel={setCourseLevel}
         DataFilter={DataFilter}  
         />
-        <CContainer2>
-          <CourseSections courses={filteredCourse} />
+        <CContainer2 className="">
+        {error && 
+
+        <Col md={12}>
+          <Alert variant="danger" onClose={() => setError(null)} dismissible className="">
+          <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+          {error}
+          </Alert>
+        </Col>}
+        {loading && <Spinner className="text-center"/>}
+          {(!error && !loading) && <CourseSections courses={courses} />}
+      
         </CContainer2>
       </CContainer>
 

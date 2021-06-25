@@ -29,28 +29,12 @@ import Spinner from '../Spinner/Spinner'
 // ieve courses list as props from course section
 
 
-const CourseSections = () => {
+const CourseSections = ({courses}) => {
   // DISABLED FIREBASE CALLS FOR NOW
-    const [courses, setCourses] = useState([]);
+    //const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const ref = fbapp.firestore().collection("courses");
-
-    function getCourses() {
-      setLoading(true);
-      ref.onSnapshot((querySnapshot) => {
-        const items = [];
-        querySnapshot.forEach((doc) => {
-          items.push(doc.data());
-        });
-        setCourses(items);
-        setLoading(false);
-      });
-    }
-
-    useEffect(() => {
-      getCourses();
-    }, []);
+   
 
     if (loading) {
       return (
@@ -122,7 +106,7 @@ const imgStart = true;
       ));
       
 
-      return <>{result}</>
+      return <>{courses && result}</>
     
  
 };

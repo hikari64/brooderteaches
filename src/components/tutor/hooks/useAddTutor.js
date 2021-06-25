@@ -23,7 +23,7 @@ function AddTutor(data,userID){
         })
         .catch((err) => {
             error = err;
-            console.error("Error adding document: ", error);
+            console.error("Error adding tutor: ", error);
         });
         
     
