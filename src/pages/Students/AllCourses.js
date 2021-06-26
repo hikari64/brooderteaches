@@ -8,7 +8,7 @@ import { CContainer, CContainer2 } from "../PagesElements";
 import CourseSections from "../../components/CourseSections";
 import useFetchCourses from "../../components/tutor/hooks/useFetchCourses";
 import { fbapp } from "../../firebase";
-import { Alert } from "react-bootstrap";
+import { Alert ,Row } from "react-bootstrap";
 import Spinner from "../../components/Spinner/Spinner";
 
 
@@ -121,10 +121,16 @@ useEffect(() => {
         //setCourseLevel={setCourseLevel}
         DataFilter={DataFilter}  
         />
-        <CContainer2>
-        {error && <Alert variant="danger">{error}</Alert>}
-        {loading && <Spinner/>}
-          {(!error && !loading) && <CourseSections courses={courses} />}
+         <CContainer2 className="mx-auto">
+        {error && 
+        <Row className="my-4">
+          <Alert variant="danger"  className="col">
+          <Alert.Heading>{error}</Alert.Heading>
+          
+          </Alert>
+        </Row>}
+        {loading && <Spinner className="text-center"/>}
+          {(!error && !loading) && <CourseSections className="text-start" courses={courses} />}
       
         </CContainer2>
       </CContainer>

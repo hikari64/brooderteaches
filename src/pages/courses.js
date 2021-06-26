@@ -132,17 +132,17 @@ let newref = '';
         //setCourseLevel={setCourseLevel}
         DataFilter={DataFilter}  
         />
-        <CContainer2 className="">
+        <CContainer2 className="mx-auto">
         {error && 
 
-        <Col md={12}>
-          <Alert variant="danger" onClose={() => setError(null)} dismissible className="">
-          <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-          {error}
+        <Row className="my-4">
+          <Alert variant="danger"  className="col">
+          <Alert.Heading>{error}</Alert.Heading>
+          
           </Alert>
-        </Col>}
+        </Row>}
         {loading && <Spinner className="text-center"/>}
-          {(!error && !loading) && <CourseSections courses={courses} />}
+          {(!error && !loading) && <CourseSections className="text-start" courses={courses} />}
       
         </CContainer2>
       </CContainer>
