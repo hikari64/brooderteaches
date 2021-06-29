@@ -34,6 +34,7 @@ import { courses } from "../../../mock/mock";
 
 import NewCourseProcess from "../NewCourseProcess/NewCourseProcess";
 import TutorDashboardHeader from "../dashboard/TutorDashboardHeader";
+import { AccessDenied } from "./components";
 
 export default function TutorCreateCourse(props) {
   const { userID } = useAuth();
@@ -69,7 +70,7 @@ export default function TutorCreateCourse(props) {
   return (
     <div fluid className="height-full">
       <TutorDashboardHeader tutors={tutors} view={2} />
-      <TutorSubNavbar>
+      {tutors.verified && <TutorSubNavbar>
         <Container className="mx-5">
           <Container className="container mx-5 p-4 row">
             <Col>
@@ -107,11 +108,12 @@ export default function TutorCreateCourse(props) {
             </Col>
           </Container>
         </Container>
-      </TutorSubNavbar>
+      </TutorSubNavbar>}
       <Container className="height-half">
         <Row className="mt-4 mb-4">
           <Col md={12} className="mx-auto">
-            <NewCourseProcess ProcessIndicator={ProcessIndicator} />
+            { tutors.verified && <NewCourseProcess ProcessIndicator={ProcessIndicator} /> }
+            {!tutors.verified &&<AccessDenied/>}
           </Col>
         </Row>
       </Container>

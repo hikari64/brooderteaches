@@ -6,10 +6,9 @@ import Sidebar from "../components/Sidebar";
 import CourseSideMenu from "../components/CourseSideMenu.js";
 import { CContainer, CContainer2 } from "./PagesElements";
 import CourseSections from "../components/CourseSections";
-import useFetchCourses from "../components/tutor/hooks/useFetchCourses";
 import { fbapp } from "../firebase";
 import Spinner from "../components/Spinner/Spinner";
-import { Alert,Row,Col } from "react-bootstrap";
+import { Alert,Row } from "react-bootstrap";
 
 
 const Courses = () => {
@@ -73,7 +72,7 @@ let newref = '';
 
 // const courses =  useFetchCourses();
 
-  const [filteredCourse, setFilteredCourse] = useState(courses)
+  // const [filteredCourse, setFilteredCourse] = useState(courses)
   // filter mock data
 
 

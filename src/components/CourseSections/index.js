@@ -48,16 +48,9 @@ const CourseSections = ({courses}) => {
 
     }
 
-  // MOCK DATA COURSES
-// const courses = filteredCourse
-// const db = firestore.firestore();
-// db.collection('courses').get().then((querySnapshot) => {
-//   querySnapshot.forEach((doc) => {
-//       console.log(`${doc.id} => ${doc.data()}`);
-//   });
-// });
+
 const lightBg = false;
-const imgStart = true;
+// const imgStart = true;
  
   
     
@@ -65,8 +58,8 @@ const imgStart = true;
       <CourseContainer key={index}>
         <CourseDetails id={data.id}  lightBg={lightBg}>
           <CourseWrapper>
-            <CourseRow imgStart={imgStart}>
-              <Column1>
+            <CourseRow imgStart={data.previewImg}>
+              <Column1 className="col">
                 <TextWrapper>
                   <Heading to={`/about/${data.id}`}>
                     {data.title}
@@ -93,10 +86,12 @@ const imgStart = true;
                   </CourseBtnLink>
                 </TextWrapper>
               </Column1>
-              <Column2>
-                <ImgWrap>
+              <Column2 className="col ">
+                <ImgWrap className="col-sx-12 m-1 bg-gradient">
                   {/* <Img> */}
-                  <Img src={data.img} alt={data.alt}></Img>
+                  <Img className="col-sx-12 bg-gradient"
+
+                  src={data.previewImg} alt={data.alt}></Img>
                 </ImgWrap>
               </Column2>
             </CourseRow>

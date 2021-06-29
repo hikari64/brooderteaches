@@ -141,7 +141,8 @@ export const CourseRow1 = styled.div`
         grid-auto-columns: minmax(1fr, auto);
         grid-template-areas: ${({imgStart}) => 
         imgStart ? `'col2' 'col1'` : `'col2 col2' 'col1 col1'` };
-    };
+    }; background: url(${({imgStart}) => 
+    imgStart });
 
     @media (max-width: 1024px){
         margin-left: 40px;
@@ -150,6 +151,7 @@ export const CourseRow1 = styled.div`
     @media (max-width: 480px){
         margin-left: -60px;
         margin-top: -100px;
+       
     }
 `;
  
@@ -267,14 +269,15 @@ export const Subtitle1 = styled.p`
 `;
 
 export const ImgWrap = styled.div`
-    max-width: 555px;
+    max-width: 444px;
     height: 100%
 `;
 
 export const Img = styled.img`
     height: 80%; 
     width: 75%;
-    object-fit: contain;  
+    max-height:300px; 
+    object-fit: fit;  
     border-radius: 58px;
     margin: 0 0 10px 120px;
     padding-right: 0;
@@ -287,12 +290,15 @@ export const Img = styled.img`
 
     @media (max-width: 768px) {
         width: 80%; 
+        
+
         margin: 0 0 10px 60px;
 
     };
 
     @media (max-width: 480px) {
-        width: 100%; 
+        width: 100%;
+        hieght:200px; 
         margin-left: -20px;
         margin-top: -70px;
     };

@@ -217,7 +217,7 @@ useEffect(() => {
               </Form.Group>
               <Form.Group className="row m-2" controlId="validationCustom07">
                 <Form.Label className="col-3 align-bottom my-auto text-end">
-                  Introductory Video
+                  Profile Photo
                 </Form.Label>
 
                 <Col>
@@ -231,6 +231,45 @@ useEffect(() => {
                     maxFileSize={300000000}
                     filesLimit={1}
                   />
+            
+                </Col>
+                <Col>
+                <img  
+                    width="150"
+                    height="150"
+                    src={tutorData.photoUrl ? tutorData.photoUrl : ''} 
+                    alt="Profile" 
+                    className="rounded" />
+                  {<Button>upload photo</Button>}
+            
+                </Col>
+              </Form.Group>
+              <Form.Group className="row m-2" controlId="validationCustom07">
+                <Form.Label className="col-3 align-bottom my-auto text-end">
+                  ID Photo
+                </Form.Label>
+
+                <Col>
+                {progressImg !== 0 && <ProgressBar striped variant="success" now={progressImg} />}
+                
+                  <DropzoneArea
+
+                    acceptedFiles={["image/*"]}
+                    dropzoneText={"Add a picture of your ID"}
+                    onChange={(files) => handleChangefil(files)}
+                    maxFileSize={300000000}
+                    filesLimit={1}
+                  />
+            
+                </Col>
+                <Col>
+                <img  
+                    width="150"
+                    height="150"
+                    src={tutorData.verificationID ? tutorData.verificationID : ''} 
+                    alt="Profile" 
+                    className="rounded" />
+                  {<Button>upload ID</Button>}
             
                 </Col>
               </Form.Group>

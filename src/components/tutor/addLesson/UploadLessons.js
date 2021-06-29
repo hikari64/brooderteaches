@@ -123,7 +123,7 @@ const [files, setFiles] = useState(null);
         <Row className="mt-4 mb-4">
           <Col md={3}>
          <CourseLessonBtnLists id={props.courseId} />
-            <AddLessonButtons to={"/tutor-create-course"} className="p-3 m-3 text-center"> 
+            <AddLessonButtons to={`/tutor-create-lesson/${props.courseId}`} className="p-3 m-3 text-center"> 
               + Add Lesson
             </AddLessonButtons>
           </Col>

@@ -7,7 +7,7 @@ import picture from "../../../images/code.jpg";
 import Navbar from "../../Navbar/TutorNav";
 
 // boostrap imports
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col,Badge } from "react-bootstrap";
 
 //import ELement for this page
 import {
@@ -15,6 +15,7 @@ import {
   TutorName,
  
 } from "./TutorDashboardElements";
+import { BsFillPersonCheckFill,BsPersonDashFill } from "react-icons/bs";
 
 
 export default function TutorDashboardHeader(props){
@@ -58,7 +59,7 @@ export default function TutorDashboardHeader(props){
                     width="150"
                     height="150"
                     src={props.tutors.photoUrl ? props.tutors.photoUrl : picture} 
-                    alt="Profile Photo" 
+                    alt="Profile" 
                     className="rounded-circle" />
 
             
@@ -67,8 +68,29 @@ export default function TutorDashboardHeader(props){
                 
                 <TutorName>{props.tutors.firstName} {props.tutors.lastName}</TutorName>
                 <p className="text-muted">
-                {props.tutors.email}
+                {props.tutors.email} {"  "}
                 </p>
+                <span>
+                {props.tutors.verified ? (
+                  <React.Fragment>
+                    
+                    <Badge className="bg-gradient" >
+                      <BsFillPersonCheckFill size={30} color="#b59023" />{" "}
+                        <strong>Verified</strong>
+                    </Badge>
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    
+                    <Badge className="bg-gradient" bg="light">
+                        Not Verified
+                    </Badge>
+                  </React.Fragment>
+                )}
+              </span>
+                
+                
+                
                 <hr/>
                     <TutorLinks to={"/tutor-courses"} active={props.view === 1 && true} className="p-2 m-1">Your Courses</TutorLinks>
                     <TutorLinks to={"/tutor-create-course"} active={props.view === 2 && true} className="p-2 m-1">Create New Course</TutorLinks>

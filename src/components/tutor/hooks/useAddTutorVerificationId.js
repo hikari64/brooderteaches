@@ -32,7 +32,7 @@ function useAddTutorVerificationId(data,userID){
             }).then((docRef) => {
                 
                 
-                console.log("Image added completely ");
+                console.log("verification Id Added completely ");
             })
             .catch((err) => {
                 error = err;

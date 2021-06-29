@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col } from 'react-bootstrap'
+import { Col,Button,Row } from 'react-bootstrap'
 import ReactPlayer from 'react-player'
 import { CourseTitle, ReviewHeadings ,CourseDescription,PlayerStyle,Videocontainer} from '../../dashboard/TutorDashboardElements'
 import {
@@ -21,6 +21,7 @@ import {
     StartIcon,
     FeeIcon,
   } from "../../../CourseSections/CourseElements";
+import { Link } from 'react-router-dom';
 
 export const CourseReviewDetails =(props)=>{
     return(
@@ -110,4 +111,29 @@ export const ViewLessonDetails =(props)=>{
       </Col>
 
     )
-}  
+} 
+export const AccessDenied =(props)=>{
+    return(
+        <Col md={8} className="mx-md-auto ">
+            <ReviewHeadings className="m-2 mx-auto">
+            Oops
+            </ReviewHeadings>
+            
+            <CourseDescription>
+            You must be verified to create a course.
+            </CourseDescription>
+            <CourseDescription className="text-info">if you haven't uploaded your ID for verification , follow this link to</CourseDescription>
+            <Col className="text-center m-3">
+                <Link to={'/tutor-profile'} className="primary-button ">
+                Verify your account
+              </Link>
+              <p className="m-2">Or</p>
+              <Link to={'/payment'} className="primary-button ">
+                One-time Payment
+              </Link>
+              </Col>
+      </Col>
+
+    )
+} 
+
