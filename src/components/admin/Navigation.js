@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import "./index.css";
 
@@ -6,11 +6,27 @@ import "./index.css";
 import { auth } from "../../firebase";
 
 // react router dom
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+
+// import context
+import { AdminAuthContext } from "./contexts/AdminAuthContext";
 
 import { Container, NavDropdown, Row, Navbar, Nav } from "react-bootstrap";
+import useFetchAdminsById from "./hooks/useFetchAdminsById";
 
 export default function Navigation(props) {
+  const { user } = useContext(AdminAuthContext);
+
+  const history = useHistory();
+  const { loading, Admins, error } = useFetchAdminsById(user.uid);
+if(!loading){
+  if(error){
+    history.push("/wrong-account")
+  }
+}
+
+
+
   return (
     <Row>
       <Navbar bg="dark" variant="dark" expand="lg">
