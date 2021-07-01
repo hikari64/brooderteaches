@@ -31,7 +31,7 @@ const WrongAccountPage = () => {
             <Col md={12} className="mx-auto my-auto text-center">
             <Row className="">
               <h2 className="header p-1 text-danger">Oops! you logged into the wrong area!</h2>
-              <p>Please choose select right acount</p>
+              <p>Please login to the right acount</p>
 
               <Col md={6} className="text-center">   
               <h2 className="header">Student Login</h2>

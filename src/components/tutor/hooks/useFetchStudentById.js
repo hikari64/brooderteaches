@@ -12,17 +12,17 @@ const ACTIONS = {
 function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.MAKE_REQUEST:
-      return { loading: true, tutors: [] };
+      return { loading: true, student: [] };
 
     case ACTIONS.GET_DATA:
-      return { ...state, loading: false, tutors: action.payload.tutors };
+      return { ...state, loading: false, student: action.payload.student };
 
     case ACTIONS.ERROR:
       return {
         ...state,
         loading: false,
         error: action.payload.error,
-        tutors: [],
+        student: [],
       };
 
     default:
@@ -31,7 +31,7 @@ function reducer(state, action) {
 }
 
 export default function useFetchStudentById(params) {
-  const [state, dispatch] = useReducer(reducer, { tutors: [], loading: true });
+  const [state, dispatch] = useReducer(reducer, { student: [], loading: true });
 
   useEffect(() => {
     //retrieving all the courses
@@ -45,7 +45,7 @@ export default function useFetchStudentById(params) {
           allcourses=doc.data();
           dispatch({
             type: ACTIONS.GET_DATA,
-            payload: { tutors: allcourses },
+            payload: { student: allcourses },
           });
             console.log("lesson data: fetched", doc.data());
         } else {

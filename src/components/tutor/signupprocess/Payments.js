@@ -42,7 +42,7 @@ export default function Payments(props) {
     reference: new Date().getTime(),
     currency: "GHS",
     email: "user@example.com",
-    amount: 100,
+    amount: 100*100,
     publicKey: "pk_live_2bbc47bbdc506caec19278c6f7384d1eb25ccf40",
   };
 
@@ -64,7 +64,7 @@ export default function Payments(props) {
 
   const componentProps = {
     ...config,
-    text: "Pay 1Ghs",
+    text: "Pay Ghs100",
     onSuccess: (reference) => handlePaystackSuccessAction(reference),
     onClose: () => handlePaystackCloseAction(),
   };

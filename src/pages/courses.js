@@ -8,7 +8,7 @@ import { CContainer, CContainer2 } from "./PagesElements";
 import CourseSections from "../components/CourseSections";
 import { fbapp } from "../firebase";
 import Spinner from "../components/Spinner/Spinner";
-import { Alert,Row } from "react-bootstrap";
+import { Alert,Button,Col,Row } from "react-bootstrap";
 
 
 const Courses = () => {
@@ -17,6 +17,7 @@ const Courses = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [last, setLast] = useState('');
+  const [loadmore, setloadMoreBtn] = useState(false);
   const [ref,setRef] = useState(fbapp.firestore().collection("courses"))
 
   
@@ -31,21 +32,37 @@ const Courses = () => {
 
 
 
+const LoadMore =async()=>{
+  let newref = '';
+  if (last){
+    newref =  ref.startAfter(last).limit(5);
+    const snapshot = await newref.get();
 
+       
+      const items = [];
+
+      if (snapshot.empty) {
+       setloadMoreBtn(false)
+      }
+      var lastVisible = snapshot.docs[snapshot.docs.length-1];
+      setLast(lastVisible);
+      console.log("last", lastVisible);
+      snapshot.forEach((doc) => {
+        items.push(doc.data());
+      
+      });
+      setCourses((courses) => [ ...courses,...items]);
+  }
+}
 
 useEffect(() => {
   async function getCourses() {
     setCourses([]);
     setLoading(true);
+    setloadMoreBtn(true)
     setError(null)
-let newref = '';
-      if (last){
-         newref =  ref.startAfter(last).limit(2);
-      }else{
-         newref = ref.limit(2);
-
-      }
-      const snapshot = await newref.get();
+   
+      const snapshot = await ref.limit(6).get();
 
        
       const items = [];
@@ -141,8 +158,23 @@ let newref = '';
           </Alert>
         </Row>}
         {loading && <Spinner className="text-center"/>}
-          {(!error && !loading) && <CourseSections className="text-start" courses={courses} />}
-      
+          {(!error && !loading) && <CourseSections className="text-start" courses={courses} />
+          
+          }
+          
+          <Col  className="text-center">
+          {(loadmore) && <Button
+           className="primary-button"
+           onClick={()=>LoadMore()}
+           >
+            load more
+          </Button>
+          
+          }
+        {!loadmore && <p>End of Courses</p> }
+
+          </Col>
+          
         </CContainer2>
       </CContainer>
 

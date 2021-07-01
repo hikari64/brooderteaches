@@ -46,6 +46,40 @@ export default function TutorProfile(props) {
      // and updating URLS array for storage in firestore
  
      const file = File[0];
+     let   nam = "photoFile"
+     UpdateData(nam,file);
+  //    console.log(file)
+  //    if(file){
+  //    var d = new Date();
+  //    var n = d.getTime();
+  //    const filename = n+file.name;
+  //    // references
+    
+     
+  //    const storeVideoRef = storageRef.child(`/CoverPictures/${filename}`);
+     
+  //    storeVideoRef.put(file).on('state_changed', (snap) => {
+  //      let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+  //      setProgressImg(percentage);
+  //    }, (err) => {
+  //      setError(err);
+  //    }, async () => {
+  //      const url = await storeVideoRef.getDownloadURL();
+       
+  //    let   nam = "photoUrl"
+     
+   
+  //         UpdateData(nam,url); 
+ 
+  //    });
+  //  }
+ 
+   };
+  const handleUploadfil = (File) => {
+    // Uploading to firebase storage
+     // and updating URLS array for storage in firestore
+ 
+     const file = tutorData.photoFile;
      console.log(file)
      if(file){
      var d = new Date();
@@ -68,6 +102,7 @@ export default function TutorProfile(props) {
      
    
           UpdateData(nam,url); 
+          UpdateData("photoFile",""); 
  
      });
    }
@@ -237,10 +272,12 @@ useEffect(() => {
                 <img  
                     width="150"
                     height="150"
-                    src={tutorData.photoUrl ? tutorData.photoUrl : ''} 
+                    src={tutorData.photoFile ? tutorData.photoFile : tutorData.photoUrl} 
                     alt="Profile" 
                     className="rounded" />
-                  {<Button>upload photo</Button>}
+                  {<Button
+                  onClick={() => handleUploadfil()}
+                  >upload photo</Button>}
             
                 </Col>
               </Form.Group>

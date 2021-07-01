@@ -15,11 +15,12 @@ import {
     TutorSubNavbarLink,
   } from "../tutor/dashboard/TutorDashboardElements";
 import { Link, useHistory } from "react-router-dom";
+import useFetchStudentById from '../tutor/hooks/useFetchStudentById';
 
 
 
 const StudentDashboardHeader = ({ id }) => {
-    const { currentUser} = useAuth();
+    const { currentUser,userID} = useAuth();
     // console.log(currentUser.displayName)
 
     const [toggleState, setToggleState] = useState(id);
@@ -47,6 +48,13 @@ const StudentDashboardHeader = ({ id }) => {
   };
 
   const history = useHistory();
+  const { loading, student, error } = useFetchStudentById(userID);
+
+if(!loading){
+  if(error){
+    history.push("/wrong-account")
+  }
+}
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -75,6 +83,8 @@ const StudentDashboardHeader = ({ id }) => {
         <Navbar
           toggle={toggle}
           navbar={navbar}
+          student={student}
+
           changeBackground={changeBackground}
         />
         <Row className="page-header " >
@@ -91,9 +101,9 @@ const StudentDashboardHeader = ({ id }) => {
           </Col>
           <Col md={7} className=" text-start my-auto ">
            
-            <TutorName>{currentUser.displayName}</TutorName>
+            <TutorName>{student.firstName} {student.lastName}</TutorName>
             <p className="text-muted">
-            {currentUser.displayName}
+            {student.email}
             </p>
             <hr/>
               {/* <TutorLinks to={"/my-courses"}  className="p-2 m-1" >Your Courses</TutorLinks>

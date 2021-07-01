@@ -42,9 +42,7 @@ const { loading, tutors, error } = useFetchTutorsById(userID);
 
 if(!loading){
   if(error){
-    alert("you logged Into the wrong account")
     history.push("/wrong-account")
-
   }
 
   if(tutors.state){

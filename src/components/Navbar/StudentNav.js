@@ -22,7 +22,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { auth } from "../../firebase";
 
 
-const Navbar = ({ toggle, navbar, changeBackground }) => {
+const Navbar = ({ toggle, navbar, changeBackground,student }) => {
   const logout = () => {
     return auth.signOut();
   };
@@ -54,10 +54,9 @@ const Navbar = ({ toggle, navbar, changeBackground }) => {
         </NavBtn>
     } else {
         // leftlabel = <MobileIcon onClick={toggle}>{currentUser.email}</MobileIcon>
-        leftlabel = <MobileIcon onClick={toggle}>{currentUser.displayName}</MobileIcon>
-        largescreen = <Profile><Dropdown>
+        leftlabel = <MobileIcon onClick={toggle}>{currentUser.email}</MobileIcon>
+        largescreen = <Profile><Dropdown>{currentUser.email}
         <Dropdown.Toggle id="dropdown-basic">
-        {currentUser.displayName}
         </Dropdown.Toggle>
       
         <Dropdown.Menu>
