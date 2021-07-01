@@ -30,7 +30,7 @@ function reducer(state, action) {
   }
 }
 
-export default function useFetchTutorsById(params) {
+export default function useFetchStudentById(params) {
   const [state, dispatch] = useReducer(reducer, { tutors: [], loading: true });
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function useFetchTutorsById(params) {
     let allcourses = [];
     dispatch({ type: ACTIONS.MAKE_REQUEST });
     async function getAllCourses() {
-      const courses = firestore.collection("tutors").doc(params);
+      const courses = firestore.collection("students").doc(params);
       
       courses.get().then((doc) => {
         if (doc.exists) {

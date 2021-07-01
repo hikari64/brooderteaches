@@ -41,6 +41,8 @@ import TutorProfile from "./components/tutor/Profile/TutorProfile";
 import TutorPreviewCourse from './components/tutor/courses/TutorPreviewCourse';
 import AddLessonToCourse from './components/tutor/addLesson';
 import TutorCoursePage from './components/tutor/courses/about/index.js';
+import WrongAccountPage from './components/WrongPage';
+
 
 function App() {
   return (
@@ -70,6 +72,7 @@ function App() {
 
             {/* TUTOR ROUTES */}
             <Route path="/tutor-login" component={TutorLogin} />
+            <Route path="/wrong-account" component={WrongAccountPage} />
             <Route path="/tutor" component={TutorSignUp} />
             <Route path="/tutor-complete-signup" component={NewTutor} />
             <Route path="/tutor-dashboard" component={TutorDashboard} />

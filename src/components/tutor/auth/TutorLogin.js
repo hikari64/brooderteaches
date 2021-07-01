@@ -1,4 +1,4 @@
-import React, { useRef, useState }  from "react";
+import React, { useEffect, useRef, useState }  from "react";
 
 // link
 import { Link, useHistory } from "react-router-dom";
@@ -15,28 +15,43 @@ import { TutorAuthHeader } from "./TutorAuthHeader";
 
 // image imports
 import Image from "../../../images/img-3.png";
+import { fbapp } from "../../../firebase";
+import useIsTutor from "../hooks/useIsTutor";
 
 export default function TutorLogin() {
     const emailRef = useRef();
     const passwordRef = useRef();
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-    const { tutor_login } = useAuth()
+    const [response, setTrue] = useState(false);
+    const { tutor_login, userID } = useAuth()
     const history = useHistory()
+    const db = fbapp.firestore()
   
-    async function handleSubmit(e) {
+    
+
+    // useEffect(()=>{
+      
+    // },[userID])
+     
+
+    
+    async function HandleSubmit(e) {
       e.preventDefault();
-  
-      try {
+        try {
         setError("");
         setLoading(true);
         console.log("here?");
         await tutor_login(emailRef.current.value, passwordRef.current.value);
         history.push("/tutor-dashboard")
+
+      
       } catch (error) {
         console.log("here???");
         setError(error.message);
       }
+      
+     
   
       setLoading(false);
     }
@@ -62,7 +77,7 @@ export default function TutorLogin() {
                 <h2 className="header">Tutor Sign In</h2>
                 <p>Please sign in to continue</p>
                 {error && <Alert variant="danger">{error}</Alert>}
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={HandleSubmit}>
                   <Form.Group>
                     <Form.Control
                       className="form-input"

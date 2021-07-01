@@ -31,7 +31,7 @@ import Spinner from "../../Spinner/Spinner";
 import TutorDashboardHeader from "../dashboard/TutorDashboardHeader";
 
 export default function TutorPreviewCourse(props) {
-  const [Id, setId] = useState('1267283472364');
+  const [Id, setId] = useState('');
   let { id } = useParams();
   const { loading, courses } = useFetchCoursesById(id);
   

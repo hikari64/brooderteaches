@@ -31,15 +31,22 @@ import Spinner from "../../Spinner/Spinner";
 import useFetchCoursesByTutorId from "../hooks/useFetchCoursesByTutorId";
 import useFetchTutorsById from "../hooks/useFetchTutorById";
 import TutorDashboardHeader from "./TutorDashboardHeader";
+import useFetchStudentById from "../hooks/useFetchStudentById";
 
 export default function TutorDashboard(props) {
   const history = useHistory();
 
   const { userID } = useAuth()
 
-const { loading, tutors } = useFetchTutorsById(userID);
+const { loading, tutors, error } = useFetchTutorsById(userID);
 
 if(!loading){
+  if(error){
+    alert("you logged Into the wrong account")
+    history.push("/wrong-account")
+
+  }
+
   if(tutors.state){
     if(tutors.state < 3){
 
@@ -47,6 +54,7 @@ if(!loading){
     }
   }
 }
+
 const { courses } = useFetchCoursesByTutorId(userID);
 
 
