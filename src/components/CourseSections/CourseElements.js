@@ -82,12 +82,12 @@ export const CourseRow = styled.div`
     grid-auto-columns: minmax(auto, 1fr);
     align-items: center;
     grid-template-areas: ${({imgStart}) => 
-    imgStart ? `'col2 col1'` : `'col1 col2'` };
+    imgStart ? `'col2 col1'` : `'col2 col1'` };
 
     @media and screen (max-width: 768px) {
         grid-auto-columns: minmax(auto, 1fr);
         grid-template-areas: ${({imgStart}) => 
-        imgStart ? `'col1' 'col2'` : `'col1 col1' 'col2 col2'` };
+        imgStart ? `'col1' 'col2'` : `'col1' 'col2'` };
     };
 `;
  
@@ -197,7 +197,7 @@ export const ExtraInfo = styled.div`
 `;
 
 export const TextWrapper = styled.div`
-    max-width: 540px;
+    width: 540px;
     padding-top: 0;
     padding-bottom: 50px;
 
@@ -216,6 +216,8 @@ export const Heading = styled(LinkR)`
     font-weight: 600;
     cursor: pointer;
     text-decoration: none;
+  
+    
 
     &:hover {
         transition: all 0.2s ease-in-out;
@@ -270,17 +272,19 @@ export const Subtitle1 = styled.p`
 
 export const ImgWrap = styled.div`
     max-width: 444px;
-    height: 100%
+    height: 100%;
+    
 `;
 
 export const Img = styled.img`
     height: 80%; 
     width: 75%;
-    max-height:300px; 
-    object-fit: fit;  
+    height:300px; 
+    object-fit: cover;  
     border-radius: 58px;
     margin: 0 0 10px 120px;
     padding-right: 0;
+    
 
     @media (max-width: 1024px) {
         width: 80%; 
@@ -314,6 +318,8 @@ export const CourseBtnLink = styled(LinkR)`
         outline: none;
         border: none;
         cursor: pointer;
+        margin-right: 10px;
+        
 
     &:hover {
         transition: all 0.2s ease-in-out;

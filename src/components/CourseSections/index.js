@@ -23,6 +23,7 @@ import { Container, Row, Col } from "react-bootstrap";
 // firebase imports
 import { fbapp } from "../../firebase";
 import Spinner from '../Spinner/Spinner'
+import wave from '../../images/wave.png'
 
 // IMPORTING MOCK DATA FOR NOW
 //import { courses } from "../../mock/mock.js";  Disabled inport at this level to rec
@@ -91,7 +92,7 @@ const lightBg = false;
                   {/* <Img> */}
                   <Img className="col-sx-12 bg-gradient"
 
-                  src={data.previewImg} alt={data.alt}></Img>
+                  src={data.previewImg || wave} alt={data.alt}></Img>
                 </ImgWrap>
               </Column2>
             </CourseRow>

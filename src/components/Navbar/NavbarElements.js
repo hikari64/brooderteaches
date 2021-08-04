@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link as LinkR } from "react-router-dom";
 
 export const Nav = styled.nav`
-  margin-top: -150px;
+  margin-top: -80px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,8 +10,8 @@ export const Nav = styled.nav`
   position: sticky;
   top: -10px;
   z-index: 10;
-  background: ${({ navbar }) => (navbar ? "#100855" : "transparent")};
-  height: ${({ navbar }) => (navbar ? "80px" : "150px")};
+  background: ${({ navbar }) => (navbar ? "#100855" : "#100855")};
+  height: ${({ navbar }) => (navbar ? "80px" : "80px")};
 
   @media screen and (max-width: 960px) {
     transition: 0.8s all ease;

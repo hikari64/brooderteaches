@@ -5,8 +5,11 @@ import styled from 'styled-components';
 export const CourseContainer = styled.div`
     color: #fff;
     
+    
     @media screen and (max-width: 768px){
         padding: 100px 0;
+        
+        
     }
 
     @media screen and (max-width: 480px){
@@ -17,8 +20,11 @@ export const CourseContainer = styled.div`
 export const CourseContainer1 = styled.div`
     color: #fff;
     
+    
     @media screen and (max-width: 768px){
         display: none;
+        
+        
     }
 `;
 
@@ -44,6 +50,7 @@ export const SelectorWrap = styled.div`
     margin-right: auto;
     margin-left: auto;
     justify-content: center;
+    
 
 `;
 
