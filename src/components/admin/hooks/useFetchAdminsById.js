@@ -47,14 +47,14 @@ export default function useFetchAdminsById(params) {
           type: ACTIONS.GET_DATA,
           payload: { admins: alladmins },
         });
-            console.log("lesson data: fetched", doc.data());
+            // console.log("admin data: fetched", doc.data());
         } else {
             // doc.data() will be undefined in this case
             dispatch({
               type: ACTIONS.ERROR,
               payload: { error: "Admin Doesn't Exist" },
             });
-            console.log("No such document!");
+            // console.log("No such document!");
             return;
         }
     })

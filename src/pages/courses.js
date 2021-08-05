@@ -103,7 +103,7 @@ useEffect(() => {
     setRef(filterRef)
     }
     if((courseLevel !== 0) && (courseLength === 0)){
-      const filterRef = fbapp.firestore().collection("courses").where("level", "==", courseLevel);
+       const filterRef = fbapp.firestore().collection("courses").where("level", "==", courseLevel);
 
 
       setRef(filterRef) 
