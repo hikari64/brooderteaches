@@ -52,6 +52,7 @@ const StudentDashboardHeader = ({ id }) => {
 
 if(!loading){
   if(error){
+   
     history.push("/wrong-account")
   }
 }
