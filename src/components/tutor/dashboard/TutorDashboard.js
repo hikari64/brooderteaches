@@ -21,7 +21,7 @@ import {
   TutorSubNavbarLink,
 } from "./TutorDashboardElements";
 
-import {useAuth} from '../../../contexts/AuthContext'
+import {useAuth} from '../../../contexts/TutorContext'
 
 //import Courses Sections Component from courses
 
@@ -41,9 +41,9 @@ export default function TutorDashboard(props) {
 const { loading, tutors, error } = useFetchTutorsById(userID);
 
 if(!loading){
-  if(error){
-    history.push("/wrong-account")
-  }
+  // if(error){
+  //   history.push("/wrong-account")
+  // }
 
   if(tutors.state){
     if(tutors.state < 3){

@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState }  from "react";
 import { Link, useHistory } from "react-router-dom";
 
 
-import { useAuth } from "../../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/TutorContext";
 // css import
 import "./index.css";
 // boostraP IMPOTS
@@ -24,7 +24,7 @@ export default function TutorLogin() {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [response, setTrue] = useState(false);
-    const { tutor_login, userID } = useAuth()
+    const { login, userID } = useAuth()
     const history = useHistory()
     const db = fbapp.firestore()
   
@@ -42,8 +42,10 @@ export default function TutorLogin() {
         setError("");
         setLoading(true);
         console.log("here?");
-        await tutor_login(emailRef.current.value, passwordRef.current.value);
+        await login(emailRef.current.value, passwordRef.current.value);
         history.push("/tutor-dashboard")
+        console.log(".........................here?");
+
 
       
       } catch (error) {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 
-import { useAuth } from "../../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/TutorContext";
 // other component imports
 import PersonalInformation from "./PersonalInformation";
 import Verification from "./Verification";

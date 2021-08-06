@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 // router dom
 import { Link, useHistory } from "react-router-dom";
-import { useAuth } from "../../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/TutorContext";
 
 // css import
 import "./index.css";
@@ -28,7 +28,7 @@ export default function TutorSignUp() {
   const history = useHistory();
 
   // const db = firestore.firestore();
-  const { tutor_signup } = useAuth();
+  const { signup } = useAuth();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -40,7 +40,7 @@ export default function TutorSignUp() {
     try {
       setError("");
       setLoading(true);
-      await tutor_signup(
+      await signup(
         emailRef.current.value,
         passwordRef.current.value,
         firstNameRef.current.value,

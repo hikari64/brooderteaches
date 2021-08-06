@@ -16,7 +16,7 @@ import {
   TutorSubNavbarLink,
 } from "../dashboard/TutorDashboardElements";
 
-import {useAuth} from '../../../contexts/AuthContext'
+import {useAuth} from '../../../contexts/TutorContext'
 
 //import Courses Sections Component from courses
 

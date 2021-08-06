@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
 import { auth, fbapp ,firestore} from "../firebase";
 
-const AuthContext = React.createContext();
+const TutorContext = React.createContext();
 
 export function useAuth() {
-    return useContext(AuthContext)
+    return useContext(TutorContext)
 }
-export function AuthProvider ({children}) {
+export function TutorAuthProvider ({children}) {
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
     const db = fbapp.firestore()
@@ -15,10 +15,10 @@ export function AuthProvider ({children}) {
     async function getUser(params) {
         const users = firestore.collection("tutors").doc(params);
         
-        await users.get().then((doc) => {
+        await users.get().then(async (doc) => {
           if (doc.exists) {
 
-            setCurrentUser(doc.data())
+            await setCurrentUser(doc.data())
             
               console.log("user data: fetched", doc.data());
           } else {
@@ -33,39 +33,8 @@ export function AuthProvider ({children}) {
      
   
       }
-    function signup(email, password, firstName, lastName ) {
-        return auth.createUserWithEmailAndPassword(email, password)
-                    .then((response) => {
-                        const uid = response.user.uid
-                        const data = {
-                            id: uid,
-                            email,
-                            password,
-                            firstName,
-                            lastName
-                        };
-                        const usersRef = db.collection('students')
-                        usersRef
-                            .doc(uid)
-                            .set(data)
-                            .then(() => {
-                                console.log("succes? You can login now")
-                                setuserID(uid)
-                            // toast.show("Success!", {type: 'success'});
-                            // navigation.navigate('Login', { user: data })
-                            })
-                            .catch((error) => {
-                                console.log("failed?", error.message)
-                            // toast.show(error.message, {type: 'danger'});
-                            });
-                    })
-                    // .catch((error) => {
-                    //     console.log("error?", error.message)
-                    // // toast.show(error.message, {type: 'danger'});
-                    // });
-                }
 
-    function tutor_signup(email, password, firstName, lastName ) {
+    function signup(email, password, firstName, lastName ) {
         return auth.createUserWithEmailAndPassword(email, password)
                     .then((response) => {
                         const uid = response.user.uid
@@ -99,41 +68,15 @@ export function AuthProvider ({children}) {
                 }
 
 
+  
+
     function login(email, password) {
         return auth.signInWithEmailAndPassword(email, password)
-                    // .then((response) => {
-                    //     const uid = response.user.uid
-
-                    //     const checkIfStudent = db.collection('students').doc(uid)
-                    //     checkIfStudent.get().then((doc) => {
-                    //         if (doc.exists) {
-                    //             console.log("truly a student");
-                    //         } else {
-                    //             // doc.data() will be undefined in this case
-                    //             console.log("not a student");
-                    //         }
-                    //     }).catch((error) => {
-                    //         console.log("Error getting document:", error);
-                    //     });
-                    // })
-    }
-
-    function tutor_login(email, password) {
-        return auth.signInWithEmailAndPassword(email, password)
-        .then((response) => {
+        .then(async (response) => {
                 const uid = response.user.uid
 
-                const checkIfStudent = db.collection('tutors').doc(uid)
-                checkIfStudent.get().then((doc) => {
-                    if (doc.exists) {
-                        console.log("truly a tutor");
-                    } else {
-                        // doc.data() will be undefined in this case
-                        console.log("not a student");
-                    }
-                }).catch((error) => {
-                    console.log("Error getting document:", error);
-                });
+                await getUser(uid)
+                
             })
     }
 
@@ -190,14 +133,19 @@ export function AuthProvider ({children}) {
     }
 
     function logout() {
-        return auth.signOut()
+        return auth.signOut().then(()=>setCurrentUser(''))
     }
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
-            setCurrentUser(user)
+           
             if (user) {
                 setuserID(user.uid)
+                getUser(user.uid)
+
+            }else{
+                setCurrentUser(user)
+
             }
             setLoading(false)
 
@@ -208,11 +156,11 @@ export function AuthProvider ({children}) {
     const value = {
         currentUser, userID,
         signup, login, logout, resetPassword, updateEmail, updatePassword, updateProfile,
-        verifyUser, tutor_login, tutor_signup
+        verifyUser
     }
     return (
-        <AuthContext.Provider value={value}>
+        <TutorContext.Provider value={value}>
             {!loading && children}
-        </AuthContext.Provider>
+        </TutorContext.Provider>
     )
 }

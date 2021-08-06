@@ -10,7 +10,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 
 //import image
 import picture from "../../../images/code.jpg";
-import { useAuth } from "../../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/TutorContext";
 import useFetchTutorsById from "../hooks/useFetchTutorById";
 
 //import ELement for this page

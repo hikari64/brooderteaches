@@ -19,7 +19,7 @@ import {
 } from "./NavbarElements";
 import {Dropdown} from 'react-bootstrap'
 // auth
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/TutorContext";
 import { auth } from "../../firebase";
 
 const Navbar = ({ toggle, navbar, changeBackground,tutor }) => {

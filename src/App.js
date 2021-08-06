@@ -42,6 +42,10 @@ import TutorPreviewCourse from './components/tutor/courses/TutorPreviewCourse';
 import AddLessonToCourse from './components/tutor/addLesson';
 import TutorCoursePage from './components/tutor/courses/about/index.js';
 import WrongAccountPage from './components/WrongPage';
+import TutorPrivateRoute from './contexts/TutorPrivateRoute';
+import TutorPublicRoute from './contexts/TutorPublicRoute';
+import { TutorAuthProvider } from './contexts/TutorContext';
+
 
 
 function App() {
@@ -49,6 +53,7 @@ function App() {
     <Router>
       <AuthProvider>
         <AdminAuthProvider>
+          <TutorAuthProvider>
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/login" component={login} />
@@ -70,20 +75,27 @@ function App() {
             <AdminPrivateRoute path="/students" component={Students} />
             <AdminPrivateRoute path="/tutors" component={Tutors} />
 
-            {/* TUTOR ROUTES */}
-            <Route path="/tutor-login" component={TutorLogin} />
+            {/* TUTOR PUBLIC ROUTES */}
+            
+
+            
+            <TutorPublicRoute restricted path="/tutor-login" component={TutorLogin} exact />
+
+            <TutorPublicRoute restricted path="/tutor" component={TutorSignUp}  exact />
+
+            {/* TUTOR PRIVATE ROUTES */}
             <Route path="/wrong-account" component={WrongAccountPage} />
-            <Route path="/tutor" component={TutorSignUp} />
-            <Route path="/tutor-complete-signup" component={NewTutor} />
-            <Route path="/tutor-dashboard" component={TutorDashboard} />
-            <Route path="/tutor-about/:id" component={TutorCoursePage} />
-            <Route path="/tutor-courses" component={TutorDashboard} />
-            <Route path="/tutor-preview-course/:id" component={TutorPreviewCourse} />
-            <Route path="/tutor-create-course" component={TutorCreateCourse} />
-            <Route path="/tutor-create-lesson/:courseIdParam" component={AddLessonToCourse} />
-            <Route path="/tutor-profile" component={TutorProfile} />
+            <TutorPrivateRoute path="/tutor-complete-signup" component={NewTutor} />
+            <TutorPrivateRoute path="/tutor-dashboard" component={TutorDashboard} />
+            <TutorPrivateRoute path="/tutor-about/:id" component={TutorCoursePage} />
+            <TutorPrivateRoute path="/tutor-courses" component={TutorDashboard} />
+            <TutorPrivateRoute path="/tutor-preview-course/:id" component={TutorPreviewCourse} />
+            <TutorPrivateRoute path="/tutor-create-course" component={TutorCreateCourse} />
+            <TutorPrivateRoute path="/tutor-create-lesson/:courseIdParam" component={AddLessonToCourse} />
+            <TutorPrivateRoute path="/tutor-profile" component={TutorProfile} />
             
           </Switch>
+          </TutorAuthProvider>
         </AdminAuthProvider>
       </AuthProvider>
     </Router>

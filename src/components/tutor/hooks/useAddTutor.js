@@ -1,6 +1,6 @@
 import React ,{ useState ,useEffect} from "react";
 import {firestore,timestamp} from '../../../firebase';
-import { useAuth } from "../../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/TutorContext";
 
 
 function AddTutor(data,userID){

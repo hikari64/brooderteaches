@@ -1,7 +1,7 @@
 import React ,{ useState ,useEffect} from "react";
 import {firestore,timestamp} from '../../../firebase';
 import AddFile from "./useAddFile";
-import { useAuth } from "../../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/TutorContext";
 import {storage} from '../../../firebase';
 
 

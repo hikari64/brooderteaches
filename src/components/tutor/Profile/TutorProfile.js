@@ -20,7 +20,7 @@ import { DropzoneArea } from "material-ui-dropzone";
 
 import TutorDashboardHeader from "../dashboard/TutorDashboardHeader";
 import useFetchTutorsById from "../hooks/useFetchTutorById";
-import { useAuth } from "../../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/TutorContext";
 import UpdateTutor from "../hooks/useUpdateTutor";
 
 export default function TutorProfile(props) {

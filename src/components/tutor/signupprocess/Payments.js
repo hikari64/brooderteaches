@@ -10,7 +10,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 
 // IMPORT STYLED ELEMENTS
 import { SignUpH1 } from "./signupElements.js";
-import { useAuth } from "../../../contexts/AuthContext.js";
+import { useAuth } from "../../../contexts/TutorContext.js";
 
 export default function Payments(props) {
   const { userID } = useAuth()
