@@ -16,9 +16,10 @@ export default function PersonalInformation(props) {
     props.updateData(nam,val);
 
   }
-  const Proceed = ()=>{
+  const Proceed = async ()=>{
+    await props.Submit();
     props.nextStep();
-     props.Submit();
+
    }
 
   return (
@@ -113,7 +114,8 @@ export default function PersonalInformation(props) {
                   name="email"
                   value={props.data.email}
                   placeholder="Email Address"
-                  onChange={eventHandler}
+                  // onChange={eventHandler}
+                  disabled
 
                 />
               </Form.Group>

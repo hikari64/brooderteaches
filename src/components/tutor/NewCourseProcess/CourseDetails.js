@@ -11,6 +11,8 @@ import { Container, Row, Col, Button, Form, InputGroup,ProgressBar } from "react
 
 // import Custom css
 // import "./signupprocess.css";
+import { SkillsAPI } from "emsi-skills-api"
+
 
 export default function CourseDetails(props) {
   

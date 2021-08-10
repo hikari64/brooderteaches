@@ -1,6 +1,5 @@
-import React ,{ useState ,useEffect} from "react";
+import React  from "react";
 import {firestore,timestamp} from '../../../firebase';
-import { useAuth } from "../../../contexts/TutorContext";
 
 
 function UpdateTutor(data,userID){
@@ -17,6 +16,8 @@ function UpdateTutor(data,userID){
             ...data,
             updatedAt:createdAt,
             
+        }).then((docRef)=>{
+            newdata= docRef.data();
         })
         .catch((err) => {
             error = err;

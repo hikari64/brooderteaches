@@ -154,7 +154,7 @@ export function TutorAuthProvider ({children}) {
     }, [])
 
     const value = {
-        currentUser, userID,
+        currentUser, userID,setCurrentUser,
         signup, login, logout, resetPassword, updateEmail, updatePassword, updateProfile,
         verifyUser
     }

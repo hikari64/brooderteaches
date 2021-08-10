@@ -31,12 +31,12 @@ const NotVerifiedPage = () => {
 
             <Col md={12} className="mx-auto my-auto text-center">
             <Row className="">
-              <h4 className="header p-1 text-danger">Oops! you haven't been verified yet!</h4>
-              <p>Check back again,our team will get to you shortly!</p>
+              <h2 className="header p-1 text-success">Congratulations!!!</h2>
+              <h4 className="header p-1 ">But... you haven't been verified yet!</h4>
+              <p>Check back in 24hrs, meanwhile our team will get to you shortly!</p>
 
              
               <Col  className="text-center ">
-                <h2 className="header">Tutor Login</h2>
                 
                    <Button onClick={()=>logout()}
                     className="primary-button"

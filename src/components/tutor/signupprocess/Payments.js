@@ -13,7 +13,7 @@ import { SignUpH1 } from "./signupElements.js";
 import { useAuth } from "../../../contexts/TutorContext.js";
 
 export default function Payments(props) {
-  const { userID } = useAuth()
+  const { userID,setCurrentUser } = useAuth()
 
   // NAVBAR CONTROLS
   const [isOpen, setIsOpen] = useState(false);
@@ -30,10 +30,18 @@ export default function Payments(props) {
   useEffect(()=>{
     console.log("useeffect runned ")
 
-    if(tutorData.paymentReference){
-          UpdateTutor(tutorData,userID)
-          console.log("reference set")
+    async function RecordPayment(){
+      const {newdata,error} = await UpdateTutor(tutorData,userID);
+      setCurrentUser(newdata)
+      console.log("payment recorded succesfully")
     }
+    if(tutorData.paymentReference){
+      if(tutorData.paymentReference.status === 'success'){
+      RecordPayment()
+      console.log("reference set")
+         
+    }
+  }
 
   },[tutorData,userID])
 
@@ -51,6 +59,8 @@ export default function Payments(props) {
     // Implementation for whatever you want to do with reference and after success call.
     let nam = 'paymentReference';
     UpdateData(nam, reference);
+  //  await UpdateTutor(tutorData,userID)
+
     console.log(reference);
   };
 
