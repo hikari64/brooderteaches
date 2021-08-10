@@ -36,29 +36,29 @@ import useFetchStudentById from "../hooks/useFetchStudentById";
 export default function TutorDashboard(props) {
   const history = useHistory();
 
-  const { userID } = useAuth()
+  const { userID ,currentUser} = useAuth()
 
-const { loading, tutors, error } = useFetchTutorsById(userID);
+// const { , tutors,  } = useFetchTutorsById(userID);
+const {loading, courses, error } = useFetchCoursesByTutorId(userID);
 
 if(!loading){
   // if(error){
   //   history.push("/wrong-account")
   // }
 
-  if(tutors.state){
-    if(tutors.state < 3){
+  if(currentUser.state){
+    if(currentUser.state < 3){
 
     history.push("/tutor-complete-signup")
     }
   }
 }
 
-const { courses } = useFetchCoursesByTutorId(userID);
 
 
   return (
     <div fluid className="height-full">
-      <TutorDashboardHeader tutors={tutors} view={1} />
+      <TutorDashboardHeader  view={1} />
       <TutorSubNavbar>
                 <Container className="mx-5">
                 <Container className="container mx-5 p-4 ">

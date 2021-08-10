@@ -2,7 +2,7 @@ import React from 'react';
 import { CourseContainer1, CourseSelectors, Column1Header, Column1Details, SelectorWrap, } from '../CourseSideMenu.js/SideMenuElements';
 
 
-const CourseDets = () => {
+const CourseDets = ({data}) => {
 
 
     return (
@@ -14,7 +14,7 @@ const CourseDets = () => {
                             Course Summary
                         </Column1Header>
                         <Column1Details>
-                            
+                        {data.about}
                         </Column1Details>
                     </SelectorWrap>
                     <SelectorWrap>
@@ -22,7 +22,7 @@ const CourseDets = () => {
                             Related Skills
                         </Column1Header>
                         <Column1Details>
-                            
+                        {}
                         </Column1Details>
                     </SelectorWrap>
                 </CourseSelectors>

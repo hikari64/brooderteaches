@@ -167,7 +167,7 @@ const [files, setFiles] = useState(null);
               <Form.Group  className="row mt-3">
                 
                <Col>
-               <ProgressBar/>
+
                 {progress !== 0 && <ProgressBar animated  now={progress} />}
                <DropzoneArea
                     acceptedFiles={['video/*']}
@@ -187,7 +187,7 @@ const [files, setFiles] = useState(null);
               <Form.Group  className="row mt-3">
 
                <Col>
-               <ProgressBar/>
+
                 {assignmentProgress !== 0 && <ProgressBar animated now={assignmentProgress} />}
                <DropzoneArea
                     acceptedFiles={['application/pdf']}

@@ -23,6 +23,8 @@ export default function UploadLessons(props) {
 const [view,setView] = useState(1)
 const [progress, setProgress] = useState(0);
 const [assignmentProgress, setAssignmentProgress] = useState(0);
+const [assignment, setAssignment] = useState([]);
+const [video, setVideo] = useState([]);
 const [displayData,setDisplayData] = useState(null)
 const [error, setError] = useState(null);
 const [validated, setValidated] = useState(false);
@@ -62,11 +64,11 @@ const [validated, setValidated] = useState(false);
     
     return newErrors;
   }
-  const handleChange = (File) => {
+  const handleChange = () => {
     // Uploading to firebase storage
     // and updating URLS array for storage in firestore
 
-    const file = File[0];
+    const file = video[0];
     console.log(file)
     var d = new Date();
     var n = d.getTime();
@@ -95,8 +97,8 @@ const [validated, setValidated] = useState(false);
 
   }
   
-  const handleChangePdf=(File)=>{
-    const file = File[0];
+  const handleChangePdf=()=>{
+    const file = assignment[0];
     console.log(file)
     var d = new Date();
     var n = d.getTime();
@@ -212,7 +214,7 @@ const [validated, setValidated] = useState(false);
                 <DropzoneArea
                      acceptedFiles={['video/*']}
                      dropzoneText={"Upload Lesson Video"}
-                      onChange={(files) => handleChange(files)}
+                      onChange={(files) => setVideo(files)}
                     // Icon={AttachFile}
                      //onAdd={(files) => handleChange(files)}
                      //onChange={(files) => setFiles(files)}
@@ -222,7 +224,15 @@ const [validated, setValidated] = useState(false);
                      />
                      {props.error.video && <div className="alert-danger">{props.error.video} </div>}
                 </Col>
-           
+                <Row>
+                  <Col className="text-end">
+                  
+                    {video.length !==0 && <Button
+                    onClick={() => handleChange()}
+                    >upload Video</Button>}
+              
+                  </Col>
+                </Row>       
                </Form.Group>
                {/* Add ASSignment */}
                <Form.Group  className="row mt-3">
@@ -233,7 +243,7 @@ const [validated, setValidated] = useState(false);
                      acceptedFiles={['application/pdf']}
                      dropzoneText={"Add Assignment"}
                      // onChange={handleChangePdf}
-                     onChange={(files) => handleChangePdf(files)}
+                     onChange={(files) => setAssignment(files)}
  
                      // onChange={(files) => setAssignment(files)}
                      maxFileSize	={300000000}
@@ -241,7 +251,16 @@ const [validated, setValidated] = useState(false);
                    value={props.data.assignment}
                      />
                      {props.error.assignment && <div className="alert-danger">{props.error.assignment} </div>}
-                </Col>            
+                </Col>    
+                <Row>
+                  <Col className="text-end">
+                  
+                    {assignment.length !==0 && <Button
+                    onClick={() => handleChangePdf()}
+                    >upload Assignment</Button>}
+              
+                  </Col>
+                </Row>        
               </Form.Group>
               <Container className="contain">
               <Button type="submit" className="primary-button col-5">

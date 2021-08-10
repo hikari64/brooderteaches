@@ -20,6 +20,8 @@ export default function CourseDetails(props) {
   const [progress, setProgress] = useState(0);
   const [progressImg, setProgressImg] = useState(0);
   const [error, setError] = useState(null);
+  const [video,setVideo] = useState([])
+  const [picture,setPicture] = useState([])
 
 
   const eventHandler = (event) => {
@@ -50,11 +52,11 @@ export default function CourseDetails(props) {
   }
 
   
-  const handleChange = (File) => {
+  const handleChange = () => {
     // Uploading to firebase storage
     // and updating URLS array for storage in firestore
 
-    const file = File[0];
+    const file = video[0];
     console.log(file)
     if(file){
     var d = new Date();
@@ -84,11 +86,12 @@ export default function CourseDetails(props) {
 
   }
 
- const handleChangefil = (File) => {
+
+ const handleChangefil = () => {
    // Uploading to firebase storage
     // and updating URLS array for storage in firestore
 
-    const file = File[0];
+    const file = picture[0];
     console.log(file)
     if(file){
     var d = new Date();
@@ -268,8 +271,8 @@ export default function CourseDetails(props) {
                 <InputGroup className="form-input col">
                   <InputGroup.Prepend className="col-3">
                     <InputGroup.Text>{!props.data.period && 'Period'}
-                    {props.data.period ==1 && "Week(s)"}
-                    {props.data.period ==2 && "Month(s)"}
+                    {props.data.period ===1 && "Week(s)"}
+                    {props.data.period ===2 && "Month(s)"}
                     </InputGroup.Text>
                   </InputGroup.Prepend>
                   <Form.Control
@@ -294,23 +297,33 @@ export default function CourseDetails(props) {
                 </Form.Label>
 
                 <Col>
-                {progress !== 0 && <ProgressBar striped now={progress} />}
+                {progress !== 0 && <ProgressBar striped animated now={progress} />}
                   <DropzoneArea
 
                     acceptedFiles={["video/*"]}
                     dropzoneText={"Upload an introductory video"}
-                    onChange={(files) => handleChange(files)}
+                    onChange={(files) => setVideo(files)}
                     maxFileSize={300000000}
                     filesLimit={1}
                   />
               {props.error.preview && <div className="alert-danger">{props.error.preview} </div>}
-            
+              
+                
                 </Col>
+                <Row>
+                <Col className="text-end">    
+                    {video.length !==0 && <Button
+                    onClick={() => handleChange()}
+                    >upload Video</Button>
+                    }
+              
+                  </Col>
+                  </Row>
               </Form.Group>
-              {/* INTRO VIDEO */}
+              {/* cover picture */}
               <Form.Group className="row m-2" controlId="validationCustom07">
                 <Form.Label className="col-3 align-bottom my-auto text-end">
-                  Introductory Video
+                Cover Picture
                 </Form.Label>
 
                 <Col>
@@ -319,7 +332,7 @@ export default function CourseDetails(props) {
 
                     acceptedFiles={["image/*"]}
                     dropzoneText={"Upload a cover picture"}
-                    onChange={(files) => handleChangefil(files)}
+                    onChange={(files) => setPicture(files)}
                     maxFileSize={300000000}
                     filesLimit={1}
                     cancelButtonText={"cancel"}
@@ -328,6 +341,15 @@ export default function CourseDetails(props) {
               {props.error.previewImg && <div className="alert-danger">{props.error.previewImg} </div>}
             
                 </Col>
+                <Row>
+                  <Col className="text-end">
+                  
+                    {picture.length !==0 && <Button
+                    onClick={() => handleChangefil()}
+                    >upload photo</Button>}
+              
+                  </Col>
+                </Row>
               </Form.Group>
 
               <Col className="text-center">

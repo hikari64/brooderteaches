@@ -8,7 +8,7 @@ import { CContainer, CContainer2 } from "./PagesElements";
 import CourseSections from "../components/CourseSections";
 import { fbapp } from "../firebase";
 import Spinner from "../components/Spinner/Spinner";
-import { Alert,Button,Col,Row } from "react-bootstrap";
+import { Alert,Button,Col,Row,Container } from "react-bootstrap";
 
 
 const Courses = () => {
@@ -143,40 +143,44 @@ useEffect(() => {
         changeBackground={changeBackground}
       />
       <PageHeader />
-      <CContainer>
-        <CourseSideMenu 
-        //setCourseLevel={setCourseLevel}
-        DataFilter={DataFilter}  
-        />
-        <CContainer2 className="mx-auto">
-        {error && 
+     
+          <Row>
 
-        <Row className="my-4">
-          <Alert variant="danger"  className="col">
-          <Alert.Heading>{error}</Alert.Heading>
-          
-          </Alert>
-        </Row>}
-        {loading && <Spinner className="text-center"/>}
-          {(!error && !loading) && <CourseSections className="text-start" courses={courses} />
-          
-          }
-          
-          <Col  className="text-center">
-          {(loadmore) && <Button
-           className="primary-button"
-           onClick={()=>LoadMore()}
-           >
-            load more
-          </Button>
-          
-          }
-        {!loadmore && <p>End of Courses</p> }
-
+          <Col xs={3}>
+            <CourseSideMenu className="col-sm-3"
+            DataFilter={DataFilter}  
+            />
           </Col>
-          
-        </CContainer2>
-      </CContainer>
+
+          <Col xs={8} className="mt-5">
+          {error && 
+
+          <Row className="">
+            <Alert variant="danger"  className="col">
+            <Alert.Heading>{error}</Alert.Heading>
+            
+            </Alert>
+          </Row>}
+          {loading && <Spinner className="text-center"/>}
+            {(!error && !loading) && <CourseSections className="text-start" courses={courses} />
+            
+            }
+            
+            <Col  className="text-center">
+            {(loadmore) && <Button
+            className="primary-button"
+            onClick={()=>LoadMore()}
+            >
+              load more
+            </Button>
+            
+            }
+          {!loadmore && <p>End of Courses</p> }
+
+            </Col>
+            
+          </Col>
+        </Row>
 
       <Footer />
     </>

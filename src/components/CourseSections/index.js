@@ -18,7 +18,7 @@ import {
   StartIcon,
   FeeIcon,
 } from "./CourseElements";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Image } from "react-bootstrap";
 
 // firebase imports
 import { fbapp } from "../../firebase";
@@ -42,7 +42,7 @@ const CourseSections = ({courses}) => {
       <Container className="height-half">
       <Row className="mt-4 mb-4">
         <Col md={12} className="mx-auto">
-          {loading && <Spinner style="textAlign: center;"/>}
+          {loading && <Spinner style={{textAlign: "center"}}/>}
         </Col>
       </Row>
     </Container>);
@@ -56,13 +56,16 @@ const lightBg = false;
   
     
     const result =  courses.map((data, index) => (
-      <CourseContainer key={index}>
-        <CourseDetails id={data.id}  lightBg={lightBg}>
-          <CourseWrapper>
-            <CourseRow imgStart={data.previewImg}>
-              <Column1 className="col">
-                <TextWrapper>
-                  <Heading to={`/about/${data.id}`}>
+      <Row key={index} className="mt-2 my-3">
+        {/* <Row id={data.id}  lightBg={lightBg}> */}
+              <Col sm={12} md={4} lg={5}>
+                  <Img fluid  
+                   className="rounded-6 bg-gradient"
+                  src={data.previewImg || wave} alt={data.alt}></Img>
+              </Col>
+              <Col >
+                <div>
+                  <Heading className="text-dark" to={`/about/${data.id}`}>
                     {data.title}
                   </Heading>
                   <Subtitle>{data.about}</Subtitle>
@@ -85,20 +88,11 @@ const lightBg = false;
                   <CourseBtnLink to={`/register/${data.id}`}>
                     Take this Class
                   </CourseBtnLink>
-                </TextWrapper>
-              </Column1>
-              <Column2 className="col ">
-                <ImgWrap className="col-sx-12 m-1 bg-gradient">
-                  {/* <Img> */}
-                  <Img className="col-sx-12 bg-gradient"
-
-                  src={data.previewImg || wave} alt={data.alt}></Img>
-                </ImgWrap>
-              </Column2>
-            </CourseRow>
-          </CourseWrapper>
-        </CourseDetails>
-      </CourseContainer>
+                </div>
+              </Col>
+              
+        {/* </Row> */}
+      </Row>
       ));
       
 

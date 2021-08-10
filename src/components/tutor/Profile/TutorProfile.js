@@ -42,38 +42,11 @@ export default function TutorProfile(props) {
     UpdateData(nam, val);
   };
   const handleChangefil = (File) => {
-    // Uploading to firebase storage
-     // and updating URLS array for storage in firestore
- 
+
      const file = File[0];
      let   nam = "photoFile"
      UpdateData(nam,file);
-  //    console.log(file)
-  //    if(file){
-  //    var d = new Date();
-  //    var n = d.getTime();
-  //    const filename = n+file.name;
-  //    // references
-    
-     
-  //    const storeVideoRef = storageRef.child(`/CoverPictures/${filename}`);
-     
-  //    storeVideoRef.put(file).on('state_changed', (snap) => {
-  //      let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
-  //      setProgressImg(percentage);
-  //    }, (err) => {
-  //      setError(err);
-  //    }, async () => {
-  //      const url = await storeVideoRef.getDownloadURL();
-       
-  //    let   nam = "photoUrl"
-     
-   
-  //         UpdateData(nam,url); 
- 
-  //    });
-  //  }
- 
+
    };
   const handleUploadfil = (File) => {
     // Uploading to firebase storage
@@ -275,6 +248,7 @@ useEffect(() => {
                     src={tutorData.photoFile ? tutorData.photoFile : tutorData.photoUrl} 
                     alt="Profile" 
                     className="rounded" />
+                    <br/>
                   {<Button
                   onClick={() => handleUploadfil()}
                   >upload photo</Button>}
@@ -306,6 +280,7 @@ useEffect(() => {
                     src={tutorData.verificationID ? tutorData.verificationID : ''} 
                     alt="Profile" 
                     className="rounded" />
+                    <br/>
                   {<Button>upload ID</Button>}
             
                 </Col>

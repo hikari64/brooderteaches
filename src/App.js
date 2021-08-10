@@ -76,9 +76,7 @@ function App() {
             <AdminPrivateRoute path="/tutors" component={Tutors} />
 
             {/* TUTOR PUBLIC ROUTES */}
-            
-
-            
+                    
             <TutorPublicRoute restricted path="/tutor-login" component={TutorLogin} exact />
 
             <TutorPublicRoute restricted path="/tutor" component={TutorSignUp}  exact />

@@ -277,18 +277,17 @@ export const ImgWrap = styled.div`
 `;
 
 export const Img = styled.img`
-    height: 80%; 
-    width: 75%;
+    width: 90%;
     height:300px; 
     object-fit: cover;  
-    border-radius: 58px;
-    margin: 0 0 10px 120px;
+    border-radius: 2rem;
+    margin: 0 0 10px 20px;
     padding-right: 0;
     
 
     @media (max-width: 1024px) {
         width: 80%; 
-        margin: 0 0 10px 50px;
+        // margin: 0 0 10px 50px;
 
     };
 
@@ -296,7 +295,7 @@ export const Img = styled.img`
         width: 80%; 
         
 
-        margin: 0 0 10px 60px;
+        // margin: 0 0 10px 60px;
 
     };
 

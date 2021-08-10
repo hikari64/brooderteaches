@@ -52,7 +52,7 @@ const CoursePrev = ({id}) => {
                     </PlayerStyle>
                 </Column11>
                 <Column22>
-                   <CourseDets/>
+                   <CourseDets data={data}/>
                 </Column22>
             </CourseRow1>
         </CourseWrapper1>

@@ -16,10 +16,14 @@ import {
  
 } from "./TutorDashboardElements";
 import { BsFillPersonCheckFill,BsPersonDashFill } from "react-icons/bs";
+import { useAuth } from "../../../contexts/TutorContext";
 
 
 export default function TutorDashboardHeader(props){
     // scroll to top
+    const {currentUser} = useAuth();
+
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -58,7 +62,7 @@ export default function TutorDashboardHeader(props){
                     <img  
                     width="150"
                     height="150"
-                    src={props.tutors.photoUrl ? props.tutors.photoUrl : picture} 
+                    src={currentUser.photoUrl ? currentUser.photoUrl : picture} 
                     alt="Profile" 
                     className="rounded-circle" />
 
@@ -66,12 +70,12 @@ export default function TutorDashboardHeader(props){
                 </Col>
                 <Col md={7} className=" text-start my-auto ">
                 
-                <TutorName>{props.tutors.firstName} {props.tutors.lastName}</TutorName>
+                <TutorName>{currentUser.firstName} {currentUser.lastName}</TutorName>
                 <p className="text-muted">
-                {props.tutors.email} {"  "}
+                {currentUser.email} {"  "}
                 </p>
                 <span>
-                {props.tutors.verified ? (
+                {currentUser.verified ? (
                   <React.Fragment>
                     
                     <Badge className="bg-gradient" >

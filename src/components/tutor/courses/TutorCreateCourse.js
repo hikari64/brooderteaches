@@ -37,7 +37,7 @@ import TutorDashboardHeader from "../dashboard/TutorDashboardHeader";
 import { AccessDenied } from "./components";
 
 export default function TutorCreateCourse(props) {
-  const { userID } = useAuth();
+  const { userID,currentUser } = useAuth();
   
 
   //const [Id, setId] = useState('1267283472364');
@@ -69,8 +69,8 @@ export default function TutorCreateCourse(props) {
 
   return (
     <div fluid className="height-full">
-      <TutorDashboardHeader tutors={tutors} view={2} />
-      {tutors.verified && <TutorSubNavbar>
+      <TutorDashboardHeader  view={2} />
+      {currentUser.verified && <TutorSubNavbar>
         <Container className="mx-5">
           <Container className="container mx-5 p-4 row">
             <Col>
