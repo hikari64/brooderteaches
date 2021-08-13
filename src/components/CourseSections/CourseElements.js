@@ -287,12 +287,16 @@ export const Img = styled.img`
 
     @media (max-width: 1024px) {
         width: 80%; 
+        height:300px; 
+
         // margin: 0 0 10px 50px;
 
     };
 
     @media (max-width: 768px) {
         width: 80%; 
+        height:10rem; 
+
         
 
         // margin: 0 0 10px 60px;
@@ -301,9 +305,14 @@ export const Img = styled.img`
 
     @media (max-width: 480px) {
         width: 100%;
-        hieght:200px; 
-        margin-left: -20px;
-        margin-top: -70px;
+        height:10rem; 
+        margin: 15px auto;
+        // margin-left: -20px;
+        // margin-top: -70px;
+        border-radius: 1rem;
+
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
     };
 `;
 
@@ -331,17 +340,37 @@ export const CourseBtnLink = styled(LinkR)`
 export const Details = styled.div`
     display:flex; 
     flex-direction:row;
-    margin-top: -25px;
+    // margin-top: -25px;
+    // font-size: 2rem;
+    @media screen and (max-width:768px) {
+        flex-direction:column;
 
+           
+        }
 `;
 
 export const Data = styled.p`
-    max-width: 440px;
-    font-size: 20px;
+    display:inline;
+    // max-width: 440px;
+    font-size: 1.2rem;
     line-height: 24px;
     color: black;
     padding-right: 15px;
+    // margin: 10px;
 
+
+    @media screen and (max-width:768px) {
+        display:block;
+        line-height: 1.1;
+    font-size: 1rem;
+    // margin:5px;
+           
+        }
+    @media screen and (max-width: 480px){
+        font-size: 1rem;
+        display:block;
+
+      }
 `;
 
 export const DurationIcon = styled(FaClock)`
@@ -357,12 +386,12 @@ export const FeeIcon = styled(FaMoneyBillWave)`
 `;
 
 export const PlayerStyle = styled.div`
-padding-top: -56.25%;
+// padding-top: -56.25%;
 height: 400px;
   width: 640px;
   border: 5px solid;
   background: #efefef;
-  border-radius: 48px;
+  border-radius: 4rem;
   overflow: hidden;
 
   @media screen and (max-width: 480px){
@@ -379,8 +408,8 @@ export const Videocontainer = styled.div`
 
     height: 400px;
   width: 640px;
-  object-fit: fill;
-  border-radius: 40px;
+  object-fit: cover;
+  border-radius: 4rem;
 
   @media screen and (max-width: 480px){
     height: 20px;

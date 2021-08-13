@@ -16,6 +16,7 @@ export default function NewCourseProcess({ ProcessIndicator }) {
   const [courseData, setCourseData] = useState({
     title: "",
     about: "",
+    tag:'',
     duration: "",
     startDate: "",
     price: '',
@@ -37,6 +38,7 @@ export default function NewCourseProcess({ ProcessIndicator }) {
   const [error, setError] = useState({
     title: "",
     about: "",
+    tag:"",
     duration: "",
     startDate: "",
     price: '',
@@ -79,6 +81,7 @@ export default function NewCourseProcess({ ProcessIndicator }) {
 
   //submit New Course
   const Submit = () =>{
+    console.log("submitin")
     setLoading(!loading)
      AddCourse(courseData,setLoading,setCourseId,userID);
     

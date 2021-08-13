@@ -7,7 +7,7 @@ import {
   Column1Details,
   SelectorWrap,
 } from "./SideMenuElements";
-
+import {Row,Col,Container} from "react-bootstrap"
 
 
 
@@ -39,9 +39,9 @@ const CourseSideMenu = ({setCourseLength,setCourseLevel,DataFilter}) => {
 
   return (
       <>
-      <CourseContainer>
+      <Row >
         <CourseSelectors>
-          <SelectorWrap>
+          <Row>
             <Column1Header>Course Level</Column1Header>
             <Column1Details>
               <label>
@@ -67,10 +67,10 @@ const CourseSideMenu = ({setCourseLength,setCourseLevel,DataFilter}) => {
                 <span style={{ marginLeft: 30 }}>Advanced</span>
               </label>
             </Column1Details>
-          </SelectorWrap>
+          </Row>
 
-          <SelectorWrap>
-            <Column1Header>Course Length</Column1Header>
+          <Row>
+            <Column1Header className="col-sm-12 ">Course Length</Column1Header>
             <Column1Details>
               <label>
                 <Checkbox checked={periodKey === 0 ? true: false} data-key="0" onClick={handlePeriodCheckboxChange} />
@@ -89,9 +89,9 @@ const CourseSideMenu = ({setCourseLength,setCourseLevel,DataFilter}) => {
                 <span style={{ marginLeft: 30 }}>Month</span>
               </label>
             </Column1Details>
-          </SelectorWrap>
+          </Row>
         </CourseSelectors>
-      </CourseContainer>
+      </Row>
     </>
   );
 };

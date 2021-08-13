@@ -12,6 +12,7 @@ import { Container, Row, Col, Button, Form, InputGroup,ProgressBar } from "react
 // import Custom css
 // import "./signupprocess.css";
 import { SkillsAPI } from "emsi-skills-api"
+import Spinner from "../../Spinner/Spinner";
 
 
 export default function CourseDetails(props) {
@@ -19,10 +20,11 @@ export default function CourseDetails(props) {
   // files to upload
   const [files, setFiles] = useState(null);
   const [validated, setValidated] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
   const [progressImg, setProgressImg] = useState(0);
   const [error, setError] = useState(null);
-  const [video,setVideo] = useState([])
+  const [mvideo,setVideo] = useState([])
   const [picture,setPicture] = useState([])
 
 
@@ -38,6 +40,8 @@ export default function CourseDetails(props) {
     // name errors
     if ( !props.data.title || props.data.title === '' ) newErrors.title = 'cannot be blank!'
     else if ( props.data.title.length > 100 ) newErrors.name = 'Title is too long!'
+    if ( !props.data.tag || props.data.tag === '' ) newErrors.tag = 'cannot be blank!'
+    else if ( props.data.tag.length > 150 ) newErrors.tag = 'Tag is too long! Maximum(150)'
     // food errors
     if ( !props.data.duration || props.data.duration === '' ) newErrors.duration = 'select a duration!'
     // rating errors
@@ -48,7 +52,6 @@ export default function CourseDetails(props) {
     if ( !props.data.level  || props.data.level  > 3 || props.data.level  < 1 ) newErrors.level = 'must assign a rating between 1 and 3!'
     // comment errors
     if ( !props.data.about || !props.data.about) newErrors.about = 'cannot be blank!'
-    else if ( props.data.about.length > 300 ) newErrors.about = 'about is too long!'
 
     return newErrors;
   }
@@ -58,7 +61,7 @@ export default function CourseDetails(props) {
     // Uploading to firebase storage
     // and updating URLS array for storage in firestore
 
-    const file = video[0];
+    const file = mvideo[0];
     console.log(file)
     if(file){
     var d = new Date();
@@ -129,17 +132,24 @@ export default function CourseDetails(props) {
   //     event.preventDefault();
   //     event.stopPropagation();
   //   }
+  // setLoading(true)
   const newErrors = findFormErrors()
     // Conditional logic:
     if ( Object.keys(newErrors).length > 0 ) {
       // We got errors!
+      alert('We got errors!')
+
       props.setError(newErrors)
+  // setLoading(false)
+
     } else {
       // No errors! Put any logic here for the form submission!
       alert('Thank you for your feedback!')
         props.Submit();
         // continue with other rendering
         props.nextStep();
+        // setLoading(false)
+
     }
        
   };
@@ -172,6 +182,34 @@ export default function CourseDetails(props) {
             </Form.Control.Feedback>
             </InputGroup>
               </Form.Group>
+              {/* COURSE Tag*/}
+              <Form.Group className="row" controlId="validationCustom03">
+                <Form.Label className="col-3 align-bottom mx-auto text-end">
+                  Course Summary / Tag
+                </Form.Label>
+                <InputGroup className="form-input col">
+                    <Form.Control
+                      as="textarea"
+                      rows={2}
+                      required ={true}
+                      className=""
+                      name="tag"
+                      value={props.data.tag}
+                      onChange={eventHandler}
+                      isInvalid={ !!props.error.tag }
+                    />
+                    
+
+                    <Form.Control.Feedback type="invalid">
+                        {props.error.tag}
+                    </Form.Control.Feedback>
+                    <Form.Text muted  className="row col-12 text-center">
+                    The tag is brief summary of this course in 150 letters                
+                  </Form.Text>
+                </InputGroup>
+                
+              </Form.Group>
+
               {/* COURSE DESCRIPTION*/}
               <Form.Group className="row" controlId="validationCustom02">
                 <Form.Label className="col-3 align-bottom mx-auto text-end">
@@ -189,10 +227,15 @@ export default function CourseDetails(props) {
                   onChange={eventHandler}
                   isInvalid={ !!props.error.about }
                 />
+                
                   <Form.Control.Feedback type="invalid">
                     {props.error.about}
                   </Form.Control.Feedback>
-                  </InputGroup>
+                  
+                  <Form.Text muted  className="row col-12 text-center">
+                  Full summary of the course
+                </Form.Text>
+                </InputGroup>
               </Form.Group>
               {/* COURSE Price */}
               <Form.Group className="row" controlId="validationCustom03">
@@ -215,7 +258,7 @@ export default function CourseDetails(props) {
                   />
                     <Form.Control.Feedback type="invalid">
                     { props.error.price }.
-            </Form.Control.Feedback>
+                    </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>
               {/* COURSE Level*/}
@@ -314,7 +357,7 @@ export default function CourseDetails(props) {
                 </Col>
                 <Row>
                 <Col className="text-end">    
-                    {video.length !==0 && <Button
+                    {mvideo.length !==0 && <Button
                     onClick={() => handleChange()}
                     >upload Video</Button>
                     }
@@ -355,11 +398,12 @@ export default function CourseDetails(props) {
               </Form.Group>
 
               <Col className="text-center">
+                {/* {loading && <Spinner/>} */}
                 <Button
                  type="submit"
                   className="primary-button text-center"
                 >
-                  Proceed
+                  Proceed 
                 </Button>
 
               </Col>

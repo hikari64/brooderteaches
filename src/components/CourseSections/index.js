@@ -24,6 +24,7 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import { fbapp } from "../../firebase";
 import Spinner from '../Spinner/Spinner'
 import wave from '../../images/wave.png'
+import moment from 'moment';
 
 // IMPORTING MOCK DATA FOR NOW
 //import { courses } from "../../mock/mock.js";  Disabled inport at this level to rec
@@ -53,7 +54,6 @@ const CourseSections = ({courses}) => {
 const lightBg = false;
 // const imgStart = true;
  
-  
     
     const result =  courses.map((data, index) => (
       <Row key={index} className="mt-2 my-3">
@@ -68,20 +68,24 @@ const lightBg = false;
                   <Heading className="text-dark" to={`/about/${data.id}`}>
                     {data.title}
                   </Heading>
-                  <Subtitle>{data.about}</Subtitle>
+                  <Subtitle>{data.tag}</Subtitle>
                   <Details>
                     <Data>
-                      <DurationIcon /> {data.duration}
+                      <FeeIcon />{' '}GHC{' '}
+                      {parseFloat(data.price).toFixed(2)}
+                    </Data>
+                  <Data>
+                      <DurationIcon /> {data.duration}{' '}{parseInt(data.period) === 1 && "Weeks"}{parseInt(data.period) === 2 && " Months"}
+
                     </Data>
                     <Data>
                       <StartIcon />
-                      {data.startDate}
-                    </Data>
-                    <Data>
-                      <FeeIcon />
-                      {data.price}
+                      {/* {data.createdAt && data.createdAt.toDate().toString()} */}
+                  {data.createdAt && moment(data.createdAt.toDate(), "YYYYMMDD").fromNow()} 
+         
                     </Data>
                   </Details>
+  
                   <CourseBtnLink to={`/preview/${data.id}`}>
                     Watch Preview
                   </CourseBtnLink>

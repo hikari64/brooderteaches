@@ -14,7 +14,7 @@ const CourseDets = ({data}) => {
                             Course Summary
                         </Column1Header>
                         <Column1Details>
-                        {data.about}
+                        {data && data.about}
                         </Column1Details>
                     </SelectorWrap>
                     <SelectorWrap>

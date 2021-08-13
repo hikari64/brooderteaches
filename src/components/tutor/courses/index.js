@@ -13,7 +13,7 @@ import {
   CourseWrapper,
   CourseBtnLink,
   Details,
-  courses,
+  Data,
   DurationIcon,
   StartIcon,
   FeeIcon,
@@ -21,7 +21,7 @@ import {
 import { Container, Row, Col, Image } from "react-bootstrap";
 
 import wave from '../../../images/wave.png'
-
+import moment from 'moment';
 
 const CourseSections = ({courses}) => {
   // DISABLED FIREBASE CALLS FOR NOW
@@ -66,19 +66,21 @@ const CourseSections = ({courses}) => {
               <Heading className="text-dark" to={`/about/${courses.id}`}>
                 {courses.title}
               </Heading>
-              <Subtitle>{courses.about}</Subtitle>
+              <Subtitle>{courses.tag}</Subtitle>
               <Details className="my-3">
-                <courses>
-                <DurationIcon /> {courses.duration}{courses.period ==1 && " Weeks"}{courses.period ==2 && "Months"}
-                </courses>
-                <courses>
-                  <StartIcon />
-                  {courses.startDate}
-                </courses>
-                <courses>
+                <Data>
                   <FeeIcon />
-                  GHC {courses.price}
-                </courses>
+                  GHC {parseFloat(courses.price).toFixed(2)}
+                </Data>
+                <Data>
+                <DurationIcon /> {courses.duration}{parseInt(courses.period) === 1 && " Weeks"}{parseInt(courses.period) === 2 && "Months"}
+                </Data>
+                <Data>
+                  <StartIcon />
+                  {courses.createdAt && moment(courses.createdAt.toDate(), "YYYYMMDD").fromNow() // 10 years ago
+                  }
+                </Data>
+                
               </Details>
               <CourseBtnLink to={`/tutor-about/${courses.id}`}>
                 Watch Preview
@@ -89,45 +91,7 @@ const CourseSections = ({courses}) => {
           
     {/* </Row> */}
   </Row>
-    // <CourseContainer key={courses.id}>
-    //   <CourseDetails id={courses.id}  lightBg={courses.lightBg}>
-    //     <CourseWrapper>
-    //       <CourseRow imgStart={courses.previewImg}>
-    //         <Column1>
-    //           <TextWrapper>
-    //             <Heading to={`/tutor-about/${courses.id}`}>
-    //               {courses.title}
-    //             </Heading>
-    //             <Subtitle>{courses.about}</Subtitle>
-    //             <Details>
-    //               <courses>
-    //                 <DurationIcon /> {courses.duration}{courses.period ==1 && " Weeks"}{courses.period ==2 && "Months"}
-    //               </courses>
-    //               <courses>
-    //                 <StartIcon />
-    //                 {courses.start}
-    //               </courses>
-    //               <courses>
-    //                 <FeeIcon />
-    //                  GHC {courses.price}
-    //               </courses>
-    //             </Details>
-    //             <CourseBtnLink to={`/tutor-about/${courses.id}`}>
-    //               Watch Preview
-    //             </CourseBtnLink>
-                
-    //           </TextWrapper>
-    //         </Column1>
-    //         <Column2>
-    //           <ImgWrap>
-    //             {/* <Img> */}
-    //             <Img src={courses.previewImg} alt={courses.alt}></Img>
-    //           </ImgWrap>
-    //         </Column2>
-    //       </CourseRow>
-    //     </CourseWrapper>
-    //   </CourseDetails>
-    // </CourseContainer>
+   
   ));
   return <>{result}</>;
 };
