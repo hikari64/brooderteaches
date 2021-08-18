@@ -77,21 +77,32 @@ const lightBg = false;
                   <Data>
                       <DurationIcon /> {data.duration}{' '}{parseInt(data.period) === 1 && "Weeks"}{parseInt(data.period) === 2 && " Months"}
 
-                    </Data>
-                    <Data>
+                  </Data>
+                  <Data>
+                      <DurationIcon /> {data.duration}{' '}{parseInt(data.period) === 1 && "Weeks"}{parseInt(data.period) === 2 && " Months"}
+
+                  </Data>
+                  <Data>
                       <StartIcon />
                       {/* {data.createdAt && data.createdAt.toDate().toString()} */}
                   {data.createdAt && moment(data.createdAt.toDate(), "YYYYMMDD").fromNow()} 
          
                     </Data>
                   </Details>
-  
-                  <CourseBtnLink to={`/preview/${data.id}`}>
+                  
+                 <Details>
+                    <CourseBtnLink to={`/preview/${data.id}`}>
                     Watch Preview
                   </CourseBtnLink>
-                  <CourseBtnLink to={`/register/${data.id}`}>
+                  
+                    <CourseBtnLink to={`/register/${data.id}`}>
                     Take this Class
-                  </CourseBtnLink>
+                    </CourseBtnLink>
+                  </Details>
+                   
+                  
+
+                  
                 </div>
               </Col>
               

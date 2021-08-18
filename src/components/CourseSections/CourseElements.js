@@ -294,7 +294,7 @@ export const Img = styled.img`
     };
 
     @media (max-width: 768px) {
-        width: 80%; 
+        width: 100%; 
         height:10rem; 
 
         
@@ -318,6 +318,7 @@ export const Img = styled.img`
 
 export const CourseBtnLink = styled(LinkR)`
         border-radius: 50px;
+        display:inline; 
         background: #d02c75;
         white-space: nowrap;
         padding: 10px 22px;
@@ -327,6 +328,7 @@ export const CourseBtnLink = styled(LinkR)`
         border: none;
         cursor: pointer;
         margin-right: 10px;
+        margin-bottom:0.3rem;
         
 
     &:hover {
@@ -335,24 +337,27 @@ export const CourseBtnLink = styled(LinkR)`
         color: #fff;
 
     }
+
+    
 `;
 
 export const Details = styled.div`
     display:flex; 
     flex-direction:row;
+    flex-wrap:wrap;
     // margin-top: -25px;
     // font-size: 2rem;
     @media screen and (max-width:768px) {
-        flex-direction:column;
+        flex-direction:;
 
            
         }
 `;
 
 export const Data = styled.p`
-    display:inline;
+    display:block;
     // max-width: 440px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     line-height: 24px;
     color: black;
     padding-right: 15px;

@@ -146,13 +146,18 @@ useEffect(() => {
      
           <Row>
 
-          <Col xs={3}>
-            <CourseSideMenu className="col-sm-3"
+          <Col xs={3} className="d-none d-md-flex" >
+            <CourseSideMenu className="col-sm-3 hide-on-mobile"
             DataFilter={DataFilter}  
             />
           </Col>
+          {/* <Col xs={3} >
+            <CourseSideMenu className="col-sm-3 hide-on-mobile"
+            DataFilter={DataFilter}  
+            />
+          </Col> */}
 
-          <Col xs={8} className="mt-5">
+          <Col xs={8} className="mt-md-5 p-4">
           {error && 
 
           <Row className="">
