@@ -7,31 +7,36 @@ import {
   HeaderP,
 } from "./PgHeaderElements";
 import {fbapp} from "../../firebase";
-
+// import wave from '../../images/wave.pngy'
+ 
 const PageHeader = ({ id }) => {
   let isCoursePage = useRef('');
+  const [bgImg ,setbgImg] = useState('');
   const [courses, setCourses] = useState([]);
 
       if ((typeof id !== "undefined") &&  (courses !== [])) {
         // the variable is defined
             const fetchCourses = async()=>{
               const db = fbapp.firestore();
-              db.collection('courses').where("id", "==", id).get().then((querySnapshot) => {
+              db.collection('courses').doc(id).get().then((querySnapshot) => {
                       
               // Loop through the data and store
               // it in array to display
-              querySnapshot.forEach(element => {
-                  var data = element.data();
-                  setCourses(arr => [...arr , data]);                      
-              });
+
+                  var data = querySnapshot.data();
+                setbgImg(data.previewImg);
+
+                  setCourses(data);                      
           })
-          }; fetchCourses();    
-            isCoursePage = courses.map((data, index) => (
-            <HeaderContent key={index}>
-              <HeaderH1>{data.title}</HeaderH1>
-              <HeaderP>{data.subtitle}</HeaderP>
-            </HeaderContent>
-          ));
+          }; fetchCourses();
+            // bgImg = (courses.previewImg);
+
+            isCoursePage = (
+            <HeaderContent>
+              <HeaderH1>{courses.title}</HeaderH1>
+              <HeaderP>{courses.subtitle}</HeaderP>
+            </HeaderContent>)
+          
       } else {
         isCoursePage = (
           <HeaderContent>
@@ -44,14 +49,16 @@ const PageHeader = ({ id }) => {
 
   
   return (
-    <HeaderContainer>
-      <HeaderBg
+    <HeaderContainer bgImg={bgImg ? bgImg :''}> 
+      <HeaderBg 
+      
         style={{
-          backgroundImage: `url(${require("../../images/wave.png").default})`,
+          // backgroundImage:`url(${require(bgImg || `../../images/wave.png`).default})`,
           backgroundPosition: "center",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
-        }}
+        
+      }}
       ></HeaderBg>
       {isCoursePage}
     </HeaderContainer>

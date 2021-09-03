@@ -135,14 +135,16 @@ export const CourseRow1 = styled.div`
     grid-template-areas: ${({imgStart}) => 
     imgStart ? `'col2 col1 col1'` : `'col1 col1 col2'` };
     margin-left: -140px;
+    background: url(${({imgStart}) => 
+    imgStart });
 
     @media screen and (max-width: 768px) {
         margin-top: -120px;
         grid-auto-columns: minmax(1fr, auto);
         grid-template-areas: ${({imgStart}) => 
         imgStart ? `'col2' 'col1'` : `'col2 col2' 'col1 col1'` };
-    }; background: url(${({imgStart}) => 
-    imgStart });
+    }; 
+    
 
     @media (max-width: 1024px){
         margin-left: 40px;

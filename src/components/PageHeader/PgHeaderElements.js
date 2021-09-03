@@ -1,14 +1,25 @@
 import styled from 'styled-components';
-
+import wave from "../../images/wave.png"
 export const HeaderContainer = styled.div`
     background: #0c0c0c;
     display: flex;
-    justify-content: center;
+    justify-content: center ;
     align-items: center;;
     padding 0 30px;
     height: 350px;
     position: relative;
     z-index: 1;
+    ${({bgImg}) => 
+    bgImg ? 
+    `background: url(${bgImg});`
+     :
+     `background: url(${require("../../images/wave.png").default});`
+      
+    }
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 `;
 
 export const HeaderBg = styled.div`
@@ -20,6 +31,8 @@ export const HeaderBg = styled.div`
     width: 100%;
     height: 100%
     overflow: hidden;
+    background-image: url(${({bgImg}) => 
+    bgImg}).default;
 `;
 
 export const HeaderContent = styled.div`

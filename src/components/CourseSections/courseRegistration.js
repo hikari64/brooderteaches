@@ -102,6 +102,11 @@ const CourseRegistration = ({ id }, props) => {
   // SUCCESSFULLY PAID
   const handlePaystackSuccessAction = (reference) => {
     // Implementation for whatever you want to do with reference and after success call.
+    //add to student id to courses and increase number of students by 1 , increase revenue by amount payed
+    // increase number of courses by one for students
+    // add reciepts / course payment / course id and students id / amount
+    // add co
+    //
     console.log(reference);
   };
 
@@ -115,13 +120,14 @@ const CourseRegistration = ({ id }, props) => {
     reference: new Date().getTime(),
     currency: "GHS",
     email: "user@example.com",
-    amount: 100*price,
+    // amount: 100*price,
+    amount: 100*0.01,
     publicKey: "pk_live_2bbc47bbdc506caec19278c6f7384d1eb25ccf40",
   };
 
   const componentProps = {
     ...config,
-    text: "Pay Ghs"+price,
+    text: "Pay Ghs"+0.001,
     onSuccess: (reference) => handlePaystackSuccessAction(reference),
     onClose: () => handlePaystackCloseAction(),
   };
@@ -160,11 +166,8 @@ isCoursePage = courses.map((data, index) => (
     </RegContainer>
   ));
 
-  return (
-    <>
-      {isCoursePage}
-      <Container className="height-half">
-        <Row className="mt-4 mb-4">
+  const registerGuest =
+    <Row className="mt-4 mb-4">
           <Col md={8} className="mx-auto">
             <Heading2 style={{ textAlign: "center" }} to="">
               Register For this Course
@@ -267,6 +270,70 @@ isCoursePage = courses.map((data, index) => (
             {/* </Form> */}
           </Col>
         </Row>
+      
+  const registerUser =
+    <Row className="mt-4 mb-4">
+          <Col md={8} className="mx-auto">
+            <Heading2 style={{ textAlign: "center" }} to="">
+              Register For this Course
+            </Heading2>
+            <br />
+
+            {/* <Form onSubmit={(e)=>preventDefault(e)} inline> */}
+              {/* FULL NAME */}
+              <Form.Group className="row">
+                <Form.Label className="col-3 align-bottom text-end text-end">
+                  First Name
+                </Form.Label>
+                <Form.Control
+                  className="form-input col lg"
+                  type="text"
+                  placeholder="Enter First Name"
+                  defaultValue={user.firstName}
+                />
+              </Form.Group>
+              <Form.Group className="row">
+                <Form.Label className="col-3 align-bottom text-end text-end">
+                  Last Name
+                </Form.Label>
+                <Form.Control
+                  className="form-input col lg"
+                  type="text"
+                  defaultValue={user.lastName}
+                  placeholder="Enter Last Name"
+                />
+              </Form.Group>
+              {/* email */}
+              <Form.Group className="row">
+                <Form.Label className="col-3 align-bottom text-end">
+                  Email Address
+                </Form.Label>
+
+                <Form.Control
+                  className="form-input col"
+                  type="email"
+                  defaultValue={user.email}
+                  placeholder="Email Address"
+                />
+              </Form.Group>
+              <Col className="text-center">Total Cost is GHS {price}</Col>
+              <Col className="text-center">
+                <PaystackButton
+                  className="paystack-button"
+                  {...componentProps}
+                />
+              </Col>
+            {/* </Form> */}
+          </Col>
+        </Row>
+      
+  return (
+    <>
+      {isCoursePage}
+      <Container className="height-half">
+        {currentUser ?
+      registerUser :
+      registerGuest}
       </Container>
     </>
   );
