@@ -45,6 +45,8 @@ import WrongAccountPage from './components/WrongPage';
 import TutorPrivateRoute from './contexts/TutorPrivateRoute';
 import TutorPublicRoute from './contexts/TutorPublicRoute';
 import { TutorAuthProvider } from './contexts/TutorContext';
+import ClassPage from './pages/classpage';
+import LessonPage from './pages/lessonpage';
 
 
 
@@ -67,7 +69,12 @@ function App() {
             <Route path="/register/:id" component={RegisterForCourse} />
             {/* <PrivateRoute path="/register/:id" component={RegisterForCourse} /> */}
             <PrivateRoute path="/my-courses" component={MyCourses} />
-            <PrivateRoute path="/all-courses" component={AllCourses} />
+            <PrivateRoute path="/all-courses" component={CoursePreview} />
+
+            {/* CLASSES OR COURSE ROUTE */}
+            <PrivateRoute path="/class/:id" component={ClassPage} />
+            <PrivateRoute path="/lesson/:id" component={LessonPage} />
+
 
             {/* ADMIN Routes */}
             <Route path="/admin" component={AdminLogin} />
@@ -78,8 +85,8 @@ function App() {
             {/* TUTOR PUBLIC ROUTES */}
                     
             <TutorPublicRoute restricted path="/tutor-login" component={TutorLogin} exact />
-
             <TutorPublicRoute restricted path="/tutor" component={TutorSignUp}  exact />
+
 
             {/* TUTOR PRIVATE ROUTES */}
             <Route path="/wrong-account" component={WrongAccountPage} />

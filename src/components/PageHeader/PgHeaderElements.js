@@ -4,10 +4,12 @@ export const HeaderContainer = styled.div`
     background: #0c0c0c;
     display: flex;
     justify-content: center ;
-    align-items: center;;
-    padding 0 30px;
+    align-items: center;
+    padding :0 30px;
     height: 350px;
     position: relative;
+    backdrop-filter: blur(5px);
+    opacity:0.5;
     z-index: 1;
     ${({bgImg}) => 
     bgImg ? 

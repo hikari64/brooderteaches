@@ -1,8 +1,6 @@
 import {firestore,timestamp,AddArrayField} from '../../../firebase';
 
 
-
-
 const AddLesson =(data,setLoading,courseId)=>{
     let error = ''
     let id="";

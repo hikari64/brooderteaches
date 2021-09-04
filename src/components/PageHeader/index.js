@@ -9,26 +9,18 @@ import {
 import {fbapp} from "../../firebase";
 // import wave from '../../images/wave.pngy'
  
-const PageHeader = ({ id }) => {
+const PageHeader = ({ id,courses }) => {
   let isCoursePage = useRef('');
   const [bgImg ,setbgImg] = useState('');
-  const [courses, setCourses] = useState([]);
+  // const [courses, setCourses] = useState([]);
 
-      if ((typeof id !== "undefined") &&  (courses !== [])) {
+      if ((courses !== [])) {
         // the variable is defined
-            const fetchCourses = async()=>{
-              const db = fbapp.firestore();
-              db.collection('courses').doc(id).get().then((querySnapshot) => {
-                      
-              // Loop through the data and store
-              // it in array to display
+           
+                setbgImg(courses.previewImg);
 
-                  var data = querySnapshot.data();
-                setbgImg(data.previewImg);
-
-                  setCourses(data);                      
-          })
-          }; fetchCourses();
+                  // setCourses(data);                      
+        
             // bgImg = (courses.previewImg);
 
             isCoursePage = (

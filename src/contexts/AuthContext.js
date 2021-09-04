@@ -8,17 +8,18 @@ export function useAuth() {
 }
 export function AuthProvider ({children}) {
     const [currentUser, setCurrentUser] = useState()
+    const [userProfile, setUserProfile] = useState() // puting user profile here to get user data from db
     const [loading, setLoading] = useState(true)
     const db = fbapp.firestore()
     const [userID, setuserID] = useState()
     
     async function getUser(params) {
-        const users = firestore.collection("tutors").doc(params);
+        const users = firestore.collection("students").doc(params);
         
         await users.get().then((doc) => {
           if (doc.exists) {
 
-            setCurrentUser(doc.data())
+            setUserProfile(doc.data())
             
               console.log("user data: fetched", doc.data());
           } else {
@@ -206,7 +207,7 @@ export function AuthProvider ({children}) {
     }, [])
 
     const value = {
-        currentUser, userID,
+        currentUser, userID, userProfile,
         signup, login, logout, resetPassword, updateEmail, updatePassword, updateProfile,
         verifyUser, tutor_login, tutor_signup
     }

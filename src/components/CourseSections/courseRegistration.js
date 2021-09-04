@@ -26,9 +26,10 @@ import { courses } from "../AllCourses/CourseData";
 import ReactPlayer from "react-player";
 
 // react bootstrap imports
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Button, Form, Spinner } from "react-bootstrap";
 
 import { fbapp } from "../../firebase";
+import RegisterForCourse from "./hooks/useRegisterForCourse";
 
 const CourseRegistration = ({ id }, props) => {
   let isCoursePage;
@@ -39,6 +40,8 @@ const CourseRegistration = ({ id }, props) => {
   const [price, setPrice] = useState();
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
   const { userID, currentUser, updateEmail, updatePassword, updateProfile } = useAuth()
   
   // FIRESTORE CALLS
@@ -65,16 +68,15 @@ const CourseRegistration = ({ id }, props) => {
     const fetchCourses = async () => {
       setLoading(true);
       db.collection("courses")
-        .where("id", "==", id)
+        .doc(id)
         .get()
         .then((querySnapshot) => {
           // Loop through the data and store
           // it in array to display
-          querySnapshot.forEach((element) => {
-            var data = element.data();
-            setCourses((arr) => [...arr, data]);
+          var data = querySnapshot.data();
+            setCourses(data);
             setPrice(data.price);
-          });
+          
         });
     };
 
@@ -100,14 +102,21 @@ const CourseRegistration = ({ id }, props) => {
   // PAYSTACK INTEGRATION
 
   // SUCCESSFULLY PAID
-  const handlePaystackSuccessAction = (reference) => {
+  const handlePaystackSuccessAction = async(reference) => {
     // Implementation for whatever you want to do with reference and after success call.
     //add to student id to courses and increase number of students by 1 , increase revenue by amount payed
     // increase number of courses by one for students
     // add reciepts / course payment / course id and students id / amount
     // add co
-    //
+    //(data,reference,userID,courseId)
+    setLoading(true)
+
+    const {error,success} = await RegisterForCourse(courses,reference,userID,id);
+    setError(error);
+    setSuccess(success);
+    setLoading(false)
     console.log(reference);
+
   };
 
   // you can call this function anything
@@ -137,13 +146,13 @@ outline = lessons.map((lesson, index) => (
   <Outline key={index}>{lesson.title}</Outline>
 ))
 
-isCoursePage = courses.map((data, index) => (
-    <RegContainer key={index}>
+isCoursePage = 
+    <RegContainer>
       <CourseOutlineStyle>
         <OutlineVid>
           <PlayerStyle>
             <ReactPlayer
-              url={data.preview}
+              url={courses.preview}
               className={Videocontainer}
               playing
               width="100%"
@@ -164,7 +173,7 @@ isCoursePage = courses.map((data, index) => (
         </OutlineContent>
       </CourseOutlineStyle>
     </RegContainer>
-  ));
+  ;
 
   const registerGuest =
     <Row className="mt-4 mb-4">
@@ -331,6 +340,9 @@ isCoursePage = courses.map((data, index) => (
     <>
       {isCoursePage}
       <Container className="height-half">
+        <Button onClick={()=>handlePaystackSuccessAction('12343544545')}>try pay</Button>
+        {loading && <Spinner variant="dark" animation="border"/>}
+
         {currentUser ?
       registerUser :
       registerGuest}

@@ -63,11 +63,11 @@ export const TutorSubNavbar = styled.div`
 export const TutorSubNavbarLink = styled(LinkR)`
         color: var(--unnamed-color-100855);
         text-align: left;
-        font: normal normal medium 25px/38px Poppins;
+        font: normal normal medium Poppins;
         letter-spacing: 0px;
         color: #100855;
         opacity: 1;
-        font-size: 15px;
+        font-size: 1rem;
         text-decoration: none;
        
         ${props=>props.active ? `

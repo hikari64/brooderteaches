@@ -9,27 +9,10 @@ import RelatedCoursesSection from '../CourseSections/relatedcourses';
 import { fbapp } from "../../firebase";
 
 
-const CoursePrev = ({id}) => {
+const CoursePrev = ({courses}) => {
     let isCoursePage;
 
-    const [courses, setCourses] = useState([]);
-
-    useEffect(() => {
-        const fetchCourses = async()=>{
-        const db = fbapp.firestore();
-        db.collection('courses').where("id", "==", id).get().then((querySnapshot) => {
-                
-        // Loop through the data and store
-        // it in array to display
-        querySnapshot.forEach(element => {
-            var data = element.data();
-            setCourses(arr => [...arr , data]);
-            console.log(data.length)
-                
-        });
-    })
-    }; fetchCourses();
-    }, [])
+    
 
     isCoursePage = courses.map((data) =>
 

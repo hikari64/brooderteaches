@@ -60,8 +60,8 @@ export const BarItem4 = styled.li`
 
 
 export const BarLinks = styled(LinkR)`
-    color: #fff;
-    display: block;
+    color: #100855;
+    display: inline;
     text-decoration: none;
     transition: 0.3s background-color;
 

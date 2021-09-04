@@ -1,29 +1,34 @@
 import React, { useState,useEffect } from "react";
+import { Container, Row } from "react-bootstrap";
+import ReactPlayer from "react-player";
+import LessonDets from "../components/CourseDetails/lessondetails";
 import CoursePrev from "../components/CourseDetails/preview";
+import { PlayerStyle, Videocontainer } from "../components/CourseSections/CourseElements";
+import LessonSections from "../components/CourseSections/lessons";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import PageBar from "../components/PageBar";
+import ClassBar from "../components/PageBar/classbar";
 import PageHeader from "../components/PageHeader";
 import Sidebar from "../components/Sidebar";
 import { fbapp } from "../firebase";
 
-
-const CoursePreview = ({
+const LessonPage = ({
   match: {
     params: { id },
   },
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [lesson, setLesson] = useState([]);
 
   const toggle = () => {
     setIsOpen(!isOpen);
   };
 
-  const [isActive, setActive] = useState(false);
+  const [isActive, setActive] = useState(1);
 
-  const toggleClass = () => {
-    setActive(!isActive);
-  };
+
+  
 
   const [navbar, setNavbar] = useState(false);
   const changeBackground = () => {
@@ -35,6 +40,9 @@ const CoursePreview = ({
   };
 
   window.addEventListener("scroll", changeBackground);
+
+  
+
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
@@ -42,8 +50,6 @@ const CoursePreview = ({
       const db = fbapp.firestore();
       db.collection('courses').where("id", "==", id).get().then((querySnapshot) => {
               
-      // Loop through the data and store
-      // it in array to display
       querySnapshot.forEach(element => {
           var data = element.data();
           setCourses(arr => [...arr , data]);
@@ -51,8 +57,39 @@ const CoursePreview = ({
               
       });
   })
-  }; fetchCourses();
+  }; 
+      const fetchlessons = async()=>{
+      const db = fbapp.firestore();
+      db.collection('lessons').doc(id).get().then((querySnapshot) => {
+
+      var data = querySnapshot.data();
+          setLesson(data);
+          console.log(data.length)
+              
+          db.collection('courses').doc(data.courseId).get().then((cours) => {
+                setCourses(cours.data());            
+            });
+  })
+  };
+  fetchlessons();
+  
   }, [])
+
+  const result = <>
+  <Row>
+                  <ReactPlayer url={courses.preview}
+                            className={Videocontainer}
+                            playing
+                            width="100%"
+                            height="100%"
+                            controls={false}
+                        />
+              </Row>
+       <LessonSections lessons= {lesson}/>
+       <Container>
+         <LessonDets data={courses}/>
+       </Container>
+  </>
 
   return (
     <>
@@ -63,11 +100,10 @@ const CoursePreview = ({
         changeBackground={changeBackground}
       />
             <PageHeader id={id} courses = {courses} />
-      <PageBar isActive={isActive} toggleClass={toggleClass} id={id} />
-      <CoursePrev id={id} />
+            {courses && result}
       <Footer />
     </>
   );
 };
 
-export default CoursePreview;
+export default LessonPage;

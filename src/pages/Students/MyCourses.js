@@ -54,7 +54,7 @@ const MyCourses = () => {
                 console.log(data)
                 
                 if(data){
-                  if (!!data) {
+                  if (!data) {
                     setEmptyCourse(true)
                   setLoading(false)
                   } 
@@ -136,7 +136,7 @@ const result =  mycourses.map((data, index) => (
               <CourseBtnLink to={`/preview/${data.id}`}>
                 Watch Preview
               </CourseBtnLink>
-              <CourseBtnLink to={`/register/${data.id}`}>
+              <CourseBtnLink to={`/class/${data.id}`}>
                 Take this Class
               </CourseBtnLink>
             </TextWrapper>
