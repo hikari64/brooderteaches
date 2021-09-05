@@ -9,7 +9,7 @@ export const HeaderContainer = styled.div`
     height: 350px;
     position: relative;
     backdrop-filter: blur(5px);
-    opacity:0.5;
+    opacity:0.9;
     z-index: 1;
     ${({bgImg}) => 
     bgImg ? 
@@ -36,7 +36,7 @@ export const HeaderBg = styled.div`
     background-image: url(${({bgImg}) => 
     bgImg}).default;
 `;
-
+ 
 export const HeaderContent = styled.div`
     z-index: 3;
     width: 100%;
@@ -54,11 +54,11 @@ export const HeaderH1 = styled.h1`
     text-align: center;
 
     @media screen and (max-width: 768px) {
-        font-size: 30px
+        font-size: 1.2rem;
     };
 
     @media screen and (max-width: 48px) {
-        font-size: 20px
+        font-size: 1rem;
     };
 `;
 

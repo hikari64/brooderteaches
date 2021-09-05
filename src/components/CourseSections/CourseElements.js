@@ -320,17 +320,17 @@ export const Img = styled.img`
 
 export const CourseBtnLink = styled(LinkR)`
         border-radius: 50px;
-        display:inline; 
+        display:inline-block; 
         background: #d02c75;
-        white-space: nowrap;
+        // white-space: nowrap;
         padding: 10px 22px;
         color: #fff;
         font-size: 16px;
         outline: none;
         border: none;
         cursor: pointer;
-        margin-right: 10px;
-        margin-bottom:0.3rem;
+        margin: 10px;
+        // margin-bottom:0.3rem;
         
 
     &:hover {

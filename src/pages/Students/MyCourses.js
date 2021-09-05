@@ -144,7 +144,7 @@ const result =  mycourses.map((data, index) => (
           <Column2>
             <ImgWrap>
               {/* <Img> */}
-              <Img src={data.img} alt={data.alt}></Img>
+              <Img src={data.previewImg} alt={data.alt}></Img>
             </ImgWrap>
           </Column2>
         </CourseRow>

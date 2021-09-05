@@ -18,13 +18,14 @@ import {
   StartIcon,
   FeeIcon,
 } from "./CourseElements";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import { Container, Row, Col, Image, Badge } from "react-bootstrap";
 
 // firebase imports
 import { fbapp } from "../../firebase";
 import Spinner from '../Spinner/Spinner'
 import wave from '../../images/wave.png'
 import moment from 'moment';
+import { useAuth } from "../../contexts/AuthContext";
 
 // IMPORTING MOCK DATA FOR NOW
 //import { courses } from "../../mock/mock.js";  Disabled inport at this level to rec
@@ -34,6 +35,7 @@ import moment from 'moment';
 const LessonSections = ({lessons}) => {
   // DISABLED FIREBASE CALLS FOR NOW
     //const [courses, setCourses] = useState([]);
+    const {userID} =useAuth()
     const [loading, setLoading] = useState(false);
 
    
@@ -70,18 +72,7 @@ const lightBg = false;
                   </Heading>
                   <Subtitle>{data.summary}</Subtitle>
                   <Details>
-                    {/* <Data>
-                      <FeeIcon />{' '}GHC{' '}
-                      {parseFloat(data.price).toFixed(2)}
-                    </Data>
-                  <Data>
-                      <DurationIcon /> {data.duration}{' '}{parseInt(data.period) === 1 && "Weeks"}{parseInt(data.period) === 2 && " Months"}
-
-                  </Data>
-                  <Data>
-                      <DurationIcon /> {data.duration}{' '}{parseInt(data.period) === 1 && "Weeks"}{parseInt(data.period) === 2 && " Months"}
-
-                  </Data> */}
+                    
                   <Data>
                       <StartIcon />
                       {/* {data.createdAt && data.createdAt.toDate().toString()} */}
@@ -94,13 +85,20 @@ const lightBg = false;
                     {/* <CourseBtnLink to={`/preview/${data.id}`}>
                     Watch Preview
                   </CourseBtnLink> */}
+                  {}
                   
-                    <CourseBtnLink to={`/register/${data.id}`}>
-                    Take Lesson
+                    <CourseBtnLink to={`/lesson/${data.id}`}>
+                    Open lesson 
                     </CourseBtnLink>
+                    
+            
                   </Details>
                    
-                  
+                  <Badge bg="success" className="bg-info">
+                          {data.attendee ? data.attendee.includes(userID) && 'In progress' :
+                          data.completed ? data.completed.includes(userID) && 'Completed' :'New'}
+                          {}
+                    </Badge>
 
                   
                 </div>

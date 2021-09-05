@@ -11,13 +11,13 @@ import {fbapp} from "../../firebase";
  
 const PageHeader = ({ id,courses }) => {
   let isCoursePage = useRef('');
-  const [bgImg ,setbgImg] = useState('');
+  let bgImg = useRef('');
   // const [courses, setCourses] = useState([]);
 
-      if ((courses !== [])) {
+      if ((courses!==[])) {
         // the variable is defined
            
-                setbgImg(courses.previewImg);
+                bgImg = courses.previewImg;
 
                   // setCourses(data);                      
         
@@ -45,7 +45,6 @@ const PageHeader = ({ id,courses }) => {
       <HeaderBg 
       
         style={{
-          // backgroundImage:`url(${require(bgImg || `../../images/wave.png`).default})`,
           backgroundPosition: "center",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",

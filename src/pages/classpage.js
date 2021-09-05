@@ -7,6 +7,7 @@ import PageBar from "../components/PageBar";
 import ClassBar from "../components/PageBar/classbar";
 import PageHeader from "../components/PageHeader";
 import Sidebar from "../components/Sidebar";
+import Spinner from "../components/Spinner/Spinner";
 import { fbapp } from "../firebase";
 
 const ClassPage = ({
@@ -16,6 +17,7 @@ const ClassPage = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [lesson, setLesson] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -43,22 +45,26 @@ const ClassPage = ({
 
   useEffect(() => {
       const fetchCourses = async()=>{
+      setLoading(true);
+
       const db = fbapp.firestore();
-      db.collection('courses').where("id", "==", id).get().then((querySnapshot) => {
+      await db.collection('courses').doc(id).get().then((querySnapshot) => {
               
       // Loop through the data and store
       // it in array to display
-      querySnapshot.forEach(element => {
-          var data = element.data();
-          setCourses(arr => [...arr , data]);
+      
+          var data = querySnapshot.data();
+          setCourses(data);
           console.log(data.length)
               
-      });
+      setLoading(false);
+
   })
   }; 
       const fetchlessons = async()=>{
+      setLoading(true);
       const db = fbapp.firestore();
-      db.collection('lessons').where("courseId", "==", id).get().then((querySnapshot) => {
+      await db.collection('lessons').where("courseId", "==", id).get().then((querySnapshot) => {
               
       // Loop through the data and store
       // it in array to display
@@ -66,6 +72,7 @@ const ClassPage = ({
           var data = element.data();
           setLesson(arr => [...arr , data]);
           console.log(data.length)
+      setLoading(true);
               
       });
   })
@@ -75,6 +82,14 @@ const ClassPage = ({
 
   }, [])
 
+  const results= <>
+    <PageHeader id={id} courses = {courses} />
+      <ClassBar isActive={isActive} setActive={setActive} id={id}  />
+      {/* <CoursePrev id={id} />
+       */}
+       <LessonSections lessons= {lesson}/>
+  </>
+
   return (
     <>
       <Sidebar isOpen={isOpen} toggle={toggle} />
@@ -83,12 +98,10 @@ const ClassPage = ({
         navbar={navbar}
         changeBackground={changeBackground}
       />
-      <PageHeader id={id} courses = {courses} />
-      <ClassBar isActive={isActive} setActive={setActive} id={id}  />
-      {/* <CoursePrev id={id} />
-       */}
-       <LessonSections lessons= {lesson}/>
+      {loading && <Spinner/>}
+      {courses && results}
       <Footer />
+
     </>
   );
 };
