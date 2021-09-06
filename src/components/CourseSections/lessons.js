@@ -90,15 +90,13 @@ const lightBg = false;
                     <CourseBtnLink to={`/lesson/${data.id}`}>
                     Open lesson 
                     </CourseBtnLink>
-                    
+                    {data.attendee && (data.attendee.includes(userID) && <Badge bg="success" className="bg-info  my-auto">In progress</Badge>)}
+                  {data.completed && (data.completed.includes(userID) && <Badge bg="success" className="bg-dark  my-auto">Completed</Badge>)}
+                       
             
                   </Details>
                    
-                  <Badge bg="success" className="bg-info">
-                          {data.attendee ? data.attendee.includes(userID) && 'In progress' :
-                          data.completed ? data.completed.includes(userID) && 'Completed' :'New'}
-                          {}
-                    </Badge>
+                   
 
                   
                 </div>

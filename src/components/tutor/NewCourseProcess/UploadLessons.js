@@ -235,7 +235,24 @@ const [validated, setValidated] = useState(false);
                 </Row>       
                </Form.Group>
                {/* Add ASSignment */}
-               <Form.Group  className="row mt-3">
+      
+              <Form.Group  className="row ">
+                <Form.Control
+                  as="textarea" 
+                  rows={3}
+                  className="form-input col text-center"
+                  placeholder="Assignment"
+                  name="assignment"
+                  value={props.data.assignment}
+                  onChange={eventHandler}
+                  isInvalid={ !!props.error.assignment}
+                  
+                />
+                <Form.Control.Feedback type="invalid">
+              {props.error.assignment}
+            </Form.Control.Feedback>
+              </Form.Group>
+               {/* <Form.Group  className="row mt-3">
  
                 <Col>
                  {assignmentProgress !== 0 && <ProgressBar striped now={assignmentProgress} />}
@@ -261,7 +278,7 @@ const [validated, setValidated] = useState(false);
               
                   </Col>
                 </Row>        
-              </Form.Group>
+              </Form.Group> */}
               <Container className="contain">
               <Button type="submit" className="primary-button col-5">
                 Upload lesson

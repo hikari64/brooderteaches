@@ -40,16 +40,14 @@ const CoursePreview = ({
   useEffect(() => {
       const fetchCourses = async()=>{
       const db = fbapp.firestore();
-      db.collection('courses').where("id", "==", id).get().then((querySnapshot) => {
+      db.collection('courses').doc(id).get().then((querySnapshot) => {
               
       // Loop through the data and store
       // it in array to display
-      querySnapshot.forEach(element => {
-          var data = element.data();
-          setCourses(arr => [...arr , data]);
+          var data = querySnapshot.data();
+          setCourses(data);
           console.log(data.length)
               
-      });
   })
   }; fetchCourses();
   }, [])
@@ -64,7 +62,7 @@ const CoursePreview = ({
       />
             <PageHeader id={id} courses = {courses} />
       <PageBar isActive={isActive} toggleClass={toggleClass} id={id} />
-      <CoursePrev id={id} />
+      <CoursePrev id={id} courses={courses} />
       <Footer />
     </>
   );

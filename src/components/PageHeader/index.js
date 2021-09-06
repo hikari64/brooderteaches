@@ -14,10 +14,10 @@ const PageHeader = ({ id,courses }) => {
   let bgImg = useRef('');
   // const [courses, setCourses] = useState([]);
 
-      if ((courses!==[])) {
+      if ((courses!==[] ) && (typeof courses !== 'undefined')) {
         // the variable is defined
            
-                bgImg = courses.previewImg;
+            bgImg = courses.previewImg;
 
                   // setCourses(data);                      
         

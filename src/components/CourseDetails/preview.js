@@ -12,20 +12,19 @@ import { fbapp } from "../../firebase";
 const CoursePrev = ({courses}) => {
     let isCoursePage;
 
-    
 
-    isCoursePage = courses.map((data) =>
+    isCoursePage =
 
 <CourseContainer>
     <CourseDetails>
         <CourseWrapper1>
-        <CourseBtnLink to={`/register/${data.id}`} style={{ textAlign: 'left'}}>
+        <CourseBtnLink to={`/register/${courses.id}`} style={{ textAlign: 'left'}}>
                     Take this Class
                   </CourseBtnLink>
             <CourseRow1>
                 <Column11>
                     <PlayerStyle >
-                        <ReactPlayer url={data.preview}
+                        <ReactPlayer url={courses.preview}
                             className={Videocontainer}
                             playing
                             width="100%"
@@ -35,7 +34,7 @@ const CoursePrev = ({courses}) => {
                     </PlayerStyle>
                 </Column11>
                 <Column22>
-                   <CourseDets data={data}/>
+                   <CourseDets data={courses}/>
                 </Column22>
             </CourseRow1>
         </CourseWrapper1>
@@ -43,8 +42,7 @@ const CoursePrev = ({courses}) => {
     </CourseDetails>
 <RelatedCoursesSection/>
 </CourseContainer>
-
-);
+;
     
     return (
         <>
