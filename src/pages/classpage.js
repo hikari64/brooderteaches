@@ -8,6 +8,7 @@ import ClassBar from "../components/PageBar/classbar";
 import PageHeader from "../components/PageHeader";
 import Sidebar from "../components/Sidebar";
 import Spinner from "../components/Spinner/Spinner";
+import { useAuth } from "../contexts/AuthContext";
 import { fbapp } from "../firebase";
 
 const ClassPage = ({
@@ -17,8 +18,10 @@ const ClassPage = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [lesson, setLesson] = useState([]);
+  const [plesson, setPLessons] = useState([]); // past lessons
+  const [ulesson, setULessons] = useState([]); // unatended lessons
   const [loading, setLoading] = useState(false);
-
+const {userID} = useAuth()
   const toggle = () => {
     setIsOpen(!isOpen);
   };
@@ -71,6 +74,13 @@ const ClassPage = ({
       querySnapshot.forEach(element => {
           var data = element.data();
           setLesson(arr => [...arr , data]);
+          if (data.attendee.includes(userID)||data.completed.includes(userID)){
+            setPLessons(arr => [...arr , data]);
+
+          }else{
+            setULessons(arr => [...arr , data]);
+
+          }
           console.log(data.length)
       setLoading(true);
               
@@ -82,12 +92,23 @@ const ClassPage = ({
 
   }, [])
 
+  // var heroes = [
+  //   {name: “Batman”, franchise: “DC”},
+  //   {name: “Ironman”, franchise: “Marvel”},
+  //   {name: “Thor”, franchise: “Marvel”},
+  //   {name: “Superman”, franchise: “DC”}
+  // ];
+  
+  // var marvelHeroes =  heroes.filter(function(hero) {
+  //   return hero.franchise == “Marvel”;
+  // });
   const results= <>
     <PageHeader id={id} courses = {courses} />
       <ClassBar isActive={isActive} setActive={setActive} id={id}  />
       {/* <CoursePrev id={id} />
        */}
-       <LessonSections lessons= {lesson}/>
+       {isActive === 1 && <LessonSections lessons= {ulesson}/>}
+       {isActive === 2 && <LessonSections lessons= {plesson}/>}
   </>
 
   return (
@@ -98,7 +119,7 @@ const ClassPage = ({
         navbar={navbar}
         changeBackground={changeBackground}
       />
-      {loading && <Spinner/>}
+      {/* {loading && <Spinner/>} */}
       {courses && results}
       <Footer />
 

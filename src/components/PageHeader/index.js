@@ -7,7 +7,7 @@ import {
   HeaderP,
 } from "./PgHeaderElements";
 import {fbapp} from "../../firebase";
-// import wave from '../../images/wave.pngy'
+ import wave from '../../images/wave.png'
  
 const PageHeader = ({ id,courses }) => {
   let isCoursePage = useRef('');
@@ -30,6 +30,9 @@ const PageHeader = ({ id,courses }) => {
             </HeaderContent>)
           
       } else {
+
+        bgImg = wave;
+
         isCoursePage = (
           <HeaderContent>
             <HeaderH1>Start Your Journey</HeaderH1>

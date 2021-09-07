@@ -18,7 +18,7 @@ import {
   StartIcon,
   FeeIcon,
 } from "./CourseElements";
-import { Container, Row, Col, Image, Badge } from "react-bootstrap";
+import { Container, Row, Col, Image, Badge, Alert } from "react-bootstrap";
 
 // firebase imports
 import { fbapp } from "../../firebase";
@@ -107,7 +107,8 @@ const lightBg = false;
       ));
       
 
-      return <>{lessons && result}</>
+      return <>{Object.keys(lessons).length >= 1 ? result : <h4 className="text-center m-4 p-4 fw-bold" variant="white"> Empty Response</h4>
+      }</>
     
  
 };

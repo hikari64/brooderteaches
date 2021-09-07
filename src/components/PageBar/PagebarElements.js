@@ -60,14 +60,14 @@ export const BarItem4 = styled.li`
 
 
 export const BarLinks = styled(LinkR)`
-    color: #100855;
+    color: #100855 !important;
     display: inline;
     text-decoration: none;
     transition: 0.3s background-color;
 
     &:hover {
         transition: all 0.2s ease-in-out;
-        color: #D02C75;
+        color: #D02C75 !important;
 
     }
 `;

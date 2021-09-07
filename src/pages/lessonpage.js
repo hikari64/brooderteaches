@@ -202,7 +202,7 @@ const {userID} = useAuth();
        <Row className="mx-lg-5 mx-auto pt-3">
        <Container className="mx-lg-5 mx-auto">
             <h3 className="fw-bold">Assignment</h3>
-            <p>{lesson.summary}</p>
+            <p>{lesson.assignment}</p>
          {/* <LessonDets data={courses}/> */}
         </Container>
        </Row>
