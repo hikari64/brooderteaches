@@ -10,10 +10,7 @@ import { DropzoneArea } from "material-ui-dropzone";
 import { Container, Row, Col, Button, Form, InputGroup,ProgressBar } from "react-bootstrap";
 import Select from 'react-select'
 
-import { EditorState,convertToRaw} from 'draft-js';
-// import 'draft-js/dist/Draft.css';
-import { Editor } from 'react-draft-wysiwyg';
-import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
 // import Custom css
 // import "./signupprocess.css";
 import Spinner from "../../Spinner/Spinner";
@@ -36,7 +33,6 @@ export default function CourseDetails(props) {
   const [skillset,setSkillset] = useState([])
   const [picture,setPicture] = useState([])
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const [editorState, setEditorState] = useState(() => EditorState.createEmpty(),);
 
   useEffect(()=>{
     const dofilter = ()=>{
@@ -91,23 +87,6 @@ export default function CourseDetails(props) {
      props.UpdateSkill(catArray);
 
   };
-  const texteventHandler = (event) => {
-    let val = convertToRaw(event.getCurrentContent());
-    console. clear()
-  
-    console.log(val)
-     let nam = "about";
-    // let catArray = [];
-    // event.map(o => catArray.push(o.value));
-    setEditorState(event)
-    console.log("----------------------------------------------------------")
-    // console.log(catArray)
-
-    props.updateData(nam, val);
-    
-    //  props.UpdateSkill(catArray);
-
-  };
  
   const findFormErrors = () => {
     const newErrors = {}
@@ -115,7 +94,7 @@ export default function CourseDetails(props) {
     if ( !props.data.title || props.data.title === '' ) newErrors.title = 'cannot be blank!'
     else if ( props.data.title.length > 100 ) newErrors.name = 'Title is too long!'
     if ( !props.data.tag || props.data.tag === '' ) newErrors.tag = 'cannot be blank!'
-    else if ( props.data.tag.length > 250 ) newErrors.tag = 'Tag is too long! Maximum(250)'
+    else if ( props.data.tag.length > 150 ) newErrors.tag = 'Tag is too long! Maximum(150)'
     // food errors
     if ( !props.data.duration || props.data.duration === '' ) newErrors.duration = 'select a duration!'
     // rating errors
@@ -292,13 +271,7 @@ export default function CourseDetails(props) {
                   Course Description
                 </Form.Label>
                 <InputGroup className="form-input col">
-                <Editor className="col-12" 
-                editorState={editorState} 
-                // onEditorStateChange={setEditorState}
-                onEditorStateChange={texteventHandler}
-                />
-
-                {/* <Form.Control
+                <Form.Control
                   as="textarea"
                   rows={6}
                   required ={true}
@@ -307,7 +280,7 @@ export default function CourseDetails(props) {
                   value={props.data.about}
                   onChange={eventHandler}
                   isInvalid={ !!props.error.about }
-                /> */}
+                />
                 
                   <Form.Control.Feedback type="invalid">
                     {props.error.about}

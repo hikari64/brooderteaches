@@ -34,6 +34,8 @@ const AddCourse =(data,setLoading,setCourseId,userID)=>{
                 previewImg: data.previewImg,
                 period:parseInt(data.period),
                 tutorId,
+                category:data.category,
+                skills:data.skills,
                 students:[],
                 lesson:[],
                 createdAt

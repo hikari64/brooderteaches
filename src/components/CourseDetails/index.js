@@ -1,4 +1,5 @@
 import React from 'react';
+import { Badge } from 'react-bootstrap';
 import { CourseContainer1, CourseSelectors, Column1Header, Column1Details, SelectorWrap, } from '../CourseSideMenu.js/SideMenuElements';
 
 
@@ -22,7 +23,11 @@ const CourseDets = ({data}) => {
                             Related Skills
                         </Column1Header>
                         <Column1Details>
-                        {}
+                        {data.skills && data.skills.map((skill,index)=>(
+                       <Badge pill bg="secondary" variant="dark" text="dark" className=" bg-secondary mx-1">
+                    {skill}
+                    </Badge>
+                      ))}
                         </Column1Details>
                     </SelectorWrap>
                 </CourseSelectors>

@@ -161,7 +161,7 @@ export const Column11 = styled.div`
     margin: 30px 0 20px;
     grid-area: col1;
     text-align: left;
-    line-height: 4.1;
+    // line-height: 4.1;
 
     
     @media screen and (max-width:768px) {
@@ -322,17 +322,17 @@ export const Img = styled.img`
 `;
 
 export const CourseBtnLink = styled(LinkR)`
-        border-radius: 50px;
+        border-radius: 1.8rem;
         display:inline-block; 
         background: #d02c75;
         // white-space: nowrap;
-        padding: 10px 22px;
+        padding: 10px;
         color: #fff;
         font-size: 16px;
         outline: none;
         border: none;
         cursor: pointer;
-        margin: 10px;
+        // margin: 10px;
         // margin-bottom:0.3rem;
         
 

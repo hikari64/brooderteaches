@@ -44,12 +44,13 @@ export const CourseSelectors = styled.div`
 export const SelectorWrap = styled.div`
     display: grid;
     z-index: 1;
-    height: 60px;
+    // height: 60px;
     width: 100%;
-    max-width: 1100px;
+    max-width: 50vh;
     margin-right: auto;
     margin-left: auto;
     justify-content: center;
+    overflow:auto;
     
 
 `;

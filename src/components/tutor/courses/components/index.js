@@ -30,7 +30,7 @@ export const CourseReviewDetails =(props)=>{
                 {props.courses.title}
             </CourseTitle>
             <CourseDescription>
-                {props.courses.about}
+                {props.courses.tag}
             </CourseDescription>
            <hr/>
             <Details className="row">

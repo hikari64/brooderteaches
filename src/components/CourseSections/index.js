@@ -18,7 +18,7 @@ import {
   StartIcon,
   FeeIcon,
 } from "./CourseElements";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import { Container, Row, Col, Image,Badge } from "react-bootstrap";
 
 // firebase imports
 import { fbapp } from "../../firebase";
@@ -68,7 +68,17 @@ const lightBg = false;
                   <Heading className="text-dark" to={`/about/${data.id}`}>
                     {data.title}
                   </Heading>
-                  <Subtitle>{data.tag}</Subtitle>
+                  <Subtitle className="text-dark m-2" >{data.tag}</Subtitle>
+                  <Subtitle className="text-dark m-2" >{data.category}</Subtitle>
+
+                  <Details>
+                    {data.skills && data.skills.map((skill,index)=>(
+                       <Badge pill bg="secondary" variant="dark" text="dark" className=" bg-secondary mx-1">
+                    {skill}
+                    </Badge>
+                      ))}
+                 
+                  </Details>
                   <Details>
                     <Data>
                       <FeeIcon />{' '}GHC{' '}
@@ -89,6 +99,7 @@ const lightBg = false;
          
                     </Data>
                   </Details>
+                  
                   
                  <Details>
                     <CourseBtnLink to={`/preview/${data.id}`}>

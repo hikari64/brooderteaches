@@ -40,7 +40,7 @@ const CoursePrev = ({courses}) => {
         </CourseWrapper1>
         
     </CourseDetails>
-<RelatedCoursesSection/>
+    <RelatedCoursesSection id={courses.id} skills={courses.skills}/>
 </CourseContainer>
 ;
     

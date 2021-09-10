@@ -5,8 +5,9 @@ RelatedCourseWrapper, RelatedCourseBtnLink, RelatedDetails, RelatedData, Related
 // import { courses } from '../AllCourses/CourseData';
 
 import {fbapp} from "../../firebase";
+import CourseSections from '.';
 
-const RelatedCoursesSection = () => {
+const RelatedCoursesSection = ({skills}) => {
 
     const lightBg = false;
 const imgStart = true;
@@ -16,60 +17,51 @@ const imgStart = true;
 useEffect(() => {
     const fetchCourses = async()=>{
     const db = fbapp.firestore();
-    const coursesRef = db.collection('courses').orderBy("createdAt").limit(3);
+    let coursesRef=''
+
+    if(typeof(skills) !== "undefined"){
+     coursesRef = db.collection('courses').where('skills', 'array-contains-any',skills).limit(3);
+    }else{
+     coursesRef = db.collection('courses').orderBy("createdAt","desc").limit(3);
+
+    }
     coursesRef.get().then((querySnapshot) => {
              
       // Loop through the data and store
       // it in array to display
-      querySnapshot.forEach(element => {
+      if(querySnapshot.empty){
+        const coursesRef = db.collection('courses').orderBy("createdAt","desc").limit(3);
+        coursesRef.get().then((querySnapshot) => {
+            querySnapshot.forEach(element => {
+                var data = element.data();
+                setCourses(arr => [...arr , data]);
+                  
+            });
+        })
+      }else{
+         querySnapshot.forEach(element => {
           var data = element.data();
           setCourses(arr => [...arr , data]);
             
-      });
+      }); 
+      }
+      
   })
 }; fetchCourses();
 }, [])
 
-    const result = courses.map(data => (
-        <RelatedCourseContainer>
-                <RelatedCourseDetails id={data.id} lightBg={lightBg}>
-                    <RelatedCourseWrapper>
-                        <RelatedCourseRow imgStart={imgStart}>
-                            <RelatedColumn1>
-                                <RelatedTextWrapper>
-                                    <RelatedHeading to={`/about/${data.id}`} >{data.title}
-                                    </RelatedHeading>
-                                    <RelatedSubtitle>{data.about}
-                                    </RelatedSubtitle>
-                                    <RelatedDetails>
-                                        <RelatedData><RelatedDurationIcon/> {data.duration}</RelatedData>
-                                        <RelatedData><RelatedStartIcon/>{data.startDate}</RelatedData>
-                                        <RelatedData><RelatedFeeIcon/>{data.price}</RelatedData>
-                                    </RelatedDetails>
-                                    <RelatedCourseBtnLink to={`/preview/${data.id}`}>
-                                        Watch Preview
-                                    </RelatedCourseBtnLink>
-                                </RelatedTextWrapper>
-                            </RelatedColumn1>
-                            <RelatedColumn2>
-                                <RelatedImgWrap>
-                                {/* <Img> */}
-                                    <RelatedImg src={data.img} alt={data.alt}>
-                                    </RelatedImg>
-                                </RelatedImgWrap>
-                            </RelatedColumn2>
-                        </RelatedCourseRow>
-                    </RelatedCourseWrapper>
-                </RelatedCourseDetails>
-            </RelatedCourseContainer>
-       
-    ));
+   
     return (
         <>
         <RelatedHeading2 to='' >Related Courses</RelatedHeading2>
         <br />
-        {result}
-             </>
+        
+        {courses.length <1 && <h4 className="text-black-50">NO related courses</h4>}
+
+        {courses && <CourseSections className="text-start" courses={courses} />}
+        
+
+        </>
     )
 }
 

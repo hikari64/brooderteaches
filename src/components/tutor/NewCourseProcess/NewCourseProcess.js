@@ -65,7 +65,7 @@ export default function NewCourseProcess({ ProcessIndicator }) {
     setError((error) => ({ ...error, [item]: null }));
   };
   const UpdateSkill = (value) => {
-    setCourseData((courseData) => ({ ...courseData, skills:[value]}));
+    setCourseData((courseData) => ({ ...courseData, skills:[...value]}));
   };
   const UpdateCategory = (value) => {
     setCourseData((courseData) => ({ ...courseData, skills:[...value]}));

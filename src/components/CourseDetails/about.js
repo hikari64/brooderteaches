@@ -45,19 +45,19 @@ useEffect(() => {
                         <CourseBtnLink to={`/register/${data.id}`} style={{ textAlign: 'left'}}>
                     Take this Class
                   </CourseBtnLink>
-                        <Subtitle1>{data.about}
+                        <Subtitle1>{data.tag}
                         </Subtitle1>
                         
                     </TextWrapper>
                 </Column11>
                 <Column22>
-                   <CourseDets/>
+                   <CourseDets data={data}/>
                 </Column22>
             </CourseRow1>
             
         </CourseWrapper1>
     </CourseDetails>
-    <RelatedCoursesSection/>
+    <RelatedCoursesSection id={data.id} skills={data.skills}/>
 </CourseContainer>
 
 );

@@ -133,10 +133,10 @@ isCoursePage =
           <OutlineList>
           {lessons && outline}
           </OutlineList>
-          <ExtraInfo>
+          {/* <ExtraInfo>
             Project work and assignments will be required. Group presentations
             will be conducted during physical meetings once in a month.
-          </ExtraInfo>
+          </ExtraInfo> */}
         </OutlineContent>
       </CourseOutlineStyle>
     </RegContainer>

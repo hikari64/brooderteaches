@@ -22,6 +22,7 @@ import {
 // firebase imports
 import {useAuth} from '../../contexts/AuthContext'
 import useFetchCourses from "./hooks/useFetchCourses";
+import { Badge } from "react-bootstrap";
 
 
 const CourseSections = (props) => {
@@ -54,7 +55,16 @@ function MyCourseDetails(data){
                   <Heading to={`/about/${courses.id}`}>
                     {courses.title}
                   </Heading>
-                  <Subtitle>{courses.about}</Subtitle>
+                  <Subtitle className="text-dark m-2" >{courses.tag}</Subtitle>
+                  <Subtitle className="text-dark m-2" >{courses.category}</Subtitle>
+                  <Details>
+                    {courses.skills && data.skills.value.map((skill,index)=>(
+                       <Badge pill bg="secondary" variant="dark" text="dark" className=" bg-secondary mx-1">
+                    {skill}
+                    </Badge>
+                      ))}
+                 
+                  </Details>
                   <Details>
                     <Data>
                       <DurationIcon /> {courses.duration}
