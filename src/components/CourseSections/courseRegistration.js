@@ -31,18 +31,18 @@ import { Container, Row, Col, Button, Form, Spinner } from "react-bootstrap";
 import { fbapp } from "../../firebase";
 import RegisterForCourse from "./hooks/useRegisterForCourse";
 
-const CourseRegistration = ({ id }, props) => {
+const CourseRegistration = ({ id , courses,lessons}, props) => {
   let isCoursePage;
   let outline;
 
-  const [courses, setCourses] = useState([]);
-  const [lessons, setLessons] = useState([]);
-  const [price, setPrice] = useState();
+  // const [courses, setCourses] = useState([]);
+  // const [lessons, setLessons] = useState([]);
+  const { userID, currentUser, updateEmail, updatePassword, updateProfile } = useAuth()
+  const [price, setPrice] = useState(courses.price);
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  const { userID, currentUser, updateEmail, updatePassword, updateProfile } = useAuth()
   
   // FIRESTORE CALLS
 
@@ -60,43 +60,11 @@ const CourseRegistration = ({ id }, props) => {
         // doc.data() will be undefined in this case
         console.log("No such document!");
     }
-}).catch((error) => {
-    console.log("Error getting document:", error);
-});
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
 
 
-    const fetchCourses = async () => {
-      setLoading(true);
-      db.collection("courses")
-        .doc(id)
-        .get()
-        .then((querySnapshot) => {
-          // Loop through the data and store
-          // it in array to display
-          var data = querySnapshot.data();
-            setCourses(data);
-            setPrice(data.price);
-          
-        });
-    };
-
-    const fetchOutline = async () => {
-      db.collection("lessons")
-        .where("courseId", "==", id)
-        .get()
-        .then((querySnapshot) => {
-          // Loop through the data and store
-          // it in array to display
-          querySnapshot.forEach((element) => {
-            var outline = element.data();
-            setLessons((arr) => [...arr, outline]);
-          });
-          setLoading(false);
-        });
-    };
-
-    fetchCourses();
-    fetchOutline();
   }, [id]);
 
   // PAYSTACK INTEGRATION
@@ -129,14 +97,13 @@ const CourseRegistration = ({ id }, props) => {
     reference: new Date().getTime(),
     currency: "GHS",
     email: "user@example.com",
-    // amount: 100*price,
-    amount: 100*0.01,
+    amount: 100*courses.price,
     publicKey: "pk_live_2bbc47bbdc506caec19278c6f7384d1eb25ccf40",
   };
 
   const componentProps = {
     ...config,
-    text: "Pay Ghs"+0.001,
+    text: "Pay Ghs"+courses.price,
     onSuccess: (reference) => handlePaystackSuccessAction(reference),
     onClose: () => handlePaystackCloseAction(),
   };
@@ -164,7 +131,7 @@ isCoursePage =
         <OutlineContent>
           <Heading2 to="">Course Outline</Heading2>
           <OutlineList>
-          {outline}
+          {lessons && outline}
           </OutlineList>
           <ExtraInfo>
             Project work and assignments will be required. Group presentations
@@ -269,7 +236,7 @@ isCoursePage =
                   placeholder="Email Address"
                 />
               </Form.Group>
-              <Col className="text-center">Total Cost is GHS {price}</Col>
+              <Col className="text-center">Total Cost is GHS {courses.price}</Col>
               <Col className="text-center">
                 <PaystackButton
                   className="paystack-button"
@@ -325,7 +292,7 @@ isCoursePage =
                   placeholder="Email Address"
                 />
               </Form.Group>
-              <Col className="text-center">Total Cost is GHS {price}</Col>
+              <Col className="text-center">Total Cost is GHS {courses.price}</Col>
               <Col className="text-center">
                 <PaystackButton
                   className="paystack-button"
@@ -340,12 +307,11 @@ isCoursePage =
     <>
       {isCoursePage}
       <Container className="height-half">
-        <Button onClick={()=>handlePaystackSuccessAction('12343544545')}>try pay</Button>
         {loading && <Spinner variant="dark" animation="border"/>}
 
         {currentUser ?
-      registerUser :
-      registerGuest}
+      (courses && registerUser) :
+      (courses && registerGuest)}
       </Container>
     </>
   );

@@ -22,6 +22,8 @@ export default function NewCourseProcess({ ProcessIndicator }) {
     price: '',
     level: "",
     period:'',
+    category:'',
+    skills:[],
     preview: '',
     tutorId: '',
     students: [],
@@ -45,6 +47,7 @@ export default function NewCourseProcess({ ProcessIndicator }) {
     level: "",
     period:'',
     preview: '',
+    category: '',
     previewImg: '',
     tutorId: '',
     students: [],
@@ -60,6 +63,12 @@ export default function NewCourseProcess({ ProcessIndicator }) {
   const UpdateData = (item, value) => {
     setCourseData((courseData) => ({ ...courseData, [item]: value }));
     setError((error) => ({ ...error, [item]: null }));
+  };
+  const UpdateSkill = (value) => {
+    setCourseData((courseData) => ({ ...courseData, skills:[value]}));
+  };
+  const UpdateCategory = (value) => {
+    setCourseData((courseData) => ({ ...courseData, skills:[...value]}));
   };
   const UpdateLessonData = (item, value) => {
     setLessonData((lessonData) => ({ ...lessonData, [item]: value }));
@@ -108,6 +117,8 @@ export default function NewCourseProcess({ ProcessIndicator }) {
               error={error}
               setError={setError}
               updateData={UpdateData}
+              UpdateCategory={UpdateCategory}
+              UpdateSkill={UpdateSkill}
               nextStep={nextStep}
             />
           )}

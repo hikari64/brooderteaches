@@ -119,7 +119,7 @@ const result =  mycourses.map((data, index) => (
               <Heading to={`/about/${data.id}`}>
                 {data.title}
               </Heading>
-              <Subtitle>{data.about}</Subtitle>
+              <Subtitle>{data.tag}</Subtitle>
               <Details>
                 <Data>
                   <DurationIcon /> {data.duration}
@@ -133,9 +133,6 @@ const result =  mycourses.map((data, index) => (
                   {data.price}
                 </Data>
               </Details>
-              <CourseBtnLink to={`/preview/${data.id}`}>
-                Watch Preview
-              </CourseBtnLink>
               <CourseBtnLink to={`/class/${data.id}`}>
                 Take this Class
               </CourseBtnLink>

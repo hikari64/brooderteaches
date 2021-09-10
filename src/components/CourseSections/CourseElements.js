@@ -223,6 +223,9 @@ export const Heading = styled(LinkR)`
 
     &:hover {
         transition: all 0.2s ease-in-out;
+        color: #100855 !important;
+
+
 
     }
 

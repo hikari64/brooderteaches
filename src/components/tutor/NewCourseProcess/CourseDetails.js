@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // import storage ref
 import { storageRef } from "../../../firebase";
@@ -8,11 +8,19 @@ import { DropzoneArea } from "material-ui-dropzone";
 
 // boostrap impots
 import { Container, Row, Col, Button, Form, InputGroup,ProgressBar } from "react-bootstrap";
+import Select from 'react-select'
 
+import { EditorState,convertToRaw} from 'draft-js';
+// import 'draft-js/dist/Draft.css';
+import { Editor } from 'react-draft-wysiwyg';
+import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 // import Custom css
 // import "./signupprocess.css";
-import { SkillsAPI } from "emsi-skills-api"
 import Spinner from "../../Spinner/Spinner";
+
+import {skills} from "../../../mock/skills"
+import {categories} from "../../../mock/categories";
+
 
 
 export default function CourseDetails(props) {
@@ -25,14 +33,80 @@ export default function CourseDetails(props) {
   const [progressImg, setProgressImg] = useState(0);
   const [error, setError] = useState(null);
   const [mvideo,setVideo] = useState([])
+  const [skillset,setSkillset] = useState([])
   const [picture,setPicture] = useState([])
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty(),);
 
+  useEffect(()=>{
+    const dofilter = ()=>{
+      // need to return the result of filter(), not just assign it to a variable, so that map() will return the results.
+      var newdata = []
+     
+      let inputValue = props.data.category;
+      let search = inputValue.toLowerCase();
+      var skilllist = skills.filter(function(skill) {
+        
+        return skill.categoryName.toLowerCase() === search;
+         
+      })
+
+      skilllist.map((res)=>(
+        newdata = [...newdata,{value:res.name,label:res.name} ]
+      // console.log(res)
+
+      ))
+      // let result = skills.filter(j => j.categoryName.toLowerCase().includes(search));
+      console.log(newdata);
+      setSkillset(newdata);
+      // props.UpdateCategory(newdata)
+    }
+    if(props.data.category){
+          dofilter()
+          
+
+    }else{
+      console.log(props.data)
+    }
+
+
+  },[props.data.category])
 
   const eventHandler = (event) => {
     let val = event.target.value;
     let nam = event.target.name;
+    props.updateData(nam, val);
+
+  };
+  const skilleventHandler = (event) => {
+    // let val = event.target.value;
+    console.log(event)
+    // let nam = event.target.name;
+    let catArray = [];
+    event.map(o => catArray.push(o.value));
+    console.log("----------------------------------------------------------")
+    console.log(catArray)
+
+    
+     props.UpdateSkill(catArray);
+
+  };
+  const texteventHandler = (event) => {
+    let val = convertToRaw(event.getCurrentContent());
+    console. clear()
+  
+    console.log(val)
+     let nam = "about";
+    // let catArray = [];
+    // event.map(o => catArray.push(o.value));
+    setEditorState(event)
+    console.log("----------------------------------------------------------")
+    // console.log(catArray)
 
     props.updateData(nam, val);
+    
+    //  props.UpdateSkill(catArray);
+
   };
  
   const findFormErrors = () => {
@@ -41,7 +115,7 @@ export default function CourseDetails(props) {
     if ( !props.data.title || props.data.title === '' ) newErrors.title = 'cannot be blank!'
     else if ( props.data.title.length > 100 ) newErrors.name = 'Title is too long!'
     if ( !props.data.tag || props.data.tag === '' ) newErrors.tag = 'cannot be blank!'
-    else if ( props.data.tag.length > 150 ) newErrors.tag = 'Tag is too long! Maximum(150)'
+    else if ( props.data.tag.length > 250 ) newErrors.tag = 'Tag is too long! Maximum(250)'
     // food errors
     if ( !props.data.duration || props.data.duration === '' ) newErrors.duration = 'select a duration!'
     // rating errors
@@ -52,10 +126,12 @@ export default function CourseDetails(props) {
     if ( !props.data.level  || props.data.level  > 3 || props.data.level  < 1 ) newErrors.level = 'must assign a rating between 1 and 3!'
     // comment errors
     if ( !props.data.about || !props.data.about) newErrors.about = 'cannot be blank!'
+    if ( !props.data.category || !props.data.category) newErrors.category = 'cannot be blank!'
 
     return newErrors;
   }
 
+  
   
   const handleChange = () => {
     // Uploading to firebase storage
@@ -216,8 +292,13 @@ export default function CourseDetails(props) {
                   Course Description
                 </Form.Label>
                 <InputGroup className="form-input col">
+                <Editor className="col-12" 
+                editorState={editorState} 
+                // onEditorStateChange={setEditorState}
+                onEditorStateChange={texteventHandler}
+                />
 
-                <Form.Control
+                {/* <Form.Control
                   as="textarea"
                   rows={6}
                   required ={true}
@@ -226,7 +307,7 @@ export default function CourseDetails(props) {
                   value={props.data.about}
                   onChange={eventHandler}
                   isInvalid={ !!props.error.about }
-                />
+                /> */}
                 
                   <Form.Control.Feedback type="invalid">
                     {props.error.about}
@@ -259,6 +340,84 @@ export default function CourseDetails(props) {
                     <Form.Control.Feedback type="invalid">
                     { props.error.price }.
                     </Form.Control.Feedback>
+                </InputGroup>
+              </Form.Group>
+              {/* COURSE Level*/}
+              <Form.Group className="row" controlId="validationCustom04">
+                <Form.Label className="col-3 align-bottom my-auto text-end">
+                  Category
+                </Form.Label>
+                <InputGroup className="form-input col" >
+                
+                <Form.Control
+                  as="select"
+                  className=" col"
+                  name="category"
+                  value={props.data.category}
+                  onChange={eventHandler}
+                  isInvalid={ !!props.error.category }
+                  
+                >
+                  <option value=''>Select Category</option>
+                  {categories.map((cat,index)=>(
+                  <option key={index} value={cat.name}>{cat.name}</option>
+                  ))}
+                 
+                </Form.Control>
+                </InputGroup>
+              </Form.Group>
+              {/* COURSE Skills*/}
+              <Form.Group className="row" controlId="validationCustom04">
+                <Form.Label className="col-3 align-bottom my-auto text-end">
+                  Related Skill
+                </Form.Label>
+                <InputGroup className="form-input col" >
+                <Select 
+                isMulti = {true}
+                className="col-12" 
+                // name = "skill"
+                // value ={selectedOptions}
+                onChange={skilleventHandler}
+
+                options={skillset} 
+                />
+
+                <Col className="text-center fw-bold d-block col-12">select skill</Col>
+
+                {/* {Object.keys(props.data.skills).map((cat,index)=>(
+                  // <option key={index} value={cat.name}>{cat.name}</option>
+                  <Form.Check
+                  checked={props.data.skills[cat] ? true :false}
+                  key={props.data.skills[cat]}
+                  value={props.data.skills[cat]}
+                  inline
+                  label={props.data.skills[cat][0]}
+                  onChange={skilleventHandler}
+                  // onCheck={skilleventHandler}
+                  name={index}
+                  type="checkbox"
+                id={`inline-checkbox-${index}`}
+              />
+
+                  ))} */}
+                
+                
+                {/* <Form.Control
+                  as="select"
+                  // multiple
+                  className=" col"
+                  name="skill"
+                  value={props.data.skill}
+                  onChange={eventHandler}
+                  isInvalid={ !!props.error.skill }
+                  
+                >
+                  <option value=''>Select Skill</option>
+                  {skillset.map((cat,index)=>(
+                  <option key={index} value={cat.name}>{cat.name}</option>
+                  ))}
+                 
+                </Form.Control> */}
                 </InputGroup>
               </Form.Group>
               {/* COURSE Level*/}
@@ -299,7 +458,6 @@ export default function CourseDetails(props) {
                   value={props.data.period}
                   onChange={eventHandler}
                   isInvalid={ !!props.error.period }
-
                 >
                   <option value=''>Select duration</option>
                   <option value={1}>Weeks</option>
