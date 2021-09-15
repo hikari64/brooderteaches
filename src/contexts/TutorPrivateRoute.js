@@ -11,7 +11,7 @@ const TutorPrivateRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={(props) => {
         return (currentUser && currentUser.isTutor) ? (
-          (currentUser.verified || currentUser.state < 3)  ?
+          (currentUser.verified || currentUser.state < 2)  ?
           <Component {...props} /> : <NotVerifiedPage/>
         ) : (
           <Redirect to={ currentUser ?

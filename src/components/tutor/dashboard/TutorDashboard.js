@@ -42,9 +42,7 @@ export default function TutorDashboard(props) {
 const {loading, courses, error } = useFetchCoursesByTutorId(userID);
 
 if(!loading){
-  // if(error){
-  //   history.push("/wrong-account")
-  // }
+
 
   if(currentUser.state){
     if(currentUser.state < 3){

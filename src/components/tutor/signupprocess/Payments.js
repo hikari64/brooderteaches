@@ -13,46 +13,35 @@ import { SignUpH1 } from "./signupElements.js";
 import { useAuth } from "../../../contexts/TutorContext.js";
 
 export default function Payments(props) {
-  const { userID,setCurrentUser } = useAuth()
+  const { userID,setCurrentUser,logout } = useAuth()
 
   // NAVBAR CONTROLS
   const [isOpen, setIsOpen] = useState(false);
   const [tutorData, setTutorData] = useState({
-    state:4,
-    paymentReference:null
-  });
+    state:4
+    });
 
   const UpdateData = (item, value) => {
 
     setTutorData((tutorData) => ({ ...tutorData, [item]: value }));
   };
   
-  useEffect(()=>{
-    console.log("useeffect runned ")
-
-    async function RecordPayment(){
+  async function RecordPayment(){
       const {newdata,error} = await UpdateTutor(tutorData,userID);
       setCurrentUser(newdata)
-      console.log("payment recorded succesfully")
+      // console.log("payment recorded succesfully")
     }
-    if(tutorData.paymentReference){
-      if(tutorData.paymentReference.status === 'success'){
-      RecordPayment()
-      console.log("reference set")
-         
-    }
-  }
-
-  },[tutorData,userID])
+  
+ 
 
   // PAYSTACK INTEGRATION
-  const config = {
-    reference: new Date().getTime(),
-    currency: "GHS",
-    email: "user@example.com",
-    amount: 100*100,
-    publicKey: "pk_live_2bbc47bbdc506caec19278c6f7384d1eb25ccf40",
-  };
+  // const config = {
+  //   reference: new Date().getTime(),
+  //   currency: "GHS",
+  //   email: "user@example.com",
+  //   amount: 100*100,
+  //   publicKey: "pk_live_2bbc47bbdc506caec19278c6f7384d1eb25ccf40",
+  // };
 
   // SUCCESSFULLY PAID
   const handlePaystackSuccessAction = (reference) => {
@@ -72,20 +61,20 @@ export default function Payments(props) {
     console.log(tutorData);
   };
 
-  const componentProps = {
-    ...config,
-    text: "Pay Ghs100",
-    onSuccess: (reference) => handlePaystackSuccessAction(reference),
-    onClose: () => handlePaystackCloseAction(),
-  };
+  // const componentProps = {
+  //   ...config,
+  //   text: "Pay Ghs100",
+  //   onSuccess: (reference) => handlePaystackSuccessAction(reference),
+  //   onClose: () => handlePaystackCloseAction(),
+  // };
 
   return (
     <div>
       <Row className="mt-4 mb-4">
-        <SignUpH1 className="text-center mb-5">Complete Payments</SignUpH1>
+        <SignUpH1 className="text-center mb-5">Complete Registration</SignUpH1>
         <Col md={8} className="mx-auto text-center">
           <h3>Congratulations, you're almost done</h3>
-          <p  className="text-info">
+          {/* <p  className="text-info">
             You're on your way to becoming a tutor. You are required to
             pay a registration fee of Ghs100 to complete your registration.
             After this one time fee, you can create unlimited courses
@@ -98,7 +87,19 @@ export default function Payments(props) {
             <Col md={8} className="mx-auto">
               <PaystackButton className="paystack-button" {...componentProps} />
             </Col>
-          </Row>
+          </Row> */}
+          <h4 className="header p-1 ">You have come this far there is only a click left!</h4>
+              <p>After this our team will get intouch with you shortly!</p>
+
+             
+              <Col  className="text-center ">
+                
+                   <Button onClick={()=>  RecordPayment()}
+                    className="primary-button"
+                    >
+                   Complete Registration
+                  </Button>
+              </Col>
           <Button onClick={props.prevStep} className="primary-button">
             Go back
           </Button>

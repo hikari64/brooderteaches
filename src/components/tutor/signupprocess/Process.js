@@ -18,7 +18,7 @@ export default function Process({ProcessIndicator}) {
 
  const { loading, tutors } = useFetchTutorsById(userID); 
  const [step, setStep] = useState(1);
-  const [data,setData] = useState()
+  const [data,setData] = useState([])
 
   const UpdateData =(item,value)=>{
     setData(data => ({...data, [item]:value}))
@@ -29,7 +29,7 @@ export default function Process({ProcessIndicator}) {
     AddTutor(data,userID);
   }
   const SubmitImage = () =>{
-    useAddTutorVerificationId(data,userID);
+    useAddTutorVerificationId(data.verificationID,userID);
   }
 
   // Proceed to next step
