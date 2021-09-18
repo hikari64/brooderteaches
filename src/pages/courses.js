@@ -18,7 +18,7 @@ const Courses = () => {
   const [error, setError] = useState('');
   const [last, setLast] = useState('');
   const [loadmore, setloadMoreBtn] = useState(false);
-  const [ref,setRef] = useState(fbapp.firestore().collection("courses"))
+  const [ref,setRef] = useState(fbapp.firestore().collection("courses").where("published", "==", true))
 
   
   const [isOpen, setIsOpen] = useState(false);
