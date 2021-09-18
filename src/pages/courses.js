@@ -35,7 +35,7 @@ const Courses = () => {
 const LoadMore =async()=>{
   let newref = '';
   if (last){
-    newref =  ref.startAfter(last).limit(5);
+    newref =  ref.startAfter(last).limit(10);
     const snapshot = await newref.get();
 
        
@@ -62,7 +62,7 @@ useEffect(() => {
     setloadMoreBtn(true)
     setError(null)
    
-      const snapshot = await ref.limit(6).get();
+      const snapshot = await ref.limit(10).get();
 
        
       const items = [];
@@ -98,24 +98,24 @@ useEffect(() => {
 
     if((courseLevel !== 0) && (courseLength !== 0)){
       //load course with this specifications
-    const filterRef = fbapp.firestore().collection("courses").where("period", "==", courseLength).where("level", "==", courseLevel);
+    const filterRef = fbapp.firestore().collection("courses").where("published", "==", true).where("period", "==", courseLength).where("level", "==", courseLevel);
 
     setRef(filterRef)
     }
     if((courseLevel !== 0) && (courseLength === 0)){
-       const filterRef = fbapp.firestore().collection("courses").where("level", "==", courseLevel);
+       const filterRef = fbapp.firestore().collection("courses").where("published", "==", true).where("level", "==", courseLevel);
 
 
       setRef(filterRef) 
     }
     if((courseLevel === 0) && (courseLength !== 0)){
-      const filterRef = fbapp.firestore().collection("courses").where("period", "==", courseLength);
+      const filterRef = fbapp.firestore().collection("courses").where("published", "==", true).where("period", "==", courseLength);
       setRef(filterRef) 
     }
      if (courseLength + courseLevel === 0 ){
      
 
-      setRef(fbapp.firestore().collection("courses")) 
+      setRef(fbapp.firestore().collection("courses").where("published", "==", true)) 
     }
 }
 
