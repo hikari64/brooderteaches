@@ -8,6 +8,7 @@ export function useAuth() {
 }
 export function AuthProvider ({children}) {
     const [currentUser, setCurrentUser] = useState()
+    const [ufrom, setuFrom] = useState()
     const [userProfile, setUserProfile] = useState() // puting user profile here to get user data from db
     const [loading, setLoading] = useState(true)
     const db = fbapp.firestore()
@@ -207,7 +208,7 @@ export function AuthProvider ({children}) {
     }, [])
 
     const value = {
-        currentUser, userID, userProfile,
+        currentUser, userID, userProfile,ufrom,setuFrom,
         signup, login, logout, resetPassword, updateEmail, updatePassword, updateProfile,
         verifyUser, tutor_login, tutor_signup
     }

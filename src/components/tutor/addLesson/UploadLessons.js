@@ -26,6 +26,8 @@ const [assignmentProgress, setAssignmentProgress] = useState(0);
 const [assignment, setAssignment] = useState();
 const [displayData,setDisplayData] = useState(null)
 const [error, setError] = useState(null);
+const [video, setVideo] = useState([]);
+
 
 const [files, setFiles] = useState(null);
 
@@ -48,11 +50,11 @@ const [files, setFiles] = useState(null);
     
 
   }
-  const handleChange = (File) => {
+  const handleChange = () => {
     // Uploading to firebase storage
     // and updating URLS array for storage in firestore
 
-    const file = File[0];
+    const file = video[0];
     var d = new Date();
     var n = d.getTime();
     
@@ -163,46 +165,53 @@ const [files, setFiles] = useState(null);
                   onChange={eventHandler}
                 />
               </Form.Group>
-              {/* INTRO VIDEO */}
-              <Form.Group  className="row mt-3">
+            {/* INTRO VIDEO */}
+            <Form.Group  className="row mt-3">
                 
-               <Col>
-
-                {progress !== 0 && <ProgressBar animated  now={progress} />}
-               <DropzoneArea
-                    acceptedFiles={['video/*']}
-                    dropzoneText={"Upload Lesson Video"}
-                     onChange={(files) => handleChange(files)}
-                   // Icon={AttachFile}
-                    //onAdd={(files) => handleChange(files)}
-                    // onChange={(files) => setFiles(files)}
-                    maxFileSize	={300000000}
-                    name="video"
-                  //  value={props.data.video}
-                    />
-               </Col>
-          
+                <Col>
+                 {progress !== 0 && <ProgressBar now={progress} />}
+                <DropzoneArea
+                     acceptedFiles={['video/*']}
+                     dropzoneText={"Upload Lesson Video"}
+                      onChange={(files) => setVideo(files)}
+                    // Icon={AttachFile}
+                     //onAdd={(files) => handleChange(files)}
+                     //onChange={(files) => setFiles(files)}
+                     maxFileSize	={300000000}
+                     name="video"
+                     value={props.data.video}
+                     />
+                     {/* {props.error.video && <div className="alert-danger">{props.error.video} </div>} */}
+                </Col>
+                <Row>
+                  <Col className="text-end">
+                  
+                    {video.length !==0 && <Button
+                    onClick={() => handleChange()}
+                    >upload Video</Button>}
+              
+                  </Col>
+                </Row>       
+               </Form.Group>
+               {/* Add ASSignment */}
+      
+              <Form.Group  className="row ">
+                <Form.Control
+                  as="textarea" 
+                  rows={3}
+                  className="form-input col text-center"
+                  placeholder="Assignment"
+                  name="assignment"
+                  value={props.data.assignment}
+                  onChange={eventHandler}
+                  // isInvalid={ !!props.error.assignment}
+                  
+                />
+                <Form.Control.Feedback type="invalid">
+              {/* {props.error.assignment} */}
+            </Form.Control.Feedback>
               </Form.Group>
-              {/* Add ASSignment */}
-              <Form.Group  className="row mt-3">
 
-               <Col>
-
-                {assignmentProgress !== 0 && <ProgressBar animated now={assignmentProgress} />}
-               <DropzoneArea
-                    acceptedFiles={['application/pdf']}
-                    dropzoneText={"Add Assignment"}
-                    // onChange={handleChangePdf}
-                    onChange={(files) => handleChangePdf(files)}
-
-                    //  onChange={(files) => setAssignment(files)}
-                    maxFileSize	={300000000}
-                    name="assignment"
-                //  value={props.data.assignment}
-                    />
-               </Col>
-               
-              </Form.Group>
               <Container className="contain">
               <Button onClick={Proceed} className="primary-button col-5">
                 Upload lesson

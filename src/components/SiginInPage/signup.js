@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Alert, Container, Row, Col } from "react-bootstrap";
 
 // router dom
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory,useLocation } from "react-router-dom";
 
 // image imports
 import Image from "../../images/img-3.png";
@@ -26,8 +26,11 @@ const SignupPage = () => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
+  let location = useLocation();
+  const {signup, verifyUser, login,ufrom } = useAuth();
+
+  let { from } = location.state || (ufrom && { from: { pathname: ufrom } })|| { from: { pathname: "/login" } };
   // const db = firestore.firestore();
-  const {signup, verifyUser, login } = useAuth();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -46,7 +49,7 @@ const SignupPage = () => {
       //               console.log("completed login, going to verify")
                    
       //               await verifyUser();
-          history.push("/login")
+          history.replace(from)
     } catch (error) {
       setError(error.message);
     }

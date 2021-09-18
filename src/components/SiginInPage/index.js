@@ -7,7 +7,7 @@ import { Form, Button, Alert, Container, Row, Col } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 
 // react router dom imports
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory,useLocation } from "react-router-dom";
 
 // image imports
 import Image from "../../images/img-1.png";
@@ -20,8 +20,13 @@ const SigninPage = () => {
   const passwordRef = useRef();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth()
+  const { login,ufrom,setuFrom } = useAuth()
   const history = useHistory()
+  let location = useLocation();
+
+  let { from } = location.state || { from: { pathname: "/profile" } };
+
+  // setuFrom(from);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -31,7 +36,7 @@ const SigninPage = () => {
       setLoading(true);
       console.log("here?");
       await login(emailRef.current.value, passwordRef.current.value);
-      history.push("/profile")
+      history.replace(from)
     } catch(error) {
       console.log("here???");
       setError(error.message);

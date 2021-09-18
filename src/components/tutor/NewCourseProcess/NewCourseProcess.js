@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../../contexts/AuthContext";
+import { firestore } from "../../../firebase";
 import Spinner from "../../Spinner/Spinner";
 import AddCourse from "../hooks/useAddCourse";
 import AddLesson from "../hooks/useAddLesson";
+import useFetchCoursesById from "../hooks/useFetchCoursesById";
 
 // other component imports
 import CourseDetails from "./CourseDetails";
+import PreviewCourse from "./PreviewCourse";
 import ReviewCourse from "./ReviewCourse";
 import UploadLessons from "./UploadLessons";
 
@@ -58,6 +61,12 @@ export default function NewCourseProcess({ ProcessIndicator }) {
 
   const { currentUser,userID } = useAuth();
 
+  // useEffect(()=>{
+  //   const 
+  //   const { loading, courses } = useFetchCoursesById(id);
+
+  // })
+
   
 
   const UpdateData = (item, value) => {
@@ -96,13 +105,36 @@ export default function NewCourseProcess({ ProcessIndicator }) {
     
   }
 
+ const getCourses = async()=> {
+    setLoading(true)
+    const courses = firestore.collection("courses").doc(courseId);
+    
+     await courses.get().then((doc) => {
+      if (doc.exists) {
+        setCourseData(doc.data());
+    setLoading(false)
+        
+          console.log("Document data:", doc.data());
+      } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+          setError("No such document!");
+    setLoading(false)
+
+      }
+  })
+
+  }
+  
   // Submit New Lesson
   const SubmitLesson = (url) =>{
     setLoading(!loading)
     AddLesson(lessonData,setLoading,courseId,url);
     
   }
+
   
+ 
   // handle
 
   switch (step) {
@@ -141,7 +173,7 @@ export default function NewCourseProcess({ ProcessIndicator }) {
               prevStep={prevStep}
             />
           )}
-          {!courseId && (
+          {(!courseId && !loading) && (
             <h1>You can't add a lesson, please create a course first</h1>
           )}
         </React.Fragment>
@@ -151,7 +183,7 @@ export default function NewCourseProcess({ ProcessIndicator }) {
       return (
         <React.Fragment>
           {loading && <Spinner />}
-          {!loading && <ReviewCourse courseId={courseId} error={error}  nextStep={nextStep} prevStep={prevStep} />}
+          {!loading && <PreviewCourse courseId={courseId} error={error}  nextStep={nextStep} prevStep={prevStep} />}
         </React.Fragment>
       );
 

@@ -199,7 +199,6 @@ export default function CourseDetails(props) {
 
     } else {
       // No errors! Put any logic here for the form submission!
-      alert('Thank you for your feedback!')
         props.Submit();
         // continue with other rendering
         props.nextStep();

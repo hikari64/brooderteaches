@@ -5,9 +5,7 @@ import { AuthProvider } from "../contexts/AuthContext";
 const signup = () => {
   return (
     <>
-      <AuthProvider>
         <SignupPage />
-      </AuthProvider>
     </>
   );
 };

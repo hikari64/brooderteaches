@@ -5,9 +5,7 @@ import { AuthProvider } from "../contexts/AuthContext";
 const login = () => {
   return (
     <>
-      <AuthProvider>
         <SigninPage />
-      </AuthProvider>
     </>
   );
 };

@@ -63,8 +63,8 @@ export default function TutorCoursePage(props) {
           <Col md={12} className="mx-auto">
             {loading && <Spinner/>}
             {view === 1 && <CourseReviewDetails courseId={id} courses={courses}/>}
-            {view === 2 && <ReviewCourse courseId={id} courses={courses}/>}
-            {view === 3 && <ReviewCourse courseId={id} courses={courses}/>}
+            {view === 2 && <ReviewCourse newCourse={false} courseId={id} courses={courses}/>}
+            {view === 3 && <ReviewCourse newCourse={false} courseId={id} courses={courses}/>}
           </Col>
         </Row>
       </Container>

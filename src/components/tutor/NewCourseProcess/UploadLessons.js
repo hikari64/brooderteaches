@@ -123,7 +123,7 @@ const [validated, setValidated] = useState(false);
       });
     }
   }
-  const Proceed = (event)=>{
+  const Proceed = async (event)=>{
 
     event.preventDefault();
  
@@ -134,11 +134,10 @@ const [validated, setValidated] = useState(false);
       props.setError(newErrors)
     } else {
       // No errors! Put any logic here for the form submission!
-      alert('Thank you for your feedback!')
       // continue with other rendering
         
     
-     props.Submit();
+     await props.Submit();
      props.nextStep();
     }
 
@@ -149,7 +148,6 @@ const [validated, setValidated] = useState(false);
       <Container className="height-half">
         <Row className="mt-4 mb-4">
           <Col md={3}>
-          <LessonButtons className="p-3 m-3 text-center">Lesson {2}</LessonButtons>
          <CourseLessonBtnLists id={props.courseId} />
             <AddLessonButtons to={"/tutor-create-course/"} className="p-3 m-3 text-center"> 
               + Add Lesson

@@ -127,10 +127,6 @@ export const AccessDenied =(props)=>{
                 <Link to={'/tutor-profile'} className="primary-button ">
                 Verify your account
               </Link>
-              <p className="m-2">Or</p>
-              <Link to={'/payment'} className="primary-button ">
-                One-time Payment
-              </Link>
               </Col>
       </Col>
 
