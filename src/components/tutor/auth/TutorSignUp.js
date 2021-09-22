@@ -9,10 +9,11 @@ import "./index.css";
 // boostraP IMPOTS
 import { Container, Row, Col, Button, Form, Alert } from "react-bootstrap";
 
+import { firestore } from "../../../firebase";
+
 // image imports
 import Image from "../../../images/img-2.png";
 import { TutorAuthHeader } from "./TutorAuthHeader";
-
 
 // header import
 
@@ -28,7 +29,7 @@ export default function TutorSignUp() {
   const history = useHistory();
 
   // const db = firestore.firestore();
-  const { signup } = useAuth();
+  const { signup, signupexistinguser } = useAuth();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -38,20 +39,38 @@ export default function TutorSignUp() {
     }
 
     try {
+      const students = await firestore.collection("students").get();
+      const tutors = await firestore.collection("tutors").get();
+      const snapshot = students.docs.map((doc) => doc.data());
+      const tutorsnapshot = tutors.docs.map((doc) => doc.data());
       setError("");
       setLoading(true);
-      await signup(
-        emailRef.current.value,
-        passwordRef.current.value,
-        firstNameRef.current.value,
-        lastNameRef.current.value
-      );
-      // console.log("completed signup, going to login")
-      //               await login(emailRef.current.value, passwordRef.current.value);
-      //               console.log("completed login, going to verify")
+      console.log(`students[0]`, snapshot[0]);
+      const existingUser =
+        snapshot.find((user) => user.email === emailRef.current.value) || null;
+      console.log(`existingUser`, existingUser);
 
-      //               await verifyUser();
-      history.push("/tutor-login");
+      const existingTutor =
+        tutorsnapshot.find((user) => user.email === emailRef.current.value) ||
+        null;
+      console.log(`existingTutor`, existingTutor);
+      if (existingUser && !existingTutor) {
+        await signupexistinguser(existingUser);
+        history.push("/tutor-login");
+      } else {
+        await signup(
+          emailRef.current.value,
+          passwordRef.current.value,
+          firstNameRef.current.value,
+          lastNameRef.current.value
+        );
+        // console.log("completed signup, going to login")
+        //               await login(emailRef.current.value, passwordRef.current.value);
+        //               console.log("completed login, going to verify")
+
+        //               await verifyUser();
+        history.push("/tutor-login");
+      }
     } catch (error) {
       setError(error.message);
     }
@@ -62,8 +81,7 @@ export default function TutorSignUp() {
     <Container fluid>
       <Row>
         {" "}
-        <TutorAuthHeader/>
-
+        <TutorAuthHeader />
         <Col md={6} className="hide-on-mobile side-bg">
           <Container fluid className="my-auto">
             <Row className="height-full">
@@ -77,7 +95,6 @@ export default function TutorSignUp() {
           <Container fluid className="my-auto">
             <Row className="height-full">
               <Col md={10} className="mx-auto my-auto text-center container">
-               
                 <h2 className="header">Become A Tutor</h2>
                 <p>
                   Terms and conditions of being a tutor and pricing should go
@@ -88,7 +105,7 @@ export default function TutorSignUp() {
                   imperdiet ligula a lacus commodo, ut tincidunt magna
                   pellentesque. Aenean eu arcu ut ligula vehicula semper id
                   sodales sapien. Vestibulum lobortis blandit sem, nec molestie
-                  velit hendrerit vitae. 
+                  velit hendrerit vitae.
                 </p>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
@@ -148,10 +165,15 @@ export default function TutorSignUp() {
                   </Button>
                 </Form>
                 <p>
-                  Already have an account <Link to="/tutor-login" style={{color: "#100855 !important"}} >Sign In </Link>
+                  Already have an account{" "}
+                  <Link
+                    to="/tutor-login"
+                    style={{ color: "#100855 !important" }}
+                  >
+                    Sign In{" "}
+                  </Link>
                 </p>
               </Col>
-              
             </Row>
           </Container>
         </Col>

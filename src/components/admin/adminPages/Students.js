@@ -65,7 +65,9 @@ export default function Students(props) {
                           <td>{student.name}</td>
                           <td>{student.email}</td>
                           <td>{student.contact}</td>
-                          <td>{student.courses.length}</td>
+                          <td>
+                            {student.courses ? student.courses.length : 0}
+                          </td>
                         </tr>
                       );
                     })}

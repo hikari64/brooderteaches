@@ -19,13 +19,12 @@ export default function Navigation(props) {
 
   const history = useHistory();
   const { loading, Admins, error } = useFetchAdminsById(user.uid);
-if(!loading){
-  if(error){
-    history.push("/wrong-account")
+  if (!loading) {
+    if (error) {
+      console.log(`error`, error);
+      history.push("/wrong-account");
+    }
   }
-}
-
-
 
   return (
     <Row>
