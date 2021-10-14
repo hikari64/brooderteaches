@@ -18,113 +18,131 @@ import {
   StartIcon,
   FeeIcon,
 } from "./CourseElements";
-import { Container, Row, Col, Image,Badge } from "react-bootstrap";
+import { Container, Row, Col, Image, Badge } from "react-bootstrap";
 
 // firebase imports
 import { fbapp } from "../../firebase";
-import Spinner from '../Spinner/Spinner'
-import wave from '../../images/wave.png'
-import moment from 'moment';
+import Spinner from "../Spinner/Spinner";
+import wave from "../../images/wave.png";
+import moment from "moment";
+import { useAuth } from "../../contexts/AuthContext";
 
 // IMPORTING MOCK DATA FOR NOW
 //import { courses } from "../../mock/mock.js";  Disabled inport at this level to rec
 // ieve courses list as props from course section
 
-
-const CourseSections = ({courses}) => {
+const db = fbapp.firestore();
+const CourseSections = ({ courses }) => {
+  const { userID } = useAuth();
+  const { userProfile } = useAuth();
   // DISABLED FIREBASE CALLS FOR NOW
-    //const [courses, setCourses] = useState([]);
-    const [loading, setLoading] = useState(false);
+  //const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [mycourses, setMyCourses] = useState([]);
 
-   
-
-    if (loading) {
-      return (
-      <Container className="height-half">
-      <Row className="mt-4 mb-4">
-        <Col md={12} className="mx-auto">
-          {loading && <Spinner style={{textAlign: "center"}}/>}
-        </Col>
-      </Row>
-    </Container>);
-
+  const existingCourse = (courseId) => {
+    const existing = userProfile.courses.find((res) => res == courseId) || null;
+    console.log("existing", userProfile.courses);
+    if (existing) {
+      return true;
+    } else {
+      return false;
     }
+  };
+  if (loading) {
+    return (
+      <Container className="height-half">
+        <Row className="mt-4 mb-4">
+          <Col md={12} className="mx-auto">
+            {loading && <Spinner style={{ textAlign: "center" }} />}
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
 
+  const lightBg = false;
+  // const imgStart = true;
 
-const lightBg = false;
-// const imgStart = true;
- 
-    
-    const result =  courses.map((data, index) => (
-      <Row key={index} className="mt-2 my-3">
-        {/* <Row id={data.id}  lightBg={lightBg}> */}
-              <Col sm={12} md={4} lg={5}>
-                  <Img fluid  
-                   className="rounded-6 bg-gradient"
-                  src={data.previewImg || wave} alt={data.alt}></Img>
-              </Col>
-              <Col >
-                <div>
-                  <Heading className="text-dark" to={`/about/${data.id}`}>
-                    {data.title}
-                  </Heading>
-                  <Subtitle className="text-dark m-2" >{data.tag}</Subtitle>
-                  <Subtitle className="text-dark m-2" >{data.category}</Subtitle>
+  const result = courses.map((data, index) => (
+    <Row key={index} className="mt-2 my-3">
+      {/* <Row id={data.id}  lightBg={lightBg}> */}
+      <Col sm={12} md={4} lg={5}>
+        <Img
+          fluid
+          className="rounded-6 bg-gradient"
+          src={data.previewImg || wave}
+          alt={data.alt}
+        ></Img>
+      </Col>
+      <Col>
+        <div>
+          <Heading className="text-dark" to={`/about/${data.id}`}>
+            {data.title}
+          </Heading>
+          <Subtitle className="text-dark m-2">{data.tag}</Subtitle>
+          <Subtitle className="text-dark m-2">{data.category}</Subtitle>
 
-                  <Details>
-                    {data.skills && data.skills.map((skill,index)=>(
-                       <Badge pill bg="secondary" variant="dark" text="dark" className=" bg-secondary mx-1">
-                    {skill}
-                    </Badge>
-                      ))}
-                 
-                  </Details>
-                  <Details>
-                    <Data>
-                      <FeeIcon />{' '}GHC{' '}
-                      {parseFloat(data.price).toFixed(2)}
-                    </Data>
-                  <Data>
-                      <DurationIcon /> {data.duration}{' '}{parseInt(data.period) === 1 && "Weeks"}{parseInt(data.period) === 2 && " Months"}
+          <Details>
+            {data.skills &&
+              data.skills.map((skill, index) => (
+                <Badge
+                  pill
+                  bg="secondary"
+                  variant="dark"
+                  text="dark"
+                  className=" bg-secondary mx-1"
+                >
+                  {skill}
+                </Badge>
+              ))}
+          </Details>
+          <Details>
+            <Data>
+              <FeeIcon /> GHC {parseFloat(data.price).toFixed(2)}
+            </Data>
+            <Data>
+              <DurationIcon /> {data.duration}{" "}
+              {parseInt(data.period) === 1 && "Weeks"}
+              {parseInt(data.period) === 2 && " Months"}
+            </Data>
+            <Data>
+              <DurationIcon /> {data.duration}{" "}
+              {parseInt(data.period) === 1 && "Weeks"}
+              {parseInt(data.period) === 2 && " Months"}
+            </Data>
+            <Data>
+              <StartIcon />
+              {/* {data.createdAt && data.createdAt.toDate().toString()} */}
+              {data.createdAt &&
+                moment(data.createdAt.toDate(), "YYYYMMDD").fromNow()}
+            </Data>
+          </Details>
 
-                  </Data>
-                  <Data>
-                      <DurationIcon /> {data.duration}{' '}{parseInt(data.period) === 1 && "Weeks"}{parseInt(data.period) === 2 && " Months"}
+          <Details>
+            {!existingCourse(data.id) && (
+              <CourseBtnLink to={`/preview/${data.id}`}>
+                Watch Preview
+              </CourseBtnLink>
+            )}
+            {!existingCourse(data.id) ? (
+              <CourseBtnLink to={`/register/${data.id}`}>
+                Take this Class
+              </CourseBtnLink>
+            ) : (
+              <CourseBtnLink to={`/class/${data.id}`}>
+                Continue class
+              </CourseBtnLink>
+            )}
+          </Details>
+        </div>
+      </Col>
 
-                  </Data>
-                  <Data>
-                      <StartIcon />
-                      {/* {data.createdAt && data.createdAt.toDate().toString()} */}
-                  {data.createdAt && moment(data.createdAt.toDate(), "YYYYMMDD").fromNow()} 
-         
-                    </Data>
-                  </Details>
-                  
-                  
-                 <Details>
-                    <CourseBtnLink to={`/preview/${data.id}`}>
-                    Watch Preview
-                  </CourseBtnLink>
-                  
-                    <CourseBtnLink to={`/register/${data.id}`}>
-                    Take this Class
-                    </CourseBtnLink>
-                  </Details>
-                   
-                  
+      {/* </Row> */}
+    </Row>
+  ));
 
-                  
-                </div>
-              </Col>
-              
-        {/* </Row> */}
-      </Row>
-      ));
-      
-
-      return <>{courses && result}</>
-    
- 
+  return <>{courses && result}</>;
 };
 
 export default CourseSections;

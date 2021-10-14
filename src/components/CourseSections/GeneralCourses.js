@@ -20,50 +20,63 @@ import {
 } from "./CourseElements";
 
 // firebase imports
-import {useAuth} from '../../contexts/AuthContext'
+import { useAuth } from "../../contexts/AuthContext";
 import useFetchCourses from "./hooks/useFetchCourses";
 import { Badge } from "react-bootstrap";
-
-
+import { fbapp } from "../../firebase";
+const db = fbapp.firestore();
 const CourseSections = (props) => {
+  const lightBg = false;
+  const imgStart = true;
+  const { userID } = useAuth();
+  const { userProfile } = useAuth();
+  // let userID ="a3n1oGDjNldi6cnGMqmmg3R6Ll83";
+  const [mycourses, setMyCourses] = useState([]);
+  console.log(userID);
 
-const lightBg = false;
-const imgStart = true;
-const { userID } = useAuth()
-// let userID ="a3n1oGDjNldi6cnGMqmmg3R6Ll83";
+  const CourseList = (lessons) => {
+    return lessons.map((lesson) => MyCourseDetails(lesson));
+  };
 
-console.log(userID)
+  const existingCourse = (courseId) => {
+    const existing = userProfile.courses.find((res) => res == courseId) || null;
+    if (existing) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
+  function MyCourseDetails(data) {
+    const { courses } = useFetchCourses();
 
- const CourseList =(lessons)=>{
-  return lessons.map((lesson) => (MyCourseDetails(lesson)));
-}
-
-
-function MyCourseDetails(data){
-   const { courses } =  useFetchCourses();
-
-    console.log(courses)
+    console.log(courses);
 
     return (
       <CourseContainer key={data}>
-        <CourseDetails id={courses.id}  lightBg={lightBg}>
+        <CourseDetails id={courses.id} lightBg={lightBg}>
           <CourseWrapper>
             <CourseRow imgStart={lightBg}>
               <Column1>
                 <TextWrapper>
-                  <Heading to={`/about/${courses.id}`}>
-                    {courses.title}
-                  </Heading>
-                  <Subtitle className="text-dark m-2" >{courses.tag}</Subtitle>
-                  <Subtitle className="text-dark m-2" >{courses.category}</Subtitle>
+                  <Heading to={`/about/${courses.id}`}>{courses.title}</Heading>
+                  <Subtitle className="text-dark m-2">{courses.tag}</Subtitle>
+                  <Subtitle className="text-dark m-2">
+                    {courses.category}
+                  </Subtitle>
                   <Details>
-                    {courses.skills && data.skills.value.map((skill,index)=>(
-                       <Badge pill bg="secondary" variant="dark" text="dark" className=" bg-secondary mx-1">
-                    {skill}
-                    </Badge>
+                    {courses.skills &&
+                      data.skills.value.map((skill, index) => (
+                        <Badge
+                          pill
+                          bg="secondary"
+                          variant="dark"
+                          text="dark"
+                          className=" bg-secondary mx-1"
+                        >
+                          {skill}
+                        </Badge>
                       ))}
-                 
                   </Details>
                   <Details>
                     <Data>
@@ -81,9 +94,15 @@ function MyCourseDetails(data){
                   <CourseBtnLink to={`/preview/${courses.id}`}>
                     Watch Preview
                   </CourseBtnLink>
-                  <CourseBtnLink to={`/register/${courses.id}`}>
-                    Take this Class
-                  </CourseBtnLink>
+                  {!existingCourse(data.id) ? (
+                    <CourseBtnLink to={`/register/${courses.id}`}>
+                      Take this Class
+                    </CourseBtnLink>
+                  ) : (
+                    <CourseBtnLink to={`/class/${courses.id}`}>
+                      Continue class
+                    </CourseBtnLink>
+                  )}
                 </TextWrapper>
               </Column1>
               <Column2>
@@ -96,18 +115,11 @@ function MyCourseDetails(data){
           </CourseWrapper>
         </CourseDetails>
       </CourseContainer>
-    
-      );
-  
-}
-    console.log(props.courses)
-      
+    );
+  }
+  console.log(props.courses);
 
-      return(
-        
-            props.courses && CourseList(props.courses)
-      )
- 
+  return props.courses && CourseList(props.courses);
 };
 
 export default CourseSections;

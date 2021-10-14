@@ -16,6 +16,7 @@ import {
   PlayerStyle,
   Videocontainer,
   ExtraInfo,
+  CourseBtnLink,
 } from "../CourseSections/CourseElements";
 
 // courses
@@ -36,8 +37,13 @@ const CourseRegistration = ({ id, courses, lessons }, props) => {
 
   // const [courses, setCourses] = useState([]);
   // const [lessons, setLessons] = useState([]);
-  const { userID, currentUser, updateEmail, updatePassword, updateProfile } =
-    useAuth();
+  const {
+    userID,
+    currentUser,
+    updateEmail,
+    updatePassword,
+    updateProfile,
+  } = useAuth();
   const [price, setPrice] = useState(courses.price);
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -68,6 +74,17 @@ const CourseRegistration = ({ id, courses, lessons }, props) => {
       });
   }, [id]);
 
+  const existingCourse = (courseId) => {
+    if (user.courses && user.courses.length > 0) {
+      const existing = user.courses.find((res) => res == courseId) || null;
+      console.log("existing", user.courses);
+      if (existing) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
   // PAYSTACK INTEGRATION
 
   // SUCCESSFULLY PAID
@@ -305,11 +322,15 @@ const CourseRegistration = ({ id, courses, lessons }, props) => {
   return (
     <>
       {isCoursePage}
-      <Container className="height-half">
-        {loading && <Spinner variant="dark" animation="border" />}
+      {!existingCourse(courses.id) ? (
+        <Container className="height-half">
+          {loading && <Spinner variant="dark" animation="border" />}
 
-        {currentUser ? courses && registerUser : courses && registerGuest}
-      </Container>
+          {currentUser ? courses && registerUser : courses && registerGuest}
+        </Container>
+      ) : (
+        <CourseBtnLink to={`/class/${courses.id}`}>Go to class</CourseBtnLink>
+      )}
     </>
   );
 };
