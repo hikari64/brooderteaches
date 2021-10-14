@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import CoursePrev from "../components/CourseDetails/preview";
 import LessonSections from "../components/CourseSections/lessons";
 import Footer from "../components/Footer";
@@ -21,15 +21,12 @@ const ClassPage = ({
   const [plesson, setPLessons] = useState([]); // past lessons
   const [ulesson, setULessons] = useState([]); // unatended lessons
   const [loading, setLoading] = useState(false);
-const {userID} = useAuth()
+  const { userID } = useAuth();
   const toggle = () => {
     setIsOpen(!isOpen);
   };
 
   const [isActive, setActive] = useState(1);
-
-
-  
 
   const [navbar, setNavbar] = useState(false);
   const changeBackground = () => {
@@ -42,55 +39,57 @@ const {userID} = useAuth()
 
   window.addEventListener("scroll", changeBackground);
 
-  
-
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-      const fetchCourses = async()=>{
+    const fetchCourses = async () => {
       setLoading(true);
 
       const db = fbapp.firestore();
-      await db.collection('courses').doc(id).get().then((querySnapshot) => {
-              
-      // Loop through the data and store
-      // it in array to display
-      
+      await db
+        .collection("courses")
+        .doc(id)
+        .get()
+        .then((querySnapshot) => {
+          // Loop through the data and store
+          // it in array to display
+
           var data = querySnapshot.data();
           setCourses(data);
-          console.log(data.length)
-              
-      setLoading(false);
+          console.log(data.length);
 
-  })
-  }; 
-      const fetchlessons = async()=>{
+          setLoading(false);
+        });
+    };
+    const fetchlessons = async () => {
       setLoading(true);
       const db = fbapp.firestore();
-      await db.collection('lessons').where("courseId", "==", id).get().then((querySnapshot) => {
-              
-      // Loop through the data and store
-      // it in array to display
-      querySnapshot.forEach(element => {
-          var data = element.data();
-          setLesson(arr => [...arr , data]);
-          if (data.attendee.includes(userID)||data.completed.includes(userID)){
-            setPLessons(arr => [...arr , data]);
-
-          }else{
-            setULessons(arr => [...arr , data]);
-
-          }
-          console.log(data.length)
-      setLoading(true);
-              
-      });
-  })
-  };
-  fetchCourses();
-  fetchlessons();
-
-  }, [])
+      await db
+        .collection("lessons")
+        .where("courseId", "==", id)
+        .get()
+        .then((querySnapshot) => {
+          // Loop through the data and store
+          // it in array to display
+          querySnapshot.forEach((element) => {
+            var data = element.data();
+            setLesson((arr) => [...arr, data]);
+            if (
+              (data.attendee && data.attendee.includes(userID)) ||
+              (data.completed && data.completed.includes(userID))
+            ) {
+              setPLessons((arr) => [...arr, data]);
+            } else {
+              setULessons((arr) => [...arr, data]);
+            }
+            console.log(data.length);
+            setLoading(true);
+          });
+        });
+    };
+    fetchCourses();
+    fetchlessons();
+  }, []);
 
   // var heroes = [
   //   {name: “Batman”, franchise: “DC”},
@@ -98,18 +97,20 @@ const {userID} = useAuth()
   //   {name: “Thor”, franchise: “Marvel”},
   //   {name: “Superman”, franchise: “DC”}
   // ];
-  
+
   // var marvelHeroes =  heroes.filter(function(hero) {
   //   return hero.franchise == “Marvel”;
   // });
-  const results= <>
-    <PageHeader id={id} courses = {courses} />
-      <ClassBar isActive={isActive} setActive={setActive} id={id}  />
+  const results = (
+    <>
+      <PageHeader id={id} courses={courses} />
+      <ClassBar isActive={isActive} setActive={setActive} id={id} />
       {/* <CoursePrev id={id} />
        */}
-       {isActive === 1 && <LessonSections lessons= {ulesson}/>}
-       {isActive === 2 && <LessonSections lessons= {plesson}/>}
-  </>
+      {isActive === 1 && <LessonSections lessons={ulesson} />}
+      {isActive === 2 && <LessonSections lessons={plesson} />}
+    </>
+  );
 
   return (
     <>
@@ -122,7 +123,6 @@ const {userID} = useAuth()
       {/* {loading && <Spinner/>} */}
       {courses && results}
       <Footer />
-
     </>
   );
 };

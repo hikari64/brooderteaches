@@ -7,49 +7,50 @@ import { storageRef } from "../../../firebase";
 import { DropzoneArea } from "material-ui-dropzone";
 
 // boostrap impots
-import { Container, Row, Col, Button, Form, ProgressBar ,} from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Form,
+  ProgressBar,
+} from "react-bootstrap";
 
 // import Custom css
 // import "./signupprocess.css";
 import {
   LessonButtons,
-  AddLessonButtons
+  AddLessonButtons,
 } from "../dashboard/TutorDashboardElements";
 import { NewReleasesOutlined } from "@material-ui/icons";
 import CourseLessonBtnLists from "./CourseLessonBtnLists";
 
-
 export default function UploadLessons(props) {
-const [view,setView] = useState(1)
-const [progress, setProgress] = useState(0);
-const [assignmentProgress, setAssignmentProgress] = useState(0);
-const [assignment, setAssignment] = useState();
-const [displayData,setDisplayData] = useState(null)
-const [error, setError] = useState(null);
-const [video, setVideo] = useState([]);
+  const [view, setView] = useState(1);
+  const [progress, setProgress] = useState(0);
+  const [assignmentProgress, setAssignmentProgress] = useState(0);
+  const [assignment, setAssignment] = useState("");
+  const [displayData, setDisplayData] = useState(null);
+  const [error, setError] = useState(null);
+  const [video, setVideo] = useState([]);
 
-
-const [files, setFiles] = useState(null);
+  const [files, setFiles] = useState(null);
 
   console.log("files", files);
 
-  const LoadLessonTab=(lessons)=>{
-  
+  const LoadLessonTab = (lessons) => {
     setDisplayData(lessons);
     setView(2);
-  
-  }
-  const LoadCourseTab=()=>{
-    setView(1); 
-  }
-  const eventHandler =(event)=>{
-    let val = event.target.value
-    let nam = event.target.name
+  };
+  const LoadCourseTab = () => {
+    setView(1);
+  };
+  const eventHandler = (event) => {
+    let val = event.target.value;
+    let nam = event.target.name;
 
-    props.updateData(nam,val);
-    
-
-  }
+    props.updateData(nam, val);
+  };
   const handleChange = () => {
     // Uploading to firebase storage
     // and updating URLS array for storage in firestore
@@ -57,80 +58,84 @@ const [files, setFiles] = useState(null);
     const file = video[0];
     var d = new Date();
     var n = d.getTime();
-    
+
     // references
-   if(file){ 
-     const filename = n+file.name;
-    const storeVideoRef = storageRef.child(`/lessonVideos/${filename}`);
-    
-    storeVideoRef.put(file).on('state_changed', (snap) => {
-      let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
-      setProgress(percentage);
-    }, (err) => {
-      setError(err);
-    }, async () => {
-      const url = await storeVideoRef.getDownloadURL();
-      
-    let   nam = "video"
-     
-         props.updateData(nam,url); 
+    if (file) {
+      const filename = n + file.name;
+      const storeVideoRef = storageRef.child(`/lessonVideos/${filename}`);
 
-    });
-}
-    
+      storeVideoRef.put(file).on(
+        "state_changed",
+        (snap) => {
+          let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+          setProgress(percentage);
+        },
+        (err) => {
+          setError(err);
+        },
+        async () => {
+          const url = await storeVideoRef.getDownloadURL();
 
-  }
-  
-  const handleChangePdf=(File)=>{
+          let nam = "video";
+
+          props.updateData(nam, url);
+        }
+      );
+    }
+  };
+
+  const handleChangePdf = (File) => {
     const file = File[0];
     //console.log(file)
     var d = new Date();
     var n = d.getTime();
     // references
-   if(file){ 
-    
-    const filename = n+file.name;
-    const storeVideoRef = storageRef.child(`/lessonAssigments/${filename}`);
-    
-      storeVideoRef.put(file).on('state_changed', (snap) => {
-        let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
-        setAssignmentProgress(percentage);
-      }, (err) => {
-        setError(err);
-      }, async () => {
-        const url = await storeVideoRef.getDownloadURL();
-        
-      let   nam = "assignment"
-      
-          props.updateData(nam,url); 
+    if (file) {
+      const filename = n + file.name;
+      const storeVideoRef = storageRef.child(`/lessonAssigments/${filename}`);
 
-      });
+      storeVideoRef.put(file).on(
+        "state_changed",
+        (snap) => {
+          let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+          setAssignmentProgress(percentage);
+        },
+        (err) => {
+          setError(err);
+        },
+        async () => {
+          const url = await storeVideoRef.getDownloadURL();
+
+          let nam = "assignment";
+
+          props.updateData(nam, url);
+        }
+      );
     }
-  }
-  const delay = ms => new Promise(res => setTimeout(res, ms));
-
-   const Proceed = async (e) => {
-    
-    await delay(3000)
-    console.log("waited 3000ms")
-    props.Submit();
-  
   };
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
+  const Proceed = async (e) => {
+    await delay(3000);
+    console.log("waited 3000ms");
+    props.Submit();
+  };
 
   return (
     <div fluid className="height-full">
-
       <Container className="height-half">
         <Row className="mt-4 mb-4">
           <Col md={3}>
-         <CourseLessonBtnLists id={props.courseId} />
-            <AddLessonButtons to={`/tutor-create-lesson/${props.courseId}`} className="p-3 m-3 text-center"> 
+            <CourseLessonBtnLists id={props.courseId} />
+            <AddLessonButtons
+              to={`/tutor-create-lesson/${props.courseId}`}
+              className="p-3 m-3 text-center"
+            >
               + Add Lesson
             </AddLessonButtons>
           </Col>
           <Col md={8} className="mx-auto text-center">
-            <Form inline >
+            <Form inline>
               {/* COURSE TITLE */}
               <Form.Group className="row">
                 <Form.Control
@@ -143,16 +148,15 @@ const [files, setFiles] = useState(null);
                 />
               </Form.Group>
               {/* COURSE DESCRIPTION*/}
-              <Form.Group  className="row ">
+              <Form.Group className="row ">
                 <Form.Control
-                  as="textarea" 
+                  as="textarea"
                   rows={3}
                   className="form-input col text-center"
                   placeholder="Lesson Summary"
                   name="summary"
                   value={props.data.summary}
                   onChange={eventHandler}
-                  
                 />
               </Form.Group>
               <Form.Group className="row">
@@ -165,39 +169,38 @@ const [files, setFiles] = useState(null);
                   onChange={eventHandler}
                 />
               </Form.Group>
-            {/* INTRO VIDEO */}
-            <Form.Group  className="row mt-3">
-                
+              {/* INTRO VIDEO */}
+              <Form.Group className="row mt-3">
                 <Col>
-                 {progress !== 0 && <ProgressBar now={progress} />}
-                <DropzoneArea
-                     acceptedFiles={['video/*']}
-                     dropzoneText={"Upload Lesson Video"}
-                      onChange={(files) => setVideo(files)}
+                  {progress !== 0 && <ProgressBar now={progress} />}
+                  <DropzoneArea
+                    acceptedFiles={["video/*"]}
+                    dropzoneText={"Upload Lesson Video"}
+                    onChange={(files) => setVideo(files)}
                     // Icon={AttachFile}
-                     //onAdd={(files) => handleChange(files)}
-                     //onChange={(files) => setFiles(files)}
-                     maxFileSize	={300000000}
-                     name="video"
-                     value={props.data.video}
-                     />
-                     {/* {props.error.video && <div className="alert-danger">{props.error.video} </div>} */}
+                    //onAdd={(files) => handleChange(files)}
+                    //onChange={(files) => setFiles(files)}
+                    maxFileSize={300000000}
+                    name="video"
+                    value={props.data.video}
+                  />
+                  {/* {props.error.video && <div className="alert-danger">{props.error.video} </div>} */}
                 </Col>
                 <Row>
                   <Col className="text-end">
-                  
-                    {video.length !==0 && <Button
-                    onClick={() => handleChange()}
-                    >upload Video</Button>}
-              
+                    {video.length !== 0 && (
+                      <Button onClick={() => handleChange()}>
+                        upload Video
+                      </Button>
+                    )}
                   </Col>
-                </Row>       
-               </Form.Group>
-               {/* Add ASSignment */}
-      
-              <Form.Group  className="row ">
+                </Row>
+              </Form.Group>
+              {/* Add ASSignment */}
+
+              <Form.Group className="row ">
                 <Form.Control
-                  as="textarea" 
+                  as="textarea"
                   rows={3}
                   className="form-input col text-center"
                   placeholder="Assignment"
@@ -205,27 +208,21 @@ const [files, setFiles] = useState(null);
                   value={props.data.assignment}
                   onChange={eventHandler}
                   // isInvalid={ !!props.error.assignment}
-                  
                 />
                 <Form.Control.Feedback type="invalid">
-              {/* {props.error.assignment} */}
-            </Form.Control.Feedback>
+                  {/* {props.error.assignment} */}
+                </Form.Control.Feedback>
               </Form.Group>
 
               <Container className="contain">
-              <Button onClick={Proceed} className="primary-button col-5">
-                Upload lesson
-              </Button>
+                <Button onClick={Proceed} className="primary-button col-5">
+                  Upload lesson
+                </Button>
               </Container>
               <Col className="text-center">
-                <Button className="primary-button">
-                Go Back
-              </Button>
-              <Button className="primary-button">
-                Proceed
-              </Button>
+                <Button className="primary-button">Go Back</Button>
+                <Button className="primary-button">Proceed</Button>
               </Col>
-              
             </Form>
           </Col>
         </Row>

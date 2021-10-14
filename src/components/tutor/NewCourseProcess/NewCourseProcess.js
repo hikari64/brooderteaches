@@ -11,6 +11,8 @@ import CourseDetails from "./CourseDetails";
 import PreviewCourse from "./PreviewCourse";
 import ReviewCourse from "./ReviewCourse";
 import UploadLessons from "./UploadLessons";
+import PublishCourse from "../hooks/usePublishCourse";
+import { Link, useHistory } from "react-router-dom";
 
 export default function NewCourseProcess({ ProcessIndicator }) {
   const [step, setStep] = useState(1);
@@ -19,16 +21,16 @@ export default function NewCourseProcess({ ProcessIndicator }) {
   const [courseData, setCourseData] = useState({
     title: "",
     about: "",
-    tag:'',
+    tag: "",
     duration: "",
     startDate: "",
-    price: '',
+    price: "",
     level: "",
-    period:'',
-    category:'',
-    skills:[],
-    preview: '',
-    tutorId: '',
+    period: "",
+    category: "",
+    skills: [],
+    preview: "",
+    tutorId: "",
     students: [],
     lesson: [],
   });
@@ -43,46 +45,43 @@ export default function NewCourseProcess({ ProcessIndicator }) {
   const [error, setError] = useState({
     title: "",
     about: "",
-    tag:"",
+    tag: "",
     duration: "",
     startDate: "",
-    price: '',
+    price: "",
     level: "",
-    period:'',
-    preview: '',
-    category: '',
-    previewImg: '',
-    tutorId: '',
+    period: "",
+    preview: "",
+    category: "",
+    previewImg: "",
+    tutorId: "",
     students: [],
     lesson: [],
   });
 
   console.log("courseData", courseData);
 
-  const { currentUser,userID } = useAuth();
-
+  const { currentUser, userID } = useAuth();
+  const history = useHistory();
   // useEffect(()=>{
-  //   const 
+  //   const
   //   const { loading, courses } = useFetchCoursesById(id);
 
   // })
-
-  
 
   const UpdateData = (item, value) => {
     setCourseData((courseData) => ({ ...courseData, [item]: value }));
     setError((error) => ({ ...error, [item]: null }));
   };
   const UpdateSkill = (value) => {
-    setCourseData((courseData) => ({ ...courseData, skills:[...value]}));
+    setCourseData((courseData) => ({ ...courseData, skills: [...value] }));
   };
   const UpdateCategory = (value) => {
-    setCourseData((courseData) => ({ ...courseData, skills:[...value]}));
+    setCourseData((courseData) => ({ ...courseData, skills: [...value] }));
   };
   const UpdateLessonData = (item, value) => {
     setLessonData((lessonData) => ({ ...lessonData, [item]: value }));
     setError((error) => ({ ...error, [item]: null }));
-
   };
 
   // Proceed to next step
@@ -98,43 +97,45 @@ export default function NewCourseProcess({ ProcessIndicator }) {
   };
 
   //submit New Course
-  const Submit = () =>{
-    console.log("submitin")
-    setLoading(!loading)
-     AddCourse(courseData,setLoading,setCourseId,userID);
-    
-  }
+  const Submit = () => {
+    console.log("submitin");
+    setLoading(!loading);
+    AddCourse(courseData, setLoading, setCourseId, userID);
+  };
 
- const getCourses = async()=> {
-    setLoading(true)
+  const SubmitFinal = () => {
+    console.log("submitin");
+    setLoading(!loading);
+    PublishCourse(courseId);
+    setLoading(false);
+    history.push("/tutor-courses");
+  };
+
+  const getCourses = async () => {
+    setLoading(true);
     const courses = firestore.collection("courses").doc(courseId);
-    
-     await courses.get().then((doc) => {
+
+    await courses.get().then((doc) => {
       if (doc.exists) {
         setCourseData(doc.data());
-    setLoading(false)
-        
-          console.log("Document data:", doc.data());
+        setLoading(false);
+
+        console.log("Document data:", doc.data());
       } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
-          setError("No such document!");
-    setLoading(false)
-
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+        setError("No such document!");
+        setLoading(false);
       }
-  })
+    });
+  };
 
-  }
-  
   // Submit New Lesson
-  const SubmitLesson = (url) =>{
-    setLoading(!loading)
-    AddLesson(lessonData,setLoading,courseId,url);
-    
-  }
+  const SubmitLesson = (url) => {
+    setLoading(!loading);
+    AddLesson(lessonData, setLoading, courseId, url);
+  };
 
-  
- 
   // handle
 
   switch (step) {
@@ -173,7 +174,7 @@ export default function NewCourseProcess({ ProcessIndicator }) {
               prevStep={prevStep}
             />
           )}
-          {(!courseId && !loading) && (
+          {!courseId && !loading && (
             <h1>You can't add a lesson, please create a course first</h1>
           )}
         </React.Fragment>
@@ -183,11 +184,15 @@ export default function NewCourseProcess({ ProcessIndicator }) {
       return (
         <React.Fragment>
           {loading && <Spinner />}
-          {!loading && <PreviewCourse courseId={courseId} error={error}  nextStep={nextStep} prevStep={prevStep} />}
+          {!loading && (
+            <PreviewCourse
+              courseId={courseId}
+              error={error}
+              nextStep={SubmitFinal}
+              prevStep={prevStep}
+            />
+          )}
         </React.Fragment>
       );
-
-    default:
-      return <h1>Encountered an error</h1>;
   }
 }

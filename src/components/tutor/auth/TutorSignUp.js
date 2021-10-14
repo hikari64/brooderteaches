@@ -97,16 +97,10 @@ export default function TutorSignUp() {
               <Col md={10} className="mx-auto my-auto text-center container">
                 <h2 className="header">Become A Tutor</h2>
                 <p>
-                  Terms and conditions of being a tutor and pricing should go
-                  here
+                  Kindly fill this form to get started on your registration as a
+                  tutor.
                 </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
-                  imperdiet ligula a lacus commodo, ut tincidunt magna
-                  pellentesque. Aenean eu arcu ut ligula vehicula semper id
-                  sodales sapien. Vestibulum lobortis blandit sem, nec molestie
-                  velit hendrerit vitae.
-                </p>
+
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
                   <Form.Group className="row">

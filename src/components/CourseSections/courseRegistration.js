@@ -101,7 +101,7 @@ const CourseRegistration = ({ id, courses, lessons }, props) => {
   const config = {
     reference: new Date().getTime(),
     currency: "GHS",
-    email: "user@example.com",
+    email: user.email,
     amount: 100 * courses.price,
     publicKey: "pk_live_2bbc47bbdc506caec19278c6f7384d1eb25ccf40",
   };
